@@ -1,7 +1,7 @@
 ﻿/*
  * Author	JO Hyeong-Ryeol
  * Since	2013.05.04
- * Version	$Id: DropTarget.cs 24043 2013-05-21 14:49:03Z unknown $
+ * Version	$Id$
  * 
  * Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.
  */

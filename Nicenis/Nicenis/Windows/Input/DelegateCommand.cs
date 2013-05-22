@@ -1,7 +1,7 @@
 ﻿/*
  * Modifier	JO Hyeong-Ryeol
  * Since	2012.07.10
- * Version	$Id: DelegateCommand.cs 24043 2013-05-21 14:49:03Z unknown $
+ * Version	$Id$
  * 
  * WPF MVVM Toolkit 0.1 샘플에서 가져온 코드에서 이름 공간만 바꾸었다.
  * 

@@ -1,7 +1,7 @@
 ﻿/*
  * Author	JO Hyeong-Ryeol
  * Since	2012.10.21
- * Version	$Id: Win32.cs 24043 2013-05-21 14:49:03Z unknown $
+ * Version	$Id$
  * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */

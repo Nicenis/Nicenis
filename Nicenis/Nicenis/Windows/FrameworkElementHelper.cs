@@ -1,7 +1,7 @@
 ﻿/*
  * Author	JO Hyeong-Ryeol
  * Since	2012.08.12
- * Version	$Id: FrameworkElementHelper.cs 24043 2013-05-21 14:49:03Z unknown $
+ * Version	$Id$
  * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */

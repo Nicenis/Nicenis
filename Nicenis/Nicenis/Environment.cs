@@ -1,7 +1,7 @@
 ﻿/*
  * Author	JO Hyeong-Ryeol
  * Since	2012.08.12
- * Version	$Id: Environment.cs 24047 2013-05-21 16:31:25Z unknown $
+ * Version	$Id$
  * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */

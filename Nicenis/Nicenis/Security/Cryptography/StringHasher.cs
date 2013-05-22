@@ -1,7 +1,7 @@
 ﻿/*
  * Author	JO Hyeong-Ryeol (http://blog.ryeol.com/32)
  * Since	2012.12.09
- * Version	$Id: StringHasher.cs 24043 2013-05-21 14:49:03Z unknown $
+ * Version	$Id$
  * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  * 
