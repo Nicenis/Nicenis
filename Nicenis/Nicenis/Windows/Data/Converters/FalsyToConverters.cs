@@ -15,14 +15,20 @@ using System.Windows.Data;
 
 namespace Nicenis.Windows.Data.Converters
 {
-    internal static class FalsyToConverterHelper
+    /// <summary>
+    /// Provides utility methods related to FalsyToConverter series.
+    /// </summary>
+    public static class FalsyToConverterHelper
     {
         /// <summary>
-        /// Truthy 값으로 인식되는 경우 true를 반환한다.
-        /// null, 빈문자열, 0, false, 빈 컬랙션 등이 아니면 true 를 반환한다.
+        /// Indicates whether the specified value is a truthy value.
         /// </summary>
-        /// <param name="value">검사할 값</param>
-        /// <returns>Truthy 값인지 여부</returns>
+        /// <remarks>
+        /// Truthy/Falsy concept is originated from the JavaScript.
+        /// There are five values that is falsy: null, 0, false, an empty string and an empty collection.
+        /// </remarks>
+        /// <param name="value">The value to evaluate.</param>
+        /// <returns>True if it is a truthy value; otherwise, false.</returns>
         public static bool IsTruthy(object value)
         {
             if (value == null)
@@ -74,11 +80,11 @@ namespace Nicenis.Windows.Data.Converters
         }
 
         /// <summary>
-        /// Falsy 값으로 인식되는 경우 true를 반환한다.
-        /// null, 빈문자열, 0, false, 빈 컬랙션 등이 true 를 반환한다.
+        /// Indicates whether the specified value is a falsy value.
         /// </summary>
-        /// <param name="value">검사할 값</param>
-        /// <returns>Falsy 값인지 여부</returns>
+        /// <seealso cref="IsTruthy"/>
+        /// <param name="value">The value to evaluate.</param>
+        /// <returns>True if it is a falsy value; otherwise, false.</returns>
         public static bool IsFalsy(object value)
         {
             return !IsTruthy(value);
@@ -87,8 +93,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 Visibility.Collapsed, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Collapsed if the input value is falsy; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class FalsyToCollapsedConverter : IValueConverter
     {
@@ -105,8 +112,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 false 를 반환한다.
+    /// Returns false if the input value is falsy; otherwise, true.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(bool))]
     public class FalsyToFalseConverter : IValueConverter
     {
@@ -123,8 +131,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 Visibility.Hidden, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Hidden if the input value is falsy; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class FalsyToHiddenConverter : IValueConverter
     {
@@ -141,8 +150,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 true 를 반환한다.
+    /// Returns true if the input value is falsy; otherwise, false.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(bool))]
     public class FalsyToTrueConverter : IValueConverter
     {
@@ -159,8 +169,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Collapsed 를 반환한다.
+    /// Returns Visibility.Visible if the input value is falsy; otherwise, Visibility.Collapsed.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class FalsyToVisibleConverter : IValueConverter
     {
@@ -177,8 +188,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Hidden 를 반환한다.
+    /// Returns Visibility.Visible if the input value is falsy; otherwise, Visibility.Hidden.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class FalsyToVisibleOtherwiseHiddenConverter : IValueConverter
     {
@@ -195,8 +207,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 Visibility.Collapsed, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Collapsed if all input values are falsy; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToCollapsedConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -215,8 +228,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 false 를 반환한다.
+    /// Returns false if all input values are falsy; otherwise, true.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToFalseConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -235,8 +249,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 Visibility.Hidden, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Hidden if all input values are falsy; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToHiddenConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -255,8 +270,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 true 를 반환한다.
+    /// Returns true if all input values are falsy; otherwise, false.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToTrueConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -275,8 +291,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Collapsed 을 반환한다.
+    /// Returns Visibility.Visible if all input values are falsy; otherwise, Visibility.Collapsed.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToVisibleConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -295,8 +312,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 전부 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Hidden 을 반환한다.
+    /// Returns Visibility.Visible if all input values are falsy; otherwise, Visibility.Hidden.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AllFalsyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -315,8 +333,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 Visibility.Collapsed, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Collapsed if there is a falsy value in the input; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToCollapsedConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -335,8 +354,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 false 를 반환한다.
+    /// Returns false if there is a falsy value in the input; otherwise, true.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToFalseConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -355,8 +375,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 Visibility.Hidden, 그렇지 않으면 Visibility.Visible 을 반환한다.
+    /// Returns Visibility.Hidden if there is a falsy value in the input; otherwise, Visibility.Visible.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToHiddenConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -375,8 +396,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 true 를 반환한다.
+    /// Returns true if there is a falsy value in the input; otherwise, false.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToTrueConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -395,8 +417,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Collapsed 을 반환한다.
+    /// Returns Visibility.Visible if there is a falsy value in the input; otherwise, Visibility.Collapsed.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToVisibleConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -415,8 +438,9 @@ namespace Nicenis.Windows.Data.Converters
 
 
     /// <summary>
-    /// 값이 하나라도 Falsy 이면 Visibility.Visible, 그렇지 않으면 Visibility.Hidden 을 반환한다.
+    /// Returns Visibility.Visible if there is a falsy value in the input; otherwise, Visibility.Hidden.
     /// </summary>
+    /// <seealso cref="FalsyToConverterHelper.IsTruthy"/>
     public class AnyFalsyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
