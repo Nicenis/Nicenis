@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+###############################################################################
+# For $Id$ keyword expansion
+###############################################################################
+*.cs ident
+*.xaml ident
