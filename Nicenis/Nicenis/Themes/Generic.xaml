@@ -1,0 +1,222 @@
+﻿<!--
+   Author	JO Hyeong-Ryeol
+   Since	2012.11.10
+   Version	$Id: Generic.xaml 24043 2013-05-21 14:49:03Z unknown $
+ 
+   Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
+-->
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:nwins="clr-namespace:Nicenis.Windows"
+    >
+
+    <!--
+        DragResizer Control
+    -->
+
+    <!-- A size for corner thumbs such as LeftTop, RightTop ...-->
+    <!-- If the thumb is horizontal, the size means width. Otherwise it means height.-->
+    <sys:Double x:Key="{ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}">10</sys:Double>
+
+    <Style x:Key="DragResizerThumbStyle" TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type nwins:DragResizer}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type nwins:DragResizer}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <!-- Left Side Thumb-->
+                        <Thumb
+                            x:Name="PART_LeftThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Left, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Left"
+                            Cursor="SizeWE"
+                            />
+
+                        <!-- Left Top Thumb-->
+                        <Thumb
+                            x:Name="PART_LeftTopThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Left, RelativeSource={RelativeSource TemplatedParent}}"
+                            Height="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNWSE"
+                            />
+
+                        <!-- Left Bottom Thumb-->
+                        <Thumb
+                            x:Name="PART_LeftBottomThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Left, RelativeSource={RelativeSource TemplatedParent}}"
+                            Height="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNESW"
+                            />
+
+
+                        <!-- Right Side Thumb-->
+                        <Thumb
+                            x:Name="PART_RightThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Right, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            Cursor="SizeWE"
+                            />
+
+                        <!-- Right Top Thumb-->
+                        <Thumb
+                            x:Name="PART_RightTopThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Right, RelativeSource={RelativeSource TemplatedParent}}"
+                            Height="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNESW"
+                            />
+
+                        <!-- Right Bottom Thumb-->
+                        <Thumb
+                            x:Name="PART_RightBottomThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{Binding BorderThickness.Right, RelativeSource={RelativeSource TemplatedParent}}"
+                            Height="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNWSE"
+                            />
+
+
+                        <!-- Top Side Thumb-->
+                        <Thumb
+                            x:Name="PART_TopThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Height="{Binding BorderThickness.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNS"
+                            />
+
+                        <!-- Top Left Thumb-->
+                        <Thumb
+                            x:Name="PART_TopLeftThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            Height="{Binding BorderThickness.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNWSE"
+                            />
+
+                        <!-- Top Right Thumb-->
+                        <Thumb
+                            x:Name="PART_TopRightThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            Height="{Binding BorderThickness.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNESW"
+                            />
+
+
+                        <!-- Bottom Side Thumb-->
+                        <Thumb
+                            x:Name="PART_BottomThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Height="{Binding BorderThickness.Bottom, RelativeSource={RelativeSource TemplatedParent}}"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNS"
+                            />
+
+                        <!-- Bottom Left Thumb-->
+                        <Thumb
+                            x:Name="PART_BottomLeftThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            Height="{Binding BorderThickness.Bottom, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNESW"
+                            />
+
+                        <!-- Bottom Right Thumb-->
+                        <Thumb
+                            x:Name="PART_BottomRightThumb"
+                            Style="{StaticResource DragResizerThumbStyle}"
+                            Background="{TemplateBinding BorderBrush}"
+                            Width="{DynamicResource {ComponentResourceKey {x:Type nwins:DragResizer}, DragResizerCornerThumbSize}}"
+                            Height="{Binding BorderThickness.Bottom, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNWSE"
+                            />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--
+        DragMover Control
+    -->
+
+    <Style x:Key="DragMoverThumbStyle" TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type nwins:DragMover}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type nwins:DragMover}">
+                    <!-- Thumb-->
+                    <Thumb
+                        x:Name="PART_Thumb"
+                        Style="{StaticResource DragMoverThumbStyle}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

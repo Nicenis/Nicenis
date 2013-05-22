@@ -1,0 +1,16 @@
+﻿<!--
+    Author	JO Hyeong-Ryeol
+    Since	2013.03.26
+    Version	$Id: MainWindow.xaml 24043 2013-05-21 14:49:03Z unknown $
+
+    Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.   
+-->
+<Window x:Class="NicenisTestGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Main Window" Height="350" Width="525">
+    <StackPanel>
+        <Button Content="Create a Drag and Drop test window." Click="CreateDragNDropTestWindowButton_Click" />
+        <Button Content="Create a Hover test window." Click="CreateHoverTestWindowButton_Click" />
+    </StackPanel>
+</Window>
