@@ -9,9 +9,11 @@
 namespace Nicenis.Windows.Shell
 {
     /// <summary>
-    /// 쉘 아이콘 크기.
-    /// 관련 설명은 MSDN 에서 가져왔다.
+    /// Denotes icon size in the Windows Shell.
     /// </summary>
+    /// <remarks>
+    /// Icon size descriptions are copied from the SHGetFileInfo function page in the MSDN.
+    /// </remarks>
     public enum ShellIconSize
     {
         /// <summary>

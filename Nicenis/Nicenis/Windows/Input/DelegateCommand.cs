@@ -3,9 +3,10 @@
  * Since	2012.07.10
  * Version	$Id$
  * 
- * WPF MVVM Toolkit 0.1 샘플에서 가져온 코드에서 이름 공간만 바꾸었다.
+ * This code is from the WPF MVVM Toolkit 0.1 sample.
+ * The namespace has been changed not to mess up the WPF MVVM Toolkit's namespace.
  * 
- * 출처:
+ * Source:
  *   http://wpf.codeplex.com/releases/view/14962
  * 
  * MICROSOFT PUBLIC LICENSE
