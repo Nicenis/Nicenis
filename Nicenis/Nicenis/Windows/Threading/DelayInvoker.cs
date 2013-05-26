@@ -12,7 +12,7 @@ using System.Windows.Threading;
 namespace Nicenis.Windows.Threading
 {
     /// <summary>
-    /// 일정 시간 지연 후 Dispatcher 에서 코드를 실행하는 클래스
+    /// Executes an action with delay on the Dispatcher's thread.
     /// </summary>
     public class DelayInvoker
     {
@@ -26,12 +26,12 @@ namespace Nicenis.Windows.Threading
         #region Constructors
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="dispatcher">대상 Dispatcher</param>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
-        /// <param name="delayTime">지연 시간</param>
-        /// <param name="dispatcherPriority">Dispatcher 우선순위</param>
+        /// <param name="dispatcher">The Dispatcher to execute the action.</param>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        /// <param name="dispatcherPriority">The priority at which execute the action.</param>
         public DelayInvoker(Dispatcher dispatcher, Action action, TimeSpan delayTime, DispatcherPriority dispatcherPriority)
         {
             if (dispatcher == null)
@@ -39,7 +39,7 @@ namespace Nicenis.Windows.Threading
 
             _action = action;
 
-            // 타이머 만들기
+            // Creates a timer.
             _dispatcherTimer = new DispatcherTimer(dispatcherPriority, dispatcher);
             _dispatcherTimer.Interval = delayTime;
             _dispatcherTimer.Tick += (_, e) =>
@@ -52,56 +52,78 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="dispatcher">대상 Dispatcher</param>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
-        /// <param name="delayTime">지연 시간</param>
+        /// <remarks>
+        /// The priority is set to DispatcherPriority.Normal.
+        /// </remarks>
+        /// <param name="dispatcher">The Dispatcher to execute the action.</param>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
         public DelayInvoker(Dispatcher dispatcher, Action action, TimeSpan delayTime)
             : this(dispatcher, action, delayTime, DefaultDispatcherPriority) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="dispatcher">대상 Dispatcher</param>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
+        /// <remarks>
+        /// This constructor uses default values: the DispatcherPriority.Normal priority,
+        /// 1 second delay time.
+        /// </remarks>
+        /// <param name="dispatcher">The Dispatcher to execute the action.</param>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
         public DelayInvoker(Dispatcher dispatcher, Action action) : this(dispatcher, action, DefaultDelayTime) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="dispatcher">대상 Dispatcher</param>
+        /// <remarks>
+        /// This constructor uses default values: the DispatcherPriority.Normal priority,
+        /// 1 second delay time, a null action.
+        /// </remarks>
+        /// <param name="dispatcher">The Dispatcher to execute the action.</param>
         public DelayInvoker(Dispatcher dispatcher) : this(dispatcher, null) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
-        /// 현재 스레드의 Dispatcher 를 사용한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
-        /// <param name="delayTime">지연 시간</param>
-        /// <param name="dispatcherPriority">Dispatcher 우선순위</param>
+        /// <remarks>
+        /// This constructor uses the dispatcher returned by the Dispatcher.CurrentDispatcher.
+        /// </remarks>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        /// <param name="dispatcherPriority">The priority at which execute the action.</param>
         public DelayInvoker(Action action, TimeSpan delayTime, DispatcherPriority dispatcherPriority)
             : this(Dispatcher.CurrentDispatcher, action, delayTime, dispatcherPriority) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
-        /// 현재 스레드의 Dispatcher 를 사용한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
-        /// <param name="delayTime">지연 시간</param>
+        /// <remarks>
+        /// This constructor uses default values: the Dispatcher.CurrentDispatcher dispatcher,
+        /// the DispatcherPriority.Normal priority.
+        /// </remarks>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
         public DelayInvoker(Action action, TimeSpan delayTime) : this(Dispatcher.CurrentDispatcher, action, delayTime) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
-        /// 현재 스레드의 Dispatcher 를 사용한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
-        /// <param name="action">지연 시간 후 실행할 Action. null 허용</param>
+        /// <remarks>
+        /// This constructor uses default values: the Dispatcher.CurrentDispatcher dispatcher,
+        /// the DispatcherPriority.Normal priority, 1 second delay time.
+        /// </remarks>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
         public DelayInvoker(Action action) : this(Dispatcher.CurrentDispatcher, action) { }
 
         /// <summary>
-        /// DelayInvoker 를 생성한다.
-        /// 현재 스레드의 Dispatcher 를 사용한다.
+        /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
+        /// <remarks>
+        /// This constructor uses default values: the Dispatcher.CurrentDispatcher dispatcher,
+        /// the DispatcherPriority.Normal priority, 1 second delay time, a null action.
+        /// </remarks>
         public DelayInvoker() : this(Dispatcher.CurrentDispatcher) { }
 
         #endregion
@@ -110,11 +132,11 @@ namespace Nicenis.Windows.Threading
         #region Public Methods
 
         /// <summary>
-        /// 지연 실행을 시작한다.
-        /// 기존 지연 실행은 취소된다.
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
         /// </summary>
-        /// <param name="action">실행할 Action. 기존 설정된 값은 이 값으로 변경된다. null 허용 안함</param>
-        /// <param name="delayTime">지연 시간. 기존 설정된 값은 이 값으로 변경된다.</param>
+        /// <param name="action">The action to execute with delay.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
         public void Begin(Action action, TimeSpan delayTime)
         {
             if (action == null)
@@ -127,10 +149,10 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// 지연 실행을 시작한다.
-        /// 기존 지연 실행은 취소된다.
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
         /// </summary>
-        /// <param name="action">실행할 Action. 기존 설정된 Action 은 이 값으로 변경된다. null 허용 안함</param>
+        /// <param name="action">The action to execute with delay.</param>
         public void Begin(Action action)
         {
             if (action == null)
@@ -142,10 +164,10 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// 지연 실행을 시작한다.
-        /// 기존 지연 실행은 취소된다.
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
         /// </summary>
-        /// <param name="delayTime">지연 시간. 기존 설정된 값은 이 값으로 변경된다.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
         public void Begin(TimeSpan delayTime)
         {
             _dispatcherTimer.Stop();
@@ -154,8 +176,8 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// 지연 실행을 시작한다.
-        /// 기존 지연 실행은 취소된다.
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
         /// </summary>
         public void Begin()
         {
@@ -164,7 +186,8 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// 지연 실행을 취소한다.
+        /// Cancels the waiting.
+        /// The action is not executed after this method is called.
         /// </summary>
         public void Cancel()
         {
@@ -177,7 +200,7 @@ namespace Nicenis.Windows.Threading
         #region Public Properties
 
         /// <summary>
-        /// 현재 지연 실행이 진행 중인지 여부를 가져오거나 설정한다.
+        /// Gets or sets a value that indicates whether the DelayInvoker is waiting or not.
         /// </summary>
         public bool IsEnabled
         {
@@ -186,8 +209,8 @@ namespace Nicenis.Windows.Threading
         }
 
         /// <summary>
-        /// 설정된 Action.
-        /// null 값이 반환될 수 있다.
+        /// The action to execute with delay.
+        /// This value can be null.
         /// </summary>
         public Action Action
         {
