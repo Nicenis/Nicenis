@@ -18,18 +18,24 @@ using System.Windows.Interop;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// 사용자 지정 모습을 가지는 윈도를 위한 기반 클래스
+    /// A base class for non-standard window.
     /// </summary>
     public class CustomWindow : Window
     {
         #region Constructors
 
+        /// <summary>
+        /// The static constructor.
+        /// </summary>
         static CustomWindow()
         {
             WindowStyleProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(WindowStyle.None));
             AllowsTransparencyProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(true));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the CustomWindow class.
+        /// </summary>
         public CustomWindow()
         {
             // Initialize commands
@@ -42,7 +48,7 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// WindowState 에서 확장된 윈도 상태 Dependency Property
+        /// The dependency property for specifing the extended WindowState.
         /// </summary>
         public static readonly DependencyProperty WindowStateExProperty = DependencyProperty.Register
         (
@@ -59,13 +65,13 @@ namespace Nicenis.Windows
 
         private static void WindowStateExProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // 변경된 WindowStateEx 적용
+            // Applies the changed WindowStateEx.
             ((CustomWindow)d).Apply((WindowStateEx)e.NewValue);
         }
 
         /// <summary>
-        /// WindowState 에서 확장된 윈도 상태.
-        /// 전체화면 모드를 추가로 지원한다.
+        /// Gets or sets a value that specifies the extended WindowState.
+        /// It supports full screen.
         /// </summary>
         public WindowStateEx WindowStateEx
         {
@@ -75,7 +81,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 최소화 되었는지 여부 Dependency Property Key
+        /// The dependency property key for indicating whether the window is minimized.
         /// </summary>
         private static readonly DependencyPropertyKey IsMinimizedPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -86,12 +92,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 최소화 되었는지 여부 Dependency Property
+        /// The dependency property for indicating whether the window is minimized.
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty = IsMinimizedPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 최소화 되었는지 여부
+        /// Gets a value that indicates whether the window is minimized.
         /// </summary>
         public bool IsMinimized
         {
@@ -101,7 +107,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 일반 상태인지 여부 Dependency Property Key
+        /// The dependency property key for indicating whether the window is normal.
         /// </summary>
         private static readonly DependencyPropertyKey IsNormalPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -112,12 +118,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 일반 상태인지 여부 Dependency Property
+        /// The dependency property for indicating whether the window is normal.
         /// </summary>
         public static readonly DependencyProperty IsNormalProperty = IsNormalPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 일반 상태인지 여부
+        /// Gets a value that indicates whether the window is normal.
         /// </summary>
         public bool IsNormal
         {
@@ -127,7 +133,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 최대화 되었는지 여부 Dependency Property Key
+        /// The dependency property key for indicating whether the window is maximized.
         /// </summary>
         private static readonly DependencyPropertyKey IsMaximizedPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -138,12 +144,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 최대화 되었는지 여부 Dependency Property
+        /// The dependency property for indicating whether the window is maximized.
         /// </summary>
         public static readonly DependencyProperty IsMaximizedProperty = IsMaximizedPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 최대화 되었는지 여부
+        /// Gets a value that indicates whether the window is maximized.
         /// </summary>
         public bool IsMaximized
         {
@@ -153,7 +159,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 전체화면인지 여부 Dependency Property Key
+        /// The dependency property key for indicating whether the window is full screen.
         /// </summary>
         private static readonly DependencyPropertyKey IsFullScreenPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -164,12 +170,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 전체화면인지 여부 Dependency Property
+        /// The dependency property for indicating whether the window is full screen.
         /// </summary>
         public static readonly DependencyProperty IsFullScreenProperty = IsFullScreenPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 전체화면인지 여부
+        /// Gets a value that indicates whether the window is full screen.
         /// </summary>
         public bool IsFullScreen
         {
@@ -179,7 +185,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 전체화면 모드인지 여부 Dependency Property Key
+        /// The dependency property key for indicating whether the window is in full screen mode.
         /// </summary>
         private static readonly DependencyPropertyKey IsFullScreenModePropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -190,14 +196,17 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 전체화면 모드인지 여부 Dependency Property
+        /// The dependency property for indicating whether the window is in full screen mode.
         /// </summary>
         public static readonly DependencyProperty IsFullScreenModeProperty = IsFullScreenModePropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 전체화면 모드인지 여부.
-        /// 이 값이 true 이면 최대화할 때 전체화면으로 표시된다.
+        /// Gets a value that indicates whether the window is in full screen mode.
         /// </summary>
+        /// <remarks>
+        /// This value indicates whether the window is full screen or not when it's WindowStateEx is not Maximized or FullScreen.
+        /// This property is required to restore the full screen window from the minimized state.
+        /// </remarks>
         public bool IsFullScreenMode
         {
             get { return (bool)GetValue(IsFullScreenModeProperty); }
@@ -212,7 +221,7 @@ namespace Nicenis.Windows
         #region InitializeCommands
 
         /// <summary>
-        /// 커맨드 초기화 메서드
+        /// Initializes the related commands.
         /// </summary>
         private void InitializeCommands()
         {
@@ -227,7 +236,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 최소화 커맨드 Dependency Property Key
+        /// The dependency property key for the command that minimizes the window.
         /// </summary>
         private static readonly DependencyPropertyKey MinimizeCommandPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -238,12 +247,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 최소화 커맨드 Dependency Property
+        /// The dependency property for the command that minimizes the window.
         /// </summary>
         public static readonly DependencyProperty MinimizeCommandProperty = MinimizeCommandPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 최소화 커맨드
+        /// Gets a command that minimizes the window.
         /// </summary>
         public ICommand MinimizeCommand
         {
@@ -253,7 +262,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 복원 커맨드 Dependency Property Key
+        /// The dependency property key for the command that restores the window.
         /// </summary>
         private static readonly DependencyPropertyKey RestoreCommandPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -264,12 +273,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 복원 커맨드 Dependency Property
+        /// The dependency property for the command that restores the window.
         /// </summary>
         public static readonly DependencyProperty RestoreCommandProperty = RestoreCommandPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 복원 커맨드
+        /// Gets a command that restores the window.
         /// </summary>
         public ICommand RestoreCommand
         {
@@ -279,7 +288,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 최대화 커맨드 Dependency Property Key
+        /// The dependency property key for the command that maximizes the window.
         /// </summary>
         private static readonly DependencyPropertyKey MaximizeCommandPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -290,12 +299,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 최대화 커맨드 Dependency Property
+        /// The dependency property for the command that maximizes the window.
         /// </summary>
         public static readonly DependencyProperty MaximizeCommandProperty = MaximizeCommandPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 최대화 커맨드
+        /// Gets a command that maximizes the window.
         /// </summary>
         public ICommand MaximizeCommand
         {
@@ -305,7 +314,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 전체화면 커맨드 Dependency Property Key
+        /// The dependency property key for the command that makes the window full screen.
         /// </summary>
         private static readonly DependencyPropertyKey FullScreenCommandPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -316,12 +325,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 전체화면 커맨드 Dependency Property
+        /// The dependency property for the command that makes the window full screen.
         /// </summary>
         public static readonly DependencyProperty FullScreenCommandProperty = FullScreenCommandPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 전체화면 커맨드
+        /// Gets a command that makes the window full screen.
         /// </summary>
         public ICommand FullScreenCommand
         {
@@ -331,7 +340,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// 닫기 커맨드 Dependency Property Key
+        /// The dependency property key for the command that closes the window.
         /// </summary>
         private static readonly DependencyPropertyKey CloseCommandPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -342,12 +351,12 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// 닫기 커맨드 Dependency Property
+        /// The dependency property for the command that closes the window.
         /// </summary>
         public static readonly DependencyProperty CloseCommandProperty = CloseCommandPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 닫기 커맨드
+        /// Gets a command that closes the window.
         /// </summary>
         public ICommand CloseCommand
         {
@@ -364,7 +373,7 @@ namespace Nicenis.Windows
         {
             base.OnSourceInitialized(e);
 
-            // Attaches window procedure.
+            // Attaches the window procedure.
             HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
         }
 
