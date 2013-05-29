@@ -379,7 +379,7 @@ namespace Nicenis.Windows
 
         protected override void OnInitialized(EventArgs e)
         {
-            // WindowState 와 WindowStateEx 동기화
+            // Sets the WindowStateEx based on the WindowState.
             Apply(WindowState.ToWindowStateEx(IsFullScreenMode));
 
             base.OnInitialized(e);
@@ -389,7 +389,7 @@ namespace Nicenis.Windows
         {
             base.OnStateChanged(e);
 
-            // 상태 변화 적용
+            // Sets the WindowStateEx based on the WindowState.
             Apply(WindowState.ToWindowStateEx(IsFullScreenMode));
         }
 
@@ -402,22 +402,22 @@ namespace Nicenis.Windows
         {
             if (msg == Win32.WM_GETMINMAXINFO)
             {
-                // 모니터 핸들 구하기
+                // Get the monitor handle.
                 IntPtr hMonitor = Win32.MonitorFromWindow(hwnd, Win32.MONITOR_DEFAULTTONEAREST);
 
                 if (hMonitor != IntPtr.Zero)
                 {
-                    // 모니터 정보 구하기
+                    // Gets monitor information.
                     Win32.MONITORINFO monitorInfo = Win32.MONITORINFO.Create();
 
                     if (Win32.GetMonitorInfo(hMonitor, ref monitorInfo) != 0)
                     {
-                        // MINMAXINFO 구하기
+                        // Gets the MINMAXINFO.
                         Win32.MINMAXINFO minMaxInfo = (Win32.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(Win32.MINMAXINFO));
 
                         if (IsFullScreenMode)
                         {
-                            // 전체 화면 모드인 경우 모든 화면을 다 사용하도록 함
+                            // If it is the full screen mode, it must use the entire screen.
                             minMaxInfo.ptMaxPosition.x = monitorInfo.rcMonitor.left;
                             minMaxInfo.ptMaxPosition.y = monitorInfo.rcMonitor.top;
                             minMaxInfo.ptMaxSize.x = Math.Abs(monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left);
@@ -425,14 +425,14 @@ namespace Nicenis.Windows
                         }
                         else
                         {
-                            // 일반 모드인 경우 작업 영역을 사용하도록 함
+                            // If it is not the full screen mode, it must use the work area.
                             minMaxInfo.ptMaxPosition.x = monitorInfo.rcWork.left;
                             minMaxInfo.ptMaxPosition.y = monitorInfo.rcWork.top;
                             minMaxInfo.ptMaxSize.x = Math.Abs(monitorInfo.rcWork.right - monitorInfo.rcWork.left);
                             minMaxInfo.ptMaxSize.y = Math.Abs(monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
                         }
 
-                        // 수정된 MINMAXINFO 설정하기
+                        // Sets the modified MINMAXINFO.
                         Marshal.StructureToPtr(minMaxInfo, lParam, false);
                         handled = true;
                     }
@@ -450,29 +450,29 @@ namespace Nicenis.Windows
         #region Helpers
 
         /// <summary>
-        /// 현재 적용 중인 WindowStateEx 값
+        /// The WindowStateEx that is in effect.
         /// </summary>
         WindowStateEx? _appliedWindowStateEx;
 
         /// <summary>
-        /// windowStateEx 로 지정된 윈도 상태를 적용한다.
+        /// Applies the specified windowStateEx to the window.
         /// </summary>
-        /// <param name="windowStateEx">적용할 WindowStateEx</param>
+        /// <param name="windowStateEx">The WindowStateEx to apply.</param>
         private void Apply(WindowStateEx windowStateEx)
         {
-            // 이미 적용되었다면
+            // If it is already applied.
             if (_appliedWindowStateEx == windowStateEx)
                 return;
 
-            // StateExChanged 이벤트를 발생시켜야 하는지 여부
-            // 윈도 표시 당시의 초기값인 경우에는 이벤트를 발생시키지 않는다. (StateChanged 도 발생 안함)
+            // Whether the StateExChanged event is raised or not.
+            // If it is the initialization, it should not raise the StateExChanged event. (StateChanged is not raised too.)
             bool isRequiredToRaiseStateExChanged = _appliedWindowStateEx != null;
 
-            // 현재 적용값 갱신
+            // Sets the applied WindowStateEx.
             WindowStateEx oldWindowStateEx = _appliedWindowStateEx ?? WindowStateEx.Normal;
             _appliedWindowStateEx = windowStateEx;
 
-            // 전체화면 모드 설정
+            // Sets the IsFullScreenMode to true if the WindowStateEx is FullScreen.
             switch (windowStateEx)
             {
                 case WindowStateEx.Normal:
@@ -485,13 +485,13 @@ namespace Nicenis.Windows
                     break;
             }
 
-            // WindowStateEx 설정
+            // Sets the WindowStateEx.
             WindowStateEx = windowStateEx;
 
-            // WindowState 설정
+            // Sets the WindowState.
             WindowState = windowStateEx.ToWindowState();
 
-            // 최대화 -> 전체화면 이거나 전체화면 -> 최대화라면 제대로 크기 조정이 되도록 감췄다 다시 표시한다.
+            // If it is Maximized -> Full Screen or Full Screen -> Maximized, hides and shows the window to corrent the size.
             if ((oldWindowStateEx == WindowStateEx.Maximized && windowStateEx == WindowStateEx.FullScreen)
                 || (oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx == WindowStateEx.Maximized))
             {
@@ -499,13 +499,13 @@ namespace Nicenis.Windows
                 Visibility = Visibility.Visible;
             }
 
-            // 관련 속성 갱신
+            // Updates the WindowStateEx relate properties.
             IsMinimized = WindowStateEx == WindowStateEx.Minimized;
             IsNormal = WindowStateEx == WindowStateEx.Normal;
             IsMaximized = WindowStateEx == WindowStateEx.Maximized;
             IsFullScreen = WindowStateEx == WindowStateEx.FullScreen;
 
-            // 이벤트 발생
+            // Raises the StateExChanged event.
             if (isRequiredToRaiseStateExChanged)
                 OnStateExChanged(oldWindowStateEx, windowStateEx);
         }
@@ -518,17 +518,17 @@ namespace Nicenis.Windows
         #region StateExChangedEventArgs
 
         /// <summary>
-        /// StateExChanged 이벤트 인자
+        /// The event arguments for the StateExChanged event.
         /// </summary>
         public class StateExChangedEventArgs : EventArgs
         {
             #region Constructors
 
             /// <summary>
-            /// StateExChangedEventArgs 를 생성한다.
+            /// Initializes a new instance of the StateExChangedEventArgs class.
             /// </summary>
-            /// <param name="oldValue">변경 전 WindowStateEx</param>
-            /// <param name="newValue">변경 후 WindowStateEx</param>
+            /// <param name="oldValue">The WindowStateEx before the change.</param>
+            /// <param name="newValue">The WindowStateEx after the change.</param>
             public StateExChangedEventArgs(WindowStateEx oldValue, WindowStateEx newValue)
             {
                 OldValue = oldValue;
@@ -541,12 +541,12 @@ namespace Nicenis.Windows
             #region Properties
 
             /// <summary>
-            /// 변경 전 WindowStateEx
+            /// Gets the WindowStateEx before the change.
             /// </summary>
             public WindowStateEx OldValue { get; private set; }
 
             /// <summary>
-            /// 변경 후 WindowStateEx
+            /// Gets the WindowStateEx after the change.
             /// </summary>
             public WindowStateEx NewValue { get; private set; }
 
@@ -557,10 +557,15 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// WindowStateEx 가 변경될 경우 발생하는 이벤트
+        /// Occurs when the window's WindowStateEx property changes.
         /// </summary>
         public event EventHandler<StateExChangedEventArgs> StateExChanged;
 
+        /// <summary>
+        /// Raises the StateExChanged event.
+        /// </summary>
+        /// <param name="oldValue">The WindowStateEx before the change.</param>
+        /// <param name="newValue">The WindowStateEx after the change.</param>
         protected virtual void OnStateExChanged(WindowStateEx oldValue, WindowStateEx newValue)
         {
             if (StateExChanged != null)
@@ -573,9 +578,9 @@ namespace Nicenis.Windows
         #region Attached Behaviors
 
         /// <summary>
-        /// Sets as a window icon.
-        /// It shows the system menu when mouse left button is down, mouse right button is up.
-        /// It closes window when mouse is double clicked.
+        /// The attached property to set an element as a window icon.
+        /// The WindowIcon element shows the system menu when mouse left button is down or mouse right button is up.
+        /// If mouse is double clicked on the WindowIcon element, the window is closed.
         /// </summary>
         public static readonly DependencyProperty IsWindowIconProperty = DependencyProperty.RegisterAttached
         (
@@ -635,11 +640,21 @@ namespace Nicenis.Windows
             window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether the element is set as a window icon.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <returns>True if it is set as a window icon; otherwise, false.</returns>
         public static bool GetIsWindowIcon(FrameworkElement element)
         {
             return (bool)element.GetValue(IsWindowIconProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the element is set as a window icon.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <param name="IsWindowIcon">A value that indicates whether the element is set as a window icon.</param>
         public static void SetIsWindowIcon(FrameworkElement element, bool IsWindowIcon)
         {
             element.SetValue(IsWindowIconProperty, IsWindowIcon);
@@ -647,7 +662,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Shows System menu when mouse right button is up.
+        /// The attached property that makes an element to show the system menu when mouse right button is up.
         /// </summary>
         public static readonly DependencyProperty IsSystemContextMenuEnabledProperty = DependencyProperty.RegisterAttached
         (
@@ -681,11 +696,21 @@ namespace Nicenis.Windows
             window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether it shows the system menu when mouse right button is up.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <returns>True if it shows system menu when mouse right button is up; otherwise, false.</returns>
         public static bool GetIsSystemContextMenuEnabled(UIElement element)
         {
             return (bool)element.GetValue(IsSystemContextMenuEnabledProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether it shows the system menu when mouse right button is up.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <param name="isSystemContextMenuEnabled">A value that indicates whether it shows the system menu when mouse right button is up.</param>
         public static void SetIsSystemContextMenuEnabled(UIElement element, bool isSystemContextMenuEnabled)
         {
             element.SetValue(IsSystemContextMenuEnabledProperty, isSystemContextMenuEnabled);
