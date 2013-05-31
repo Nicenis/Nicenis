@@ -17,8 +17,12 @@ using System.Windows.Media;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// Provides moving by dragging.
+    /// Moves a Window or a FrameworkElement on a Canvas by dragging.
     /// </summary>
+    /// <remarks>
+    /// The IsTarget attached property is used to specified an element to move.
+    /// If no element is speicifed as a target, the hosting Window becomes the target.
+    /// </remarks>
     [TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
     public class DragMover : Control
     {
@@ -27,14 +31,20 @@ namespace Nicenis.Windows
 
         #region Contructors
 
+        /// <summary>
+        /// The static constructor.
+        /// </summary>
         static DragMover()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DragMover), new FrameworkPropertyMetadata(typeof(DragMover)));
 
-            // Reset defaults
+            // Makes it transparent by default.
             BackgroundProperty.OverrideMetadata(typeof(DragMover), new FrameworkPropertyMetadata(Brushes.Transparent));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DragMover class.
+        /// </summary>
         public DragMover()
         {
             Loaded += DragMover_Loaded;
@@ -48,7 +58,7 @@ namespace Nicenis.Windows
 
         void DragMover_Loaded(object sender, RoutedEventArgs e)
         {
-            // Find a window or FrameworkElement that has true IsTarget
+            // Finds a window or a target FrameworkElement.
             Target = this.VisualAncestors().FirstOrDefault
             (
                 p => (p is Window)
@@ -60,7 +70,7 @@ namespace Nicenis.Windows
 
         void DragMover_Unloaded(object sender, RoutedEventArgs e)
         {
-            // Clear visual tree related values
+            // Clears visual tree related values.
             Target = null;
         }
 
@@ -82,11 +92,11 @@ namespace Nicenis.Windows
                 return;
 
 
-            // Convert the DragDeltaEventArgs into a Point.
+            // Converts the DragDeltaEventArgs into a Point.
             Point dragDelta = new Point(e.HorizontalChange, e.VerticalChange);
 
 
-            // Raise the Moving event.
+            // Raises the Moving event.
             MovingEventArgs movingEventArgs = new MovingEventArgs(Target, dragDelta);
             OnMoving(movingEventArgs);
 
@@ -95,18 +105,16 @@ namespace Nicenis.Windows
                 return;
 
 
-            // Move the target element.
-            if (Target is Window)
-            {
-                FrameworkElementHelper.Move((Window)Target, e);
-            }
+            // Moves the target element.
+            Window window = Target as Window;
+
+            if (window != null)
+                FrameworkElementHelper.Move(window, e);
             else
-            {
                 FrameworkElementHelper.Move(Target, e);
-            }
 
 
-            // Raise the Moved event.
+            // Raises the Moved event.
             OnMoved(new MovedEventArgs(Target, dragDelta));
         }
 
@@ -116,10 +124,10 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// Marks the target FrameworkElement that is going to be moved.
-        /// Any changes applied to this property is ignored after the DragMover is loaded.
-        /// The target must be a FrameworkElement on a Canvas or a Window.
-        /// If any parent element does not have this property that is true, the outer Window is used as the target.
+        /// The attached property to specify a FrameworkElement that is going to be moved.
+        /// Any changes to this property is ignored after the DragMover is loaded.
+        /// The target must be a Window or a FrameworkElement that is on a Canvas.
+        /// If there is no specified target element, the hosting Window is used as the target.
         /// </summary>
         public static readonly DependencyProperty IsTargetProperty = DependencyProperty.RegisterAttached
         (
@@ -129,11 +137,21 @@ namespace Nicenis.Windows
             new FrameworkPropertyMetadata(false)
         );
 
+        /// <summary>
+        /// Gets a value that indicates whether the element is set as the target to move.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <returns>True if it is set as the target to move; otherwise, false.</returns>
         public static bool GetIsTarget(FrameworkElement element)
         {
             return (bool)element.GetValue(IsTargetProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the element is set as the target to move.
+        /// </summary>
+        /// <param name="element">The target element.</param>
+        /// <param name="isTarget">A value that indicates whether the element is set as the target to move.</param>
         public static void SetIsTarget(FrameworkElement element, bool isTarget)
         {
             element.SetValue(IsTargetProperty, isTarget);
@@ -141,7 +159,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// A DependencyPropertyKey for the target FameworkElement that is moved.
+        /// The dependency property key for the target FameworkElement that is specified by the IsTarget attached property.
         /// </summary>
         private static readonly DependencyPropertyKey TargetPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -152,15 +170,17 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// A DependencyProperty for the target FameworkElement that is moved.
+        /// The DependencyProperty for the target FameworkElement that is specified by the IsTarget attached property.
         /// </summary>
         public static readonly DependencyProperty TargetProperty = TargetPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// The target FameworkElement that is moved.
-        /// This property is null until the DragMover is loaded.
-        /// If this property is set any value, this property is not changed until the DragMover is unloaded.
+        /// Gets the target FameworkElement that is specified by the IsTarget attached property.
         /// </summary>
+        /// <remarks>
+        /// This property is null if the DragMover is not loaded.
+        /// If it is set any value, it is not changed until the DragMover is unloaded.
+        /// </remarks>
         public FrameworkElement Target
         {
             get { return (FrameworkElement)GetValue(TargetProperty); }
@@ -175,7 +195,7 @@ namespace Nicenis.Windows
         #region MovingEventArgs
 
         /// <summary>
-        /// Provides event argument for the Moving event.
+        /// The event arguments for the Moving event.
         /// </summary>
         public class MovingEventArgs : CancelEventArgs
         {
@@ -184,8 +204,8 @@ namespace Nicenis.Windows
             /// <summary>
             /// Initialize a new instance of the MovingEventArgs class.
             /// </summary>
-            /// <param name="target">Target element that is moving. It can be a Window.</param>
-            /// <param name="dragDelta">Dragged distance.</param>
+            /// <param name="target">The target element that is about to move. It can be a Window.</param>
+            /// <param name="dragDelta">The dragged distance.</param>
             public MovingEventArgs(FrameworkElement target, Point dragDelta)
             {
                 if (target == null)
@@ -201,13 +221,13 @@ namespace Nicenis.Windows
             #region Properties
 
             /// <summary>
-            /// Target element that is moving.
+            /// The target element that is about to move.
             /// It can be a Window.
             /// </summary>
             public FrameworkElement Target { get; private set; }
 
             /// <summary>
-            /// Dragged distance.
+            /// The dragged distance.
             /// </summary>
             public Point DragDelta { get; private set; }
 
@@ -217,7 +237,7 @@ namespace Nicenis.Windows
         #endregion
 
         /// <summary>
-        /// Occurs just before DragMover moves target element.
+        /// Occurs just before the DragMover moves target element.
         /// This event can be cancelled.
         /// </summary>
         public event EventHandler<MovingEventArgs> Moving;
@@ -240,7 +260,7 @@ namespace Nicenis.Windows
         #region MovedEventArgs
 
         /// <summary>
-        /// Provides event argument for the Moved event.
+        /// The event argument for the Moved event.
         /// </summary>
         public class MovedEventArgs : EventArgs
         {
@@ -249,8 +269,8 @@ namespace Nicenis.Windows
             /// <summary>
             /// Initialize a new instance of the MovedEventArgs class.
             /// </summary>
-            /// <param name="target">Target element that is moved. It can be a Window.</param>
-            /// <param name="dragDelta">Dragged distance.</param>
+            /// <param name="target">The target element that is moved. It can be a Window.</param>
+            /// <param name="dragDelta">The dragged distance.</param>
             public MovedEventArgs(FrameworkElement target, Point dragDelta)
             {
                 if (target == null)
@@ -266,13 +286,13 @@ namespace Nicenis.Windows
             #region Properties
 
             /// <summary>
-            /// Target element that is moved.
+            /// The target element that is moved. It can be a Window.
             /// It can be a Window.
             /// </summary>
             public FrameworkElement Target { get; private set; }
 
             /// <summary>
-            /// Dragged distance.
+            /// The dragged distance.
             /// </summary>
             public Point DragDelta { get; private set; }
 
@@ -282,7 +302,7 @@ namespace Nicenis.Windows
         #endregion
 
         /// <summary>
-        /// Occurs when DragMover moves target element.
+        /// Occurs when the DragMover moves the target element.
         /// </summary>
         public event EventHandler<MovedEventArgs> Moved;
 
