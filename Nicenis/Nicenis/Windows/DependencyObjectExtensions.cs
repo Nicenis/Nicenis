@@ -22,8 +22,8 @@ namespace Nicenis.Windows
         /// Returns a collection of elements that contains the visual ancestors of the DependencyObject.
         /// Each element is the visual parent of the previous element except the first element which is the visual parent of the target DependencyObject.
         /// </summary>
-        /// <param name="dependencyObject">Target DependencyObject.</param>
-        /// <returns>A collection of elements that contains the visual ancestors.</returns>
+        /// <param name="dependencyObject">The target DependencyObject.</param>
+        /// <returns>The collection of elements that contains the visual ancestors.</returns>
         public static IEnumerable<DependencyObject> VisualAncestors(this DependencyObject dependencyObject)
         {
             if (dependencyObject == null)
