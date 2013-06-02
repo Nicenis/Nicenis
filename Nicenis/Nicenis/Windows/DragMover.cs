@@ -292,6 +292,9 @@ namespace Nicenis.Windows
 
         #region Moving event related
 
+        /// <summary>
+        /// Identifies the PreviewMoving routed event. 
+        /// </summary>
         public static readonly RoutedEvent PreviewMovingEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewMoving",
@@ -300,17 +303,39 @@ namespace Nicenis.Windows
             typeof(DragMover)
         );
 
+        /// <summary>
+        /// Adds a event handler for the PreviewMoving event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewMovingHandler(UIElement obj, EventHandler<DragMoverMovingEventArgs> handler)
         {
             obj.AddHandler(PreviewMovingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewMoving event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewMovingHandler(UIElement obj, EventHandler<DragMoverMovingEventArgs> handler)
         {
             obj.RemoveHandler(PreviewMovingEvent, handler);
         }
 
+        /// <summary>
+        /// Occurs when the Target element is about to move.
+        /// </summary>
+        public event EventHandler<DragMoverMovingEventArgs> PreviewMoving
+        {
+            add { AddHandler(PreviewMovingEvent, value); }
+            remove { RemoveHandler(PreviewMovingEvent, value); }
+        }
 
+
+        /// <summary>
+        /// Identifies the Moving routed event. 
+        /// </summary>
         public static readonly RoutedEvent MovingEvent = EventManager.RegisterRoutedEvent
         (
             "Moving",
@@ -319,14 +344,33 @@ namespace Nicenis.Windows
             typeof(DragMover)
         );
 
+        /// <summary>
+        /// Adds a event handler for the Moving event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddMovingHandler(UIElement obj, EventHandler<DragMoverMovingEventArgs> handler)
         {
             obj.AddHandler(MovingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the Moving event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveMovingHandler(UIElement obj, EventHandler<DragMoverMovingEventArgs> handler)
         {
             obj.RemoveHandler(MovingEvent, handler);
+        }
+
+        /// <summary>
+        /// Occurs when the Target element is about to move.
+        /// </summary>
+        public event EventHandler<DragMoverMovingEventArgs> Moving
+        {
+            add { AddHandler(MovingEvent, value); }
+            remove { RemoveHandler(MovingEvent, value); }
         }
 
 
@@ -373,6 +417,9 @@ namespace Nicenis.Windows
 
         #region Moved event related
 
+        /// <summary>
+        /// Identifies the PreviewMoved routed event. 
+        /// </summary>
         public static readonly RoutedEvent PreviewMovedEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewMoved",
@@ -381,17 +428,39 @@ namespace Nicenis.Windows
             typeof(DragMover)
         );
 
+        /// <summary>
+        /// Adds a event handler for the PreviewMoved event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewMovedHandler(UIElement obj, EventHandler<DragMoverMovedEventArgs> handler)
         {
             obj.AddHandler(PreviewMovedEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewMoved event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewMovedHandler(UIElement obj, EventHandler<DragMoverMovedEventArgs> handler)
         {
             obj.RemoveHandler(PreviewMovedEvent, handler);
         }
 
+        /// <summary>
+        /// Occurs when the Target element is moved.
+        /// </summary>
+        public event EventHandler<DragMoverMovedEventArgs> PreviewMoved
+        {
+            add { AddHandler(PreviewMovedEvent, value); }
+            remove { RemoveHandler(PreviewMovedEvent, value); }
+        }
 
+
+        /// <summary>
+        /// Identifies the MovedEvent routed event. 
+        /// </summary>
         public static readonly RoutedEvent MovedEvent = EventManager.RegisterRoutedEvent
         (
             "Moved",
@@ -400,14 +469,33 @@ namespace Nicenis.Windows
             typeof(DragMover)
         );
 
+        /// <summary>
+        /// Adds a event handler for the Moved event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddMovedHandler(UIElement obj, EventHandler<DragMoverMovedEventArgs> handler)
         {
             obj.AddHandler(MovedEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the Moved event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveMovedHandler(UIElement obj, EventHandler<DragMoverMovedEventArgs> handler)
         {
             obj.RemoveHandler(MovedEvent, handler);
+        }
+
+        /// <summary>
+        /// Occurs when the Target element is moved.
+        /// </summary>
+        public event EventHandler<DragMoverMovedEventArgs> Moved
+        {
+            add { AddHandler(MovedEvent, value); }
+            remove { RemoveHandler(MovedEvent, value); }
         }
 
 
