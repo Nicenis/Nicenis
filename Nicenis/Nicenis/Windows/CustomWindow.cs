@@ -17,6 +17,47 @@ using System.Windows.Interop;
 
 namespace Nicenis.Windows
 {
+    #region CustomWindowStateExChangedEventArgs
+
+    /// <summary>
+    /// The event arguments for the StateExChanged event.
+    /// </summary>
+    public class CustomWindowStateExChangedEventArgs : EventArgs
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the StateExChangedEventArgs class.
+        /// </summary>
+        /// <param name="oldValue">The WindowStateEx before the change.</param>
+        /// <param name="newValue">The WindowStateEx after the change.</param>
+        internal CustomWindowStateExChangedEventArgs(WindowStateEx oldValue, WindowStateEx newValue)
+        {
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the WindowStateEx before the change.
+        /// </summary>
+        public WindowStateEx OldValue { get; private set; }
+
+        /// <summary>
+        /// Gets the WindowStateEx after the change.
+        /// </summary>
+        public WindowStateEx NewValue { get; private set; }
+
+        #endregion
+    }
+
+    #endregion
+
+
     /// <summary>
     /// A base class for non-standard window.
     /// </summary>
@@ -507,7 +548,7 @@ namespace Nicenis.Windows
 
             // Raises the StateExChanged event.
             if (isRequiredToRaiseStateExChanged)
-                OnStateExChanged(oldWindowStateEx, windowStateEx);
+                OnStateExChanged(new CustomWindowStateExChangedEventArgs(oldWindowStateEx, windowStateEx));
         }
 
         #endregion
@@ -515,61 +556,22 @@ namespace Nicenis.Windows
 
         #region StateExChanged
 
-        #region StateExChangedEventArgs
-
-        /// <summary>
-        /// The event arguments for the StateExChanged event.
-        /// </summary>
-        public class StateExChangedEventArgs : EventArgs
-        {
-            #region Constructors
-
-            /// <summary>
-            /// Initializes a new instance of the StateExChangedEventArgs class.
-            /// </summary>
-            /// <param name="oldValue">The WindowStateEx before the change.</param>
-            /// <param name="newValue">The WindowStateEx after the change.</param>
-            public StateExChangedEventArgs(WindowStateEx oldValue, WindowStateEx newValue)
-            {
-                OldValue = oldValue;
-                NewValue = newValue;
-            }
-
-            #endregion
-
-
-            #region Properties
-
-            /// <summary>
-            /// Gets the WindowStateEx before the change.
-            /// </summary>
-            public WindowStateEx OldValue { get; private set; }
-
-            /// <summary>
-            /// Gets the WindowStateEx after the change.
-            /// </summary>
-            public WindowStateEx NewValue { get; private set; }
-
-            #endregion
-        }
-
-        #endregion
-
-
         /// <summary>
         /// Occurs when the window's WindowStateEx property changes.
         /// </summary>
-        public event EventHandler<StateExChangedEventArgs> StateExChanged;
+        public event EventHandler<CustomWindowStateExChangedEventArgs> StateExChanged;
 
         /// <summary>
         /// Raises the StateExChanged event.
         /// </summary>
-        /// <param name="oldValue">The WindowStateEx before the change.</param>
-        /// <param name="newValue">The WindowStateEx after the change.</param>
-        protected virtual void OnStateExChanged(WindowStateEx oldValue, WindowStateEx newValue)
+        /// <param name="e">The event arguments.</param>
+        protected virtual void OnStateExChanged(CustomWindowStateExChangedEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException("e");
+
             if (StateExChanged != null)
-                StateExChanged(this, new StateExChangedEventArgs(oldValue, newValue));
+                StateExChanged(this, e);
         }
 
         #endregion
