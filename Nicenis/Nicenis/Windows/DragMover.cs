@@ -40,7 +40,6 @@ namespace Nicenis.Windows
                 throw new ArgumentNullException("target");
 
             Target = target;
-            DragDelta = dragDelta;
         }
 
         #endregion
@@ -49,14 +48,9 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// The target element that is related. It can be a Window.
+        /// Gets the target element that is related. It can be a Window.
         /// </summary>
         public FrameworkElement Target { get; private set; }
-
-        /// <summary>
-        /// The dragged distance.
-        /// </summary>
-        public Vector DragDelta { get; private set; }
 
         #endregion
     }
@@ -76,7 +70,10 @@ namespace Nicenis.Windows
         /// <param name="target">The target element that is related. It can be a Window.</param>
         /// <param name="dragDelta">The dragged distance.</param>
         internal DragMoverMovingEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, Vector dragDelta)
-            : base(routedEvent, source, target, dragDelta) { }
+            : base(routedEvent, source, target, dragDelta)
+        {
+            DragDelta = dragDelta;
+        }
 
         #endregion
 
@@ -88,9 +85,13 @@ namespace Nicenis.Windows
         /// </summary>
         public bool Cancel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dragged distance.
+        /// </summary>
+        public Vector DragDelta { get; set; }
+
         #endregion
     }
-
 
     /// <summary>
     /// Contains arguments for the Moved event.
@@ -107,7 +108,20 @@ namespace Nicenis.Windows
         /// <param name="target">The target element that is related. It can be a Window.</param>
         /// <param name="dragDelta">The dragged distance.</param>
         internal DragMoverMovedEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, Vector dragDelta)
-            : base(routedEvent, source, target, dragDelta) { }
+            : base(routedEvent, source, target, dragDelta)
+        {
+            DragDelta = dragDelta;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the dragged distance.
+        /// </summary>
+        public Vector DragDelta { get; private set; }
 
         #endregion
     }
@@ -194,11 +208,11 @@ namespace Nicenis.Windows
             Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
             // Raises the Moving event.
-            if (!RaiseMovingEvent(this, Target, dragDelta))
+            if (!RaiseMovingEvent(this, Target, ref dragDelta))
                 return;
 
             // Moves the target element.
-            FrameworkElementHelper.Move(Target, e);
+            FrameworkElementHelper.Move(Target, dragDelta);
 
             // Raises the Moved event.
             RaiseMovedEvent(this, Target, dragDelta);
@@ -323,7 +337,7 @@ namespace Nicenis.Windows
         /// <param name="target">The target element that is related. It can be a Window.</param>
         /// <param name="dragDelta">The dragged distance.</param>
         /// <returns>True if it is not canceled; otherwise false.</returns>
-        private static bool RaiseMovingEvent(UIElement source, FrameworkElement target, Vector dragDelta)
+        private static bool RaiseMovingEvent(UIElement source, FrameworkElement target, ref Vector dragDelta)
         {
             Debug.Assert(source != null);
             Debug.Assert(target != null);
@@ -343,6 +357,9 @@ namespace Nicenis.Windows
             // Raises the Moving routed event.
             eventArgs.RoutedEvent = MovingEvent;
             source.RaiseEvent(eventArgs);
+
+            // Saves the delta.
+            dragDelta = eventArgs.DragDelta;
 
             // If user cancels the move
             if (eventArgs.Cancel)
