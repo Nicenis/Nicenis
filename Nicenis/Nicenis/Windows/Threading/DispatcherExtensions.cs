@@ -16,7 +16,7 @@ namespace Nicenis.Windows.Threading
     /// </summary>
     public static class DispatcherExtensions
     {
-        #region BeginInvoke related
+        #region BeginInvoke Related
 
         /// <summary>
         /// Executes the specified delegate asynchronously at the specified priority on the thread the Dispatcher is associated with.
@@ -56,7 +56,7 @@ namespace Nicenis.Windows.Threading
         #endregion
 
 
-        #region Invoke related
+        #region Invoke Related
 
         /// <summary>
         /// Executes the specified delegate synchronously at the specified priority on the thread on which the Dispatcher is associated with.

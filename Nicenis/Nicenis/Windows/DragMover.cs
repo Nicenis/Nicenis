@@ -17,7 +17,7 @@ using System.Windows.Media;
 
 namespace Nicenis.Windows
 {
-    #region DragMover event arguments related
+    #region DragMover Event Arguments Related
 
     /// <summary>
     /// Internal Use Only. The base class for DragMover related event argument classes.
@@ -290,7 +290,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Moving event related
+        #region Moving Event Related
 
         /// <summary>
         /// Identifies the PreviewMoving routed event. 
@@ -415,7 +415,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Moved event related
+        #region Moved Event Related
 
         /// <summary>
         /// Identifies the PreviewMoved routed event. 
