@@ -92,8 +92,8 @@ namespace Nicenis.Windows
                 return;
 
 
-            // Converts the DragDeltaEventArgs into a Point.
-            Point dragDelta = new Point(e.HorizontalChange, e.VerticalChange);
+            // Converts the DragDeltaEventArgs into a Vector.
+            Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
 
             // Raises the Moving event.
@@ -206,7 +206,7 @@ namespace Nicenis.Windows
             /// </summary>
             /// <param name="target">The target element that is about to move. It can be a Window.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public MovingEventArgs(FrameworkElement target, Point dragDelta)
+            public MovingEventArgs(FrameworkElement target, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
@@ -229,7 +229,7 @@ namespace Nicenis.Windows
             /// <summary>
             /// The dragged distance.
             /// </summary>
-            public Point DragDelta { get; private set; }
+            public Vector DragDelta { get; private set; }
 
             #endregion
         }
@@ -271,7 +271,7 @@ namespace Nicenis.Windows
             /// </summary>
             /// <param name="target">The target element that is moved. It can be a Window.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public MovedEventArgs(FrameworkElement target, Point dragDelta)
+            public MovedEventArgs(FrameworkElement target, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
@@ -294,7 +294,7 @@ namespace Nicenis.Windows
             /// <summary>
             /// The dragged distance.
             /// </summary>
-            public Point DragDelta { get; private set; }
+            public Vector DragDelta { get; private set; }
 
             #endregion
         }
