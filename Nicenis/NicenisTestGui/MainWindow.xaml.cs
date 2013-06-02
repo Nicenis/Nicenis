@@ -48,5 +48,13 @@ namespace NicenisTestGui
 
             window.Show();
         }
+
+        private void CreateDragMoverTestWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            DragMoverTestWindow window = new DragMoverTestWindow();
+            window.Owner = this;
+
+            window.Show();
+        }
     }
 }
