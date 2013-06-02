@@ -198,12 +198,7 @@ namespace Nicenis.Windows
                 return;
 
             // Moves the target element.
-            Window window = Target as Window;
-
-            if (window != null)
-                FrameworkElementHelper.Move(window, e);
-            else
-                FrameworkElementHelper.Move(Target, e);
+            FrameworkElementHelper.Move(Target, e);
 
             // Raises the Moved event.
             RaiseMovedEvent(this, Target, dragDelta);

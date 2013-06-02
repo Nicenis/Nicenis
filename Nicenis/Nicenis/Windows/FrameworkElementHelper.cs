@@ -230,7 +230,7 @@ namespace Nicenis.Windows
         /// <param name="deltaX">Distance that is changed horizontally.</param>
         /// <param name="newLeft">New left resulted by move.</param>
         /// <returns>True if the left is changed.</returns>
-        public static bool CalculateHorizontalMove(double left, double deltaX, out double newLeft)
+        private static bool CalculateHorizontalMove(double left, double deltaX, out double newLeft)
         {
             // calculated left & width
             newLeft = left + deltaX;
@@ -249,7 +249,7 @@ namespace Nicenis.Windows
         /// <param name="deltaY">Distance that is changed vertically.</param>
         /// <param name="newTop">New top resulted by move.</param>
         /// <returns>True if the top is changed.</returns>
-        public static bool CalculateVerticalMove(double top, double deltaY, out double newTop)
+        private static bool CalculateVerticalMove(double top, double deltaY, out double newTop)
         {
             // calculated left & width
             newTop = top + deltaY;
@@ -269,7 +269,7 @@ namespace Nicenis.Windows
         /// <param name="deltaX">Distance that is changed horizontally.</param>
         /// <param name="deltaY">Distance that is changed vertically.</param>
         /// <returns>True if the window is moved.</returns>
-        public static bool Move(Window window, double deltaX, double deltaY)
+        private static bool MoveWindow(Window window, double deltaX, double deltaY)
         {
             if (window == null)
                 throw new ArgumentNullException("window");
@@ -289,36 +289,13 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Move window.
-        /// </summary>
-        /// <param name="window">Target window.</param>
-        /// <param name="delta">Changed distance.</param>
-        /// <returns>True if the window is moved.</returns>
-        public static bool Move(Window window, Vector delta)
-        {
-            return Move(window, delta.X, delta.Y);
-        }
-
-        /// <summary>
-        /// Move window.
-        /// </summary>
-        /// <param name="window">Target window.</param>
-        /// <param name="e">Thumb's DragDelta event argument.</param>
-        /// <returns>True if the window is moved.</returns>
-        public static bool Move(Window window, DragDeltaEventArgs e)
-        {
-            return Move(window, e.HorizontalChange, e.VerticalChange);
-        }
-
-
-        /// <summary>
         /// Move FrameworkElement that is laid on Canvas.
         /// </summary>
         /// <param name="element">Target FrameworkElement.</param>
         /// <param name="deltaX">Distance that is changed horizontally.</param>
         /// <param name="deltaY">Distance that is changed vertically.</param>
         /// <returns>True if the FrameworkElement is moved.</returns>
-        public static bool Move(FrameworkElement element, double deltaX, double deltaY)
+        private static bool MoveFrameworkElement(FrameworkElement element, double deltaX, double deltaY)
         {
             if (element == null)
                 throw new ArgumentNullException("element");
@@ -335,6 +312,25 @@ namespace Nicenis.Windows
             }
 
             return isMoved;
+        }
+
+
+        /// <summary>
+        /// Move FrameworkElement that is laid on Canvas.
+        /// </summary>
+        /// <param name="element">Target FrameworkElement.</param>
+        /// <param name="deltaX">Distance that is changed horizontally.</param>
+        /// <param name="deltaY">Distance that is changed vertically.</param>
+        /// <returns>True if the FrameworkElement is moved.</returns>
+        public static bool Move(FrameworkElement element, double deltaX, double deltaY)
+        {
+            // Moves the target element.
+            Window window = element as Window;
+
+            if (window != null)
+                return MoveWindow(window, deltaX, deltaY);
+
+            return MoveFrameworkElement(element, deltaX, deltaY);
         }
 
         /// <summary>
