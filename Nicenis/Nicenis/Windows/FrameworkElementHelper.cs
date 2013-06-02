@@ -16,7 +16,7 @@ namespace Nicenis.Windows
     /// <summary>
     /// Provides functionalities related to FrameworkElement.
     /// </summary>
-    public static class FrameworkElementHelper
+    internal static class FrameworkElementHelper
     {
         #region Related to resize
 
