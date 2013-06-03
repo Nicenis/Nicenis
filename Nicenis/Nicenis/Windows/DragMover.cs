@@ -207,6 +207,9 @@ namespace Nicenis.Windows
             // Converts the DragDeltaEventArgs into a Vector.
             Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
+            // Adjusts the delta not to exceed the defined min-max positions.
+            AdjustDeltaForMinMaxPositions(ref dragDelta);
+
             // Raises the Moving event.
             if (!RaiseMovingEvent(this, Target, ref dragDelta))
                 return;
@@ -285,6 +288,257 @@ namespace Nicenis.Windows
         {
             get { return (FrameworkElement)GetValue(TargetProperty); }
             private set { SetValue(TargetPropertyKey, value); }
+        }
+
+
+        /// <summary>
+        /// The dependency property for the minimum left that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MinLeftProperty = DependencyProperty.Register
+        (
+            "MinLeft",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the minimum left that the Target can move.
+        /// </summary>
+        public double MinLeft
+        {
+            get { return (double)GetValue(MinLeftProperty); }
+            set { SetValue(MinLeftProperty, value); }
+        }
+
+        /// <summary>
+        /// The dependency property for the maximum left that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MaxLeftProperty = DependencyProperty.Register
+        (
+            "MaxLeft",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the maximum left that the Target can move.
+        /// </summary>
+        public double MaxLeft
+        {
+            get { return (double)GetValue(MaxLeftProperty); }
+            set { SetValue(MaxLeftProperty, value); }
+        }
+
+
+        /// <summary>
+        /// The dependency property for the minimum top that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MinTopProperty = DependencyProperty.Register
+        (
+            "MinTop",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the minimum top that the Target can move.
+        /// </summary>
+        public double MinTop
+        {
+            get { return (double)GetValue(MinTopProperty); }
+            set { SetValue(MinTopProperty, value); }
+        }
+
+        /// <summary>
+        /// The dependency property for the maximum top that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MaxTopProperty = DependencyProperty.Register
+        (
+            "MaxTop",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the maximum top that the Target can move.
+        /// </summary>
+        public double MaxTop
+        {
+            get { return (double)GetValue(MaxTopProperty); }
+            set { SetValue(MaxTopProperty, value); }
+        }
+
+
+        /// <summary>
+        /// The dependency property for the minimum right that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MinRightProperty = DependencyProperty.Register
+        (
+            "MinRight",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the minimum right that the Target can move.
+        /// </summary>
+        public double MinRight
+        {
+            get { return (double)GetValue(MinRightProperty); }
+            set { SetValue(MinRightProperty, value); }
+        }
+
+        /// <summary>
+        /// The dependency property for the maximum right that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MaxRightProperty = DependencyProperty.Register
+        (
+            "MaxRight",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the maximum right that the Target can move.
+        /// </summary>
+        public double MaxRight
+        {
+            get { return (double)GetValue(MaxRightProperty); }
+            set { SetValue(MaxRightProperty, value); }
+        }
+
+
+        /// <summary>
+        /// The dependency property for the minimum bottom that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MinBottomProperty = DependencyProperty.Register
+        (
+            "MinBottom",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the minimum bottom that the Target can move.
+        /// </summary>
+        public double MinBottom
+        {
+            get { return (double)GetValue(MinBottomProperty); }
+            set { SetValue(MinBottomProperty, value); }
+        }
+
+        /// <summary>
+        /// The dependency property for the maximum bottom that the Target can move.
+        /// </summary>
+        public static readonly DependencyProperty MaxBottomProperty = DependencyProperty.Register
+        (
+            "MaxBottom",
+            typeof(double),
+            typeof(DragMover),
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+        );
+
+        /// <summary>
+        /// Gets or sets a value that indicates the maximum bottom that the Target can move.
+        /// </summary>
+        public double MaxBottom
+        {
+            get { return (double)GetValue(MaxBottomProperty); }
+            set { SetValue(MaxBottomProperty, value); }
+        }
+
+
+        /// <summary>
+        /// The changed event handlers for the min-max position related properties.
+        /// </summary>
+        /// <param name="d">The dependency object.</param>
+        /// <param name="e">The event arguments.</param>
+        private static void MinMaxPosition_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Adjusts not to exceed the defined min-max positions.
+            ((DragMover)d).AdjustForMinMaxPositions();
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        /// <summary>
+        /// Adjusts the delta not to exceed the defined min-max positions.
+        /// </summary>
+        /// <param name="dragDelta">The drag delta to adjust.</param>
+        private void AdjustDeltaForMinMaxPositions(ref Vector dragDelta)
+        {
+            if (Target == null)
+                return;
+
+            // Gets the Target's left and top.
+            double targetLeft, targetTop;
+
+            Window window = Target as Window;
+            if (window != null)
+            {
+                targetLeft = window.Left;
+                targetTop = window.Top;
+            }
+            else
+            {
+                targetLeft = Canvas.GetLeft(Target);
+                targetTop = Canvas.GetTop(Target);
+            }
+
+            // Gets the Target's width and height.
+            double targetWidth = Target.ActualWidth;
+            double targetHeight = Target.ActualHeight;
+
+            // Adjusts the delta for the defined min-max positions.
+            if (targetLeft + targetWidth + dragDelta.X > MaxRight)
+                dragDelta.X = MaxRight - targetLeft - targetWidth;
+
+            if (targetLeft + targetWidth + dragDelta.X < MinRight)
+                dragDelta.X = MinRight - targetLeft - targetWidth;
+
+            if (targetTop + targetHeight + dragDelta.Y > MaxBottom)
+                dragDelta.Y = MaxBottom - targetTop - targetHeight;
+
+            if (targetTop + targetHeight + dragDelta.Y < MinBottom)
+                dragDelta.Y = MinBottom - targetTop - targetHeight;
+
+            if (targetLeft + dragDelta.X > MaxLeft)
+                dragDelta.X = MaxLeft - targetLeft;
+
+            if (targetLeft + dragDelta.X < MinLeft)
+                dragDelta.X = MinLeft - targetLeft;
+
+            if (targetTop + dragDelta.Y > MaxTop)
+                dragDelta.Y = MaxTop - targetTop;
+
+            if (targetTop + dragDelta.Y < MinTop)
+                dragDelta.Y = MinTop - targetTop;
+        }
+
+        /// <summary>
+        /// Adjusts not to exceed the defined min-max positions.
+        /// </summary>
+        private void AdjustForMinMaxPositions()
+        {
+            if (Target == null)
+                return;
+
+            // Gets the delta not to exceed the defined min-max positions.
+            Vector delta = new Vector();
+            AdjustDeltaForMinMaxPositions(ref delta);
+
+            // Applies the delta.
+            FrameworkElementHelper.Move(Target, delta);
         }
 
         #endregion

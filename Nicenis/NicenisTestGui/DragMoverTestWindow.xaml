@@ -55,7 +55,10 @@
             Grid.Row="0"
             Background="Green"
             Margin="10"
-            Moving="WindowWithinWorkArea_Moving"
+            MinLeft="{Binding Left, Source={x:Static SystemParameters.WorkArea}}"
+            MinTop="{Binding Top, Source={x:Static SystemParameters.WorkArea}}"
+            MaxRight="{Binding Right, Source={x:Static SystemParameters.WorkArea}}"
+            MaxBottom="{Binding Bottom, Source={x:Static SystemParameters.WorkArea}}"
             />
 
         <TextBlock
@@ -122,10 +125,15 @@
                     Width="330"
                     Height="60"
                     Background="Green"
-                    n:DragMover.Moving="ElementWithinCanvas_Moving"
                     >
                     <!-- The DragMover that moves the above grid. -->
-                    <n:DragMover x:Name="elementWithinCanvasMover" />
+                    <n:DragMover
+                        x:Name="elementWithinCanvasMover"
+                        MinLeft="0"
+                        MinTop="0"
+                        MaxRight="{Binding ActualWidth, ElementName=canvas}"
+                        MaxBottom="{Binding ActualHeight, ElementName=canvas}"
+                        />
 
                     <TextBlock
                         FontSize="14"
