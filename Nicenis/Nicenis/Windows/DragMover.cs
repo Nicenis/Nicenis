@@ -171,14 +171,7 @@ namespace Nicenis.Windows
 
         void DragMover_Loaded(object sender, RoutedEventArgs e)
         {
-            // Finds a window or a target FrameworkElement.
-            Target = this.VisualAncestors().FirstOrDefault
-            (
-                p => (p is Window)
-                    ||
-                    ((p is FrameworkElement) && GetIsTarget((FrameworkElement)p))
-            )
-            as FrameworkElement;
+            UpdateTarget();
         }
 
         void DragMover_Unloaded(object sender, RoutedEventArgs e)
@@ -533,12 +526,33 @@ namespace Nicenis.Windows
             if (Target == null)
                 return;
 
-            // Gets the delta not to exceed the defined min-max positions.
+            // Gets the delta that is not exceed the defined min-max positions.
             Vector delta = new Vector();
             AdjustDeltaForMinMaxPositions(ref delta);
 
             // Applies the delta.
             FrameworkElementHelper.Move(Target, delta);
+        }
+
+        /// <summary>
+        /// Updates the Target.
+        /// This method finds a FrameworkElement of which the IsTarget attached property is true.
+        /// If it is found, the FrameworkElement is to be a new Target.
+        /// Otherwise, the hosting Window becomes a new Target.
+        /// </summary>
+        public void UpdateTarget()
+        {
+            // Finds a window or a target FrameworkElement.
+            Target = this.VisualAncestors().FirstOrDefault
+            (
+                p => (p is Window)
+                    ||
+                    ((p is FrameworkElement) && GetIsTarget((FrameworkElement)p))
+            )
+            as FrameworkElement;
+
+            // Adjusts not to exceed the defined min-max positions.
+            AdjustForMinMaxPositions();
         }
 
         #endregion
