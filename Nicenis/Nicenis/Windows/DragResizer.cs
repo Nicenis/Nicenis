@@ -332,8 +332,8 @@ namespace Nicenis.Windows
             if (Target == null)
                 return;
 
-            // Converts the DragDeltaEventArgs into a Point.
-            Point dragDelta = new Point(e.HorizontalChange, e.VerticalChange);
+            // Converts the DragDeltaEventArgs into a Vector.
+            Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
             // Raises the Resizing event.
             ResizingEventArgs resizingEventArgs = new ResizingEventArgs(Target, targetSide, dragDelta);
@@ -436,7 +436,7 @@ namespace Nicenis.Windows
             /// <param name="target">The target element that is related. It can be a Window.</param>
             /// <param name="side">The side that is dragged.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public ResizingEventArgs(FrameworkElement target, OctangleSide side, Point dragDelta)
+            public ResizingEventArgs(FrameworkElement target, OctangleSide side, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
@@ -464,7 +464,7 @@ namespace Nicenis.Windows
             /// <summary>
             /// Gets the dragged distance.
             /// </summary>
-            public Point DragDelta { get; private set; }
+            public Vector DragDelta { get; private set; }
 
             #endregion
         }
@@ -506,7 +506,7 @@ namespace Nicenis.Windows
             /// <param name="target">The target element that is related. It can be a Window.</param>
             /// <param name="side">The side that is dragged.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public ResizedEventArgs(FrameworkElement target, OctangleSide side, Point dragDelta)
+            public ResizedEventArgs(FrameworkElement target, OctangleSide side, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
@@ -534,7 +534,7 @@ namespace Nicenis.Windows
             /// <summary>
             /// Gets the dragged distance.
             /// </summary>
-            public Point DragDelta { get; private set; }
+            public Vector DragDelta { get; private set; }
 
             #endregion
         }
