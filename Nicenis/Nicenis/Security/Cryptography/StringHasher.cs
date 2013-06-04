@@ -116,23 +116,23 @@ namespace Nicenis.Security.Cryptography
                     switch (Algorithm)
                     {
                         case StringHasherAlgorithm.MD5:
-                            _hashAlgorithm = new MD5CryptoServiceProvider();
+                            _hashAlgorithm = MD5.Create();
                             break;
 
                         case StringHasherAlgorithm.SHA1:
-                            _hashAlgorithm = new SHA1CryptoServiceProvider();
+                            _hashAlgorithm = SHA1.Create();
                             break;
 
                         case StringHasherAlgorithm.SHA2_256:
-                            _hashAlgorithm = new SHA256CryptoServiceProvider();
+                            _hashAlgorithm = SHA256.Create();
                             break;
 
                         case StringHasherAlgorithm.SHA2_384:
-                            _hashAlgorithm = new SHA384CryptoServiceProvider();
+                            _hashAlgorithm = SHA384.Create();
                             break;
 
                         case StringHasherAlgorithm.SHA2_512:
-                            _hashAlgorithm = new SHA512CryptoServiceProvider();
+                            _hashAlgorithm = SHA512.Create();
                             break;
 
                         default:

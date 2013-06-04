@@ -141,7 +141,7 @@ namespace Nicenis.Security.Cryptography
         /// </summary>
         private MD5 MD5
         {
-            get { return _md5 ?? (_md5 = new MD5CryptoServiceProvider()); }
+            get { return _md5 ?? (_md5 = MD5.Create()); }
         }
 
 
@@ -152,7 +152,7 @@ namespace Nicenis.Security.Cryptography
         /// </summary>
         private SHA256 SHA256
         {
-            get { return _sha256 ?? (_sha256 = new SHA256CryptoServiceProvider()); }
+            get { return _sha256 ?? (_sha256 = SHA256.Create()); }
         }
 
 
