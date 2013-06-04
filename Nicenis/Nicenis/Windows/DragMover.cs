@@ -221,7 +221,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// The attached property to specify a FrameworkElement that is going to be moved.
-        /// Any changes to this property is ignored after the DragMover is loaded.
+        /// The IsTarget property is evaluated only when the DragResizer is loaded or the UpdateTarget method is called.
         /// The target must be a Window or a FrameworkElement that is on a Canvas.
         /// If there is no specified target element, the hosting Window is used as the target.
         /// </summary>
@@ -255,7 +255,7 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// The dependency property key for the target FameworkElement that is specified by the IsTarget attached property.
+        /// The dependency property key for the target FrameworkElement that is specified by the IsTarget attached property.
         /// </summary>
         private static readonly DependencyPropertyKey TargetPropertyKey = DependencyProperty.RegisterReadOnly
         (
@@ -266,16 +266,15 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The DependencyProperty for the target FameworkElement that is specified by the IsTarget attached property.
+        /// The DependencyProperty for the target FrameworkElement that is specified by the IsTarget attached property.
         /// </summary>
         public static readonly DependencyProperty TargetProperty = TargetPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets the target FameworkElement that is specified by the IsTarget attached property.
+        /// Gets the target FrameworkElement that is specified by the IsTarget attached property.
         /// </summary>
         /// <remarks>
-        /// This property is null if the DragMover is not loaded.
-        /// If it is set any value, it is not changed until the DragMover is unloaded.
+        /// This property is set when the DragMover is loaded or the UpdateTarget method is called.
         /// </remarks>
         public FrameworkElement Target
         {
@@ -535,14 +534,14 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Updates the Target.
+        /// Updates the Target to move.
         /// This method finds a FrameworkElement of which the IsTarget attached property is true.
         /// If it is found, the FrameworkElement is to be a new Target.
         /// Otherwise, the hosting Window becomes a new Target.
         /// </summary>
         public void UpdateTarget()
         {
-            // Finds a window or a target FrameworkElement.
+            // Finds a Window or a target FrameworkElement.
             Target = this.VisualAncestors().FirstOrDefault
             (
                 p => (p is Window)
