@@ -31,7 +31,7 @@ namespace Nicenis.Windows
         /// <param name="newLeft">New left resulted by resize.</param>
         /// <param name="newWidth">New width resulted by resize.</param>
         /// <returns>True if the width is changed.</returns>
-        public static bool CalculateHorizontalResize(double left, double width, double minWidth, OctangleSide targetSide, double deltaX, out double newLeft, out double newWidth)
+        private static bool CalculateHorizontalResize(double left, double width, double minWidth, OctangleSide targetSide, double deltaX, out double newLeft, out double newWidth)
         {
             // calculated left & width
             newLeft = left;
@@ -76,7 +76,7 @@ namespace Nicenis.Windows
         /// <param name="newTop">New top resulted by resize.</param>
         /// <param name="newHeight">New height resulted by resize.</param>
         /// <returns>True if the height is changed.</returns>
-        public static bool CalculateVerticalResize(double top, double height, double minHeight, OctangleSide targetSide, double deltaY, out double newTop, out double newHeight)
+        private static bool CalculateVerticalResize(double top, double height, double minHeight, OctangleSide targetSide, double deltaY, out double newTop, out double newHeight)
         {
             // calculated top & height
             newTop = top;
@@ -119,7 +119,7 @@ namespace Nicenis.Windows
         /// <param name="deltaX">Distance that is changed horizontally.</param>
         /// <param name="deltaY">Distance that is changed vertically.</param>
         /// <returns>True if the window is resized.</returns>
-        public static bool Resize(Window window, OctangleSide targetSide, double deltaX, double deltaY)
+        private static bool ResizeWindow(Window window, OctangleSide targetSide, double deltaX, double deltaY)
         {
             if (window == null)
                 throw new ArgumentNullException("window");
@@ -141,31 +141,6 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Resize window.
-        /// </summary>
-        /// <param name="window">Target window.</param>
-        /// <param name="targetSide">Side that is related to resize.</param>
-        /// <param name="delta">Changed distance.</param>
-        /// <returns>True if the window is resized.</returns>
-        public static bool Resize(Window window, OctangleSide targetSide, Vector delta)
-        {
-            return Resize(window, targetSide, delta.X, delta.Y);
-        }
-
-        /// <summary>
-        /// Resize window.
-        /// </summary>
-        /// <param name="window">Target window.</param>
-        /// <param name="targetSide">Side that is related to resize.</param>
-        /// <param name="e">Thumb's DragDelta event argument.</param>
-        /// <returns>True if the window is resized.</returns>
-        public static bool Resize(Window window, OctangleSide targetSide, DragDeltaEventArgs e)
-        {
-            return Resize(window, targetSide, e.HorizontalChange, e.VerticalChange);
-        }
-
-
-        /// <summary>
         /// Resize FrameworkElement that is laid on Canvas.
         /// </summary>
         /// <param name="element">Target FrameworkElement.</param>
@@ -173,7 +148,7 @@ namespace Nicenis.Windows
         /// <param name="deltaX">Distance that is changed horizontally.</param>
         /// <param name="deltaY">Distance that is changed vertically.</param>
         /// <returns>True if the FrameworkElement is resized.</returns>
-        public static bool Resize(FrameworkElement element, OctangleSide targetSide, double deltaX, double deltaY)
+        private static bool ResizeFrameworkElement(FrameworkElement element, OctangleSide targetSide, double deltaX, double deltaY)
         {
             if (element == null)
                 throw new ArgumentNullException("element");
@@ -192,6 +167,26 @@ namespace Nicenis.Windows
             }
 
             return isResized;
+        }
+
+
+        /// <summary>
+        /// Resize FrameworkElement that is laid on Canvas.
+        /// </summary>
+        /// <param name="element">Target FrameworkElement.</param>
+        /// <param name="targetSide">Side that is related to resize.</param>
+        /// <param name="deltaX">Distance that is changed horizontally.</param>
+        /// <param name="deltaY">Distance that is changed vertically.</param>
+        /// <returns>True if the FrameworkElement is resized.</returns>
+        public static bool Resize(FrameworkElement element, OctangleSide targetSide, double deltaX, double deltaY)
+        {
+            // Resizes the target element.
+            Window window = element as Window;
+
+            if (window != null)
+                return ResizeWindow(window, targetSide, deltaX, deltaY);
+
+            return ResizeFrameworkElement(element, targetSide, deltaX, deltaY);
         }
 
         /// <summary>

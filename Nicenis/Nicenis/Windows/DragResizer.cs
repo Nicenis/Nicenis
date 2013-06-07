@@ -344,10 +344,7 @@ namespace Nicenis.Windows
                 return;
 
             // Resizes the target element.
-            if (Target is Window)
-                FrameworkElementHelper.Resize((Window)Target, targetSide, e);
-            else
-                FrameworkElementHelper.Resize(Target, targetSide, e);
+            FrameworkElementHelper.Resize(Target, targetSide, e);
 
             // Raises the Resized event.
             OnResized(new ResizedEventArgs(Target, targetSide, dragDelta));
