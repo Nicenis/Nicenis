@@ -20,7 +20,8 @@ namespace Nicenis.Windows
     #region DragMover Event Arguments Related
 
     /// <summary>
-    /// Internal Use Only. The base class for DragMover related event argument classes.
+    /// Internal Use Only.
+    /// The base class for DragMover related event argument classes.
     /// </summary>
     public abstract class DragMoverEventArgsBase : RoutedEventArgs
     {
@@ -32,8 +33,7 @@ namespace Nicenis.Windows
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
         /// <param name="target">The target element that is related. It can be a Window.</param>
-        /// <param name="dragDelta">The dragged distance.</param>
-        internal DragMoverEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target, Vector dragDelta)
+        internal DragMoverEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
             : base(routedEvent, source)
         {
             if (target == null)
@@ -70,7 +70,7 @@ namespace Nicenis.Windows
         /// <param name="target">The target element that is related. It can be a Window.</param>
         /// <param name="dragDelta">The dragged distance.</param>
         internal DragMoverMovingEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, Vector dragDelta)
-            : base(routedEvent, source, target, dragDelta)
+            : base(routedEvent, source, target)
         {
             DragDelta = dragDelta;
         }
@@ -108,7 +108,7 @@ namespace Nicenis.Windows
         /// <param name="target">The target element that is related. It can be a Window.</param>
         /// <param name="dragDelta">The dragged distance.</param>
         internal DragMoverMovedEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, Vector dragDelta)
-            : base(routedEvent, source, target, dragDelta)
+            : base(routedEvent, source, target)
         {
             DragDelta = dragDelta;
         }
@@ -571,7 +571,7 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// Adds a event handler for the PreviewMoving event.
+        /// Adds an event handler for the PreviewMoving event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
@@ -612,7 +612,7 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// Adds a event handler for the Moving event.
+        /// Adds an event handler for the Moving event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
@@ -696,7 +696,7 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// Adds a event handler for the PreviewMoved event.
+        /// Adds an event handler for the PreviewMoved event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
@@ -737,7 +737,7 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// Adds a event handler for the Moved event.
+        /// Adds an event handler for the Moved event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
