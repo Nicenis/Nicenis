@@ -89,88 +89,88 @@ namespace Nicenis.Windows
             _leftThumb = GetTemplateChild("PART_LeftThumb") as Thumb;
             if (_leftThumb != null)
             {
-                _leftThumb.DragDelta -= LeftSide_DragDelta;
-                _leftThumb.DragDelta += LeftSide_DragDelta;
+                _leftThumb.DragDelta -= LeftThumb_DragDelta;
+                _leftThumb.DragDelta += LeftThumb_DragDelta;
             }
 
             _leftTopThumb = GetTemplateChild("PART_LeftTopThumb") as Thumb;
             if (_leftTopThumb != null)
             {
-                _leftTopThumb.DragDelta -= TopLeftSide_DragDelta;
-                _leftTopThumb.DragDelta += TopLeftSide_DragDelta;
+                _leftTopThumb.DragDelta -= TopLeftThumb_DragDelta;
+                _leftTopThumb.DragDelta += TopLeftThumb_DragDelta;
             }
 
             _leftBottomThumb = GetTemplateChild("PART_LeftBottomThumb") as Thumb;
             if (_leftBottomThumb != null)
             {
-                _leftBottomThumb.DragDelta -= BottomLeftSide_DragDelta;
-                _leftBottomThumb.DragDelta += BottomLeftSide_DragDelta;
+                _leftBottomThumb.DragDelta -= BottomLeftThumb_DragDelta;
+                _leftBottomThumb.DragDelta += BottomLeftThumb_DragDelta;
             }
 
 
             _rightThumb = GetTemplateChild("PART_RightThumb") as Thumb;
             if (_rightThumb != null)
             {
-                _rightThumb.DragDelta -= RightSide_DragDelta;
-                _rightThumb.DragDelta += RightSide_DragDelta;
+                _rightThumb.DragDelta -= RightThumb_DragDelta;
+                _rightThumb.DragDelta += RightThumb_DragDelta;
             }
 
             _rightTopThumb = GetTemplateChild("PART_RightTopThumb") as Thumb;
             if (_rightTopThumb != null)
             {
-                _rightTopThumb.DragDelta -= TopRightSide_DragDelta;
-                _rightTopThumb.DragDelta += TopRightSide_DragDelta;
+                _rightTopThumb.DragDelta -= TopRightThumb_DragDelta;
+                _rightTopThumb.DragDelta += TopRightThumb_DragDelta;
             }
 
             _rightBottomThumb = GetTemplateChild("PART_RightBottomThumb") as Thumb;
             if (_rightBottomThumb != null)
             {
-                _rightBottomThumb.DragDelta -= BottomRightSide_DragDelta;
-                _rightBottomThumb.DragDelta += BottomRightSide_DragDelta;
+                _rightBottomThumb.DragDelta -= BottomRightThumb_DragDelta;
+                _rightBottomThumb.DragDelta += BottomRightThumb_DragDelta;
             }
 
 
             _topThumb = GetTemplateChild("PART_TopThumb") as Thumb;
             if (_topThumb != null)
             {
-                _topThumb.DragDelta -= TopSide_DragDelta;
-                _topThumb.DragDelta += TopSide_DragDelta;
+                _topThumb.DragDelta -= TopThumb_DragDelta;
+                _topThumb.DragDelta += TopThumb_DragDelta;
             }
 
             _topLeftThumb = GetTemplateChild("PART_TopLeftThumb") as Thumb;
             if (_topLeftThumb != null)
             {
-                _topLeftThumb.DragDelta -= TopLeftSide_DragDelta;
-                _topLeftThumb.DragDelta += TopLeftSide_DragDelta;
+                _topLeftThumb.DragDelta -= TopLeftThumb_DragDelta;
+                _topLeftThumb.DragDelta += TopLeftThumb_DragDelta;
             }
 
             _topRightThumb = GetTemplateChild("PART_TopRightThumb") as Thumb;
             if (_topRightThumb != null)
             {
-                _topRightThumb.DragDelta -= TopRightSide_DragDelta;
-                _topRightThumb.DragDelta += TopRightSide_DragDelta;
+                _topRightThumb.DragDelta -= TopRightThumb_DragDelta;
+                _topRightThumb.DragDelta += TopRightThumb_DragDelta;
             }
 
 
             _bottomThumb = GetTemplateChild("PART_BottomThumb") as Thumb;
             if (_bottomThumb != null)
             {
-                _bottomThumb.DragDelta -= BottomSide_DragDelta;
-                _bottomThumb.DragDelta += BottomSide_DragDelta;
+                _bottomThumb.DragDelta -= BottomThumb_DragDelta;
+                _bottomThumb.DragDelta += BottomThumb_DragDelta;
             }
 
             _bottomLeftThumb = GetTemplateChild("PART_BottomLeftThumb") as Thumb;
             if (_bottomLeftThumb != null)
             {
-                _bottomLeftThumb.DragDelta -= BottomLeftSide_DragDelta;
-                _bottomLeftThumb.DragDelta += BottomLeftSide_DragDelta;
+                _bottomLeftThumb.DragDelta -= BottomLeftThumb_DragDelta;
+                _bottomLeftThumb.DragDelta += BottomLeftThumb_DragDelta;
             }
 
             _bottomRightThumb = GetTemplateChild("PART_BottomRightThumb") as Thumb;
             if (_bottomRightThumb != null)
             {
-                _bottomRightThumb.DragDelta -= BottomRightSide_DragDelta;
-                _bottomRightThumb.DragDelta += BottomRightSide_DragDelta;
+                _bottomRightThumb.DragDelta -= BottomRightThumb_DragDelta;
+                _bottomRightThumb.DragDelta += BottomRightThumb_DragDelta;
             }
 
 
@@ -178,42 +178,42 @@ namespace Nicenis.Windows
             AdjustThumbEnablement();
         }
 
-        void LeftSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void LeftThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.Left, e);
         }
 
-        void TopSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void TopThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.Top, e);
         }
 
-        void RightSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void RightThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.Right, e);
         }
 
-        void BottomSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void BottomThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.Bottom, e);
         }
 
-        void TopLeftSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void TopLeftThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.TopLeft, e);
         }
 
-        void TopRightSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void TopRightThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.TopRight, e);
         }
 
-        void BottomLeftSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void BottomLeftThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.BottomLeft, e);
         }
 
-        void BottomRightSide_DragDelta(object sender, DragDeltaEventArgs e)
+        void BottomRightThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Resize(BorderResizeMode.BottomRight, e);
         }
