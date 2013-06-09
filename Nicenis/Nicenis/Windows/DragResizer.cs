@@ -180,42 +180,42 @@ namespace Nicenis.Windows
 
         void LeftSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.Left, e);
+            Resize(BorderResizeMode.Left, e);
         }
 
         void TopSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.Top, e);
+            Resize(BorderResizeMode.Top, e);
         }
 
         void RightSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.Right, e);
+            Resize(BorderResizeMode.Right, e);
         }
 
         void BottomSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.Bottom, e);
+            Resize(BorderResizeMode.Bottom, e);
         }
 
         void TopLeftSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.TopLeft, e);
+            Resize(BorderResizeMode.TopLeft, e);
         }
 
         void TopRightSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.TopRight, e);
+            Resize(BorderResizeMode.TopRight, e);
         }
 
         void BottomLeftSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.BottomLeft, e);
+            Resize(BorderResizeMode.BottomLeft, e);
         }
 
         void BottomRightSide_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Resize(OctangleSide.BottomRight, e);
+            Resize(BorderResizeMode.BottomRight, e);
         }
 
         #endregion
@@ -288,33 +288,33 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Sides that is draggable for resizing.
+        /// The dependency property for the value that indicates allowed resize modes.
         /// </summary>
-        public static readonly DependencyProperty SidesProperty = DependencyProperty.Register
+        public static readonly DependencyProperty ResizeModesProperty = DependencyProperty.Register
         (
-            "Sides",
-            typeof(OctangleSides),
+            "ResizeModes",
+            typeof(BorderResizeModes),
             typeof(DragResizer),
             new FrameworkPropertyMetadata
             (
-                OctangleSides.All,
-                SidesProperty_Changed
+                BorderResizeModes.All,
+                ResizeModesProperty_Changed
             )
         );
 
-        private static void SidesProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ResizeModesProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Adjusts thumb enablements
             ((DragResizer)d).AdjustThumbEnablement();
         }
 
         /// <summary>
-        /// Sides that is draggable for resizing.
+        /// Gets or sets a value that indicates allowed resize modes.
         /// </summary>
-        public OctangleSides Sides
+        public BorderResizeModes ResizeModes
         {
-            get { return (OctangleSides)GetValue(SidesProperty); }
-            set { SetValue(SidesProperty, value); }
+            get { return (BorderResizeModes)GetValue(ResizeModesProperty); }
+            set { SetValue(ResizeModesProperty, value); }
         }
 
         #endregion
@@ -325,9 +325,9 @@ namespace Nicenis.Windows
         /// <summary>
         /// Resizes the target.
         /// </summary>
-        /// <param name="targetSide">The side that is dragged.</param>
+        /// <param name="mode">The resize mode.</param>
         /// <param name="e">The event arguments.</param>
-        private void Resize(OctangleSide targetSide, DragDeltaEventArgs e)
+        private void Resize(BorderResizeMode mode, DragDeltaEventArgs e)
         {
             if (Target == null)
                 return;
@@ -336,7 +336,7 @@ namespace Nicenis.Windows
             Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
             // Raises the Resizing event.
-            ResizingEventArgs resizingEventArgs = new ResizingEventArgs(Target, targetSide, dragDelta);
+            ResizingEventArgs resizingEventArgs = new ResizingEventArgs(Target, mode, dragDelta);
             OnResizing(resizingEventArgs);
 
             // If it is canceled
@@ -344,10 +344,10 @@ namespace Nicenis.Windows
                 return;
 
             // Resizes the target element.
-            FrameworkElementHelper.Resize(Target, targetSide, e);
+            FrameworkElementHelper.Resize(Target, mode, e);
 
             // Raises the Resized event.
-            OnResized(new ResizedEventArgs(Target, targetSide, dragDelta));
+            OnResized(new ResizedEventArgs(Target, mode, dragDelta));
         }
 
         /// <summary>
@@ -356,43 +356,43 @@ namespace Nicenis.Windows
         private void AdjustThumbEnablement()
         {
             if (_leftThumb != null)
-                _leftThumb.IsEnabled = _leftThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.Left);
+                _leftThumb.IsEnabled = _leftThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.Left);
 
             if (_leftTopThumb != null)
-                _leftTopThumb.IsEnabled = _leftTopThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.TopLeft);
+                _leftTopThumb.IsEnabled = _leftTopThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.TopLeft);
 
             if (_leftBottomThumb != null)
-                _leftBottomThumb.IsEnabled = _leftBottomThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.BottomLeft);
+                _leftBottomThumb.IsEnabled = _leftBottomThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.BottomLeft);
 
 
             if (_rightThumb != null)
-                _rightThumb.IsEnabled = _rightThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.Right);
+                _rightThumb.IsEnabled = _rightThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.Right);
 
             if (_rightTopThumb != null)
-                _rightTopThumb.IsEnabled = _rightTopThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.TopRight);
+                _rightTopThumb.IsEnabled = _rightTopThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.TopRight);
 
             if (_rightBottomThumb != null)
-                _rightBottomThumb.IsEnabled = _rightBottomThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.BottomRight);
+                _rightBottomThumb.IsEnabled = _rightBottomThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.BottomRight);
 
 
             if (_topThumb != null)
-                _topThumb.IsEnabled = _topThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.Top);
+                _topThumb.IsEnabled = _topThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.Top);
 
             if (_topLeftThumb != null)
-                _topLeftThumb.IsEnabled = _topLeftThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.TopLeft);
+                _topLeftThumb.IsEnabled = _topLeftThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.TopLeft);
 
             if (_topRightThumb != null)
-                _topRightThumb.IsEnabled = _topRightThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.TopRight);
+                _topRightThumb.IsEnabled = _topRightThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.TopRight);
 
 
             if (_bottomThumb != null)
-                _bottomThumb.IsEnabled = _bottomThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.Bottom);
+                _bottomThumb.IsEnabled = _bottomThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.Bottom);
 
             if (_bottomLeftThumb != null)
-                _bottomLeftThumb.IsEnabled = _bottomLeftThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.BottomLeft);
+                _bottomLeftThumb.IsEnabled = _bottomLeftThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.BottomLeft);
 
             if (_bottomRightThumb != null)
-                _bottomRightThumb.IsEnabled = _bottomRightThumb.IsHitTestVisible = Sides.HasFlag(OctangleSides.BottomRight);
+                _bottomRightThumb.IsEnabled = _bottomRightThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.BottomRight);
         }
 
         /// <summary>
@@ -431,15 +431,15 @@ namespace Nicenis.Windows
             /// Initialize a new instance of the ResizingEventArgs class.
             /// </summary>
             /// <param name="target">The target element that is related. It can be a Window.</param>
-            /// <param name="side">The side that is dragged.</param>
+            /// <param name="mode">The resize mode.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public ResizingEventArgs(FrameworkElement target, OctangleSide side, Vector dragDelta)
+            public ResizingEventArgs(FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
 
                 Target = target;
-                Side = side;
+                Mode = mode;
                 DragDelta = dragDelta;
             }
 
@@ -454,9 +454,9 @@ namespace Nicenis.Windows
             public FrameworkElement Target { get; private set; }
 
             /// <summary>
-            /// The side that is dragged.
+            /// The resize mode.
             /// </summary>
-            public OctangleSide Side { get; private set; }
+            public BorderResizeMode Mode { get; private set; }
 
             /// <summary>
             /// Gets the dragged distance.
@@ -501,15 +501,15 @@ namespace Nicenis.Windows
             /// Initialize a new instance of the ResizedEventArgs class.
             /// </summary>
             /// <param name="target">The target element that is related. It can be a Window.</param>
-            /// <param name="side">The side that is dragged.</param>
+            /// <param name="mode">The resize mode.</param>
             /// <param name="dragDelta">The dragged distance.</param>
-            public ResizedEventArgs(FrameworkElement target, OctangleSide side, Vector dragDelta)
+            public ResizedEventArgs(FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
             {
                 if (target == null)
                     throw new ArgumentNullException("target");
 
                 Target = target;
-                Side = side;
+                Mode = mode;
                 DragDelta = dragDelta;
             }
 
@@ -524,9 +524,9 @@ namespace Nicenis.Windows
             public FrameworkElement Target { get; private set; }
 
             /// <summary>
-            /// The side that is dragged.
+            /// The resize mode.
             /// </summary>
-            public OctangleSide Side { get; private set; }
+            public BorderResizeMode Mode { get; private set; }
 
             /// <summary>
             /// Gets the dragged distance.

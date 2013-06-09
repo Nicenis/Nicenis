@@ -70,9 +70,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\DragMover.cs" />
-    <Compile Include="Windows\OctangleSides.cs" />
     <Compile Include="Windows\DragResizer.cs" />
-    <Compile Include="Windows\OctangleSide.cs" />
+    <Compile Include="Windows\BorderResizeMode.cs" />
     <Compile Include="Windows\CustomWindow.cs" />
     <Compile Include="Windows\Input\DelegateCommand.cs" />
     <Compile Include="Windows\Shell\ShellFileInfo.cs" />
