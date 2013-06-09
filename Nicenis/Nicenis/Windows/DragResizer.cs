@@ -8,6 +8,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,132 @@ using System.Windows.Controls.Primitives;
 
 namespace Nicenis.Windows
 {
+    #region DragResizer Event Arguments Related
+
+    /// <summary>
+    /// Internal Use Only.
+    /// The base class for DragResizer related event argument classes.
+    /// </summary>
+    public abstract class DragResizerEventArgsBase : RoutedEventArgs
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initialize a new instance of the DragResizerEventArgsBase class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="target">The target element that is related. It can be a Window.</param>
+        internal DragResizerEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
+            : base(routedEvent, source)
+        {
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            Target = target;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the target element that is related. It can be a Window.
+        /// </summary>
+        public FrameworkElement Target { get; private set; }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Contains arguments for the Resizing event.
+    /// </summary>
+    public class DragResizerResizingEventArgs : DragResizerEventArgsBase
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initialize a new instance of the ResizingEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="target">The target element that is related. It can be a Window.</param>
+        /// <param name="mode">The resize mode.</param>
+        /// <param name="dragDelta">The dragged distance.</param>
+        public DragResizerResizingEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
+            : base(routedEvent, source, target)
+        {
+            Mode = mode;
+            DragDelta = dragDelta;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the resize should be canceled.
+        /// </summary>
+        public bool Cancel { get; set; }
+
+        /// <summary>
+        /// The resize mode.
+        /// </summary>
+        public BorderResizeMode Mode { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the dragged distance.
+        /// </summary>
+        public Vector DragDelta { get; set; }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Contains arguments for the Resized event.
+    /// </summary>
+    public class DragResizerResizedEventArgs : DragResizerEventArgsBase
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initialize a new instance of the ResizedEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="target">The target element that is related. It can be a Window.</param>
+        /// <param name="mode">The resize mode.</param>
+        /// <param name="dragDelta">The dragged distance.</param>
+        public DragResizerResizedEventArgs(RoutedEvent routedEvent, object source, FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
+            : base(routedEvent, source, target)
+        {
+            Mode = mode;
+            DragDelta = dragDelta;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// The resize mode.
+        /// </summary>
+        public BorderResizeMode Mode { get; private set; }
+
+        /// <summary>
+        /// Gets the dragged distance.
+        /// </summary>
+        public Vector DragDelta { get; private set; }
+
+        #endregion
+    }
+
+    #endregion
+
+
     /// <summary>
     /// Resizes a Window or a FrameworkElement on a Canvas by dragging.
     /// </summary>
@@ -336,18 +463,14 @@ namespace Nicenis.Windows
             Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
 
             // Raises the Resizing event.
-            ResizingEventArgs resizingEventArgs = new ResizingEventArgs(Target, mode, dragDelta);
-            OnResizing(resizingEventArgs);
-
-            // If it is canceled
-            if (resizingEventArgs.Cancel)
+            if (!RaiseResizingEvent(this, Target, mode, ref dragDelta))
                 return;
 
             // Resizes the target element.
             FrameworkElementHelper.Resize(Target, mode, e);
 
             // Raises the Resized event.
-            OnResized(new ResizedEventArgs(Target, mode, dragDelta));
+            RaiseResizedEvent(this, Target, mode, dragDelta);
         }
 
         /// <summary>
@@ -416,141 +539,245 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Resizing event
-
-        #region ResizingEventArgs
+        #region Resizing Event Related
 
         /// <summary>
-        /// Contains arguments for the Resizing event.
+        /// Identifies the PreviewResizing routed event. 
         /// </summary>
-        public class ResizingEventArgs : CancelEventArgs
+        public static readonly RoutedEvent PreviewResizingEvent = EventManager.RegisterRoutedEvent
+        (
+            "PreviewResizing",
+            RoutingStrategy.Tunnel,
+            typeof(EventHandler<DragResizerResizingEventArgs>),
+            typeof(DragResizer)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the PreviewResizing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddPreviewResizingHandler(UIElement obj, EventHandler<DragResizerResizingEventArgs> handler)
         {
-            #region Constructors
-
-            /// <summary>
-            /// Initialize a new instance of the ResizingEventArgs class.
-            /// </summary>
-            /// <param name="target">The target element that is related. It can be a Window.</param>
-            /// <param name="mode">The resize mode.</param>
-            /// <param name="dragDelta">The dragged distance.</param>
-            public ResizingEventArgs(FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
-            {
-                if (target == null)
-                    throw new ArgumentNullException("target");
-
-                Target = target;
-                Mode = mode;
-                DragDelta = dragDelta;
-            }
-
-            #endregion
-
-
-            #region Properties
-
-            /// <summary>
-            /// Gets the target element that is related. It can be a Window.
-            /// </summary>
-            public FrameworkElement Target { get; private set; }
-
-            /// <summary>
-            /// The resize mode.
-            /// </summary>
-            public BorderResizeMode Mode { get; private set; }
-
-            /// <summary>
-            /// Gets the dragged distance.
-            /// </summary>
-            public Vector DragDelta { get; private set; }
-
-            #endregion
+            obj.AddHandler(PreviewResizingEvent, handler);
         }
 
-        #endregion
+        /// <summary>
+        /// Removes the event handler for the PreviewResizing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemovePreviewResizingHandler(UIElement obj, EventHandler<DragResizerResizingEventArgs> handler)
+        {
+            obj.RemoveHandler(PreviewResizingEvent, handler);
+        }
 
         /// <summary>
         /// Occurs when the Target element is about to resize.
         /// </summary>
-        public event EventHandler<ResizingEventArgs> Resizing;
+        public event EventHandler<DragResizerResizingEventArgs> PreviewResizing
+        {
+            add { AddHandler(PreviewResizingEvent, value); }
+            remove { RemoveHandler(PreviewResizingEvent, value); }
+        }
+
 
         /// <summary>
-        /// Raises the Resizing event.
+        /// Identifies the Resizing routed event. 
         /// </summary>
-        /// <param name="e">The event arguments.</param>
-        protected virtual void OnResizing(ResizingEventArgs e)
+        public static readonly RoutedEvent ResizingEvent = EventManager.RegisterRoutedEvent
+        (
+            "Resizing",
+            RoutingStrategy.Bubble,
+            typeof(EventHandler<DragResizerResizingEventArgs>),
+            typeof(DragResizer)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the Resizing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddResizingHandler(UIElement obj, EventHandler<DragResizerResizingEventArgs> handler)
         {
-            if (Resizing != null)
-                Resizing(this, e);
+            obj.AddHandler(ResizingEvent, handler);
+        }
+
+        /// <summary>
+        /// Removes the event handler for the Resizing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemoveResizingHandler(UIElement obj, EventHandler<DragResizerResizingEventArgs> handler)
+        {
+            obj.RemoveHandler(ResizingEvent, handler);
+        }
+
+        /// <summary>
+        /// Occurs when the Target element is about to resize.
+        /// </summary>
+        public event EventHandler<DragResizerResizingEventArgs> Resizing
+        {
+            add { AddHandler(ResizingEvent, value); }
+            remove { RemoveHandler(ResizingEvent, value); }
+        }
+
+
+        /// <summary>
+        /// Raises PreviewResizingEvent and ResizingEvent.
+        /// </summary>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="target">The target element that is related. It can be a Window.</param>
+        /// <param name="resizeMode">The resize mode.</param>
+        /// <param name="dragDelta">The dragged distance.</param>
+        /// <returns>True if it is not canceled; otherwise false.</returns>
+        private static bool RaiseResizingEvent(UIElement source, FrameworkElement target, BorderResizeMode resizeMode, ref Vector dragDelta)
+        {
+            Debug.Assert(source != null);
+            Debug.Assert(target != null);
+
+            // Creates an event argument.
+            DragResizerResizingEventArgs eventArgs = new DragResizerResizingEventArgs
+            (
+                PreviewResizingEvent,
+                source,
+                target,
+                resizeMode,
+                dragDelta
+            );
+
+            // Raises the PreviewResizing routed event.
+            source.RaiseEvent(eventArgs);
+
+            // Raises the Resizing routed event.
+            eventArgs.RoutedEvent = ResizingEvent;
+            source.RaiseEvent(eventArgs);
+
+            // Saves the delta.
+            dragDelta = eventArgs.DragDelta;
+
+            // If user cancels the move
+            if (eventArgs.Cancel)
+                return false;
+
+            return true;
         }
 
         #endregion
 
 
-        #region Resized event
-
-        #region ResizedEventArgs
+        #region Resized Event Related
 
         /// <summary>
-        /// Contains arguments for the Resized event.
+        /// Identifies the PreviewResized routed event. 
         /// </summary>
-        public class ResizedEventArgs : EventArgs
+        public static readonly RoutedEvent PreviewResizedEvent = EventManager.RegisterRoutedEvent
+        (
+            "PreviewResized",
+            RoutingStrategy.Tunnel,
+            typeof(EventHandler<DragResizerResizedEventArgs>),
+            typeof(DragResizer)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the PreviewResized event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddPreviewResizedHandler(UIElement obj, EventHandler<DragResizerResizedEventArgs> handler)
         {
-            #region Constructors
-
-            /// <summary>
-            /// Initialize a new instance of the ResizedEventArgs class.
-            /// </summary>
-            /// <param name="target">The target element that is related. It can be a Window.</param>
-            /// <param name="mode">The resize mode.</param>
-            /// <param name="dragDelta">The dragged distance.</param>
-            public ResizedEventArgs(FrameworkElement target, BorderResizeMode mode, Vector dragDelta)
-            {
-                if (target == null)
-                    throw new ArgumentNullException("target");
-
-                Target = target;
-                Mode = mode;
-                DragDelta = dragDelta;
-            }
-
-            #endregion
-
-
-            #region Properties
-
-            /// <summary>
-            /// Gets the target element that is related. It can be a Window.
-            /// </summary>
-            public FrameworkElement Target { get; private set; }
-
-            /// <summary>
-            /// The resize mode.
-            /// </summary>
-            public BorderResizeMode Mode { get; private set; }
-
-            /// <summary>
-            /// Gets the dragged distance.
-            /// </summary>
-            public Vector DragDelta { get; private set; }
-
-            #endregion
+            obj.AddHandler(PreviewResizedEvent, handler);
         }
 
-        #endregion
+        /// <summary>
+        /// Removes the event handler for the PreviewResized event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemovePreviewResizedHandler(UIElement obj, EventHandler<DragResizerResizedEventArgs> handler)
+        {
+            obj.RemoveHandler(PreviewResizedEvent, handler);
+        }
+
+        /// <summary>
+        /// Occurs when the Target element is moved.
+        /// </summary>
+        public event EventHandler<DragResizerResizedEventArgs> PreviewResized
+        {
+            add { AddHandler(PreviewResizedEvent, value); }
+            remove { RemoveHandler(PreviewResizedEvent, value); }
+        }
+
+
+        /// <summary>
+        /// Identifies the ResizedEvent routed event. 
+        /// </summary>
+        public static readonly RoutedEvent ResizedEvent = EventManager.RegisterRoutedEvent
+        (
+            "Resized",
+            RoutingStrategy.Bubble,
+            typeof(EventHandler<DragResizerResizedEventArgs>),
+            typeof(DragResizer)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the Resized event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddResizedHandler(UIElement obj, EventHandler<DragResizerResizedEventArgs> handler)
+        {
+            obj.AddHandler(ResizedEvent, handler);
+        }
+
+        /// <summary>
+        /// Removes the event handler for the Resized event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemoveResizedHandler(UIElement obj, EventHandler<DragResizerResizedEventArgs> handler)
+        {
+            obj.RemoveHandler(ResizedEvent, handler);
+        }
 
         /// <summary>
         /// Occurs when the Target element is resized.
         /// </summary>
-        public event EventHandler<ResizedEventArgs> Resized;
+        public event EventHandler<DragResizerResizedEventArgs> Resized
+        {
+            add { AddHandler(ResizedEvent, value); }
+            remove { RemoveHandler(ResizedEvent, value); }
+        }
+
 
         /// <summary>
-        /// Raises the Resized event.
+        /// Raises PreviewResizedEvent and ResizedEvent.
         /// </summary>
-        /// <param name="e">The event arguments.</param>
-        protected virtual void OnResized(ResizedEventArgs e)
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="target">The target element that is related. It can be a Window.</param>
+        /// <param name="resizeMode">The resize mode.</param>
+        /// <param name="dragDelta">The dragged distance.</param>
+        private static void RaiseResizedEvent(UIElement source, FrameworkElement target, BorderResizeMode resizeMode, Vector dragDelta)
         {
-            if (Resized != null)
-                Resized(this, e);
+            Debug.Assert(source != null);
+            Debug.Assert(target != null);
+
+            // Creates an event argument.
+            DragResizerResizedEventArgs eventArgs = new DragResizerResizedEventArgs
+            (
+                PreviewResizedEvent,
+                source,
+                target,
+                resizeMode,
+                dragDelta
+            );
+
+            // Raises the PreviewResized routed event.
+            source.RaiseEvent(eventArgs);
+
+            // Raises the Resized routed event.
+            eventArgs.RoutedEvent = ResizedEvent;
+            source.RaiseEvent(eventArgs);
         }
 
         #endregion
