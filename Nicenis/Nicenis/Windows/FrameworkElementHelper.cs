@@ -26,15 +26,19 @@ namespace Nicenis.Windows
         /// <param name="left">Resized target's left.</param>
         /// <param name="width">Resized target's width.</param>
         /// <param name="minWidth">Resized target's minimum width.</param>
+        /// <param name="maxWidth">Resized target's maximum width.</param>
         /// <param name="resizeMode">Resize mode.</param>
         /// <param name="deltaX">Distance that is changed horizontally.</param>
-        /// <param name="newLeft">New left resulted by resize.</param>
+        /// <param name="isNewLeft">True if the newLeftOrRight is left; otherwise false.</param>
+        /// <param name="newLeftOrRight">New left or right resulted by resize. If it is right, it is equal to the sum of the left and width.</param>
         /// <param name="newWidth">New width resulted by resize.</param>
         /// <returns>True if the width is changed.</returns>
-        private static bool CalculateHorizontalResize(double left, double width, double minWidth, BorderResizeMode resizeMode, double deltaX, out double newLeft, out double newWidth)
+        private static bool CalculateHorizontalResize(double left, double width, double minWidth, double maxWidth, BorderResizeMode resizeMode, double deltaX,
+                                                                                    out bool isNewLeft, out double newLeftOrRight, out double newWidth)
         {
-            // calculated left & width
-            newLeft = left;
+            // Initializes out variables.
+            isNewLeft = true;
+            newLeftOrRight = left;
             newWidth = width;
 
             // If not changed
@@ -50,13 +54,17 @@ namespace Nicenis.Windows
             {
                 newWidth = Math.Max(width - deltaX, minWidth);
 
-                // Position is also needed to be adjusted.
-                newLeft = left - (newWidth - width);
+                // Saves the right.
+                isNewLeft = false;
+                newLeftOrRight = left + width;
             }
             else
             {
                 newWidth = Math.Max(width + deltaX, minWidth);
             }
+
+            // Adjusts not to exceed the max width.
+            newWidth = Math.Min(newWidth, maxWidth);
 
             // If it is not changed
             if (width == newWidth)
@@ -71,15 +79,19 @@ namespace Nicenis.Windows
         /// <param name="top">Resized target's top.</param>
         /// <param name="height">Resized target's height.</param>
         /// <param name="minHeight">Resized target's minimum height.</param>
+        /// <param name="maxHeight">Resized target's maximum height.</param>
         /// <param name="resizeMode">Resize mode.</param>
         /// <param name="deltaY">Distance that is changed vertically.</param>
-        /// <param name="newTop">New top resulted by resize.</param>
+        /// <param name="isNewTop">True if the newTopOrBottom is top; otherwise false.</param>
+        /// <param name="newTopOrBottom">New top or bottom resulted by resize. If it is bottom, it is equal to the sum of the top and height.</param>
         /// <param name="newHeight">New height resulted by resize.</param>
         /// <returns>True if the height is changed.</returns>
-        private static bool CalculateVerticalResize(double top, double height, double minHeight, BorderResizeMode resizeMode, double deltaY, out double newTop, out double newHeight)
+        private static bool CalculateVerticalResize(double top, double height, double minHeight, double maxHeight, BorderResizeMode resizeMode, double deltaY,
+                                                                                    out bool isNewTop, out double newTopOrBottom, out double newHeight)
         {
-            // calculated top & height
-            newTop = top;
+            // Initializes out variables.
+            isNewTop = true;
+            newTopOrBottom = top;
             newHeight = height;
 
             // If not changed
@@ -95,13 +107,17 @@ namespace Nicenis.Windows
             {
                 newHeight = Math.Max(height - deltaY, minHeight);
 
-                // Position is also needed to be adjusted.
-                newTop = top - (newHeight - height);
+                // Saves the bottom.
+                isNewTop = false;
+                newTopOrBottom = top + height;
             }
             else
             {
                 newHeight = Math.Max(height + deltaY, minHeight);
             }
+
+            // Adjusts not to exceed the max height.
+            newHeight = Math.Min(newHeight, maxHeight);
 
             // If it is not changed
             if (height == newHeight)
@@ -124,17 +140,44 @@ namespace Nicenis.Windows
             if (window == null)
                 throw new ArgumentNullException("window");
 
-            double newLeft, newTop, newWidth, newHeight;
+            bool isNewLeft, isNewTop;
+            double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
 
-            bool isResized = CalculateHorizontalResize(window.Left, window.ActualWidth, window.MinWidth, resizeMode, deltaX, out newLeft, out newWidth);
-            isResized = CalculateVerticalResize(window.Top, window.ActualHeight, window.MinHeight, resizeMode, deltaY, out newTop, out newHeight) || isResized;
+            bool isResized = CalculateHorizontalResize
+            (
+                window.Left,
+                window.ActualWidth,
+                window.MinWidth,
+                window.MaxWidth,
+                resizeMode,
+                deltaX,
+                out isNewLeft,
+                out newLeftOrRight,
+                out newWidth
+            );
+
+            isResized = CalculateVerticalResize
+            (
+                window.Top,
+                window.ActualHeight,
+                window.MinHeight,
+                window.MaxHeight,
+                resizeMode,
+                deltaY,
+                out isNewTop,
+                out newTopOrBottom,
+                out newHeight
+            ) || isResized;
 
             if (isResized)
             {
-                window.Left = newLeft;
-                window.Top = newTop;
+                // Window has inherent min width and height.
+                // So the ActualWidth and ActualHeight must be used.
                 window.Width = newWidth;
+                window.Left = isNewLeft ? newLeftOrRight : newLeftOrRight - window.ActualWidth;
+
                 window.Height = newHeight;
+                window.Top = isNewTop ? newTopOrBottom : newTopOrBottom - window.ActualHeight;
             }
 
             return isResized;
@@ -153,17 +196,43 @@ namespace Nicenis.Windows
             if (element == null)
                 throw new ArgumentNullException("element");
 
-            double newLeft, newTop, newWidth, newHeight;
+            bool isNewLeft, isNewTop;
+            double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
 
-            bool isResized = CalculateHorizontalResize(Canvas.GetLeft(element), element.ActualWidth, element.MinWidth, resizeMode, deltaX, out newLeft, out newWidth);
-            isResized = CalculateVerticalResize(Canvas.GetTop(element), element.ActualHeight, element.MinHeight, resizeMode, deltaY, out newTop, out newHeight) || isResized;
+            bool isResized = CalculateHorizontalResize
+            (
+                Canvas.GetLeft(element),
+                element.ActualWidth,
+                element.MinWidth,
+                element.MaxWidth,
+                resizeMode,
+                deltaX,
+                out isNewLeft,
+                out newLeftOrRight,
+                out newWidth
+            );
+
+            isResized = CalculateVerticalResize
+            (
+                Canvas.GetTop(element),
+                element.ActualHeight,
+                element.MinHeight,
+                element.MaxHeight,
+                resizeMode,
+                deltaY,
+                out isNewTop,
+                out newTopOrBottom,
+                out newHeight
+            ) || isResized;
 
             if (isResized)
             {
-                Canvas.SetLeft(element, newLeft);
-                Canvas.SetTop(element, newTop);
+                // Do not use the ActualWidth and ActualHeight because it is not work.
                 element.Width = newWidth;
+                Canvas.SetLeft(element, isNewLeft ? newLeftOrRight : newLeftOrRight - newWidth);
+
                 element.Height = newHeight;
+                Canvas.SetTop(element, isNewTop ? newTopOrBottom : newTopOrBottom - newHeight);
             }
 
             return isResized;
