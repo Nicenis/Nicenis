@@ -28,6 +28,7 @@
             x:Name="windowMover"
             Grid.Column="0"
             Grid.Row="0"
+            Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
             Background="Red"
             Margin="10"
             />
@@ -54,6 +55,7 @@
             x:Name="windowWithinWorkAreaMover"
             Grid.Column="1"
             Grid.Row="0"
+            Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
             Background="Green"
             Margin="10"
             MinLeft="{Binding Left, Source={x:Static SystemParameters.WorkArea}}"
@@ -92,7 +94,6 @@
             <Canvas x:Name="canvas" ClipToBounds="True">
                 <!-- The element to move. -->
                 <Grid
-                    n:DragMover.IsTarget="True"
                     Canvas.Left="10"
                     Canvas.Top="10"
                     Width="330"
@@ -100,7 +101,10 @@
                     Background="Red"
                     >
                     <!-- The DragMover that moves the above Grid. -->
-                    <n:DragMover x:Name="elementMover" />
+                    <n:DragMover
+                        x:Name="elementMover"
+                        Target="{Binding RelativeSource={RelativeSource AncestorType=Grid}}"
+                        />
 
                     <TextBlock
                         FontSize="14"
@@ -120,7 +124,6 @@
 
                 <!-- The element to move within the Canvas. -->
                 <Grid
-                    n:DragMover.IsTarget="True"
                     Canvas.Left="350"
                     Canvas.Top="10"
                     Width="330"
@@ -130,6 +133,7 @@
                     <!-- The DragMover that moves the above grid. -->
                     <n:DragMover
                         x:Name="elementWithinCanvasMover"
+                        Target="{Binding RelativeSource={RelativeSource AncestorType=Grid}}"
                         MinLeft="0"
                         MinTop="0"
                         MaxRight="{Binding ActualWidth, ElementName=canvas}"
