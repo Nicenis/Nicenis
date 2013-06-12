@@ -188,25 +188,12 @@ namespace Nicenis.Windows
         /// </summary>
         public DragResizer()
         {
-            Loaded += DragResizer_Loaded;
-            Unloaded += DragResizer_Unloaded;
         }
 
         #endregion
 
 
         #region Event Handlers
-
-        void DragResizer_Loaded(object sender, RoutedEventArgs e)
-        {
-            UpdateTarget();
-        }
-
-        void DragResizer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            // Clears visual tree related values
-            Target = null;
-        }
 
         public override void OnApplyTemplate()
         {
@@ -350,66 +337,23 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// The attached property to specify a FrameworkElement that is going to be resized.
-        /// The IsTarget property is evaluated only when the DragResizer is loaded or the UpdateTarget method is called.
-        /// The target must be a Window or a FrameworkElement that is on a Canvas.
-        /// If there is no specified target element, the hosting Window is used as the target.
+        /// The dependency property for the target to resize.
         /// </summary>
-        public static readonly DependencyProperty IsTargetProperty = DependencyProperty.RegisterAttached
-        (
-            "IsTarget",
-            typeof(bool),
-            typeof(DragResizer),
-            new FrameworkPropertyMetadata(false)
-        );
-
-        /// <summary>
-        /// Gets a value that indicates whether the element is set as the target to resize.
-        /// </summary>
-        /// <param name="element">The target element.</param>
-        /// <returns>True if it is set as the target to resize; otherwise, false.</returns>
-        public static bool GetIsTarget(FrameworkElement element)
-        {
-            return (bool)element.GetValue(IsTargetProperty);
-        }
-
-        /// <summary>
-        /// Sets a value that indicates whether the element is set as the target to resize.
-        /// </summary>
-        /// <param name="element">The target element.</param>
-        /// <param name="isTarget">A value that indicates whether the element is set as the target to resize.</param>
-        public static void SetIsTarget(FrameworkElement element, bool isTarget)
-        {
-            element.SetValue(IsTargetProperty, isTarget);
-        }
-
-
-        /// <summary>
-        /// The dependency property key for the target FrameworkElement that is specified by the IsTarget attached property.
-        /// </summary>
-        private static readonly DependencyPropertyKey TargetPropertyKey = DependencyProperty.RegisterReadOnly
+        public static readonly DependencyProperty TargetProperty = DependencyProperty.Register
         (
             "Target",
             typeof(FrameworkElement),
-            typeof(DragResizer),
-            new FrameworkPropertyMetadata()
+            typeof(DragResizer)
         );
 
         /// <summary>
-        /// The DependencyProperty for the target FrameworkElement that is specified by the IsTarget attached property.
+        /// Gets or sets the target to resize.
+        /// The target must be a Window or a FrameworkElement in a Canvas.
         /// </summary>
-        public static readonly DependencyProperty TargetProperty = TargetPropertyKey.DependencyProperty;
-
-        /// <summary>
-        /// Gets the target FrameworkElement that is specified by the IsTarget attached property.
-        /// </summary>
-        /// <remarks>
-        /// This property is set when the DragResizer is loaded or the UpdateTarget method is called.
-        /// </remarks>
         public FrameworkElement Target
         {
             get { return (FrameworkElement)GetValue(TargetProperty); }
-            private set { SetValue(TargetPropertyKey, value); }
+            set { SetValue(TargetProperty, value); }
         }
 
 
@@ -515,24 +459,6 @@ namespace Nicenis.Windows
 
             if (_bottomRightThumb != null)
                 _bottomRightThumb.IsEnabled = _bottomRightThumb.IsHitTestVisible = ResizeModes.HasFlag(BorderResizeModes.BottomRight);
-        }
-
-        /// <summary>
-        /// Updates the Target to resize.
-        /// This method finds a FrameworkElement of which the IsTarget attached property is true.
-        /// If it is found, the FrameworkElement is to be a new Target.
-        /// Otherwise, the hosting Window becomes a new Target.
-        /// </summary>
-        public void UpdateTarget()
-        {
-            // Finds a Window or a target FrameworkElement.
-            Target = this.VisualAncestors().FirstOrDefault
-            (
-                p => (p is Window)
-                    ||
-                    ((p is FrameworkElement) && GetIsTarget((FrameworkElement)p))
-            )
-            as FrameworkElement;
         }
 
         #endregion

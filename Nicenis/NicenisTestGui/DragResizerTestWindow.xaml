@@ -33,10 +33,17 @@
                 Height="200"
                 MinWidth="100"
                 MinHeight="100"
-                n:DragResizer.IsTarget="True"
                 >
                 <!-- The DragResizer that resizes the above Border. -->
-                <n:DragResizer BorderBrush="Green" BorderThickness="4" Resizing="DragResizer_Resizing" PreviewResizing="DragResizer_PreviewResizing" Resized="DragResizer_Resized" PreviewResized="DragResizer_PreviewResized" />
+                <n:DragResizer
+                    Target="{Binding RelativeSource={RelativeSource AncestorType=Border}}"
+                    BorderBrush="Green"
+                    BorderThickness="4"
+                    Resizing="DragResizer_Resizing"
+                    PreviewResizing="DragResizer_PreviewResizing"
+                    Resized="DragResizer_Resized"
+                    PreviewResized="DragResizer_PreviewResized"
+                    />
             </Border>
         </Canvas>
 
@@ -50,6 +57,10 @@
             />
 
         <!-- The DragResizer that resizes this window. -->
-        <n:DragResizer BorderBrush="Red" BorderThickness="4"/>
+        <n:DragResizer
+            Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+            BorderBrush="Red"
+            BorderThickness="4"
+            />
     </Grid>
 </Window>
