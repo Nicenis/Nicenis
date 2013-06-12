@@ -56,5 +56,13 @@ namespace NicenisTestGui
 
             window.Show();
         }
+
+        private void CreateDragResizerTestWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            DragResizerTestWindow window = new DragResizerTestWindow();
+            window.Owner = this;
+
+            window.Show();
+        }
     }
 }

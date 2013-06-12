@@ -9,7 +9,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
-        Title="DragMoverTestWindow" Height="500" Width="924">
+        Title="DragMoverTestWindow" Height="500" Width="924"
+        >
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -98,7 +99,7 @@
                     Height="60"
                     Background="Red"
                     >
-                    <!-- The DragMover that moves the above grid. -->
+                    <!-- The DragMover that moves the above Grid. -->
                     <n:DragMover x:Name="elementMover" />
 
                     <TextBlock
