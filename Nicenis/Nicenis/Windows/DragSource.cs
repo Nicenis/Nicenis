@@ -22,37 +22,98 @@ namespace Nicenis.Windows
 {
     #region DragInitiator related
 
+    /// <summary>
+    /// Defines drag initiator.
+    /// </summary>
     public enum DragInitiator
     {
+        /// <summary>
+        /// The left mouse button.
+        /// </summary>
         MouseLeftButton = 0x00000001,
+
+        /// <summary>
+        /// The middle mouse button.
+        /// </summary>
         MouseMiddleButton = 0x00000002,
+
+        /// <summary>
+        /// The right mouse button.
+        /// </summary>
         MouseRightButton = 0x00000004,
+
+        /// <summary>
+        /// The first extended mouse button.
+        /// </summary>
         MouseXButton1 = 0x00000008,
+
+        /// <summary>
+        /// The second extended mouse button.
+        /// </summary>
         MouseXButton2 = 0x00000010,
     }
 
+    /// <summary>
+    /// Defines bitwise-ored drag initiators.
+    /// </summary>
     [Flags]
     public enum DragInitiators
     {
+        /// <summary>
+        /// The left mouse button.
+        /// </summary>
         MouseLeftButton = DragInitiator.MouseLeftButton,
+
+        /// <summary>
+        /// The middle mouse button.
+        /// </summary>
         MouseMiddleButton = DragInitiator.MouseMiddleButton,
+
+        /// <summary>
+        /// The right mouse button.
+        /// </summary>
         MouseRightButton = DragInitiator.MouseRightButton,
+
+        /// <summary>
+        /// The first extended mouse button.
+        /// </summary>
         MouseXButton1 = DragInitiator.MouseXButton1,
+
+        /// <summary>
+        /// The second extended mouse button.
+        /// </summary>
         MouseXButton2 = DragInitiator.MouseXButton2,
 
+        /// <summary>
+        /// All mouse related drag initiators.
+        /// </summary>
         Mouse = MouseLeftButton
                 | MouseMiddleButton
                 | MouseRightButton
                 | MouseXButton1
                 | MouseXButton2,
 
+        /// <summary>
+        /// The default.
+        /// </summary>
         Default = MouseLeftButton,
 
+        /// <summary>
+        /// All drag initiators.
+        /// </summary>
         All = Mouse,
     }
 
+    /// <summary>
+    /// Provides DragInitiator related extension methods.
+    /// </summary>
     public static class DragInitiatorHelper
     {
+        /// <summary>
+        /// Converts a MouseButton enumeration to the DragInitiator enumeration.
+        /// </summary>
+        /// <param name="mouseButton">The MouseButton enumeration.</param>
+        /// <returns>The converted DragInitiator.</returns>
         public static DragInitiator ToDragInitiator(this MouseButton mouseButton)
         {
             switch (mouseButton)
@@ -79,11 +140,21 @@ namespace Nicenis.Windows
             );
         }
 
+        /// <summary>
+        /// Converts a MouseButton enumeration to the DragInitiators enumeration.
+        /// </summary>
+        /// <param name="mouseButton">The MouseButton enumeration.</param>
+        /// <returns>The converted DragInitiators.</returns>
         public static DragInitiators ToDragInitiators(this MouseButton mouseButton)
         {
             return (DragInitiators)ToDragInitiator(mouseButton);
         }
 
+        /// <summary>
+        /// Converts a DragInitiator enumeration to the MouseButton enumeration.
+        /// </summary>
+        /// <param name="dragInitiator">The DragInitiator enumeration.</param>
+        /// <returns>The converted MouseButton.</returns>
         public static MouseButton ToMouseButton(this DragInitiator dragInitiator)
         {
             switch (dragInitiator)
@@ -114,7 +185,13 @@ namespace Nicenis.Windows
             );
         }
 
-        internal static bool IsPressed(this DragInitiator dragInitiator, MouseEventArgs e)
+        /// <summary>
+        /// Returns whether the mouse button specified by the dragInitiator is pressed or not.
+        /// </summary>
+        /// <param name="dragInitiator">The DragInitiator enumeration.</param>
+        /// <param name="e">The MouseEventArgs.</param>
+        /// <returns>True if it is pressed; otherwise false.</returns>
+        internal static bool IsStillPressed(this DragInitiator dragInitiator, MouseEventArgs e)
         {
             Debug.Assert(e != null);
 
@@ -152,10 +229,22 @@ namespace Nicenis.Windows
 
     #region DragSource event arguments related
 
+    /// <summary>
+    /// Internal Use Only.
+    /// The base class for DragSource related event argument classes.
+    /// </summary>
     public abstract class DragSourceEventArgsBase : RoutedEventArgs
     {
         #region Constructors
 
+        /// <summary>
+        /// Initialize a new instance of the DragResizerEventArgsBase class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
         internal DragSourceEventArgsBase(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition)
             : base(routedEvent, source)
         {
@@ -175,13 +264,23 @@ namespace Nicenis.Windows
         public DragInitiator Initiator { get; private set; }
 
         /// <summary>
-        /// Gets the contact position relative to the dragged source.
+        /// Gets the contact position in the dragged source.
         /// </summary>
+        /// <remarks>
+        /// This value indicates the coordiate of the click or any other contact in the dragged source.
+        /// It is in the dragged source cooridates.
+        /// </remarks>
         public Point ContactPosition { get; private set; }
 
         /// <summary>
-        /// Gets the dragged position relative to the dragged source.
+        /// Gets the dragged position in the dragged source.
         /// </summary>
+        /// <remarks>
+        /// This value indicates the coordiate that the dragging is started.
+        /// It is in the dragged source cooridates.
+        /// </remarks>
+        /// <seealso cref="MinimumHorizontalDragDistance"/>
+        /// <seealso cref="MinimumVerticalDragDistance"/>
         public Point DraggedPosition { get; private set; }
 
         #endregion
@@ -1571,7 +1670,7 @@ namespace Nicenis.Windows
             try
             {
                 // Checks whether the drag initiator is still pressed.
-                if (!initiator.IsPressed(e))
+                if (!initiator.IsStillPressed(e))
                 {
                     // Cleans up the context.
                     context.CleanUp();
