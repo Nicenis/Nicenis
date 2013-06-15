@@ -211,7 +211,8 @@ namespace Nicenis.Windows
         (
             "Target",
             typeof(FrameworkElement),
-            typeof(DragMover)
+            typeof(DragMover),
+            new PropertyMetadata(null, DragMover_TargetChanged)
         );
 
         /// <summary>
@@ -222,6 +223,28 @@ namespace Nicenis.Windows
         {
             get { return (FrameworkElement)GetValue(TargetProperty); }
             set { SetValue(TargetProperty, value); }
+        }
+
+        private static void DragMover_TargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DragMover dragMover = (DragMover)d;
+
+            FrameworkElement oldTarget = e.OldValue as FrameworkElement;
+            if (oldTarget != null)
+                oldTarget.Loaded -= dragMover.DragMover_Target_Loaded;
+
+            FrameworkElement newTarget = e.NewValue as FrameworkElement;
+            if (newTarget != null)
+            {
+                newTarget.Loaded -= dragMover.DragMover_Target_Loaded;
+                newTarget.Loaded += dragMover.DragMover_Target_Loaded;
+            }
+        }
+
+        void DragMover_Target_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Adjusts not to exceed the defined min-max positions.
+            AdjustForMinMaxPositions();
         }
 
 
@@ -412,6 +435,10 @@ namespace Nicenis.Windows
         private void AdjustDeltaForMinMaxPositions(ref Vector dragDelta)
         {
             if (Target == null)
+                return;
+
+            // To use layout related properties the Target must be loaded.
+            if (!Target.IsLoaded)
                 return;
 
             // Gets the Target's left and top.

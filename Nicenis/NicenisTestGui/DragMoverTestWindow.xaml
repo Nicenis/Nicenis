@@ -115,13 +115,13 @@
                         <TextBlock.Text>
                             <MultiBinding StringFormat="Drag this element to move.&#10;[{0,7:0.0},{1,7:0.0}]">
                                 <Binding Path="Target.(Canvas.Left)" ElementName="elementMover" />
-                                <Binding Path="Target.(Canvas.Left)" ElementName="elementMover" />
+                                <Binding Path="Target.(Canvas.Top)" ElementName="elementMover" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
 
-
+                
                 <!-- The element to move within the Canvas. -->
                 <Grid
                     Canvas.Left="350"
@@ -149,7 +149,7 @@
                         <TextBlock.Text>
                             <MultiBinding StringFormat="Drag this element to move within the Canvas.&#10;[{0,7:0.0},{1,7:0.0}]">
                                 <Binding Path="Target.(Canvas.Left)" ElementName="elementWithinCanvasMover" />
-                                <Binding Path="Target.(Canvas.Left)" ElementName="elementWithinCanvasMover" />
+                                <Binding Path="Target.(Canvas.Top)" ElementName="elementWithinCanvasMover" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
