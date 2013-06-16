@@ -26,7 +26,7 @@ namespace Nicenis.Windows
         #region Constructors
 
         /// <summary>
-        /// Initialize a new instance of the DragMoverEventArgsBase class.
+        /// Initializes a new instance of the DragMoverEventArgsBase class.
         /// </summary>
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
@@ -61,7 +61,7 @@ namespace Nicenis.Windows
         #region Constructors
 
         /// <summary>
-        /// Initialize a new instance of the DragMoverMovingEventArgs class.
+        /// Initializes a new instance of the DragMoverMovingEventArgs class.
         /// </summary>
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
@@ -99,7 +99,7 @@ namespace Nicenis.Windows
         #region Constructors
 
         /// <summary>
-        /// Initialize a new instance of the DragMoverMovedEventArgs class.
+        /// Initializes a new instance of the DragMoverMovedEventArgs class.
         /// </summary>
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
