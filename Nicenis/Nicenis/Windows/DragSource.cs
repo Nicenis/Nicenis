@@ -105,12 +105,12 @@ namespace Nicenis.Windows
     }
 
     /// <summary>
-    /// Provides DragInitiator related extension methods.
+    /// Provides extension methods for DragInitiator.
     /// </summary>
     public static class DragInitiatorHelper
     {
         /// <summary>
-        /// Converts a MouseButton enumeration to the DragInitiator enumeration.
+        /// Converts a MouseButton enumeration to a DragInitiator enumeration.
         /// </summary>
         /// <param name="mouseButton">The MouseButton enumeration.</param>
         /// <returns>The converted DragInitiator.</returns>
@@ -141,7 +141,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Converts a MouseButton enumeration to the DragInitiators enumeration.
+        /// Converts a MouseButton enumeration to a DragInitiators enumeration.
         /// </summary>
         /// <param name="mouseButton">The MouseButton enumeration.</param>
         /// <returns>The converted DragInitiators.</returns>
@@ -151,7 +151,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Converts a DragInitiator enumeration to the MouseButton enumeration.
+        /// Converts a DragInitiator enumeration to a MouseButton enumeration.
         /// </summary>
         /// <param name="dragInitiator">The DragInitiator enumeration.</param>
         /// <returns>The converted MouseButton.</returns>
@@ -213,14 +213,7 @@ namespace Nicenis.Windows
                     return e.XButton2 == MouseButtonState.Pressed;
             }
 
-            throw new InvalidOperationException
-            (
-                string.Format
-                (
-                    "The DragInitiator '{0}' is unknown.",
-                    dragInitiator.ToString()
-                )
-            );
+            return false;
         }
     }
 
@@ -238,7 +231,7 @@ namespace Nicenis.Windows
         #region Constructors
 
         /// <summary>
-        /// Initialize a new instance of the DragResizerEventArgsBase class.
+        /// Initializes a new instance of the DragResizerEventArgsBase class.
         /// </summary>
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
@@ -259,7 +252,7 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// Gets a value that initiates dragging.
+        /// Gets a value that initiates the dragging.
         /// </summary>
         public DragInitiator Initiator { get; private set; }
 
@@ -277,6 +270,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <remarks>
         /// This value indicates the coordiate that the dragging is started.
+        /// MinimumHorizontalDragDistance and MinimumVerticalDragDistance are used to calculate this value.
         /// It is in the dragged source cooridates.
         /// </remarks>
         /// <seealso cref="MinimumHorizontalDragDistance"/>
@@ -287,10 +281,21 @@ namespace Nicenis.Windows
     }
 
 
+    /// <summary>
+    /// Contains arguments for the DragSensing event.
+    /// </summary>
     public class DragSourceDragSensingEventArgs : DragSourceEventArgsBase
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragSourceDragSensingEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
         internal DragSourceDragSensingEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
         {
@@ -310,6 +315,9 @@ namespace Nicenis.Windows
     }
 
 
+    /// <summary>
+    /// Defines required infomation for the Dragging event.
+    /// </summary>
     internal interface IDragSourceDraggingEventArgsContext
     {
         DragDropEffects AllowedEffects { get; set; }
@@ -330,6 +338,9 @@ namespace Nicenis.Windows
         double VisualFeedbackMaxHeight { get; set; }
     }
 
+    /// <summary>
+    /// Contains arguments for the Dragging event.
+    /// </summary>
     public class DragSourceDraggingEventArgs : DragSourceEventArgsBase
     {
         IDragSourceDraggingEventArgsContext _context;
@@ -337,6 +348,15 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragSourceDraggingEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context that contains required information for the Dragging event. Null is not allowed.</param>
         internal DragSourceDraggingEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition, IDragSourceDraggingEventArgsContext context)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
         {
@@ -355,7 +375,7 @@ namespace Nicenis.Windows
         public bool Cancel { get; set; }
 
         /// <summary>
-        /// One of the DragDropEffects values that specifies permitted effects of the drag-and-drop operation.
+        /// Gets or sets a value indicating permitted effects of the drag-and-drop operation.
         /// </summary>
         public DragDropEffects AllowedEffects
         {
@@ -364,7 +384,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// A data object that contains the data being dragged.
+        /// Gets or sets a data object that contains the data being dragged.
         /// </summary>
         public object Data
         {
@@ -382,7 +402,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the content of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the content of the visual drag feedback.
         /// </summary>
         public object VisualFeedback
         {
@@ -391,7 +411,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a data template used to display the content of the window for visual drag feedback.
+        /// Gets or sets a data template used to display the content of the visual drag feedback.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -409,7 +429,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the data context of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the data context of the visual drag feedback.
         /// If this value is null, the drag source's data context is set.
         /// </summary>
         public object VisualFeedbackDataContext
@@ -419,7 +439,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an offset that is pointed by pointing device in the visual drag feedback.
+        /// Gets or sets an offset that is pointed by a pointing device in the visual drag feedback.
         /// The origin is the upper-left corner of the visual drag feedback.
         /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
         /// </summary>
@@ -439,7 +459,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets the visual feedback visibility.
+        /// Gets or sets the visual drag feedback visibility.
         /// </summary>
         public Visibility VisualFeedbackVisibility
         {
@@ -505,6 +525,9 @@ namespace Nicenis.Windows
     }
 
 
+    /// <summary>
+    /// Defines required infomation for the GiveFeedback event.
+    /// </summary>
     internal interface IDragSourceGiveFeedbackEventArgsContext
     {
         DragDropEffects AllowedEffects { get; }
@@ -526,6 +549,9 @@ namespace Nicenis.Windows
         void UpdateVisualFeedbackHost();
     }
 
+    /// <summary>
+    /// Contains arguments for the GiveFeedback event.
+    /// </summary>
     public class DragSourceGiveFeedbackEventArgs : DragSourceEventArgsBase
     {
         IDragSourceGiveFeedbackEventArgsContext _context;
@@ -534,6 +560,16 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragSourceGiveFeedbackEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context that contains required information for the GiveFeedback event. Null is not allowed.</param>
+        /// <param name="giveFeedbackEventArgs">The GiveFeedbackEventArgs.</param>
         internal DragSourceGiveFeedbackEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                     IDragSourceGiveFeedbackEventArgsContext context, GiveFeedbackEventArgs giveFeedbackEventArgs)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
@@ -551,12 +587,12 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// One of the DragDropEffects values that specifies permitted effects of the drag-and-drop operation.
+        /// Gets a value indicating permitted effects of the drag-and-drop operation.
         /// </summary>
         public DragDropEffects AllowedEffects { get { return _context.AllowedEffects; } }
 
         /// <summary>
-        /// A data object that contains the data being dragged.
+        /// Gets a data object that contains the data being dragged.
         /// This value is always not null.
         /// </summary>
         public object Data { get { return _context.Data; } }
@@ -585,7 +621,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the content of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the content of the visual drag feedback.
         /// </summary>
         public object VisualFeedback
         {
@@ -594,7 +630,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a data template used to display the content of the window for visual drag feedback.
+        /// Gets or sets a data template used to display the content of the visual drag feedback.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -612,7 +648,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the data context of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the data context of the visual drag feedback.
         /// If this value is null, the drag source's data context is set.
         /// </summary>
         public object VisualFeedbackDataContext
@@ -622,7 +658,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an offset that is pointed by pointing device in the visual drag feedback.
+        /// Gets or sets an offset that is pointed by a pointing device in the visual drag feedback.
         /// The origin is the upper-left corner of the visual drag feedback.
         /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
         /// </summary>
@@ -642,7 +678,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets the visual feedback visibility.
+        /// Gets or sets the visual drag feedback visibility.
         /// </summary>
         public Visibility VisualFeedbackVisibility
         {
@@ -708,6 +744,9 @@ namespace Nicenis.Windows
     }
 
 
+    /// <summary>
+    /// Defines required infomation for the QueryContinueDrag event.
+    /// </summary>
     internal interface IDragSourceQueryContinueDragEventArgsContext
     {
         DragDropEffects AllowedEffects { get; }
@@ -728,6 +767,9 @@ namespace Nicenis.Windows
         double VisualFeedbackMaxHeight { get; set; }
     }
 
+    /// <summary>
+    /// Contains arguments for the QueryContinueDrag event.
+    /// </summary>
     public class DragSourceQueryContinueDragEventArgs : DragSourceEventArgsBase
     {
         IDragSourceQueryContinueDragEventArgsContext _context;
@@ -736,6 +778,16 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragSourceQueryContinueDragEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context that contains required information for the QueryContinueDrag event. Null is not allowed.</param>
+        /// <param name="queryContinueDragEventArgs">The QueryContinueDragEventArgs.</param>
         internal DragSourceQueryContinueDragEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                     IDragSourceQueryContinueDragEventArgsContext context, QueryContinueDragEventArgs queryContinueDragEventArgs)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
@@ -753,12 +805,12 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// One of the DragDropEffects values that specifies permitted effects of the drag-and-drop operation.
+        /// Gets a value indicating permitted effects of the drag-and-drop operation.
         /// </summary>
         public DragDropEffects AllowedEffects { get { return _context.AllowedEffects; } }
 
         /// <summary>
-        /// A data object that contains the data being dragged.
+        /// Gets a data object that contains the data being dragged.
         /// This value is always not null.
         /// </summary>
         public object Data { get { return _context.Data; } }
@@ -792,7 +844,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the content of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the content of the visual drag feedback.
         /// </summary>
         public object VisualFeedback
         {
@@ -801,7 +853,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a data template used to display the content of the window for visual drag feedback.
+        /// Gets or sets a data template used to display the content of the visual drag feedback.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -819,7 +871,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an object that is set to the data context of the window for visual drag feedback.
+        /// Gets or sets an object that is set to the data context of the visual drag feedback.
         /// If this value is null, the drag source's data context is set.
         /// </summary>
         public object VisualFeedbackDataContext
@@ -829,7 +881,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an offset that is pointed by pointing device in the visual drag feedback.
+        /// Gets or sets an offset that is pointed by a pointing device in the visual drag feedback.
         /// The origin is the upper-left corner of the visual drag feedback.
         /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
         /// </summary>
@@ -849,7 +901,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets the visual feedback visibility.
+        /// Gets or sets the visual drag feedback visibility.
         /// </summary>
         public Visibility VisualFeedbackVisibility
         {
@@ -915,6 +967,9 @@ namespace Nicenis.Windows
     }
 
 
+    /// <summary>
+    /// Defines required infomation for the Dropped event.
+    /// </summary>
     internal interface IDragSourceDroppedEventArgsContext
     {
         DragDropEffects AllowedEffects { get; }
@@ -935,6 +990,9 @@ namespace Nicenis.Windows
         double VisualFeedbackMaxHeight { get; }
     }
 
+    /// <summary>
+    /// Contains arguments for the Dropped event.
+    /// </summary>
     public class DragSourceDroppedEventArgs : DragSourceEventArgsBase
     {
         IDragSourceDroppedEventArgsContext _context;
@@ -942,6 +1000,16 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragSourceDroppedEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context that contains required information for the Dropped event. Null is not allowed.</param>
+        /// <param name="finalEffects">One of the DragDropEffects values that specifies the final effect that was performed during the drag-and-drop operation.</param>
         internal DragSourceDroppedEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                     IDragSourceDroppedEventArgsContext context, DragDropEffects finalEffects)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
@@ -958,28 +1026,28 @@ namespace Nicenis.Windows
         #region Properties
 
         /// <summary>
-        /// One of the DragDropEffects values that specifies permitted effects of the drag-and-drop operation.
+        /// Gets a value indicating permitted effects of the drag-and-drop operation.
         /// </summary>
         public DragDropEffects AllowedEffects { get { return _context.AllowedEffects; } }
 
         /// <summary>
-        /// The data object that contains the data being dragged.
+        /// Gets a data object that contains the data being dragged.
         /// This value is always not null.
         /// </summary>
         public object Data { get { return _context.Data; } }
 
         /// <summary>
-        /// Gets the value that indicates whether the auto generated visual feedback is allowed or not.
+        /// Gets a value that indicates whether the auto generated visual feedback is allowed or not.
         /// </summary>
         public bool IsAutoVisualFeedbackAllowed { get { return _context.IsAutoVisualFeedbackAllowed; } }
 
         /// <summary>
-        /// Gets the object that is set to the content of the window for visual drag feedback.
+        /// Gets an object that is set to the content of the visual drag feedback.
         /// </summary>
         public object VisualFeedback { get { return _context.VisualFeedback; } }
 
         /// <summary>
-        /// Gets the data template used to display the content of the window for visual drag feedback.
+        /// Gets a data template used to display the content of the visual drag feedback.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate { get { return _context.VisualFeedbackTemplate; } }
 
@@ -989,12 +1057,12 @@ namespace Nicenis.Windows
         public DataTemplateSelector VisualFeedbackTemplateSelector { get { return _context.VisualFeedbackTemplateSelector; } }
 
         /// <summary>
-        /// Gets the object that is set to the data context of the window for visual drag feedback.
+        /// Gets an object that is set to the data context of the visual drag feedback.
         /// </summary>
         public object VisualFeedbackDataContext { get { return _context.VisualFeedbackDataContext; } }
 
         /// <summary>
-        /// Gets the offset that is pointed by pointing device in the visual drag feedback.
+        /// Gets the offset that is pointed by a pointing device in the visual drag feedback.
         /// The origin is the upper-left corner of the visual drag feedback.
         /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
         /// </summary>
@@ -1006,7 +1074,7 @@ namespace Nicenis.Windows
         public double VisualFeedbackOpacity { get { return _context.VisualFeedbackOpacity; } }
 
         /// <summary>
-        /// Gets the visual feedback visibility.
+        /// Gets the visual feedback drag visibility.
         /// </summary>
         public Visibility VisualFeedbackVisibility { get { return _context.VisualFeedbackVisibility; } }
 
@@ -1041,7 +1109,7 @@ namespace Nicenis.Windows
         public double VisualFeedbackMaxHeight { get { return _context.VisualFeedbackMaxHeight; } }
 
         /// <summary>
-        /// One of the DragDropEffects values that specifies the final effect that was performed during the drag-and-drop operation.
+        /// Gets a value that specifies the final effect that was performed during the drag-and-drop operation.
         /// </summary>
         public DragDropEffects FinalEffects { get; private set; }
 
@@ -1052,9 +1120,12 @@ namespace Nicenis.Windows
 
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
     /// If VisualFeedback or VisualFeedbackTemplate or VisualFeedbackTemplateSelector is not null,
     /// auto generated visual feedback is not displayed.
-    /// </summary>
+    /// </remarks>
     public static class DragSource
     {
         #region Inner types
