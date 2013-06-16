@@ -212,7 +212,7 @@ namespace Nicenis.Windows
             "Target",
             typeof(FrameworkElement),
             typeof(DragMover),
-            new PropertyMetadata(null, DragMover_TargetChanged)
+            new PropertyMetadata(null, TargetProperty_Changed)
         );
 
         /// <summary>
@@ -225,23 +225,23 @@ namespace Nicenis.Windows
             set { SetValue(TargetProperty, value); }
         }
 
-        private static void DragMover_TargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void TargetProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DragMover dragMover = (DragMover)d;
 
             FrameworkElement oldTarget = e.OldValue as FrameworkElement;
             if (oldTarget != null)
-                oldTarget.Loaded -= dragMover.DragMover_Target_Loaded;
+                oldTarget.Loaded -= dragMover.TargetProperty_Target_Loaded;
 
             FrameworkElement newTarget = e.NewValue as FrameworkElement;
             if (newTarget != null)
             {
-                newTarget.Loaded -= dragMover.DragMover_Target_Loaded;
-                newTarget.Loaded += dragMover.DragMover_Target_Loaded;
+                newTarget.Loaded -= dragMover.TargetProperty_Target_Loaded;
+                newTarget.Loaded += dragMover.TargetProperty_Target_Loaded;
             }
         }
 
-        void DragMover_Target_Loaded(object sender, RoutedEventArgs e)
+        void TargetProperty_Target_Loaded(object sender, RoutedEventArgs e)
         {
             // Adjusts not to exceed the defined min-max positions.
             AdjustForMinMaxPositions();
@@ -256,7 +256,7 @@ namespace Nicenis.Windows
             "MinLeft",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Nicenis.Windows
             "MaxLeft",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace Nicenis.Windows
             "MinTop",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Nicenis.Windows
             "MaxTop",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace Nicenis.Windows
             "MinRight",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -358,7 +358,7 @@ namespace Nicenis.Windows
             "MaxRight",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -379,7 +379,7 @@ namespace Nicenis.Windows
             "MinBottom",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace Nicenis.Windows
             "MaxBottom",
             typeof(double),
             typeof(DragMover),
-            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPosition_Changed)
+            new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
         );
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="d">The dependency object.</param>
         /// <param name="e">The event arguments.</param>
-        private static void MinMaxPosition_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void MinMaxPositionRelatedProperties_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Adjusts not to exceed the defined min-max positions.
             ((DragMover)d).AdjustForMinMaxPositions();

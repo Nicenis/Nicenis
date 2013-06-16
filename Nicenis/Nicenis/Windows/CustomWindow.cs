@@ -589,24 +589,24 @@ namespace Nicenis.Windows
             "IsWindowIcon",
             typeof(bool),
             typeof(CustomWindow),
-            new PropertyMetadata(false, IsWindowIcon_Changed)
+            new PropertyMetadata(false, IsWindowIconProperty_Changed)
         );
 
-        private static void IsWindowIcon_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void IsWindowIconProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             UIElement element = (UIElement)o;
 
-            element.MouseLeftButtonDown -= IsWindowIcon_Element_MouseLeftButtonDown;
-            element.MouseRightButtonUp -= IsWindowIcon_Element_MouseRightButtonUp;
+            element.MouseLeftButtonDown -= IsWindowIconProperty_PropertyHost_MouseLeftButtonDown;
+            element.MouseRightButtonUp -= IsWindowIconProperty_PropertyHost_MouseRightButtonUp;
 
             if ((bool)e.NewValue)
             {
-                element.MouseLeftButtonDown += IsWindowIcon_Element_MouseLeftButtonDown;
-                element.MouseRightButtonUp += IsWindowIcon_Element_MouseRightButtonUp;
+                element.MouseLeftButtonDown += IsWindowIconProperty_PropertyHost_MouseLeftButtonDown;
+                element.MouseRightButtonUp += IsWindowIconProperty_PropertyHost_MouseRightButtonUp;
             }
         }
 
-        static void IsWindowIcon_Element_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        static void IsWindowIconProperty_PropertyHost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Window window = sender as Window;
 
@@ -628,7 +628,7 @@ namespace Nicenis.Windows
             window.Close();
         }
 
-        static void IsWindowIcon_Element_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        static void IsWindowIconProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             Window window = sender as Window;
 
@@ -671,20 +671,20 @@ namespace Nicenis.Windows
             "IsSystemContextMenuEnabled",
             typeof(bool),
             typeof(CustomWindow),
-            new PropertyMetadata(false, IsSystemContextMenuEnabled_Changed)
+            new PropertyMetadata(false, IsSystemContextMenuEnabledProperty_Changed)
         );
 
-        private static void IsSystemContextMenuEnabled_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void IsSystemContextMenuEnabledProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             UIElement element = (UIElement)o;
 
-            element.MouseRightButtonUp -= IsSystemContextMenuEnabled_Element_MouseRightButtonUp;
+            element.MouseRightButtonUp -= IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp;
 
             if ((bool)e.NewValue)
-                element.MouseRightButtonUp += IsSystemContextMenuEnabled_Element_MouseRightButtonUp;
+                element.MouseRightButtonUp += IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp;
         }
 
-        static void IsSystemContextMenuEnabled_Element_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        static void IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             Window window = sender as Window;
 

@@ -115,7 +115,7 @@ namespace Nicenis.Windows
             "IsActivated",
             typeof(bool),
             typeof(HoverBehavior),
-            new PropertyMetadata(false, HoverBehavior_IsActivatedChanged)
+            new PropertyMetadata(false, IsActivatedProperty_Changed)
         );
 
         public static bool GetIsActivated(UIElement obj)
@@ -128,31 +128,31 @@ namespace Nicenis.Windows
             obj.SetValue(IsActivatedProperty, value);
         }
 
-        private static void HoverBehavior_IsActivatedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void IsActivatedProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UIElement target = d as UIElement;
 
             // Detaches the previous event handlers if it exists.
-            target.RemoveHandler(UIElement.MouseEnterEvent, new RoutedEventHandler(HoverBehavior_IsActivated_MouseEnter));
-            target.PreviewMouseMove -= HoverBehavior_IsActivated_PreviewMouseMove;
-            target.RemoveHandler(UIElement.MouseLeaveEvent, new RoutedEventHandler(HoverBehavior_IsActivated_MouseLeave));
+            target.RemoveHandler(UIElement.MouseEnterEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_MouseEnter));
+            target.PreviewMouseMove -= IsActivatedProperty_PropertyHost_PreviewMouseMove;
+            target.RemoveHandler(UIElement.MouseLeaveEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_MouseLeave));
 
             if ((bool)e.NewValue)
             {
                 // Attaches required event handlers.
-                target.AddHandler(UIElement.MouseEnterEvent, new RoutedEventHandler(HoverBehavior_IsActivated_MouseEnter), true);
-                target.PreviewMouseMove += HoverBehavior_IsActivated_PreviewMouseMove;
-                target.AddHandler(UIElement.MouseLeaveEvent, new RoutedEventHandler(HoverBehavior_IsActivated_MouseLeave), true);
+                target.AddHandler(UIElement.MouseEnterEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_MouseEnter), true);
+                target.PreviewMouseMove += IsActivatedProperty_PropertyHost_PreviewMouseMove;
+                target.AddHandler(UIElement.MouseLeaveEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_MouseLeave), true);
             }
         }
 
-        private static void HoverBehavior_IsActivated_MouseEnter(object sender, RoutedEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_MouseEnter(object sender, RoutedEventArgs e)
         {
             // Handles this event using the HoverBehaviorImplementation.
             GetSafeContext((UIElement)sender).HoverBehaviorImplementation.ProcessEnter();
         }
 
-        private static void HoverBehavior_IsActivated_PreviewMouseMove(object sender, MouseEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             UIElement target = sender as UIElement;
 
@@ -168,7 +168,7 @@ namespace Nicenis.Windows
             );
         }
 
-        private static void HoverBehavior_IsActivated_MouseLeave(object sender, RoutedEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_MouseLeave(object sender, RoutedEventArgs e)
         {
             // Handles this event using the HoverBehaviorImplementation.
             GetSafeContext((UIElement)sender).HoverBehaviorImplementation.ProcessLeave();

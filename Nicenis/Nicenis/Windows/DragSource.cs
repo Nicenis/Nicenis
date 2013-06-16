@@ -1594,7 +1594,7 @@ namespace Nicenis.Windows
             "AllowDrag",
             typeof(bool),
             typeof(DragSource),
-            new PropertyMetadata(false, DragSource_AllowDragChanged)
+            new PropertyMetadata(false, AllowDragProperty_Changed)
         );
 
         public static bool GetAllowDrag(UIElement obj)
@@ -1607,23 +1607,23 @@ namespace Nicenis.Windows
             obj.SetValue(AllowDragProperty, value);
         }
 
-        static void DragSource_AllowDragChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void AllowDragProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UIElement target = d as UIElement;
 
             // Removes the previous event handler if it exists.
-            target.PreviewMouseDown -= DragSource_PreviewMouseDown;
+            target.PreviewMouseDown -= AllowDragProperty_PropertyHost_PreviewMouseDown;
 
             if ((bool)e.NewValue)
-                target.PreviewMouseDown += DragSource_PreviewMouseDown;
+                target.PreviewMouseDown += AllowDragProperty_PropertyHost_PreviewMouseDown;
         }
 
-        static void DragSource_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        static void AllowDragProperty_PropertyHost_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             UIElement target = sender as UIElement;
 
             // Detaches the previous mouse move event handler if it exists.
-            target.PreviewMouseMove -= DragSource_PreviewMouseMove;
+            target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
 
 
             // Checks whether the drag initiator is allowed or not.
@@ -1649,10 +1649,10 @@ namespace Nicenis.Windows
 
 
             // Attaches the mouse move event handler
-            target.PreviewMouseMove += DragSource_PreviewMouseMove;
+            target.PreviewMouseMove += AllowDragProperty_PropertyHost_PreviewMouseMove;
         }
 
-        static void DragSource_PreviewMouseMove(object sender, MouseEventArgs e)
+        static void AllowDragProperty_PropertyHost_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             UIElement target = sender as UIElement;
 
@@ -1704,7 +1704,7 @@ namespace Nicenis.Windows
             {
                 // Detaches the mouse move event handler if it is not required.
                 if (!keepMouseMoveEventHandler)
-                    target.PreviewMouseMove -= DragSource_PreviewMouseMove;
+                    target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
             }
 
 

@@ -146,7 +146,7 @@ namespace Nicenis.Windows
             "IsActivated",
             typeof(bool),
             typeof(DropTarget),
-            new PropertyMetadata(false, DropTarget_IsActivatedChanged)
+            new PropertyMetadata(false, IsActivatedProperty_Changed)
         );
 
         public static bool GetIsActivated(UIElement obj)
@@ -159,27 +159,27 @@ namespace Nicenis.Windows
             obj.SetValue(IsActivatedProperty, value);
         }
 
-        private static void DropTarget_IsActivatedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void IsActivatedProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UIElement target = d as UIElement;
 
             // Detaches the previous event handlers if it exists.
-            target.RemoveHandler(UIElement.PreviewDragEnterEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDragEnter));
-            target.PreviewDragOver -= DropTarget_IsActivated_PreviewDragOver;
-            target.RemoveHandler(UIElement.PreviewDragLeaveEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDragLeave));
-            target.RemoveHandler(UIElement.PreviewDropEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDrop));
+            target.RemoveHandler(UIElement.PreviewDragEnterEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDragEnter));
+            target.PreviewDragOver -= IsActivatedProperty_PropertyHost_PreviewDragOver;
+            target.RemoveHandler(UIElement.PreviewDragLeaveEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDragLeave));
+            target.RemoveHandler(UIElement.PreviewDropEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDrop));
 
             if ((bool)e.NewValue)
             {
                 // Attaches required event handlers.
-                target.AddHandler(UIElement.PreviewDragEnterEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDragEnter), true);
-                target.PreviewDragOver += DropTarget_IsActivated_PreviewDragOver;
-                target.AddHandler(UIElement.PreviewDragLeaveEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDragLeave), true);
-                target.AddHandler(UIElement.PreviewDropEvent, new RoutedEventHandler(DropTarget_IsActivated_PreviewDrop), true);
+                target.AddHandler(UIElement.PreviewDragEnterEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDragEnter), true);
+                target.PreviewDragOver += IsActivatedProperty_PropertyHost_PreviewDragOver;
+                target.AddHandler(UIElement.PreviewDragLeaveEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDragLeave), true);
+                target.AddHandler(UIElement.PreviewDropEvent, new RoutedEventHandler(IsActivatedProperty_PropertyHost_PreviewDrop), true);
             }
         }
 
-        private static void DropTarget_IsActivated_PreviewDragEnter(object sender, RoutedEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_PreviewDragEnter(object sender, RoutedEventArgs e)
         {
             UIElement target = sender as UIElement;
 
@@ -201,7 +201,7 @@ namespace Nicenis.Windows
             context.DragHoverImplementation.ProcessEnter();
         }
 
-        private static void DropTarget_IsActivated_PreviewDragOver(object sender, DragEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_PreviewDragOver(object sender, DragEventArgs e)
         {
             UIElement target = sender as UIElement;
 
@@ -216,13 +216,13 @@ namespace Nicenis.Windows
             );
         }
 
-        private static void DropTarget_IsActivated_PreviewDragLeave(object sender, RoutedEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_PreviewDragLeave(object sender, RoutedEventArgs e)
         {
             // Delays the leave processing to ignore if a child element is involved.
             (GetSafeContext((UIElement)sender)).LeaveDelayInvoker.Begin();
         }
 
-        private static void DropTarget_IsActivated_PreviewDrop(object sender, RoutedEventArgs e)
+        private static void IsActivatedProperty_PropertyHost_PreviewDrop(object sender, RoutedEventArgs e)
         {
             // Gets the context
             Context context = GetSafeContext((UIElement)sender);
