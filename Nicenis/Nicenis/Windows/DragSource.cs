@@ -203,6 +203,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets an object that is set to the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public object VisualFeedback
         {
@@ -212,6 +213,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a data template used to display the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -221,6 +223,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplateSelector VisualFeedbackTemplateSelector
         {
@@ -422,6 +425,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets an object that is set to the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public object VisualFeedback
         {
@@ -431,6 +435,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a data template used to display the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -440,6 +445,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplateSelector VisualFeedbackTemplateSelector
         {
@@ -645,6 +651,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets an object that is set to the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public object VisualFeedback
         {
@@ -654,6 +661,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a data template used to display the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplate VisualFeedbackTemplate
         {
@@ -663,6 +671,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
         /// </summary>
         public DataTemplateSelector VisualFeedbackTemplateSelector
         {
@@ -920,21 +929,27 @@ namespace Nicenis.Windows
 
 
     /// <summary>
-    /// 
+    /// Provides functionalities to make an element draggable.
     /// </summary>
     /// <remarks>
-    /// If VisualFeedback or VisualFeedbackTemplate or VisualFeedbackTemplateSelector is not null,
-    /// auto generated visual feedback is not displayed.
+    /// The AllowDrag attached property is used to specify an element to drag.
+    /// A data object to transfer must be set by using the Data attached property or the Data property of related event arguments.
     /// </remarks>
     public static class DragSource
     {
-        #region Inner types
+        #region Inner Types
 
+        /// <summary>
+        /// The storage to save context related information.
+        /// </summary>
         private class Context : IDragSourceDraggingEventArgsContext,
                 IDragSourceGiveFeedbackEventArgsContext, IDragSourceQueryContinueDragEventArgsContext, IDragSourceDroppedEventArgsContext
         {
             #region Constructors
 
+            /// <summary>
+            /// Initializes a new instance of the Context class.
+            /// </summary>
             public Context() { }
 
             #endregion
@@ -943,7 +958,7 @@ namespace Nicenis.Windows
             #region Members
 
             /// <summary>
-            /// One of the DragDropEffects values that specifies permitted effects of the drag-and-drop operation.
+            /// Gets or sets a value indicating permitted effects of the drag-and-drop operation.
             /// </summary>
             public DragDropEffects AllowedEffects { get; set; }
 
@@ -958,28 +973,31 @@ namespace Nicenis.Windows
             public bool IsAutoVisualFeedbackAllowed { get; set; }
 
             /// <summary>
-            /// Gets or sets an object that is set to the content of the window for visual drag feedback.
+            /// Gets or sets an object that is set to the content of the visual drag feedback.
+            /// If this value is not null, the auto generated visual drag feedback is not displayed.
             /// </summary>
             public object VisualFeedback { get; set; }
 
             /// <summary>
-            /// Gets or sets a data template used to display the content of the window for visual drag feedback.
+            /// Gets or sets a data template used to display the content of the visual drag feedback.
+            /// If this value is not null, the auto generated visual drag feedback is not displayed.
             /// </summary>
             public DataTemplate VisualFeedbackTemplate { get; set; }
 
             /// <summary>
             /// Gets or sets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+            /// If this value is not null, the auto generated visual drag feedback is not displayed.
             /// </summary>
             public DataTemplateSelector VisualFeedbackTemplateSelector { get; set; }
 
             /// <summary>
-            /// Gets or sets an object that is set to the data context of the window for visual drag feedback.
+            /// Gets or sets an object that is set to the data context of the visual drag feedback.
             /// If this value is null, the drag source's data context is set.
             /// </summary>
             public object VisualFeedbackDataContext { get; set; }
 
             /// <summary>
-            /// Gets or sets an offset that is pointed by pointing device in the visual drag feedback.
+            /// Gets or sets an offset that is pointed by a pointing device in the visual drag feedback.
             /// The origin is the upper-left corner of the visual drag feedback.
             /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
             /// </summary>
@@ -991,7 +1009,7 @@ namespace Nicenis.Windows
             public double VisualFeedbackOpacity { get; set; }
 
             /// <summary>
-            /// Gets or sets the visual feedback visibility.
+            /// Gets or sets the visual drag feedback visibility.
             /// </summary>
             public Visibility VisualFeedbackVisibility { get; set; }
 
@@ -1026,25 +1044,25 @@ namespace Nicenis.Windows
             public double VisualFeedbackMaxHeight { get; set; }
 
             /// <summary>
-            /// The host window for visual drag feedback.
+            /// The host of the visual drag feedback.
             /// </summary>
             public VisualFeedbackHost VisualFeedbackHost { get; set; }
 
             /// <summary>
             /// Initializes this context for events after the DragSensing event.
             /// </summary>
-            /// <param name="allowedEffects"></param>
-            /// <param name="data"></param>
-            /// <param name="visualFeedback"></param>
-            /// <param name="visualFeedbackDataContext"></param>
-            /// <param name="visualFeedbackOffset"></param>
-            /// <param name="visualFeedbackOpacity"></param>
-            /// <param name="visualFeedbackWidth"></param>
-            /// <param name="visualFeedbackHeight"></param>
-            /// <param name="visualFeedbackMinWidth"></param>
-            /// <param name="visualFeedbackMinHeight"></param>
-            /// <param name="visualFeedbackMaxWidth"></param>
-            /// <param name="visualFeedbackMaxHeight"></param>
+            /// <param name="allowedEffects">A value indicating permitted effects of the drag-and-drop operation.</param>
+            /// <param name="data">A data object that contains the data being dragged.</param>
+            /// <param name="visualFeedback">An object that is set to the content of the visual drag feedback.</param>
+            /// <param name="visualFeedbackDataContext">An object that is set to the data context of the visual drag feedback.</param>
+            /// <param name="visualFeedbackOffset">An offset that is pointed by a pointing device in the visual drag feedback.</param>
+            /// <param name="visualFeedbackOpacity">An opacity of the visual drag feedback.</param>
+            /// <param name="visualFeedbackWidth">A width of the visual drag feedback.</param>
+            /// <param name="visualFeedbackHeight">A height of the visual drag feedback.</param>
+            /// <param name="visualFeedbackMinWidth">A minimum width of the visual drag feedback.</param>
+            /// <param name="visualFeedbackMinHeight">A minimum height of the visual drag feedback.</param>
+            /// <param name="visualFeedbackMaxWidth">A maximum width of the visual drag feedback.</param>
+            /// <param name="visualFeedbackMaxHeight">A maximum height of the visual drag feedback.</param>
             public void InitializeForEventsAfterDragSensing(DragDropEffects allowedEffects, object data, bool isAutoVisualFeedbackAllowed,
                 object visualFeedback, DataTemplate visualFeedbackTemplate, DataTemplateSelector visualFeedbackTemplateSelector,
                 object visualFeedbackDataContext, Point visualFeedbackOffset, double visualFeedbackOpacity, Visibility visualFeedbackVisibility,
@@ -1100,7 +1118,7 @@ namespace Nicenis.Windows
             }
 
             /// <summary>
-            /// Cleans up internal states.
+            /// Cleans up internal states to help the garbage collection.
             /// </summary>
             public void CleanUp()
             {
@@ -1120,6 +1138,9 @@ namespace Nicenis.Windows
             #endregion
         }
 
+        /// <summary>
+        /// Represents host for the visual drag feedback.
+        /// </summary>
         internal class VisualFeedbackHost : Disposable
         {
             UIElement _dragSource;
@@ -1127,6 +1148,10 @@ namespace Nicenis.Windows
 
             #region Constructors
 
+            /// <summary>
+            /// Initializes a new instance of the VisualFeedbackHost class.
+            /// </summary>
+            /// <param name="dragSource">The element to drag.</param>
             public VisualFeedbackHost(UIElement dragSource)
             {
                 _dragSource = dragSource;
@@ -1137,9 +1162,13 @@ namespace Nicenis.Windows
 
             #region Static Helpers
 
+            /// <summary>
+            /// creates a host window for the visual drag feedback.
+            /// </summary>
+            /// <returns></returns>
             private static Window CreateHostWindow()
             {
-                // Creates the host window for visual drag feedback.
+                // Creates a host window for the visual drag feedback.
                 Window hostWindow = new Window()
                 {
                     ShowInTaskbar = false,
@@ -1194,6 +1223,11 @@ namespace Nicenis.Windows
                 return hostWindow;
             }
 
+            /// <summary>
+            /// Returns the TransformFromDevice matrix of the specified window.
+            /// </summary>
+            /// <param name="window">The window.</param>
+            /// <returns>The transformFromDevice matrix.</returns>
             private static Matrix GetTransformFromDevice(Window window)
             {
                 Debug.Assert(window != null);
@@ -1217,6 +1251,9 @@ namespace Nicenis.Windows
 
             VisualFeedbackContentManager _visualFeedbackContentManager;
 
+            /// <summary>
+            /// The content manager of the visual drag feedback.
+            /// </summary>
             private VisualFeedbackContentManager VisualFeedbackContentManager
             {
                 get { return _visualFeedbackContentManager ?? (_visualFeedbackContentManager = new VisualFeedbackContentManager(_dragSource)); }
@@ -1225,11 +1262,17 @@ namespace Nicenis.Windows
 
             Window _hostWindow;
 
+            /// <summary>
+            /// The window to host the visual drag feedback.
+            /// </summary>
             private Window HostWindow
             {
                 get { return _hostWindow ?? (_hostWindow = CreateHostWindow()); }
             }
 
+            /// <summary>
+            /// Closes the host windows and set it to null.
+            /// </summary>
             private void CloseHostWindow()
             {
                 if (_hostWindow == null)
@@ -1241,6 +1284,10 @@ namespace Nicenis.Windows
             }
 
 
+            /// <summary>
+            /// The data context set to the drag source element.
+            /// It can be null.
+            /// </summary>
             private object DragSourceDataContext
             {
                 get
@@ -1250,7 +1297,10 @@ namespace Nicenis.Windows
                 }
             }
 
-
+            /// <summary>
+            /// Updates the host window location to follow the position of the dragging.
+            /// </summary>
+            /// <param name="offset">The offset that is pointed by a pointing device in the the host window. The origin is the upper-left corner of the host window. The x-coordinates increase to the right. The y-coordinates increase to the bottom.</param>
             private void UpdateHostWindowLocation(Point offset)
             {
                 // Gets the current mouse positon.
@@ -1276,6 +1326,25 @@ namespace Nicenis.Windows
             #endregion
 
 
+            /// <summary>
+            /// Updates the visual feedback host to display the visual drag feedback appropriately.
+            /// If content or contentTemplate or contentTemplateSelector is not null,
+            /// auto generated visual feedback is not displayed regardless of the isAutoVisualFeedbackAllowed.
+            /// </summary>
+            /// <param name="isAutoVisualFeedbackAllowed">A value that indicates whether the auto generated visual feedback is allowed or not.</param>
+            /// <param name="content">The content of the visual feedback host.</param>
+            /// <param name="contentTemplate">The content template of the visual feedback host.</param>
+            /// <param name="contentTemplateSelector">The content template selector of the visual feedback host.</param>
+            /// <param name="dataContext">The data context of the visual feedback host. If this value is null, the drag source's data context is used.</param>
+            /// <param name="offset">An offset that is pointed by a pointing device in the visual feedback host. The origin is the upper-left corner of the visual feedback host. The x-coordinates increase to the right. The y-coordinates increase to the bottom.</param>
+            /// <param name="opacity">An opacity of the visual feedback host.</param>
+            /// <param name="visibility">The visual feedback host visibility.</param>
+            /// <param name="width">A width of the visual feedback host.</param>
+            /// <param name="height">A height of the visual feedback host.</param>
+            /// <param name="minWidth">A minimum width of the visual feedback host.</param>
+            /// <param name="minHeight">A minimum height of the visual feedback host.</param>
+            /// <param name="maxWidth">A maximum width of the visual feedback host.</param>
+            /// <param name="maxHeight">A maximum height of the visual feedback host.</param>
             public void Update(bool isAutoVisualFeedbackAllowed, object content, DataTemplate contentTemplate, DataTemplateSelector contentTemplateSelector,
                     object dataContext, Point offset, double opacity, Visibility visibility, double width, double height,
                     double minWidth, double minHeight, double maxWidth, double maxHeight)
@@ -1324,6 +1393,9 @@ namespace Nicenis.Windows
             #endregion
         }
 
+        /// <summary>
+        /// Manages content for the visual feedback.
+        /// </summary>
         internal class VisualFeedbackContentManager
         {
             UIElement _dragSource;
@@ -1331,6 +1403,10 @@ namespace Nicenis.Windows
 
             #region Constructors
 
+            /// <summary>
+            /// Initializes a new instance of the VisualFeedbackContentManager class.
+            /// </summary>
+            /// <param name="dragSource">The element to drag.</param>
             public VisualFeedbackContentManager(UIElement dragSource)
             {
                 _dragSource = dragSource;
@@ -1341,6 +1417,11 @@ namespace Nicenis.Windows
 
             #region CreateGeneratedContent
 
+            /// <summary>
+            /// Generates a visual feedback based on the dragged element.
+            /// </summary>
+            /// <param name="dragSource">The element to drag.</param>
+            /// <returns>A generated visual feedback if the dragSource is not null; otherwise null.</returns>
             private static FrameworkElement CreateGeneratedContent(UIElement dragSource)
             {
                 // If the drag source is null
@@ -1377,6 +1458,9 @@ namespace Nicenis.Windows
 
             ContentControl _contentControl;
 
+            /// <summary>
+            /// The content control to host the visual feedback content.
+            /// </summary>
             private ContentControl ContentControl
             {
                 get { return _contentControl ?? (_contentControl = new ContentControl()); }
@@ -1384,6 +1468,9 @@ namespace Nicenis.Windows
 
             FrameworkElement _generatedContent;
 
+            /// <summary>
+            /// The generated visual feedback content.
+            /// </summary>
             private FrameworkElement GeneratedContent
             {
                 get { return _generatedContent ?? (_generatedContent = CreateGeneratedContent(_dragSource)); }
@@ -1393,10 +1480,16 @@ namespace Nicenis.Windows
 
 
             /// <summary>
-            /// Returns null if there is no content to display.
+            /// Creates or gets the FrameworkElement that can be used as a content of the visual feedback.
+            /// If content or contentTemplate or contentTemplateSelector is not null,
+            /// auto generated visual feedback is not returned regardless of the isAutoVisualFeedbackAllowed.
+            /// It can return null if the visual feedback is not allowed or no content.
             /// </summary>
-            /// <param name="content"></param>
-            /// <returns></returns>
+            /// <param name="isAutoVisualFeedbackAllowed">A value that indicates whether the auto generated visual feedback is allowed or not.</param>
+            /// <param name="content">The content of the visual feedback.</param>
+            /// <param name="contentTemplate">The content template of the visual feedback.</param>
+            /// <param name="contentTemplateSelector">The content template selector of the visual feedback.</param>
+            /// <returns>The visual feedback content.</returns>
             public FrameworkElement CreateOrGetContent(bool isAutoVisualFeedbackAllowed, object content, DataTemplate contentTemplate, DataTemplateSelector contentTemplateSelector)
             {
                 // If any content related property is set, it means that user wants to control the content display.
