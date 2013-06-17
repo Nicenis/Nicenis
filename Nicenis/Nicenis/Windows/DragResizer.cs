@@ -145,7 +145,7 @@ namespace Nicenis.Windows
     /// Resizes a Window or a FrameworkElement on a Canvas by dragging.
     /// </summary>
     /// <remarks>
-    /// The IsTarget attached property is used to specified an element to resize.
+    /// The IsTarget attached property is used to specify an element to resize.
     /// If no element is speicifed as a target, the hosting Window becomes the target.
     /// The BorderThickness property is used for the size of internal thumbs.
     /// </remarks>
