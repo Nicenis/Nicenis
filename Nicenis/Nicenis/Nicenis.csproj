@@ -54,6 +54,7 @@
     <Compile Include="Security\Cryptography\StringHasher.cs" />
     <Compile Include="Security\Cryptography\StringEncrypter.cs" />
     <Compile Include="Windows\Data\Converters\FalsyToConverters.cs" />
+    <Compile Include="Windows\DragInitiator.cs" />
     <Compile Include="Windows\DragSource.cs" />
     <Compile Include="Windows\DropTarget.cs">
       <SubType>Code</SubType>
