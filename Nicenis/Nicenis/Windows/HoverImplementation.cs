@@ -13,6 +13,81 @@ using System.Windows;
 
 namespace Nicenis.Windows
 {
+    #region Hover Event Argument Related
+
+    public class HoverEventArgs : RoutedEventArgs
+    {
+        #region Constructors
+
+        internal HoverEventArgs(RoutedEvent routedEvent, object source,
+                Point basePosition, long baseTicks, Point hoveredPosition, long hoveredTicks)
+            : base(routedEvent, source)
+        {
+            BasePosition = basePosition;
+            BaseTicks = baseTicks;
+            HoveredPosition = hoveredPosition;
+            HoveredTicks = hoveredTicks;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        /// The base position for recognizing hover action.
+        /// </summary>
+        public Point BasePosition { get; private set; }
+
+        /// <summary>
+        /// The ticks when the BasePosition is set.
+        /// </summary>
+        public long BaseTicks { get; private set; }
+
+        /// <summary>
+        /// The position at which the hover event is occurred.
+        /// </summary>
+        public Point HoveredPosition { get; private set; }
+
+        /// <summary>
+        /// The ticks when the hover event is occurred.
+        /// </summary>
+        public long HoveredTicks { get; private set; }
+
+        #endregion
+    }
+
+    #endregion
+
+
+    #region HoverEventMode
+
+    public enum HoverEventMode
+    {
+        /// <summary>
+        /// The hover event is raised when the hover condition is met
+        /// and it is not raised again if pointing device is still in the target element.
+        /// To raise the hover event again, the pointing device must be left out
+        /// and reenter the target element and the hover condition is met.
+        /// </summary>
+        Once,
+
+        /// <summary>
+        /// The hover event is raised when the hover condition is met.
+        /// </summary>
+        Normal,
+
+        /// <summary>
+        /// The hover event is raised when the hover condition is met
+        /// and it is repeated until the hover condition is broken.
+        /// The interval is HoverTime.
+        /// </summary>
+        Repeat,
+    }
+
+    #endregion
+
+
     #region HoverImplementationBase
 
     /// <summary>

@@ -61,8 +61,6 @@
     </Compile>
     <Compile Include="Windows\FrameworkElementHelper.cs" />
     <Compile Include="Windows\HoverBehavior.cs" />
-    <Compile Include="Windows\HoverEventArgs.cs" />
-    <Compile Include="Windows\HoverEventMode.cs" />
     <Compile Include="Windows\HoverImplementation.cs" />
     <Compile Include="Windows\Threading\DispatcherExtensions.cs" />
     <Compile Include="Windows\WindowHelper.cs" />
