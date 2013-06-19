@@ -64,7 +64,6 @@
     <Compile Include="Windows\HoverEventArgs.cs" />
     <Compile Include="Windows\HoverEventMode.cs" />
     <Compile Include="Windows\HoverImplementation.cs" />
-    <Compile Include="Windows\IRoutedEventRaiser.cs" />
     <Compile Include="Windows\Threading\DispatcherExtensions.cs" />
     <Compile Include="Windows\WindowHelper.cs" />
     <Compile Include="Windows\DependencyObjectExtensions.cs">
