@@ -253,7 +253,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an opacity of the visual drag feedback.
+        /// Gets or sets the opacity of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackOpacity
         {
@@ -271,7 +271,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a width of the visual drag feedback.
+        /// Gets or sets the width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackWidth
         {
@@ -280,7 +280,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a height of the visual drag feedback.
+        /// Gets or sets the height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackHeight
         {
@@ -289,7 +289,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum width of the visual drag feedback.
+        /// Gets or sets the minimum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinWidth
         {
@@ -298,7 +298,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum height of the visual drag feedback.
+        /// Gets or sets the minimum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinHeight
         {
@@ -307,7 +307,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum width of the visual drag feedback.
+        /// Gets or sets the maximum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxWidth
         {
@@ -316,7 +316,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum height of the visual drag feedback.
+        /// Gets or sets the maximum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxHeight
         {
@@ -475,7 +475,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an opacity of the visual drag feedback.
+        /// Gets or sets the opacity of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackOpacity
         {
@@ -493,7 +493,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a width of the visual drag feedback.
+        /// Gets or sets the width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackWidth
         {
@@ -502,7 +502,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a height of the visual drag feedback.
+        /// Gets or sets the height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackHeight
         {
@@ -511,7 +511,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum width of the visual drag feedback.
+        /// Gets or sets the minimum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinWidth
         {
@@ -520,7 +520,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum height of the visual drag feedback.
+        /// Gets or sets the minimum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinHeight
         {
@@ -529,7 +529,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum width of the visual drag feedback.
+        /// Gets or sets the maximum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxWidth
         {
@@ -538,7 +538,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum height of the visual drag feedback.
+        /// Gets or sets the maximum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxHeight
         {
@@ -701,7 +701,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets an opacity of the visual drag feedback.
+        /// Gets or sets the opacity of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackOpacity
         {
@@ -719,7 +719,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a width of the visual drag feedback.
+        /// Gets or sets the width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackWidth
         {
@@ -728,7 +728,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a height of the visual drag feedback.
+        /// Gets or sets the height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackHeight
         {
@@ -737,7 +737,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum width of the visual drag feedback.
+        /// Gets or sets the minimum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinWidth
         {
@@ -746,7 +746,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a minimum height of the visual drag feedback.
+        /// Gets or sets the minimum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMinHeight
         {
@@ -755,7 +755,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum width of the visual drag feedback.
+        /// Gets or sets the maximum width of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxWidth
         {
@@ -764,7 +764,7 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Gets or sets a maximum height of the visual drag feedback.
+        /// Gets or sets the maximum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxHeight
         {
@@ -918,7 +918,7 @@ namespace Nicenis.Windows
         public double VisualFeedbackMaxHeight { get { return _context.VisualFeedbackMaxHeight; } }
 
         /// <summary>
-        /// Gets a value that specifies the final effect that was performed during the drag-and-drop operation.
+        /// Gets the final effect that was performed during the drag-and-drop operation.
         /// </summary>
         public DragDropEffects FinalEffects { get; private set; }
 
@@ -1519,6 +1519,9 @@ namespace Nicenis.Windows
 
         #region Context Attached Property
 
+        /// <summary>
+        /// The attached property to store internal context information.
+        /// </summary>
         private static readonly DependencyProperty ContextProperty = DependencyProperty.RegisterAttached
         (
             "Context",
@@ -1526,16 +1529,32 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets a value that stores internal context information.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <returns>A Context instance.</returns>
         private static Context GetContext(DependencyObject obj)
         {
             return (Context)obj.GetValue(ContextProperty);
         }
 
+        /// <summary>
+        /// Sets a value that stores internal context information.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <param name="value">A Context instance.</param>
         private static void SetContext(DependencyObject obj, Context value)
         {
             obj.SetValue(ContextProperty, value);
         }
 
+        /// <summary>
+        /// Gets a value that stores internal context information.
+        /// If it is not set, new context is created and set.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <param name="value">A Context instance.</param>
         private static Context GetSafeContext(DependencyObject obj)
         {
             Debug.Assert(obj != null);
@@ -1553,6 +1572,9 @@ namespace Nicenis.Windows
 
         #region AllowDrag Attached Property
 
+        /// <summary>
+        /// The attached property to indicate whether the element is draggable.
+        /// </summary>
         public static readonly DependencyProperty AllowDragProperty = DependencyProperty.RegisterAttached
         (
             "AllowDrag",
@@ -1561,11 +1583,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(false, AllowDragProperty_Changed)
         );
 
+        /// <summary>
+        /// Gets a value that indicates whether the element is draggable.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>True if it is draggable; otherwise, false.</returns>
         public static bool GetAllowDrag(UIElement obj)
         {
             return (bool)obj.GetValue(AllowDragProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the element is draggable.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the element is draggable.</param>
         public static void SetAllowDrag(UIElement obj, bool value)
         {
             obj.SetValue(AllowDragProperty, value);
@@ -1810,6 +1842,9 @@ namespace Nicenis.Windows
 
         #region AllowedInitiators Attached Property
 
+        /// <summary>
+        /// The attached property to specified allowed drag initiators.
+        /// </summary>
         public static readonly DependencyProperty AllowedInitiatorsProperty = DependencyProperty.RegisterAttached
         (
             "AllowedInitiators",
@@ -1818,11 +1853,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(DragInitiators.Default)
         );
 
+        /// <summary>
+        /// Gets a value that specifies allowed drag initiators.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>Allowed drag initiators.</returns>
         public static DragInitiators GetAllowedInitiators(DependencyObject obj)
         {
             return (DragInitiators)obj.GetValue(AllowedInitiatorsProperty);
         }
 
+        /// <summary>
+        /// Sets a value that specifies allowed drag initiators.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that specifies allowed drag initiators.</param>
         public static void SetAllowedInitiators(DependencyObject obj, DragInitiators value)
         {
             obj.SetValue(AllowedInitiatorsProperty, value);
@@ -1833,6 +1878,9 @@ namespace Nicenis.Windows
 
         #region Data Attached Property
 
+        /// <summary>
+        /// The attached property for a data object that contains the data being dragged.
+        /// </summary>
         public static readonly DependencyProperty DataProperty = DependencyProperty.RegisterAttached
         (
             "Data",
@@ -1840,11 +1888,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets a data object that contains the data being dragged.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A data object that contains the data being dragged.</returns>
         public static object GetData(DependencyObject obj)
         {
             return (object)obj.GetValue(DataProperty);
         }
 
+        /// <summary>
+        /// Sets a data object that contains the data being dragged.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A data object that contains the data being dragged.</param>
         public static void SetData(DependencyObject obj, object value)
         {
             obj.SetValue(DataProperty, value);
@@ -1855,6 +1913,12 @@ namespace Nicenis.Windows
 
         #region IsCaptureAllowed Attached Property
 
+        /// <summary>
+        /// The attached property to indicate whether mouse capture is used for dragging.
+        /// </summary>
+        /// <remarks>
+        /// If mouse capture is not allowed, dragging by the near edge can be failed.
+        /// </remarks>
         public static readonly DependencyProperty IsCaptureAllowedProperty = DependencyProperty.RegisterAttached
         (
             "IsCaptureAllowed",
@@ -1863,11 +1927,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(true)
         );
 
+        /// <summary>
+        /// Gets a value that indicates whether mouse capture is used for dragging.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>True if mouse capture is used for dragging; otherwise, false.</returns>
         public static bool GetIsCaptureAllowed(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsCaptureAllowedProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether mouse capture is used for dragging.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether mouse capture is used for dragging.</param>
         public static void SetIsCaptureAllowed(DependencyObject obj, bool value)
         {
             obj.SetValue(IsCaptureAllowedProperty, value);
@@ -1878,6 +1952,13 @@ namespace Nicenis.Windows
 
         #region IsAutoVisualFeedbackAllowed Attached Property
 
+        /// <summary>
+        /// The attached property to indicate whether auto visual feedback is allowed or not.
+        /// </summary>
+        /// <remarks>
+        /// DragSource displays a generated visual drag feedback if any visual feedback related property is not set.
+        /// This property turns off the visual drag feedback.
+        /// </remarks>
         public static readonly DependencyProperty IsAutoVisualFeedbackAllowedProperty = DependencyProperty.RegisterAttached
         (
             "IsAutoVisualFeedbackAllowed",
@@ -1886,11 +1967,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(true)
         );
 
+        /// <summary>
+        /// Gets a value that indicates whether auto visual feedback is allowed or not.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>True if auto visual feedback is allowed; otherwise, false.</returns>
         public static bool GetIsAutoVisualFeedbackAllowed(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsAutoVisualFeedbackAllowedProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether auto visual feedback is allowed or not.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether auto visual feedback is allowed or not.</param>
         public static void SetIsAutoVisualFeedbackAllowed(DependencyObject obj, bool value)
         {
             obj.SetValue(IsAutoVisualFeedbackAllowedProperty, value);
@@ -1901,6 +1992,10 @@ namespace Nicenis.Windows
 
         #region VisualFeedback Attached Property
 
+        /// <summary>
+        /// The attached property for an object that is set to the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedback",
@@ -1908,11 +2003,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets an object that is set to the content of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>An object that is set to the content of the visual drag feedback.</returns>
         public static object GetVisualFeedback(DependencyObject obj)
         {
             return (object)obj.GetValue(VisualFeedbackProperty);
         }
 
+        /// <summary>
+        /// Sets an object that is set to the content of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">An object that is set to the content of the visual drag feedback.</param>
         public static void SetVisualFeedback(DependencyObject obj, object value)
         {
             obj.SetValue(VisualFeedbackProperty, value);
@@ -1923,6 +2028,10 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackTemplate Attached Property
 
+        /// <summary>
+        /// The attached property for a data template used to display the content of the visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackTemplateProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackTemplate",
@@ -1930,11 +2039,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets a data template used to display the content of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A data template used to display the content of the visual drag feedback.</returns>
         public static DataTemplate GetVisualFeedbackTemplate(DependencyObject obj)
         {
             return (DataTemplate)obj.GetValue(VisualFeedbackTemplateProperty);
         }
 
+        /// <summary>
+        /// Sets a data template used to display the content of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A data template used to display the content of the visual drag feedback.</param>
         public static void SetVisualFeedbackTemplate(DependencyObject obj, DataTemplate value)
         {
             obj.SetValue(VisualFeedbackTemplateProperty, value);
@@ -1945,6 +2064,10 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackTemplateSelector Attached Property
 
+        /// <summary>
+        /// The attached property for a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// If this value is not null, the auto generated visual drag feedback is not displayed.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackTemplateSelectorProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackTemplateSelector",
@@ -1952,11 +2075,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.</returns>
         public static DataTemplateSelector GetVisualFeedbackTemplateSelector(DependencyObject obj)
         {
             return (DataTemplateSelector)obj.GetValue(VisualFeedbackTemplateSelectorProperty);
         }
 
+        /// <summary>
+        /// Sets a template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.</param>
         public static void SetVisualFeedbackTemplateSelector(DependencyObject obj, DataTemplateSelector value)
         {
             obj.SetValue(VisualFeedbackTemplateSelectorProperty, value);
@@ -1967,6 +2100,10 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackDataContext Attached Property
 
+        /// <summary>
+        /// The attached property for an object that is set to the data context of the visual drag feedback.
+        /// If this value is null, the drag source's data context is set.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackDataContextProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackDataContext",
@@ -1974,11 +2111,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Gets an object that is set to the data context of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>An object that is set to the data context of the visual drag feedback.</returns>
         public static object GetVisualFeedbackDataContext(DependencyObject obj)
         {
             return (object)obj.GetValue(VisualFeedbackDataContextProperty);
         }
 
+        /// <summary>
+        /// Sets an object that is set to the data context of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">An object that is set to the data context of the visual drag feedback.</param>
         public static void SetVisualFeedbackDataContext(DependencyObject obj, object value)
         {
             obj.SetValue(VisualFeedbackDataContextProperty, value);
@@ -1989,6 +2136,11 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackOffset Attached Property
 
+        /// <summary>
+        /// The attached property for an offset that is pointed by a pointing device in the visual drag feedback.
+        /// The origin is the upper-left corner of the visual drag feedback.
+        /// The x-coordinates increase to the right. The y-coordinates increase to the bottom.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackOffsetProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackOffset",
@@ -1997,11 +2149,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(new Point(7, 7))
         );
 
+        /// <summary>
+        /// Gets an offset that is pointed by a pointing device in the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>An offset that is pointed by a pointing device in the visual drag feedback.</returns>
         public static Point GetVisualFeedbackOffset(DependencyObject obj)
         {
             return (Point)obj.GetValue(VisualFeedbackOffsetProperty);
         }
 
+        /// <summary>
+        /// Sets an offset that is pointed by a pointing device in the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">An offset that is pointed by a pointing device in the visual drag feedback.</param>
         public static void SetVisualFeedbackOffset(DependencyObject obj, Point value)
         {
             obj.SetValue(VisualFeedbackOffsetProperty, value);
@@ -2012,6 +2174,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackOpacity Attached Property
 
+        /// <summary>
+        /// The attached property for the opacity of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackOpacityProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackOpacity",
@@ -2020,11 +2185,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(0.5d)
         );
 
+        /// <summary>
+        /// Gets the opacity of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The opacity of the visual drag feedback.</returns>
         public static double GetVisualFeedbackOpacity(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackOpacityProperty);
         }
 
+        /// <summary>
+        /// Sets the opacity of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The opacity of the visual drag feedback.</param>
         public static void SetVisualFeedbackOpacity(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackOpacityProperty, value);
@@ -2035,6 +2210,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackVisibility Attached Property
 
+        /// <summary>
+        /// The attached property for the visual drag feedback visibility.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackVisibilityProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackVisibility",
@@ -2043,11 +2221,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(Visibility.Visible)
         );
 
+        /// <summary>
+        /// Gets the visual drag feedback visibility.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The visual drag feedback visibility.</returns>
         public static Visibility GetVisualFeedbackVisibility(DependencyObject obj)
         {
             return (Visibility)obj.GetValue(VisualFeedbackVisibilityProperty);
         }
 
+        /// <summary>
+        /// Sets the visual drag feedback visibility.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The visual drag feedback visibility.</param>
         public static void SetVisualFeedbackVisibility(DependencyObject obj, Visibility value)
         {
             obj.SetValue(VisualFeedbackVisibilityProperty, value);
@@ -2058,6 +2246,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackWidth Attached Property
 
+        /// <summary>
+        /// The attached property for the width of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackWidthProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackWidth",
@@ -2066,11 +2257,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(double.NaN)
         );
 
+        /// <summary>
+        /// Gets the width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The width of the visual drag feedback.</returns>
         public static double GetVisualFeedbackWidth(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackWidthProperty);
         }
 
+        /// <summary>
+        /// Sets the width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The width of the visual drag feedback.</param>
         public static void SetVisualFeedbackWidth(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackWidthProperty, value);
@@ -2081,6 +2282,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackHeight Attached Property
 
+        /// <summary>
+        /// The attached property for the height of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackHeightProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackHeight",
@@ -2089,11 +2293,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(double.NaN)
         );
 
+        /// <summary>
+        /// Gets the height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The height of the visual drag feedback.</returns>
         public static double GetVisualFeedbackHeight(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackHeightProperty);
         }
 
+        /// <summary>
+        /// Sets the height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The height of the visual drag feedback.</param>
         public static void SetVisualFeedbackHeight(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackHeightProperty, value);
@@ -2104,6 +2318,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackMinWidth Attached Property
 
+        /// <summary>
+        /// The attached property for the minimum width of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackMinWidthProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackMinWidth",
@@ -2112,11 +2329,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(0d)
         );
 
+        /// <summary>
+        /// Gets the minimum width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The minimum width of the visual drag feedback.</returns>
         public static double GetVisualFeedbackMinWidth(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackMinWidthProperty);
         }
 
+        /// <summary>
+        /// Sets the minimum width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The minimum width of the visual drag feedback.</param>
         public static void SetVisualFeedbackMinWidth(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackMinWidthProperty, value);
@@ -2127,6 +2354,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackMinHeight Attached Property
 
+        /// <summary>
+        /// The attached property for the minimum height of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackMinHeightProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackMinHeight",
@@ -2135,11 +2365,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(0d)
         );
 
+        /// <summary>
+        /// Gets the minimum height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The minimum height of the visual drag feedback.</returns>
         public static double GetVisualFeedbackMinHeight(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackMinHeightProperty);
         }
 
+        /// <summary>
+        /// Sets the minimum height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The minimum height of the visual drag feedback.</param>
         public static void SetVisualFeedbackMinHeight(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackMinHeightProperty, value);
@@ -2150,6 +2390,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackMaxWidth Attached Property
 
+        /// <summary>
+        /// The attached property for the maximum width of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackMaxWidthProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackMaxWidth",
@@ -2158,11 +2401,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(double.PositiveInfinity)
         );
 
+        /// <summary>
+        /// Gets the maximum width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The maximum width of the visual drag feedback.</returns>
         public static double GetVisualFeedbackMaxWidth(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackMaxWidthProperty);
         }
 
+        /// <summary>
+        /// Sets the maximum width of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The maximum width of the visual drag feedback.</param>
         public static void SetVisualFeedbackMaxWidth(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackMaxWidthProperty, value);
@@ -2173,6 +2426,9 @@ namespace Nicenis.Windows
 
         #region VisualFeedbackMaxHeight Attached Property
 
+        /// <summary>
+        /// The attached property for the maximum height of the visual drag feedback.
+        /// </summary>
         public static readonly DependencyProperty VisualFeedbackMaxHeightProperty = DependencyProperty.RegisterAttached
         (
             "VisualFeedbackMaxHeight",
@@ -2181,11 +2437,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(double.PositiveInfinity)
         );
 
+        /// <summary>
+        /// Gets the maximum height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The maximum height of the visual drag feedback.</returns>
         public static double GetVisualFeedbackMaxHeight(DependencyObject obj)
         {
             return (double)obj.GetValue(VisualFeedbackMaxHeightProperty);
         }
 
+        /// <summary>
+        /// Sets the maximum height of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The maximum height of the visual drag feedback.</param>
         public static void SetVisualFeedbackMaxHeight(DependencyObject obj, double value)
         {
             obj.SetValue(VisualFeedbackMaxHeightProperty, value);
@@ -2196,6 +2462,9 @@ namespace Nicenis.Windows
 
         #region Initiator ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for a value that initiates the dragging.
+        /// </summary>
         private static readonly DependencyPropertyKey InitiatorPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "Initiator",
@@ -2204,13 +2473,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(DragInitiator.MouseLeftButton)
         );
 
+        /// <summary>
+        /// The readonly attached property for a value that initiates the dragging.
+        /// </summary>
         public static readonly DependencyProperty InitiatorProperty = InitiatorPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets a value that initiates the dragging.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A value that initiates the dragging.</returns>
         public static DragInitiator GetInitiator(DependencyObject obj)
         {
             return (DragInitiator)obj.GetValue(InitiatorProperty);
         }
 
+        /// <summary>
+        /// Sets a value that initiates the dragging.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that initiates the dragging.</param>
         private static void SetInitiator(DependencyObject obj, DragInitiator value)
         {
             obj.SetValue(InitiatorPropertyKey, value);
@@ -2221,6 +2503,9 @@ namespace Nicenis.Windows
 
         #region ContactPosition ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for the contact position in the dragged source.
+        /// </summary>
         private static readonly DependencyPropertyKey ContactPositionPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "ContactPosition",
@@ -2229,13 +2514,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(new Point())
         );
 
+        /// <summary>
+        /// The readonly attached property for the contact position in the dragged source.
+        /// </summary>
         public static readonly DependencyProperty ContactPositionProperty = ContactPositionPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets the contact position in the dragged source.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The contact position in the dragged source.</returns>
         public static Point GetContactPosition(DependencyObject obj)
         {
             return (Point)obj.GetValue(ContactPositionProperty);
         }
 
+        /// <summary>
+        /// Sets the contact position in the dragged source.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The contact position in the dragged source.</param>
         private static void SetContactPosition(DependencyObject obj, Point value)
         {
             obj.SetValue(ContactPositionPropertyKey, value);
@@ -2246,6 +2544,16 @@ namespace Nicenis.Windows
 
         #region DraggedPosition ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for the dragged position in the dragged source.
+        /// </summary>
+        /// <remarks>
+        /// This value indicates the coordiate that the dragging is started.
+        /// MinimumHorizontalDragDistance and MinimumVerticalDragDistance are used to calculate this value.
+        /// It is in the dragged source cooridates.
+        /// </remarks>
+        /// <seealso cref="MinimumHorizontalDragDistance"/>
+        /// <seealso cref="MinimumVerticalDragDistance"/>
         private static readonly DependencyPropertyKey DraggedPositionPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "DraggedPosition",
@@ -2254,13 +2562,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(new Point())
         );
 
+        /// <summary>
+        /// The readonly attached property for the dragged position in the dragged source.
+        /// </summary>
         public static readonly DependencyProperty DraggedPositionProperty = DraggedPositionPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets the dragged position in the dragged source.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The dragged position in the dragged source.</returns>
         public static Point GetDraggedPosition(DependencyObject obj)
         {
             return (Point)obj.GetValue(DraggedPositionProperty);
         }
 
+        /// <summary>
+        /// Sets the dragged position in the dragged source.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The dragged position in the dragged source.</param>
         private static void SetDraggedPosition(DependencyObject obj, Point value)
         {
             obj.SetValue(DraggedPositionPropertyKey, value);
@@ -2271,6 +2592,9 @@ namespace Nicenis.Windows
 
         #region AllowedEffects Attached Property
 
+        /// <summary>
+        /// The attached property for a value indicating permitted effects of the drag-and-drop operation.
+        /// </summary>
         public static readonly DependencyProperty AllowedEffectsProperty = DependencyProperty.RegisterAttached
         (
             "AllowedEffects",
@@ -2279,11 +2603,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Scroll)
         );
 
+        /// <summary>
+        /// Gets a value indicating permitted effects of the drag-and-drop operation.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A value indicating permitted effects of the drag-and-drop operation.</returns>
         public static DragDropEffects GetAllowedEffects(DependencyObject obj)
         {
             return (DragDropEffects)obj.GetValue(AllowedEffectsProperty);
         }
 
+        /// <summary>
+        /// Sets a value indicating permitted effects of the drag-and-drop operation.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value indicating permitted effects of the drag-and-drop operation.</param>
         public static void SetAllowedEffects(DependencyObject obj, DragDropEffects value)
         {
             obj.SetValue(AllowedEffectsProperty, value);
@@ -2294,6 +2628,9 @@ namespace Nicenis.Windows
 
         #region MinimumHorizontalDragDistance & MinimumVerticalDragDistance Attached Property
 
+        /// <summary>
+        /// The attached property for the width of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
         public static readonly DependencyProperty MinimumHorizontalDragDistanceProperty = DependencyProperty.RegisterAttached
         (
             "MinimumHorizontalDragDistance",
@@ -2302,17 +2639,30 @@ namespace Nicenis.Windows
             new PropertyMetadata(SystemParameters.MinimumHorizontalDragDistance)
         );
 
+        /// <summary>
+        /// Gets the width of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The width of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.</returns>
         public static double GetMinimumHorizontalDragDistance(UIElement obj)
         {
             return (double)obj.GetValue(MinimumHorizontalDragDistanceProperty);
         }
 
+        /// <summary>
+        /// Sets the width of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The width of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.</param>
         public static void SetMinimumHorizontalDragDistance(UIElement obj, double value)
         {
             obj.SetValue(MinimumHorizontalDragDistanceProperty, value);
         }
 
 
+        /// <summary>
+        /// The attached property for the height of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
         public static readonly DependencyProperty MinimumVerticalDragDistanceProperty = DependencyProperty.RegisterAttached
         (
             "MinimumVerticalDragDistance",
@@ -2321,11 +2671,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(SystemParameters.MinimumVerticalDragDistance)
         );
 
+        /// <summary>
+        /// Gets the height of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The height of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.</returns>
         public static double GetMinimumVerticalDragDistance(UIElement obj)
         {
             return (double)obj.GetValue(MinimumVerticalDragDistanceProperty);
         }
 
+        /// <summary>
+        /// Sets the height of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The height of a rectangle centered on a drag point to allow for limited movement of the pointer before a drag operation begins.</param>
         public static void SetMinimumVerticalDragDistance(UIElement obj, double value)
         {
             obj.SetValue(MinimumVerticalDragDistanceProperty, value);
@@ -2336,6 +2696,9 @@ namespace Nicenis.Windows
 
         #region IsDragging ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for a value that indicates whether the drag is in progress.
+        /// </summary>
         private static readonly DependencyPropertyKey IsDraggingPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "IsDragging",
@@ -2344,13 +2707,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(false)
         );
 
+        /// <summary>
+        /// The readonly attached property for a value that indicates whether the drag is in progress.
+        /// </summary>
         public static readonly DependencyProperty IsDraggingProperty = IsDraggingPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets a value that indicates whether the drag is in progress.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A value that indicates whether the drag is in progress.</returns>
         public static bool GetIsDragging(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDraggingProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the drag is in progress.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the drag is in progress.</param>
         private static void SetIsDragging(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDraggingPropertyKey, value);
