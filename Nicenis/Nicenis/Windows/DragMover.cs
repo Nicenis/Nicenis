@@ -130,10 +130,6 @@ namespace Nicenis.Windows
     /// <summary>
     /// Moves a Window or a FrameworkElement on a Canvas by dragging.
     /// </summary>
-    /// <remarks>
-    /// The IsTarget attached property is used to specified an element to move.
-    /// If no element is speicifed as a target, the hosting Window becomes the target.
-    /// </remarks>
     [TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
     public class DragMover : Control
     {
