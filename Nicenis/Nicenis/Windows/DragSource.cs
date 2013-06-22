@@ -2737,6 +2737,9 @@ namespace Nicenis.Windows
 
         #region DragSensing event related
 
+        /// <summary>
+        /// Identifies the PreviewDragSensing routed event that is raised when drag gesture recognition is in progress.
+        /// </summary>
         public static readonly RoutedEvent PreviewDragSensingEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewDragSensing",
@@ -2745,17 +2748,30 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewDragSensing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewDragSensingHandler(UIElement obj, EventHandler<DragSourceDragSensingEventArgs> handler)
         {
             obj.AddHandler(PreviewDragSensingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewDragSensing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewDragSensingHandler(UIElement obj, EventHandler<DragSourceDragSensingEventArgs> handler)
         {
             obj.RemoveHandler(PreviewDragSensingEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the DragSensing routed event that is raised when drag gesture recognition is in progress.
+        /// </summary>
         public static readonly RoutedEvent DragSensingEvent = EventManager.RegisterRoutedEvent
         (
             "DragSensing",
@@ -2764,11 +2780,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the DragSensing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddDragSensingHandler(UIElement obj, EventHandler<DragSourceDragSensingEventArgs> handler)
         {
             obj.AddHandler(DragSensingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the DragSensing event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveDragSensingHandler(UIElement obj, EventHandler<DragSourceDragSensingEventArgs> handler)
         {
             obj.RemoveHandler(DragSensingEvent, handler);
@@ -2776,11 +2802,13 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Raises PreviewDragSensingEvent and DragSensingEvent.
-        /// The context instance must be initialized.
+        /// Raises the PreviewDragSensingEvent and DragSensingEvent.
         /// </summary>
-        /// <param name="target"></param>
-        /// <returns>Returns true if user does not cancel, otherwise false.</returns>
+        /// <param name="target">The target element to raise the routed event.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <returns>True if it is not canceled; otherwise, false.</returns>
         private static bool RaiseDragSensingEvent(UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition)
         {
             Debug.Assert(target != null);
@@ -2819,6 +2847,9 @@ namespace Nicenis.Windows
 
         #region Dragging event related
 
+        /// <summary>
+        /// Identifies the PreviewDragging routed event that is raised when a dragging is about to start.
+        /// </summary>
         public static readonly RoutedEvent PreviewDraggingEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewDragging",
@@ -2827,17 +2858,30 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewDragging event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewDraggingHandler(UIElement obj, EventHandler<DragSourceDraggingEventArgs> handler)
         {
             obj.AddHandler(PreviewDraggingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewDragging event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewDraggingHandler(UIElement obj, EventHandler<DragSourceDraggingEventArgs> handler)
         {
             obj.RemoveHandler(PreviewDraggingEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the Dragging routed event that is raised when a dragging is about to start.
+        /// </summary>
         public static readonly RoutedEvent DraggingEvent = EventManager.RegisterRoutedEvent
         (
             "Dragging",
@@ -2846,11 +2890,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the Dragging event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddDraggingHandler(UIElement obj, EventHandler<DragSourceDraggingEventArgs> handler)
         {
             obj.AddHandler(DraggingEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the Dragging event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveDraggingHandler(UIElement obj, EventHandler<DragSourceDraggingEventArgs> handler)
         {
             obj.RemoveHandler(DraggingEvent, handler);
@@ -2858,12 +2912,15 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Raises PreviewDraggingEvent and DragEvent.
+        /// Raises the PreviewDraggingEvent and DraggingEvent.
         /// The context instance must be initialized.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="context"></param>
-        /// <returns>Returns true if user does not cancel, otherwise false.</returns>
+        /// <param name="target">The target element to raise the routed event.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>True if it is not canceled; otherwise, false.</returns>
         private static bool RaiseDraggingEvent(UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition, IDragSourceDraggingEventArgsContext context)
         {
             Debug.Assert(target != null);
@@ -2904,6 +2961,9 @@ namespace Nicenis.Windows
 
         #region GiveFeedback event related
 
+        /// <summary>
+        /// Identifies the PreviewGiveFeedback routed event that is raised when the DragDrop.PreviewGiveFeedback event is raised.
+        /// </summary>
         public static readonly RoutedEvent PreviewGiveFeedbackEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewGiveFeedback",
@@ -2912,17 +2972,30 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewGiveFeedback event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewGiveFeedbackHandler(UIElement obj, EventHandler<DragSourceGiveFeedbackEventArgs> handler)
         {
             obj.AddHandler(PreviewGiveFeedbackEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewGiveFeedback event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewGiveFeedbackHandler(UIElement obj, EventHandler<DragSourceGiveFeedbackEventArgs> handler)
         {
             obj.RemoveHandler(PreviewGiveFeedbackEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the GiveFeedback routed event that is raised when the DragDrop.GiveFeedback event is raised.
+        /// </summary>
         public static readonly RoutedEvent GiveFeedbackEvent = EventManager.RegisterRoutedEvent
         (
             "GiveFeedback",
@@ -2931,11 +3004,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the GiveFeedback event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddGiveFeedbackHandler(UIElement obj, EventHandler<DragSourceGiveFeedbackEventArgs> handler)
         {
             obj.AddHandler(GiveFeedbackEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the GiveFeedback event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveGiveFeedbackHandler(UIElement obj, EventHandler<DragSourceGiveFeedbackEventArgs> handler)
         {
             obj.RemoveHandler(GiveFeedbackEvent, handler);
@@ -2943,11 +3026,16 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Raises PreviewGiveFeedbackEvent or GiveFeedbackEvent.
+        /// Raises the PreviewGiveFeedbackEvent or GiveFeedbackEvent.
         /// The context instance must be initialized.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="context"></param>
+        /// <param name="isPreview">Whether the event is the PreviewGiveFeedback.</param>
+        /// <param name="target">The target element to raise the routed event.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="giveFeedbackEventArgs">The GiveFeedbackEventArgs.</param>
         private static void RaiseGiveFeedbackEvent(bool isPreview, UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                 IDragSourceGiveFeedbackEventArgsContext context, GiveFeedbackEventArgs giveFeedbackEventArgs)
         {
@@ -2983,6 +3071,9 @@ namespace Nicenis.Windows
 
         #region QueryContinueDrag event related
 
+        /// <summary>
+        /// Identifies the PreviewQueryContinueDrag routed event that is raised the DragDrop.PreviewQueryContinueDrag event is raised.
+        /// </summary>
         public static readonly RoutedEvent PreviewQueryContinueDragEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewQueryContinueDrag",
@@ -2991,17 +3082,30 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewQueryContinueDrag event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewQueryContinueDragHandler(UIElement obj, EventHandler<DragSourceQueryContinueDragEventArgs> handler)
         {
             obj.AddHandler(PreviewQueryContinueDragEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewQueryContinueDrag event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewQueryContinueDragHandler(UIElement obj, EventHandler<DragSourceQueryContinueDragEventArgs> handler)
         {
             obj.RemoveHandler(PreviewQueryContinueDragEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the QueryContinueDrag routed event that is raised the DragDrop.QueryContinueDrag event is raised.
+        /// </summary>
         public static readonly RoutedEvent QueryContinueDragEvent = EventManager.RegisterRoutedEvent
         (
             "QueryContinueDrag",
@@ -3010,11 +3114,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the QueryContinueDrag event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddQueryContinueDragHandler(UIElement obj, EventHandler<DragSourceQueryContinueDragEventArgs> handler)
         {
             obj.AddHandler(QueryContinueDragEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the QueryContinueDrag event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveQueryContinueDragHandler(UIElement obj, EventHandler<DragSourceQueryContinueDragEventArgs> handler)
         {
             obj.RemoveHandler(QueryContinueDragEvent, handler);
@@ -3022,11 +3136,16 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Raises PreviewQueryContinueDragEvent or QueryContinueDragEvent.
+        /// Raises the PreviewQueryContinueDragEvent or QueryContinueDragEvent.
         /// The context instance must be initialized.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="context"></param>
+        /// <param name="isPreview">Whether the event is the PreviewQueryContinueDragEvent.</param>
+        /// <param name="target">The target element to raise the routed event.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="queryContinueDragEventArgs">The QueryContinueDragEventArgs.</param>
         private static void RaiseQueryContinueDragEvent(bool isPreview, UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                 IDragSourceQueryContinueDragEventArgsContext context, QueryContinueDragEventArgs queryContinueDragEventArgs)
         {
@@ -3059,6 +3178,9 @@ namespace Nicenis.Windows
 
         #region Dropped event related
 
+        /// <summary>
+        /// Identifies the PreviewDropped routed event that is raised when a drag-and-drop operation is finished.
+        /// </summary>
         public static readonly RoutedEvent PreviewDroppedEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewDropped",
@@ -3067,17 +3189,30 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewDropped event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
             obj.AddHandler(PreviewDroppedEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewDropped event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
             obj.RemoveHandler(PreviewDroppedEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the Dropped routed event that is raised when a drag-and-drop operation is finished.
+        /// </summary>
         public static readonly RoutedEvent DroppedEvent = EventManager.RegisterRoutedEvent
         (
             "Dropped",
@@ -3086,11 +3221,21 @@ namespace Nicenis.Windows
             typeof(DragSource)
         );
 
+        /// <summary>
+        /// Adds an event handler for the Dropped event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
             obj.AddHandler(DroppedEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the Dropped event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
             obj.RemoveHandler(DroppedEvent, handler);
@@ -3098,12 +3243,15 @@ namespace Nicenis.Windows
 
 
         /// <summary>
-        /// Raises PreviewDroppedEvent and DroppedEvent.
+        /// Raises the PreviewDroppedEvent and DroppedEvent.
         /// The context instance must be initialized.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="context"></param>
-        /// <returns>Returns true if user does not cancel, otherwise false.</returns>
+        /// <param name="target">The target element to raise the routed event.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="finalEffects">The value that is returned by the DragDrop.DoDragDrop method.</param>
         private static void RaiseDroppedEvent(UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition,
                 IDragSourceDroppedEventArgsContext context, DragDropEffects finalEffects)
         {
@@ -3144,7 +3292,7 @@ namespace Nicenis.Windows
         /// <param name="minDragDistance">The size of a rectangle centered on a drag position to allow for limited movement of the pointer before a drag operation begins.</param>
         /// <param name="startPosition">The start location.</param>
         /// <param name="draggedPosition">The dragged location.</param>
-        /// <returns>True if it is enough to start a drag, otherwise false.</returns>
+        /// <returns>True if it is enough to start a drag; otherwise, false.</returns>
         public static bool IsEnoughToStartDrag(Vector minDragDistance, Point startPosition, Point draggedPosition)
         {
             return (Math.Abs(startPosition.X - draggedPosition.X) > minDragDistance.X / 2)
