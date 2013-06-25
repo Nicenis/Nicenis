@@ -2735,7 +2735,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region DragSensing event related
+        #region DragSensing Event Related
 
         /// <summary>
         /// Identifies the PreviewDragSensing routed event that is raised when drag gesture recognition is in progress.
@@ -2845,7 +2845,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Dragging event related
+        #region Dragging Event Related
 
         /// <summary>
         /// Identifies the PreviewDragging routed event that is raised when a dragging is about to start.
@@ -2959,7 +2959,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region GiveFeedback event related
+        #region GiveFeedback Event Related
 
         /// <summary>
         /// Identifies the PreviewGiveFeedback routed event that is raised when the DragDrop.PreviewGiveFeedback event is raised.
@@ -3069,7 +3069,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region QueryContinueDrag event related
+        #region QueryContinueDrag Event Related
 
         /// <summary>
         /// Identifies the PreviewQueryContinueDrag routed event that is raised the DragDrop.PreviewQueryContinueDrag event is raised.
@@ -3176,7 +3176,7 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Dropped event related
+        #region Dropped Event Related
 
         /// <summary>
         /// Identifies the PreviewDropped routed event that is raised when a drag-and-drop operation is finished.
