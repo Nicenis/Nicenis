@@ -8,19 +8,21 @@
 
 using Nicenis.Windows.Threading;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Nicenis.Windows
 {
+    /// <summary>
+    /// Provides functionalities related to drop target.
+    /// </summary>
     public static class DropTarget
     {
-        #region Inner types
+        #region Inner Types
 
+        /// <summary>
+        /// The storage to save context related information.
+        /// </summary>
         private class Context
         {
             /// <summary>
@@ -73,7 +75,7 @@ namespace Nicenis.Windows
             DelayInvoker _leaveDelayInvoker;
 
             /// <summary>
-            /// Delays the DragHoverImplementation.ProcessLeave call to ignore if a child element is involved.
+            /// Delays the DragHoverImplementation.ProcessLeave call to ignore if any child element is involved.
             /// </summary>
             public DelayInvoker LeaveDelayInvoker
             {
@@ -107,6 +109,9 @@ namespace Nicenis.Windows
 
         #region Context Attached Property
 
+        /// <summary>
+        /// The attached property to store internal context information.
+        /// </summary>
         private static readonly DependencyProperty ContextProperty = DependencyProperty.RegisterAttached
         (
             "Context",
@@ -114,16 +119,32 @@ namespace Nicenis.Windows
             typeof(DropTarget)
         );
 
+        /// <summary>
+        /// Gets a value that stores internal context information.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <returns>A Context instance.</returns>
         private static Context GetContext(DependencyObject obj)
         {
             return (Context)obj.GetValue(ContextProperty);
         }
 
+        /// <summary>
+        /// Sets a value that stores internal context information.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <param name="value">A Context instance.</param>
         private static void SetContext(DependencyObject obj, Context value)
         {
             obj.SetValue(ContextProperty, value);
         }
 
+        /// <summary>
+        /// Gets a value that stores internal context information.
+        /// If it is not set, new context is created and set.
+        /// </summary>
+        /// <param name="obj">A DependencyObject instance.</param>
+        /// <param name="value">A Context instance.</param>
         private static Context GetSafeContext(UIElement obj)
         {
             Debug.Assert(obj != null);
@@ -141,6 +162,9 @@ namespace Nicenis.Windows
 
         #region IsActivated Attached Property
 
+        /// <summary>
+        /// The attached property to indicate whether the drop target related functionality is activated.
+        /// </summary>
         public static readonly DependencyProperty IsActivatedProperty = DependencyProperty.RegisterAttached
         (
             "IsActivated",
@@ -149,11 +173,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(false, IsActivatedProperty_Changed)
         );
 
+        /// <summary>
+        /// Gets a value that indicates whether the drop target related functionality is activated.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>True if it is activated; otherwise, false.</returns>
         public static bool GetIsActivated(UIElement obj)
         {
             return (bool)obj.GetValue(IsActivatedProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the drop target related functionality is activated.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the drop target related functionality is activated.</param>
         public static void SetIsActivated(UIElement obj, bool value)
         {
             obj.SetValue(IsActivatedProperty, value);
@@ -239,6 +273,9 @@ namespace Nicenis.Windows
 
         #region IsDragOver ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for a value that indicates whether the dragged item is over.
+        /// </summary>
         private static readonly DependencyPropertyKey IsDragOverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "IsDragOver",
@@ -247,13 +284,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(false)
         );
 
+        /// <summary>
+        /// The readonly attached property for a value that indicates whether the dragged item is over.
+        /// </summary>
         public static readonly DependencyProperty IsDragOverProperty = IsDragOverPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets a value that indicates whether the dragged item is over.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A value that indicates whether the dragged item is over.</returns>
         public static bool GetIsDragOver(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDragOverProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the dragged item is over.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the dragged item is over.</param>
         private static void SetIsDragOver(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDragOverPropertyKey, value);
@@ -264,6 +314,9 @@ namespace Nicenis.Windows
 
         #region IsDragHover ReadOnly Attached Property
 
+        /// <summary>
+        /// The readonly attached property key for a value that indicates whether the dragged item is hover.
+        /// </summary>
         private static readonly DependencyPropertyKey IsDragHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "IsDragHover",
@@ -272,13 +325,26 @@ namespace Nicenis.Windows
             new PropertyMetadata(false)
         );
 
+        /// <summary>
+        /// The readonly attached property for a value that indicates whether the dragged item is hover.
+        /// </summary>
         public static readonly DependencyProperty IsDragHoverProperty = IsDragHoverPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets a value that indicates whether the dragged item is hover.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the dragged item is hover.</param>
         public static bool GetIsDragHover(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDragHoverProperty);
         }
 
+        /// <summary>
+        /// Sets a value that indicates whether the dragged item is hover.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether the dragged item is hover.</param>
         private static void SetIsDragHover(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDragHoverPropertyKey, value);
@@ -289,6 +355,10 @@ namespace Nicenis.Windows
 
         #region DragHoverEventMode Attached Property
 
+        /// <summary>
+        /// The attached property to describe how drag hover event is raised.
+        /// </summary>
+        /// <seealso cref="HoverEventMode"/>
         public static readonly DependencyProperty DragHoverEventModeProperty = DependencyProperty.RegisterAttached
         (
             "DragHoverEventMode",
@@ -297,11 +367,23 @@ namespace Nicenis.Windows
             new PropertyMetadata(HoverEventMode.Normal)
         );
 
+        /// <summary>
+        /// Gets a value that describes how drag hover event is raised.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>A value that describes how drag hover event is raised.</returns>
+        /// <seealso cref="HoverEventMode"/>
         public static HoverEventMode GetDragHoverEventMode(DependencyObject obj)
         {
             return (HoverEventMode)obj.GetValue(DragHoverEventModeProperty);
         }
 
+        /// <summary>
+        /// Sets a value that describes how drag hover event is raised.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that describes how drag hover event is raised.</param>
+        /// <seealso cref="HoverEventMode"/>
         public static void SetDragHoverEventMode(DependencyObject obj, HoverEventMode value)
         {
             obj.SetValue(DragHoverEventModeProperty, value);
@@ -312,6 +394,9 @@ namespace Nicenis.Windows
 
         #region DragHoverTime Attached Property
 
+        /// <summary>
+        /// The attached property for the time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.
+        /// </summary>
         public static readonly DependencyProperty DragHoverTimeProperty = DependencyProperty.RegisterAttached
         (
             "DragHoverTime",
@@ -320,11 +405,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(SystemParameters.MouseHoverTime)
         );
 
+        /// <summary>
+        /// Gets the time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.</returns>
         public static TimeSpan GetDragHoverTime(DependencyObject obj)
         {
             return (TimeSpan)obj.GetValue(DragHoverTimeProperty);
         }
 
+        /// <summary>
+        /// Sets the time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.</returns>
         public static void SetDragHoverTime(DependencyObject obj, TimeSpan value)
         {
             obj.SetValue(DragHoverTimeProperty, value);
@@ -335,6 +430,9 @@ namespace Nicenis.Windows
 
         #region DragHoverWidth Attached Property
 
+        /// <summary>
+        /// The attached property for the width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
         public static readonly DependencyProperty DragHoverWidthProperty = DependencyProperty.RegisterAttached
         (
             "DragHoverWidth",
@@ -343,11 +441,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(SystemParameters.MouseHoverWidth)
         );
 
+        /// <summary>
+        /// Gets the width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
         public static double GetDragHoverWidth(DependencyObject obj)
         {
             return (double)obj.GetValue(DragHoverWidthProperty);
         }
 
+        /// <summary>
+        /// Sets the width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
         public static void SetDragHoverWidth(DependencyObject obj, double value)
         {
             obj.SetValue(DragHoverWidthProperty, value);
@@ -358,6 +466,9 @@ namespace Nicenis.Windows
 
         #region DragHoverHeight Attached Property
 
+        /// <summary>
+        /// The attached property for the height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
         public static readonly DependencyProperty DragHoverHeightProperty = DependencyProperty.RegisterAttached
         (
             "DragHoverHeight",
@@ -366,11 +477,21 @@ namespace Nicenis.Windows
             new PropertyMetadata(SystemParameters.MouseHoverHeight)
         );
 
+        /// <summary>
+        /// Gets the height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
         public static double GetDragHoverHeight(DependencyObject obj)
         {
             return (double)obj.GetValue(DragHoverHeightProperty);
         }
 
+        /// <summary>
+        /// Sets the height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
         public static void SetDragHoverHeight(DependencyObject obj, double value)
         {
             obj.SetValue(DragHoverHeightProperty, value);
@@ -379,8 +500,11 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region DragHover event related
+        #region DragHover Event Related
 
+        /// <summary>
+        /// Identifies the PreviewDragHover routed event that is raised when dragged item is hover.
+        /// </summary>
         public static readonly RoutedEvent PreviewDragHoverEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewDragHover",
@@ -389,17 +513,30 @@ namespace Nicenis.Windows
             typeof(DropTarget)
         );
 
+        /// <summary>
+        /// Adds an event handler for the PreviewDragHover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddPreviewDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
         {
             obj.AddHandler(PreviewDragHoverEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the PreviewDragHover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemovePreviewDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
         {
             obj.RemoveHandler(PreviewDragHoverEvent, handler);
         }
 
 
+        /// <summary>
+        /// Identifies the DragHover routed event that is raised when dragged item is hover.
+        /// </summary>
         public static readonly RoutedEvent DragHoverEvent = EventManager.RegisterRoutedEvent
         (
             "DragHover",
@@ -408,11 +545,21 @@ namespace Nicenis.Windows
             typeof(DropTarget)
         );
 
+        /// <summary>
+        /// Adds an event handler for the DragHover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void AddDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
         {
             obj.AddHandler(DragHoverEvent, handler);
         }
 
+        /// <summary>
+        /// Removes the event handler for the DragHover event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
         public static void RemoveDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
         {
             obj.RemoveHandler(DragHoverEvent, handler);
