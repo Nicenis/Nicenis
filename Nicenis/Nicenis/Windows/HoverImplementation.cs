@@ -13,12 +13,24 @@ using System.Windows;
 
 namespace Nicenis.Windows
 {
-    #region Hover Event Argument Related
+    #region Hover Event Arguments Related
 
+    /// <summary>
+    /// Contains arguments for the Hover event.
+    /// </summary>
     public class HoverEventArgs : RoutedEventArgs
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the HoverEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="basePosition">The base position for recognizing hover action.</param>
+        /// <param name="baseTicks">The ticks when the BasePosition is set.</param>
+        /// <param name="hoveredPosition">The position at which the hover event is occurred.</param>
+        /// <param name="hoveredTicks">The ticks when the hover event is occurred.</param>
         internal HoverEventArgs(RoutedEvent routedEvent, object source,
                 Point basePosition, long baseTicks, Point hoveredPosition, long hoveredTicks)
             : base(routedEvent, source)
@@ -62,6 +74,9 @@ namespace Nicenis.Windows
 
     #region HoverEventMode
 
+    /// <summary>
+    /// Describe how the hover event is raised.
+    /// </summary>
     public enum HoverEventMode
     {
         /// <summary>
@@ -123,6 +138,13 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the HoverImplementationBase class.
+        /// </summary>
+        /// <param name="target">The target element for the hover event.</param>
+        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
+        /// <param name="hoverEvent">The hover routed event to raise.</param>
+        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
         internal HoverImplementationBase(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
         {
             if (target == null)
@@ -291,6 +313,13 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the HoverBehaviorImplementation class.
+        /// </summary>
+        /// <param name="target">The target element for the hover event.</param>
+        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
+        /// <param name="hoverEvent">The hover routed event to raise.</param>
+        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
         internal HoverBehaviorImplementation(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
             : base(target, previewHoverEvent, hoverEvent, isHoverPropertyKey) { }
 
@@ -414,6 +443,13 @@ namespace Nicenis.Windows
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the DragHoverImplementation class.
+        /// </summary>
+        /// <param name="target">The target element for the hover event.</param>
+        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
+        /// <param name="hoverEvent">The hover routed event to raise.</param>
+        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
         internal DragHoverImplementation(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
             : base(target, previewHoverEvent, hoverEvent, isHoverPropertyKey) { }
 
