@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 
 namespace Nicenis.Windows
 {
-    #region DragSource event arguments related
+    #region DragSource Event Arguments Related
 
     /// <summary>
     /// Internal Use Only.
