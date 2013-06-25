@@ -12,28 +12,27 @@ using System.Windows;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// WindowState 의 확장 열거형.
-    /// 전체 화면 모드를 추가로 포함한다.
+    /// The extended WindowState which contains the full screen mode.
     /// </summary>
     public enum WindowStateEx
     {
         /// <summary>
-        /// 복원/일반
+        /// The windows is normal or restored.
         /// </summary>
         Normal,
 
         /// <summary>
-        /// 최소화
+        /// The windows is minimized.
         /// </summary>
         Minimized,
 
         /// <summary>
-        /// 최대화
+        /// The windows is maximized.
         /// </summary>
         Maximized,
 
         /// <summary>
-        /// 전체화면
+        /// The windows is full screen.
         /// </summary>
         FullScreen,
     }
@@ -42,16 +41,16 @@ namespace Nicenis.Windows
     #region WindowStateExExtensions
 
     /// <summary>
-    /// WindowStateEx 확장 메서드
+    /// Provides WindowStateEx related extension methods.
     /// </summary>
     public static class WindowStateExExtensions
     {
         /// <summary>
-        /// WindowState 를 WindowStateEx 로 변환하여 반환한다.
+        /// Converts a WindowState enumeration to a WindowStateEx enumeration.
         /// </summary>
-        /// <param name="windowState">변환할 WindowState</param>
-        /// <param name="isFullScreenMode">전체화면 모드인지 여부</param>
-        /// <returns>변환된 WindowStateEx</returns>
+        /// <param name="windowState">A WindowState.</param>
+        /// <param name="isFullScreenMode">Whether it is in full screen mode.</param>
+        /// <returns>The converted  WindowStateEx.</returns>
         public static WindowStateEx ToWindowStateEx(this WindowState windowState, bool isFullScreenMode)
         {
             switch (windowState)
@@ -70,10 +69,10 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// WindowStateEx 를 WindowState 로 변환하여 반환한다.
+        /// Converts a WindowStateEx enumeration to a WindowState enumeration.
         /// </summary>
-        /// <param name="windowStateEx">변환할 WindowStateEx</param>
-        /// <returns>변환된 WindowState</returns>
+        /// <param name="windowStateEx">A WindowStateEx.</param>
+        /// <returns>The converted  WindowState.</returns>
         public static WindowState ToWindowState(this WindowStateEx windowStateEx)
         {
             switch (windowStateEx)
