@@ -1,0 +1,116 @@
+﻿<Window x:Class="NicenisTestGui.DragSourceTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
+        Title="DragSourceTestWindow" Height="437.41" Width="767.2" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <!-- The border to drag. -->
+        <Border
+            Grid.Column="0"
+            Grid.Row="0"
+            Margin="10 10 5 10"
+            n:DragSource.AllowDrag="True"
+            n:DragSource.AllowedEffects="Copy"
+            n:DragSource.AllowedInitiators="Mouse"
+            n:DragSource.VisualFeedbackOffset="{Binding (n:DragSource.ContactPosition), RelativeSource={RelativeSource Self}}"
+            n:DragSource.Data="Data transferred"
+            >
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- If the border is dragging, sets the background to red. -->
+                        <Trigger Property="n:DragSource.IsDragging" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                        </Trigger>
+                    </Style.Triggers>
+
+                    <Setter Property="Background" Value="LightBlue" />
+                </Style>
+            </Border.Style>
+
+            <TextBlock Text="Drag this element." HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+
+        <!-- The list box that contains draggable items. -->
+        <ListBox
+            x:Name="_listBox"
+            Grid.Column="1"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            BorderBrush="DarkGray"
+            BorderThickness="1"
+            Margin="5 10 10 10"
+            >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- The list box item to drag. -->
+                    <Border n:DragSource.AllowDrag="True" n:DragSource.Data="{Binding}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <!-- If the border is dragging, sets the background to red. -->
+                                    <Trigger Property="n:DragSource.IsDragging" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                    </Trigger>
+
+                                    <!-- If it is requested to use a custom visual drag feedback, sets the DragSource.VisualFeedback to a custom element. -->
+                                    <DataTrigger Binding="{Binding IsCustomVisualFeedback}" Value="True">
+                                        <Setter Property="n:DragSource.VisualFeedbackOffset" Value="100 30" />
+                                        <Setter Property="n:DragSource.VisualFeedback">
+                                            <Setter.Value>
+                                                <Grid Width="200" Height="200">
+                                                    <Ellipse Fill="Red" />
+                                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+
+                                <Setter Property="Background" Value="LightBlue" />
+                                <Setter Property="n:DragSource.VisualFeedbackOffset" Value="{Binding (n:DragSource.ContactPosition), RelativeSource={RelativeSource Self}}" />
+                            </Style>
+                        </Border.Style>
+
+                        <!-- Content area.-->
+                        <StackPanel Margin="4">
+                            <TextBlock Text="{Binding Text}" />
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsCustomVisualFeedback}" Value="True">
+                                                <Setter Property="Text" Value="Drag this element. (Custom Visual Drag Feedback)" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+
+                                        <Setter Property="Text" Value="Drag this element." />
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

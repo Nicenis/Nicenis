@@ -66,6 +66,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DragSourceTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HoverTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +90,9 @@
     </Compile>
     <Compile Include="DragResizerTestWindow.xaml.cs">
       <DependentUpon>DragResizerTestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DragSourceTestWindow.xaml.cs">
+      <DependentUpon>DragSourceTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="HoverTestWindow.xaml.cs">
       <DependentUpon>HoverTestWindow.xaml</DependentUpon>
