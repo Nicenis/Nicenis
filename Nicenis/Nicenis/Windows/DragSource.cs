@@ -959,6 +959,11 @@ namespace Nicenis.Windows
             #region Members
 
             /// <summary>
+            /// Gets or sets a value that indicates whether the capture is performed by the drag source.
+            /// </summary>
+            public bool IsCapturedByDragSource { get; set; }
+
+            /// <summary>
             /// Gets or sets a value indicating permitted effects of the drag-and-drop operation.
             /// </summary>
             public DragDropEffects AllowedEffects { get; set; }
@@ -1653,16 +1658,15 @@ namespace Nicenis.Windows
         {
             UIElement target = sender as UIElement;
 
-            // If Capture is allowed, tries to capture the mouse.
-            if (GetIsCaptureAllowed(target) && !target.IsMouseCaptured)
-                target.CaptureMouse();
-
-
             Context context = GetSafeContext(target);
             DragInitiator initiator = GetInitiator(target);
             Point contactPosition = GetContactPosition(target);
             Point currentPosition;
-            bool keepMouseMoveEventHandler = false;
+            bool keepTrackingMouseMove = false;
+
+            // If capture is allowed, tries to capture the mouse.
+            if (GetIsCaptureAllowed(target) && !target.IsMouseCaptured && target.CaptureMouse())
+                context.IsCapturedByDragSource = true;
 
             try
             {
@@ -1693,15 +1697,24 @@ namespace Nicenis.Windows
                 if (!IsEnoughToStartDrag(new Vector(GetMinimumHorizontalDragDistance(target), GetMinimumVerticalDragDistance(target)), contactPosition, currentPosition))
                 {
                     // It is required to track the mouse.
-                    keepMouseMoveEventHandler = true;
+                    keepTrackingMouseMove = true;
                     return;
                 }
             }
             finally
             {
-                // Detaches the mouse move event handler if it is not required.
-                if (!keepMouseMoveEventHandler)
+                // If mouse tracking is not required
+                if (!keepTrackingMouseMove)
+                {
+                    // Detaches the mouse move event handler.
                     target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
+
+                    // If capture is allowed and it has a mouse capture and it is captured by the drag source, releases the mouse capture.
+                    if (GetIsCaptureAllowed(target) && target.IsMouseCaptured && context.IsCapturedByDragSource)
+                        target.ReleaseMouseCapture();
+
+                    context.IsCapturedByDragSource = false;
+                }
             }
 
 
