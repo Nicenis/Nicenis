@@ -185,7 +185,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a data object that contains the data being dragged.
-        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
+        /// If IDataObjectProvider is implemented by the set value, it is used right before DragDrop.DoDragDrop call.
         /// </summary>
         public object Data
         {
@@ -1901,7 +1901,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// The attached property for a data object that contains the data being dragged.
-        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
+        /// If IDataObjectProvider is implemented by the set value, it is used right before DragDrop.DoDragDrop call.
         /// </summary>
         public static readonly DependencyProperty DataProperty = DependencyProperty.RegisterAttached
         (
@@ -1922,7 +1922,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Sets a data object that contains the data being dragged.
-        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
+        /// If IDataObjectProvider is implemented by the set value, it is used right before DragDrop.DoDragDrop call.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="value">A data object that contains the data being dragged.</param>
