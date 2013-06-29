@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Cryptography\StringHasher.cs" />
     <Compile Include="Security\Cryptography\StringEncrypter.cs" />
+    <Compile Include="Windows\IDataObjectProvider.cs" />
     <Compile Include="Windows\Data\Converters\FalsyToConverters.cs" />
     <Compile Include="Windows\DragInitiator.cs" />
     <Compile Include="Windows\DragSource.cs" />

@@ -185,6 +185,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Gets or sets a data object that contains the data being dragged.
+        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
         /// </summary>
         public object Data
         {
@@ -1759,7 +1760,14 @@ namespace Nicenis.Windows
                         context.VisualFeedbackHost = visualFeedbackHost;
 
                         // Starts the DragDrop operation.
-                        finalEffects = DragDrop.DoDragDrop(target, context.Data, context.AllowedEffects);
+                        // If the data object implements IDataObjectProvider, uses the object returned by the GetDataObject method.
+                        IDataObjectProvider provider = context.Data as IDataObjectProvider;
+                        finalEffects = DragDrop.DoDragDrop
+                        (
+                            target,
+                            provider != null ? provider.GetDataObject() : context.Data,
+                            context.AllowedEffects
+                        );
 
                         // Clears the visual feedback host from the context.
                         context.VisualFeedbackHost = null;
@@ -1880,6 +1888,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// The attached property for a data object that contains the data being dragged.
+        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
         /// </summary>
         public static readonly DependencyProperty DataProperty = DependencyProperty.RegisterAttached
         (
@@ -1900,6 +1909,7 @@ namespace Nicenis.Windows
 
         /// <summary>
         /// Sets a data object that contains the data being dragged.
+        /// If the set value implements IDataObjectProvider, its GetDataObject method is used to get the data object.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="value">A data object that contains the data being dragged.</param>
