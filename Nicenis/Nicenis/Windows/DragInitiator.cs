@@ -176,31 +176,28 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Returns whether the mouse button specified by the dragInitiator is pressed or not.
+        /// Returns whether device state specified by the dragInitiator is active.
         /// </summary>
         /// <param name="dragInitiator">The DragInitiator enumeration.</param>
-        /// <param name="e">The MouseEventArgs.</param>
-        /// <returns>True if it is pressed; otherwise false.</returns>
-        internal static bool IsStillPressed(this DragInitiator dragInitiator, MouseEventArgs e)
+        /// <returns>True if it is active; otherwise false.</returns>
+        internal static bool IsActive(this DragInitiator dragInitiator)
         {
-            Debug.Assert(e != null);
-
             switch (dragInitiator)
             {
                 case DragInitiator.MouseLeftButton:
-                    return e.LeftButton == MouseButtonState.Pressed;
+                    return Mouse.LeftButton == MouseButtonState.Pressed;
 
                 case DragInitiator.MouseMiddleButton:
-                    return e.MiddleButton == MouseButtonState.Pressed;
+                    return Mouse.MiddleButton == MouseButtonState.Pressed;
 
                 case DragInitiator.MouseRightButton:
-                    return e.RightButton == MouseButtonState.Pressed;
+                    return Mouse.RightButton == MouseButtonState.Pressed;
 
                 case DragInitiator.MouseXButton1:
-                    return e.XButton1 == MouseButtonState.Pressed;
+                    return Mouse.XButton1 == MouseButtonState.Pressed;
 
                 case DragInitiator.MouseXButton2:
-                    return e.XButton2 == MouseButtonState.Pressed;
+                    return Mouse.XButton2 == MouseButtonState.Pressed;
             }
 
             return false;

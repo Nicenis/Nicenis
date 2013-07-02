@@ -1670,8 +1670,8 @@ namespace Nicenis.Windows
 
             try
             {
-                // Checks whether the drag initiator is still pressed.
-                if (!initiator.IsStillPressed(e))
+                // Checks whether the drag initiator is active.
+                if (!initiator.IsActive())
                 {
                     // Cleans up the context.
                     context.CleanUp();
