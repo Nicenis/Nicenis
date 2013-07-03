@@ -65,7 +65,7 @@
     <Compile Include="Windows\HoverImplementation.cs" />
     <Compile Include="Windows\Threading\DispatcherExtensions.cs" />
     <Compile Include="Windows\WindowHelper.cs" />
-    <Compile Include="Windows\DependencyObjectExtensions.cs">
+    <Compile Include="Windows\DependencyObjectHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\DragMover.cs" />

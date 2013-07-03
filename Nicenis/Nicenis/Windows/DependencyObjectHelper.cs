@@ -14,9 +14,9 @@ using System.Windows.Media;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// Provides extension methods for DepencencyObject.
+    /// Provides utility methods for DepencencyObject.
     /// </summary>
-    public static class DependencyObjectExtensions
+    public static class DependencyObjectHelper
     {
         /// <summary>
         /// Returns a collection of elements that contains the visual ancestors of the DependencyObject.
