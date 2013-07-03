@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Nicenis.Windows
 {
@@ -946,22 +947,49 @@ namespace Nicenis.Windows
         private class Context : IDragSourceDraggingEventArgsContext,
                 IDragSourceGiveFeedbackEventArgsContext, IDragSourceQueryContinueDragEventArgsContext, IDragSourceDroppedEventArgsContext
         {
+            /// <summary>
+            /// The target element to drag.
+            /// This variable is set to non-null value in the Constructor.
+            /// </summary>
+            UIElement _target;
+
+
             #region Constructors
 
             /// <summary>
             /// Initializes a new instance of the Context class.
             /// </summary>
-            public Context() { }
+            /// <param name="target">The target element to drag. Null is not allowed.</param>
+            public Context(UIElement target)
+            {
+                Debug.Assert(target != null);
+                _target = target;
+            }
 
             #endregion
 
 
             #region Members
 
+            DispatcherTimer _processMoveForDragSensingTimer;
+
             /// <summary>
-            /// Gets or sets a value that indicates whether the capture is performed by the drag source.
+            /// The timer to check cursor movement for sensing drag when it is not in the target element.
             /// </summary>
-            public bool IsCapturedByDragSource { get; set; }
+            public DispatcherTimer ProcessMoveForDragSensingTimer
+            {
+                get
+                {
+                    if (_processMoveForDragSensingTimer == null)
+                    {
+                        _processMoveForDragSensingTimer = new DispatcherTimer();
+                        _processMoveForDragSensingTimer.Interval = TimeSpan.FromMilliseconds(100);
+                        _processMoveForDragSensingTimer.Tick += (_, __) => ProcessDragSensing(_target, Mouse.GetPosition(_target));
+                    }
+
+                    return _processMoveForDragSensingTimer;
+                }
+            }
 
             /// <summary>
             /// Gets or sets a value indicating permitted effects of the drag-and-drop operation.
@@ -1559,16 +1587,16 @@ namespace Nicenis.Windows
         /// Gets a value that stores internal context information.
         /// If it is not set, new context is created and set.
         /// </summary>
-        /// <param name="obj">A DependencyObject instance.</param>
+        /// <param name="obj">A UIElement instance.</param>
         /// <param name="value">A Context instance.</param>
-        private static Context GetSafeContext(DependencyObject obj)
+        private static Context GetSafeContext(UIElement obj)
         {
             Debug.Assert(obj != null);
 
             Context context = GetContext(obj);
 
             if (context == null)
-                SetContext(obj, context = new Context());
+                SetContext(obj, context = new Context(obj));
 
             return context;
         }
@@ -1624,20 +1652,23 @@ namespace Nicenis.Windows
         {
             UIElement target = sender as UIElement;
 
-            // Detaches the previous mouse move event handler if it exists.
-            target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
+            // Stops previous drag sensing if it exists.
+            StopDragSensing(target);
 
+            // Starts drag sensing.
+            StartDragSensing(target, e.ChangedButton.ToDragInitiator(), e.GetPosition(target));
+        }
+
+        static void StartDragSensing(UIElement target, DragInitiator initiator, Point contactPosition)
+        {
+            Debug.Assert(target != null);
 
             // Checks whether the drag initiator is allowed or not.
-            DragInitiators dragInitiators = e.ChangedButton.ToDragInitiators();
-            if (!GetAllowedInitiators(target).HasFlag(dragInitiators))
+            if (!GetAllowedInitiators(target).HasFlag(initiator.ToDragInitiators()))
                 return;
 
 
             // Saves the initiator and contactPosition.
-            DragInitiator initiator = e.ChangedButton.ToDragInitiator();
-            Point contactPosition = e.GetPosition(target);
-
             SetInitiator(target, initiator);
             SetContactPosition(target, contactPosition);
 
@@ -1645,28 +1676,58 @@ namespace Nicenis.Windows
             SetDraggedPosition(target, contactPosition);
 
 
-            // Raises the dragSensing related events.
+            // Raises the DragSensing related events.
             if (!RaiseDragSensingEvent(target, initiator, contactPosition, contactPosition))
                 return;
 
 
-            // Attaches the mouse move event handler
+            // Attaches event handlers for drag sensing.
             target.PreviewMouseMove += AllowDragProperty_PropertyHost_PreviewMouseMove;
+            target.MouseEnter += AllowDragProperty_PropertyHost_MouseEnter;
+            target.MouseLeave += AllowDragProperty_PropertyHost_MouseLeave;
+        }
+
+        static void StopDragSensing(UIElement target)
+        {
+            Debug.Assert(target != null);
+
+            // Stops the process move timer.
+            GetSafeContext(target).ProcessMoveForDragSensingTimer.Stop();
+
+            // Detaches event handlers for drag sensing.
+            target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
+            target.MouseEnter -= AllowDragProperty_PropertyHost_MouseEnter;
+            target.MouseLeave -= AllowDragProperty_PropertyHost_MouseLeave;
         }
 
         static void AllowDragProperty_PropertyHost_PreviewMouseMove(object sender, MouseEventArgs e)
         {
+            // Processes drag sensing operation.
             UIElement target = sender as UIElement;
+            ProcessDragSensing(target, e.GetPosition(target));
+        }
+
+        static void AllowDragProperty_PropertyHost_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Stops the process move timer.
+            GetSafeContext(sender as UIElement).ProcessMoveForDragSensingTimer.Stop();
+        }
+
+        static void AllowDragProperty_PropertyHost_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Since it is not rely on the capture, MouseMove event can not be used.
+            // It is required to check cursor position periodically.
+            GetSafeContext(sender as UIElement).ProcessMoveForDragSensingTimer.Start();
+        }
+
+        static void ProcessDragSensing(UIElement target, Point currentPosition)
+        {
+            Debug.Assert(target != null);
 
             Context context = GetSafeContext(target);
             DragInitiator initiator = GetInitiator(target);
             Point contactPosition = GetContactPosition(target);
-            Point currentPosition;
-            bool keepTrackingMouseMove = false;
-
-            // If capture is allowed, tries to capture the mouse.
-            if (GetIsCaptureAllowed(target) && !target.IsMouseCaptured && target.CaptureMouse())
-                context.IsCapturedByDragSource = true;
+            bool isDragSensingFinished = true;
 
             try
             {
@@ -1680,7 +1741,6 @@ namespace Nicenis.Windows
 
 
                 // Updates the dragged position.
-                currentPosition = e.GetPosition(target);
                 SetDraggedPosition(target, currentPosition);
 
 
@@ -1696,25 +1756,16 @@ namespace Nicenis.Windows
                 // Checkes whether the move is enough to start drag.
                 if (!IsEnoughToStartDrag(new Vector(GetMinimumHorizontalDragDistance(target), GetMinimumVerticalDragDistance(target)), contactPosition, currentPosition))
                 {
-                    // It is required to track the mouse.
-                    keepTrackingMouseMove = true;
+                    // It is required to continue the drag sensing operation.
+                    isDragSensingFinished = false;
                     return;
                 }
             }
             finally
             {
-                // If mouse tracking is not required
-                if (!keepTrackingMouseMove)
-                {
-                    // Detaches the mouse move event handler.
-                    target.PreviewMouseMove -= AllowDragProperty_PropertyHost_PreviewMouseMove;
-
-                    // If capture is allowed and it has a mouse capture and it is captured by the drag source, releases the mouse capture.
-                    if (GetIsCaptureAllowed(target) && target.IsMouseCaptured && context.IsCapturedByDragSource)
-                        target.ReleaseMouseCapture();
-
-                    context.IsCapturedByDragSource = false;
-                }
+                // If the drag sensing operation is finished
+                if (isDragSensingFinished)
+                    StopDragSensing(target);
             }
 
 
@@ -1929,45 +1980,6 @@ namespace Nicenis.Windows
         public static void SetData(DependencyObject obj, object value)
         {
             obj.SetValue(DataProperty, value);
-        }
-
-        #endregion
-
-
-        #region IsCaptureAllowed Attached Property
-
-        /// <summary>
-        /// The attached property to indicate whether mouse capture is used for dragging.
-        /// </summary>
-        /// <remarks>
-        /// If mouse capture is not allowed, dragging by the near edge can be failed.
-        /// </remarks>
-        public static readonly DependencyProperty IsCaptureAllowedProperty = DependencyProperty.RegisterAttached
-        (
-            "IsCaptureAllowed",
-            typeof(bool),
-            typeof(DragSource),
-            new PropertyMetadata(true)
-        );
-
-        /// <summary>
-        /// Gets a value that indicates whether mouse capture is used for dragging.
-        /// </summary>
-        /// <param name="obj">The target element.</param>
-        /// <returns>True if mouse capture is used for dragging; otherwise, false.</returns>
-        public static bool GetIsCaptureAllowed(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsCaptureAllowedProperty);
-        }
-
-        /// <summary>
-        /// Sets a value that indicates whether mouse capture is used for dragging.
-        /// </summary>
-        /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether mouse capture is used for dragging.</param>
-        public static void SetIsCaptureAllowed(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsCaptureAllowedProperty, value);
         }
 
         #endregion
