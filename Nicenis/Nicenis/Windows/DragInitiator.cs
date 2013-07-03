@@ -141,6 +141,16 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
+        /// Converts a DragInitiator enumeration to a DragInitiators enumeration.
+        /// </summary>
+        /// <param name="dragInitiator">The DragInitiator enumeration.</param>
+        /// <returns>The converted DragInitiators.</returns>
+        public static DragInitiators ToDragInitiators(this DragInitiator dragInitiator)
+        {
+            return (DragInitiators)dragInitiator;
+        }
+
+        /// <summary>
         /// Converts a DragInitiator enumeration to a MouseButton enumeration.
         /// </summary>
         /// <param name="dragInitiator">The DragInitiator enumeration.</param>
