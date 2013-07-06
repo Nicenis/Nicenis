@@ -101,7 +101,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !FalsyToConverterHelper.IsFalsy(value) ? Visibility.Collapsed : Visibility.Visible;
+            return FalsyToConverterHelper.IsFalsy(value) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -139,7 +139,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !FalsyToConverterHelper.IsFalsy(value) ? Visibility.Hidden : Visibility.Visible;
+            return FalsyToConverterHelper.IsFalsy(value) ? Visibility.Hidden : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -177,7 +177,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !FalsyToConverterHelper.IsFalsy(value) ? Visibility.Visible : Visibility.Collapsed;
+            return FalsyToConverterHelper.IsFalsy(value) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -196,7 +196,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !FalsyToConverterHelper.IsFalsy(value) ? Visibility.Visible : Visibility.Hidden;
+            return FalsyToConverterHelper.IsFalsy(value) ? Visibility.Visible : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
