@@ -85,14 +85,7 @@ namespace Nicenis.Windows
                     {
                         _leaveDelayInvoker = new DelayInvoker
                         (
-                            () =>
-                            {
-                                // Marks that it is not drag over.
-                                SetIsDragOver(_target, false);
-
-                                // Calls the ProcessLeave.
-                                DragHoverImplementation.ProcessLeave();
-                            },
+                            () => ProcessLeave(_target),
                             TimeSpan.FromMilliseconds(50)
                         );
                     }
@@ -250,6 +243,17 @@ namespace Nicenis.Windows
             );
         }
 
+        static void ProcessLeave(UIElement target)
+        {
+            Debug.Assert(target != null);
+
+            // Marks that it is not drag over.
+            SetIsDragOver(target, false);
+
+            // Calls the DragHoverImplementation's ProcessLeave.
+            GetSafeContext(target).DragHoverImplementation.ProcessLeave();
+        }
+
         private static void IsActivatedProperty_PropertyHost_PreviewDragLeave(object sender, RoutedEventArgs e)
         {
             // Delays the leave processing to ignore if a child element is involved.
@@ -258,14 +262,13 @@ namespace Nicenis.Windows
 
         private static void IsActivatedProperty_PropertyHost_PreviewDrop(object sender, RoutedEventArgs e)
         {
-            // Gets the context
-            Context context = GetSafeContext((UIElement)sender);
+            UIElement target = sender as UIElement;
 
             // Cancels the delayed leave if it is enabled.
-            context.LeaveDelayInvoker.Cancel();
+            GetSafeContext(target).LeaveDelayInvoker.Cancel();
 
-            // Handles this event using the DragHoverImplementation.
-            context.DragHoverImplementation.ProcessLeave();
+            // Executes the leave processing.
+            ProcessLeave(target);
         }
 
         #endregion
