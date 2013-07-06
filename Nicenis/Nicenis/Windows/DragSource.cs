@@ -1293,6 +1293,18 @@ namespace Nicenis.Windows
                 get { return _visualFeedbackContentManager ?? (_visualFeedbackContentManager = new VisualFeedbackContentManager(_dragSource)); }
             }
 
+            /// <summary>
+            /// Disposes the VisualFeedbackContentManager and set it to null.
+            /// </summary>
+            private void DisposeVisualFeedbackContentManager()
+            {
+                if (_visualFeedbackContentManager == null)
+                    return;
+
+                _visualFeedbackContentManager.Dispose();
+                _visualFeedbackContentManager = null;
+            }
+
 
             Window _hostWindow;
 
@@ -1305,9 +1317,9 @@ namespace Nicenis.Windows
             }
 
             /// <summary>
-            /// Closes the host windows and set it to null.
+            /// Disposes the host window and set it to null.
             /// </summary>
-            private void CloseHostWindow()
+            private void DisposeHostWindow()
             {
                 if (_hostWindow == null)
                     return;
@@ -1386,10 +1398,10 @@ namespace Nicenis.Windows
                 // Gets the content element for the host window.
                 FrameworkElement contentElement = VisualFeedbackContentManager.CreateOrGetContent(isAutoVisualFeedbackAllowed, content, contentTemplate, contentTemplateSelector);
 
-                // If there is no content to display, closes the host window if it exists.
+                // If there is no content to display, disposes the host window if it exists.
                 if (contentElement == null)
                 {
-                    CloseHostWindow();
+                    DisposeHostWindow();
                     return;
                 }
 
@@ -1421,7 +1433,10 @@ namespace Nicenis.Windows
                 base.DisposeOverride(disposing);
 
                 if (disposing)
-                    CloseHostWindow();
+                {
+                    DisposeVisualFeedbackContentManager();
+                    DisposeHostWindow();
+                }
             }
 
             #endregion
@@ -1430,7 +1445,7 @@ namespace Nicenis.Windows
         /// <summary>
         /// Manages content for the visual feedback.
         /// </summary>
-        internal class VisualFeedbackContentManager
+        internal class VisualFeedbackContentManager : Disposable
         {
             UIElement _dragSource;
 
@@ -1500,6 +1515,21 @@ namespace Nicenis.Windows
                 get { return _contentControl ?? (_contentControl = new ContentControl()); }
             }
 
+            /// <summary>
+            /// Disposes the content control and set it to null.
+            /// </summary>
+            private void DisposeContentControl()
+            {
+                if (_contentControl == null)
+                    return;
+
+                _contentControl.Content = null;
+                _contentControl.ClearValue(ContentControl.ContentTemplateProperty);
+                _contentControl.ClearValue(ContentControl.ContentTemplateSelectorProperty);
+                _contentControl = null;
+            }
+
+
             FrameworkElement _generatedContent;
 
             /// <summary>
@@ -1546,6 +1576,19 @@ namespace Nicenis.Windows
 
                 return ContentControl;
             }
+
+
+            #region DisposeOverride
+
+            protected override void DisposeOverride(bool disposing)
+            {
+                base.DisposeOverride(disposing);
+
+                if (disposing)
+                    DisposeContentControl();
+            }
+
+            #endregion
         }
 
         #endregion

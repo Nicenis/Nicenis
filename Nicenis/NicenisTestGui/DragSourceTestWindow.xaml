@@ -62,7 +62,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <!-- The list box item to drag. -->
+                    <!-- Makes this element draggable. -->
                     <Border n:DragSource.AllowDrag="True" n:DragSource.Data="{Binding}">
                         <Border.Style>
                             <Style TargetType="Border">
@@ -77,6 +77,7 @@
                                         <Setter Property="n:DragSource.VisualFeedbackOffset" Value="100 30" />
                                         <Setter Property="n:DragSource.VisualFeedback">
                                             <Setter.Value>
+                                                <!-- The current DataContext is the DragSource's DataContext because no explicit DataContext is set.-->
                                                 <Grid Width="200" Height="200">
                                                     <Ellipse Fill="Red" />
                                                     <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" />
