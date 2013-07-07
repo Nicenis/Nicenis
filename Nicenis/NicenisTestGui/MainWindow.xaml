@@ -10,10 +10,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Main Window" Height="350" Width="525">
     <StackPanel>
-        <Button Content="Create a Drag and Drop test window." Click="CreateDragNDropTestWindowButton_Click" />
-        <Button Content="Create a Hover test window." Click="CreateHoverTestWindowButton_Click" />
         <Button Content="Create a DragMover test window." Click="CreateDragMoverTestWindowButton_Click" />
         <Button Content="Create a DragResizer test window." Click="CreateDragResizerTestWindowButton_Click" />
         <Button Content="Create a DragSource &amp; DropTarget test window." Click="CreateDragSourceNDropTargetTestWindow_Click" />
+        <Button Content="Create a Hover test window." Click="CreateHoverTestWindowButton_Click" />
     </StackPanel>
 </Window>

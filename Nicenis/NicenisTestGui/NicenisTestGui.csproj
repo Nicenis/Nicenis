@@ -54,10 +54,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DragDropTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="DragMoverTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,9 +77,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DragDropTestWindow.xaml.cs">
-      <DependentUpon>DragDropTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragMoverTestWindow.xaml.cs">
       <DependentUpon>DragMoverTestWindow.xaml</DependentUpon>
