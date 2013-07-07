@@ -159,7 +159,7 @@ namespace Nicenis.Windows
     [TemplatePart(Name = "PART_BottomThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_BottomLeftThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_BottomRightThumb", Type = typeof(Thumb))]
-    public class DragResizer : Control
+    public class DragResizer : ContentControl
     {
         Thumb _leftThumb, _leftTopThumb, _leftBottomThumb;
         Thumb _rightThumb, _rightTopThumb, _rightBottomThumb;

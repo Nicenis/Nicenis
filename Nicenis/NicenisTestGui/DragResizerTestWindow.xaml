@@ -12,41 +12,6 @@
         Title="DragResizerTestWindow" Height="532" Width="732"
         >
     <Grid Margin="24">
-        <!-- The Canvas. -->
-        <Canvas ClipToBounds="True">
-            <TextBlock
-                Canvas.Left="200"
-                Canvas.Top="150"
-                Text="Resize this border."
-                FontSize="14"
-                Margin="0 -21 0 0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                IsHitTestVisible="False"
-                />
-
-            <!-- The element to resize. -->
-            <Border
-                Canvas.Left="200"
-                Canvas.Top="150"
-                Width="300"
-                Height="200"
-                MinWidth="100"
-                MinHeight="100"
-                >
-                <!-- The DragResizer that resizes the above Border. -->
-                <n:DragResizer
-                    Target="{Binding RelativeSource={RelativeSource AncestorType=Border}}"
-                    BorderBrush="Green"
-                    BorderThickness="4"
-                    Resizing="DragResizer_Resizing"
-                    PreviewResizing="DragResizer_PreviewResizing"
-                    Resized="DragResizer_Resized"
-                    PreviewResized="DragResizer_PreviewResized"
-                    />
-            </Border>
-        </Canvas>
-
         <TextBlock
             Text="Resize this border to resize the window."
             FontSize="14"
@@ -61,6 +26,33 @@
             Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
             BorderBrush="Red"
             BorderThickness="4"
-            />
+            >
+            <!-- The Canvas. -->
+            <Canvas ClipToBounds="True">
+                <TextBlock
+                    Canvas.Left="180"
+                    Canvas.Top="120"
+                    Text="Resize this border."
+                    FontSize="14"
+                    Margin="0 -21 0 0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    IsHitTestVisible="False"
+                    />
+
+                <!-- The DragResizer that resizes itself. -->
+                <n:DragResizer
+                    Canvas.Left="180"
+                    Canvas.Top="120"
+                    Width="300"
+                    Height="200"
+                    MinWidth="100"
+                    MinHeight="100"
+                    Target="{Binding RelativeSource={RelativeSource Self}}"
+                    BorderBrush="Green"
+                    BorderThickness="4"
+                    />
+            </Canvas>
+        </n:DragResizer>
     </Grid>
 </Window>

@@ -19,26 +19,5 @@ namespace NicenisTestGui
         {
             InitializeComponent();
         }
-
-        private void DragResizer_Resizing(object sender, Nicenis.Windows.DragResizerResizingEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("DragResizer_Resizing");
-        }
-
-        private void DragResizer_PreviewResizing(object sender, Nicenis.Windows.DragResizerResizingEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("DragResizer_PreviewResizing");
-            //e.DragDelta = e.DragDelta + new Vector(100, 100);
-        }
-
-        private void DragResizer_Resized(object sender, Nicenis.Windows.DragResizerResizedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("DragResizer_Resized");
-        }
-
-        private void DragResizer_PreviewResized(object sender, Nicenis.Windows.DragResizerResizedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("DragResizer_PreviewResized");
-        }
     }
 }

@@ -31,23 +31,21 @@
             Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
             Background="Red"
             Margin="10"
-            />
-
-        <TextBlock
-            Grid.Column="0"
-            Grid.Row="0"
-            FontSize="14"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            IsHitTestVisible="False"
             >
-            <TextBlock.Text>
-                <MultiBinding StringFormat="Drag this element to move this window.&#10;[{0,7:0.0},{1,7:0.0}]">
-                    <Binding Path="Target.Left" ElementName="windowMover" />
-                    <Binding Path="Target.Top" ElementName="windowMover" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
+            <TextBlock
+                FontSize="14"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False"
+                >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Drag this element to move this window.&#10;[{0,7:0.0},{1,7:0.0}]">
+                        <Binding Path="Target.Left" ElementName="windowMover" />
+                        <Binding Path="Target.Top" ElementName="windowMover" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </n:DragMover>
 
 
         <!-- The DragMover that moves this window within the Desktop area. -->
@@ -62,23 +60,21 @@
             MinTop="{Binding Top, Source={x:Static SystemParameters.WorkArea}}"
             MaxRight="{Binding Right, Source={x:Static SystemParameters.WorkArea}}"
             MaxBottom="{Binding Bottom, Source={x:Static SystemParameters.WorkArea}}"
-            />
-
-        <TextBlock
-            Grid.Column="1"
-            Grid.Row="0"
-            FontSize="14"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            IsHitTestVisible="False"
             >
-            <TextBlock.Text>
-                <MultiBinding StringFormat="Drag this element to move this window within the work area.&#10;[{0,7:0.0},{1,7:0.0}]">
-                    <Binding Path="Target.Left" ElementName="windowWithinWorkAreaMover" />
-                    <Binding Path="Target.Top" ElementName="windowWithinWorkAreaMover" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
+            <TextBlock
+                FontSize="14"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False"
+                >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Drag this element to move this window within the work area.&#10;[{0,7:0.0},{1,7:0.0}]">
+                        <Binding Path="Target.Left" ElementName="windowWithinWorkAreaMover" />
+                        <Binding Path="Target.Top" ElementName="windowWithinWorkAreaMover" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </n:DragMover>
 
 
         <!-- The Canvas area. -->
@@ -92,20 +88,16 @@
             Margin="10"
             >
             <Canvas x:Name="canvas" ClipToBounds="True">
-                <!-- The element to move. -->
-                <Grid
+                <!-- The DragMover to move. -->
+                <n:DragMover
+                    x:Name="elementMover"
                     Canvas.Left="10"
                     Canvas.Top="10"
                     Width="330"
                     Height="60"
                     Background="Red"
+                    Target="{Binding RelativeSource={RelativeSource Self}}"
                     >
-                    <!-- The DragMover that moves the above Grid. -->
-                    <n:DragMover
-                        x:Name="elementMover"
-                        Target="{Binding RelativeSource={RelativeSource AncestorType=Grid}}"
-                        />
-
                     <TextBlock
                         FontSize="14"
                         HorizontalAlignment="Center"
@@ -114,32 +106,28 @@
                         >
                         <TextBlock.Text>
                             <MultiBinding StringFormat="Drag this element to move.&#10;[{0,7:0.0},{1,7:0.0}]">
-                                <Binding Path="Target.(Canvas.Left)" ElementName="elementMover" />
-                                <Binding Path="Target.(Canvas.Top)" ElementName="elementMover" />
+                                <Binding Path="(Canvas.Left)" ElementName="elementMover" />
+                                <Binding Path="(Canvas.Top)" ElementName="elementMover" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                </Grid>
+                </n:DragMover>
 
                 
-                <!-- The element to move within the Canvas. -->
-                <Grid
+                <!-- The DragMover to move within the Canvas. -->
+                <n:DragMover
+                    x:Name="elementWithinCanvasMover"
                     Canvas.Left="350"
                     Canvas.Top="10"
                     Width="330"
                     Height="60"
                     Background="Green"
+                    Target="{Binding RelativeSource={RelativeSource Self}}"
+                    MinLeft="0"
+                    MinTop="0"
+                    MaxRight="{Binding ActualWidth, ElementName=canvas}"
+                    MaxBottom="{Binding ActualHeight, ElementName=canvas}"
                     >
-                    <!-- The DragMover that moves the above grid. -->
-                    <n:DragMover
-                        x:Name="elementWithinCanvasMover"
-                        Target="{Binding RelativeSource={RelativeSource AncestorType=Grid}}"
-                        MinLeft="0"
-                        MinTop="0"
-                        MaxRight="{Binding ActualWidth, ElementName=canvas}"
-                        MaxBottom="{Binding ActualHeight, ElementName=canvas}"
-                        />
-
                     <TextBlock
                         FontSize="14"
                         HorizontalAlignment="Center"
@@ -148,12 +136,12 @@
                         >
                         <TextBlock.Text>
                             <MultiBinding StringFormat="Drag this element to move within the Canvas.&#10;[{0,7:0.0},{1,7:0.0}]">
-                                <Binding Path="Target.(Canvas.Left)" ElementName="elementWithinCanvasMover" />
-                                <Binding Path="Target.(Canvas.Top)" ElementName="elementWithinCanvasMover" />
+                                <Binding Path="(Canvas.Left)" ElementName="elementWithinCanvasMover" />
+                                <Binding Path="(Canvas.Top)" ElementName="elementWithinCanvasMover" />
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                </Grid>
+                </n:DragMover>
             </Canvas>
         </Border>
     </Grid>

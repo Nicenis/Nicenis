@@ -131,7 +131,7 @@ namespace Nicenis.Windows
     /// Moves a Window or a FrameworkElement on a Canvas by dragging.
     /// </summary>
     [TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
-    public class DragMover : Control
+    public class DragMover : ContentControl
     {
         Thumb _thumb;
 
