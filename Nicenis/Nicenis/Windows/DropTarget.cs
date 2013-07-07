@@ -153,6 +153,54 @@ namespace Nicenis.Windows
         #endregion
 
 
+        #region AllowDrop Attached Property
+
+        /// <summary>
+        /// The attached property to indicate whether this element can be used as the target of a drag-and-drop operation.
+        /// </summary>
+        public static readonly DependencyProperty AllowDropProperty = DependencyProperty.RegisterAttached
+        (
+            "AllowDrop",
+            typeof(bool),
+            typeof(DropTarget),
+            new PropertyMetadata(false, AllowDropProperty_Changed)
+        );
+
+        /// <summary>
+        /// Gets a value that indicates whether this element can be used as the target of a drag-and-drop operation.
+        /// It is possible that this value is not synchronized with the UIElement.AllowDrop or the IsActivated property.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>True if it can be used as the target of a drag-and-drop operation; otherwise, false.</returns>
+        public static bool GetAllowDrop(UIElement obj)
+        {
+            return (bool)obj.GetValue(AllowDropProperty);
+        }
+
+        /// <summary>
+        /// Sets a value that indicates whether this element can be used as the target of a drag-and-drop operation.
+        /// UIElement.AllowDrop and IsActivated are updated according to this value.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">A value that indicates whether this element can be used as the target of a drag-and-drop operation.</param>
+        public static void SetAllowDrop(UIElement obj, bool value)
+        {
+            obj.SetValue(AllowDropProperty, value);
+        }
+
+        private static void AllowDropProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UIElement target = d as UIElement;
+            bool isDropAllowed = (bool)e.NewValue;
+
+            // Updates the AllowDrop and IsActivated property.
+            target.AllowDrop = isDropAllowed;
+            SetIsActivated(target, isDropAllowed);
+        }
+
+        #endregion
+
+
         #region IsActivated Attached Property
 
         /// <summary>
