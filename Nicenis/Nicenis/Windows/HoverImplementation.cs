@@ -69,6 +69,54 @@ namespace Nicenis.Windows
         #endregion
     }
 
+
+    /// <summary>
+    /// Contains arguments for the MouseHover event.
+    /// </summary>
+    public class MouseHoverEventArgs : HoverEventArgs
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the MouseHoverEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="basePosition">The base position for recognizing hover action.</param>
+        /// <param name="baseTicks">The ticks when the BasePosition is set.</param>
+        /// <param name="hoveredPosition">The position at which the hover event is occurred.</param>
+        /// <param name="hoveredTicks">The ticks when the hover event is occurred.</param>
+        internal MouseHoverEventArgs(RoutedEvent routedEvent, object source,
+                Point basePosition, long baseTicks, Point hoveredPosition, long hoveredTicks)
+            : base(routedEvent, source, basePosition, baseTicks, hoveredPosition, hoveredTicks) { }
+
+        #endregion
+    }
+
+
+    /// <summary>
+    /// Contains arguments for the DragHover event.
+    /// </summary>
+    public class DragHoverEventArgs : HoverEventArgs
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the DragHoverEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="basePosition">The base position for recognizing hover action.</param>
+        /// <param name="baseTicks">The ticks when the BasePosition is set.</param>
+        /// <param name="hoveredPosition">The position at which the hover event is occurred.</param>
+        /// <param name="hoveredTicks">The ticks when the hover event is occurred.</param>
+        internal DragHoverEventArgs(RoutedEvent routedEvent, object source,
+                Point basePosition, long baseTicks, Point hoveredPosition, long hoveredTicks)
+            : base(routedEvent, source, basePosition, baseTicks, hoveredPosition, hoveredTicks) { }
+
+        #endregion
+    }
+
     #endregion
 
 
@@ -117,24 +165,6 @@ namespace Nicenis.Windows
         /// </summary>
         UIElement _target;
 
-        /// <summary>
-        /// The preview hover routed event.
-        /// This variable is set to non-null value in the Constructor.
-        /// </summary>
-        RoutedEvent _previewHoverEvent;
-
-        /// <summary>
-        /// The hover routed event.
-        /// This variable is set to non-null value in the Constructor.
-        /// </summary>
-        RoutedEvent _hoverEvent;
-
-        /// <summary>
-        /// The IsHover dependency property key.
-        /// This variable is set to non-null value in the Constructor.
-        /// </summary>
-        DependencyPropertyKey _isHoverPropertyKey;
-
 
         #region Constructors
 
@@ -142,27 +172,12 @@ namespace Nicenis.Windows
         /// Initializes a new instance of the HoverImplementationBase class.
         /// </summary>
         /// <param name="target">The target element for the hover event.</param>
-        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
-        /// <param name="hoverEvent">The hover routed event to raise.</param>
-        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
-        internal HoverImplementationBase(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
+        internal HoverImplementationBase(UIElement target)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
 
-            if (previewHoverEvent == null)
-                throw new ArgumentNullException("previewHoverEvent");
-
-            if (hoverEvent == null)
-                throw new ArgumentNullException("hoverEvent");
-
-            if (isHoverPropertyKey == null)
-                throw new ArgumentNullException("isHoverPropertyKey");
-
             _target = target;
-            _previewHoverEvent = previewHoverEvent;
-            _hoverEvent = hoverEvent;
-            _isHoverPropertyKey = isHoverPropertyKey;
         }
 
         #endregion
@@ -204,40 +219,24 @@ namespace Nicenis.Windows
         }
 
         /// <summary>
-        /// Sets whether it is hover or not.
+        /// Calls the hover callback action.
         /// </summary>
-        /// <param name="isHover">whether it is hover or not.</param>
-        protected void SetIsHover(bool isHover)
-        {
-            _target.SetValue(_isHoverPropertyKey, isHover);
-        }
-
-        /// <summary>
-        /// Raises PreviewHoverEvent and HoverEvent.
-        /// </summary>
+        /// <param name="hoverCallback">A callback action that is called when Hover is detected.</param>
         /// <param name="hoveredPositionInScreen">The hovered position in screen coordinates.</param>
         /// <param name="hoveredTicks">The hovered ticks.</param>
-        protected void RaiseHoverEvent(Point hoveredPositionInScreen, long hoveredTicks)
+        protected void CallHoverCallback(Action<Point, long, Point, long> hoverCallback, Point hoveredPositionInScreen, long hoveredTicks)
         {
+            Debug.Assert(hoverCallback != null);
             Debug.Assert(BasePositionInScreen != null);
 
-            // Creates an event argument.
-            HoverEventArgs eventArgs = new HoverEventArgs
+            // Calls the callback action.
+            hoverCallback
             (
-                _previewHoverEvent,
-                _target,
                 PointFromScreen(BasePositionInScreen.Value),
                 BaseTicks,
                 PointFromScreen(hoveredPositionInScreen),
                 hoveredTicks
             );
-
-            // Raises the PreviewHoverEvent routed event.
-            _target.RaiseEvent(eventArgs);
-
-            // Raises the HoverEvent routed event.
-            eventArgs.RoutedEvent = _hoverEvent;
-            _target.RaiseEvent(eventArgs);
         }
 
         #endregion
@@ -270,8 +269,12 @@ namespace Nicenis.Windows
         /// Handles that a pointing device enters the target UI element.
         /// This method must be called even if the enter event handler is already handled.
         /// </summary>
-        public virtual void ProcessEnter()
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        public virtual void ProcessEnter(Action<bool> setIsHover)
         {
+            if (setIsHover == null)
+                throw new ArgumentNullException("setIsHover");
+
             // Resets the base position.
             BasePositionInScreen = null;
 
@@ -279,17 +282,21 @@ namespace Nicenis.Windows
             IsRaisedAfterEnter = false;
 
             // Sets ths IsHover to false.
-            SetIsHover(false);
+            setIsHover(false);
         }
 
         /// <summary>
         /// Handles that a pointing device leaves the target UI element.
         /// This method must be called even if the leave event handler is already handled.
         /// </summary>
-        public virtual void ProcessLeave()
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        public virtual void ProcessLeave(Action<bool> setIsHover)
         {
+            if (setIsHover == null)
+                throw new ArgumentNullException("setIsHover");
+
             // Sets ths IsHover to false.
-            SetIsHover(false);
+            setIsHover(false);
         }
 
         #endregion
@@ -317,11 +324,7 @@ namespace Nicenis.Windows
         /// Initializes a new instance of the HoverBehaviorImplementation class.
         /// </summary>
         /// <param name="target">The target element for the hover event.</param>
-        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
-        /// <param name="hoverEvent">The hover routed event to raise.</param>
-        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
-        internal HoverBehaviorImplementation(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
-            : base(target, previewHoverEvent, hoverEvent, isHoverPropertyKey) { }
+        internal HoverBehaviorImplementation(UIElement target) : base(target) { }
 
         #endregion
 
@@ -332,9 +335,10 @@ namespace Nicenis.Windows
         /// Handles that a pointing device enters the target UI element.
         /// This method must be called even if the enter event handler is already handled.
         /// </summary>
-        public override void ProcessEnter()
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        public override void ProcessEnter(Action<bool> setIsHover)
         {
-            base.ProcessEnter();
+            base.ProcessEnter(setIsHover);
 
             // Stops the timer.
             if (_hoverDelayInvoker.IsValueCreated)
@@ -350,8 +354,11 @@ namespace Nicenis.Windows
         /// <param name="getPosition">A function that returns the current pointing device position relative to the target UI element. This function is called before the Hover event is raised.</param>
         /// <param name="getHoverEventMode">A function that returns a HoverEventMode.</param>
         /// <param name="getHoverTime">A function that returns a HoverTime.</param>
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        /// <param name="hoverCallback">A callback action that is called when Hover is detected.</param>
         public void ProcessMove(Point currentPosition, double hoverWidth, double hoverHeight,
-                                    Func<Point> getPosition, Func<HoverEventMode> getHoverEventMode, Func<TimeSpan> getHoverTime)
+                                    Func<Point> getPosition, Func<HoverEventMode> getHoverEventMode, Func<TimeSpan> getHoverTime,
+                                    Action<bool> setIsHover, Action<Point, long, Point, long> hoverCallback)
         {
             if (getPosition == null)
                 throw new ArgumentNullException("getPosition");
@@ -361,6 +368,12 @@ namespace Nicenis.Windows
 
             if (getHoverTime == null)
                 throw new ArgumentNullException("getHoverTime");
+
+            if (setIsHover == null)
+                throw new ArgumentNullException("setIsHover");
+
+            if (hoverCallback == null)
+                throw new ArgumentNullException("hoverCallback");
 
 
             // Gets the point in screen coordinates.
@@ -378,7 +391,7 @@ namespace Nicenis.Windows
             BaseTicks = DateTime.Now.Ticks;
 
             // Sets that it is not hover.
-            SetIsHover(false);
+            setIsHover(false);
 
 
             // If the hover event mode is once and the hover event is already raised in the target UI element.
@@ -392,10 +405,10 @@ namespace Nicenis.Windows
                 () =>
                 {
                     // Sets that it is hover.
-                    SetIsHover(true);
+                    setIsHover(true);
 
-                    // Raises the hover event.
-                    RaiseHoverEvent(PointToScreen(getPosition()), DateTime.Now.Ticks);
+                    // Calls the hover callback.
+                    CallHoverCallback(hoverCallback, PointToScreen(getPosition()), DateTime.Now.Ticks);
 
                     // Sets the raised flag.
                     IsRaisedAfterEnter = true;
@@ -412,9 +425,10 @@ namespace Nicenis.Windows
         /// Handles that a pointing device leaves the target UI element.
         /// This method must be called even if the leave event handler is already handled.
         /// </summary>
-        public override void ProcessLeave()
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        public override void ProcessLeave(Action<bool> setIsHover)
         {
-            base.ProcessLeave();
+            base.ProcessLeave(setIsHover);
 
             // Stops the timer.
             if (_hoverDelayInvoker.IsValueCreated)
@@ -447,11 +461,7 @@ namespace Nicenis.Windows
         /// Initializes a new instance of the DragHoverImplementation class.
         /// </summary>
         /// <param name="target">The target element for the hover event.</param>
-        /// <param name="previewHoverEvent">The preview hover routed event to raise.</param>
-        /// <param name="hoverEvent">The hover routed event to raise.</param>
-        /// <param name="isHoverPropertyKey">The readonly attached property key for a value that indicates whether it is hover.</param>
-        internal DragHoverImplementation(UIElement target, RoutedEvent previewHoverEvent, RoutedEvent hoverEvent, DependencyPropertyKey isHoverPropertyKey)
-            : base(target, previewHoverEvent, hoverEvent, isHoverPropertyKey) { }
+        internal DragHoverImplementation(UIElement target) : base(target) { }
 
         #endregion
 
@@ -479,9 +489,10 @@ namespace Nicenis.Windows
         /// Handles that the dragged pointing device enters the target UI element.
         /// This method must be called even if the enter event handler is already handled.
         /// </summary>
-        public override void ProcessEnter()
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        public override void ProcessEnter(Action<bool> setIsHover)
         {
-            base.ProcessEnter();
+            base.ProcessEnter(setIsHover);
 
             // Resets the raised flag.
             _isRaisedAtBasePosition = false;
@@ -496,8 +507,18 @@ namespace Nicenis.Windows
         /// <param name="hoverTime">A HoverTime.</param>
         /// <param name="hoverWidth">A HoverWidth.</param> 
         /// <param name="hoverHeight">A HoverHeight.</param>
-        public void ProcessOver(Point currentPosition, HoverEventMode hoverEventMode, TimeSpan hoverTime, double hoverWidth, double hoverHeight)
+        /// <param name="setIsHover">An action that sets a IsHover.</param>
+        /// <param name="hoverCallback">A callback action that is called when Hover is detected.</param>
+        public void ProcessOver(Point currentPosition, HoverEventMode hoverEventMode, TimeSpan hoverTime, double hoverWidth, double hoverHeight,
+                                    Action<bool> setIsHover, Action<Point, long, Point, long> hoverCallback)
         {
+            if (setIsHover == null)
+                throw new ArgumentNullException("setIsHover");
+
+            if (hoverCallback == null)
+                throw new ArgumentNullException("hoverCallback");
+
+
             // Gets the point in screen coordinates.
             Point currentPositionInScreen = PointToScreen(currentPosition);
 
@@ -512,7 +533,7 @@ namespace Nicenis.Windows
                 _isRaisedAtBasePosition = false;
 
                 // Sets that it is not hover.
-                SetIsHover(false);
+                setIsHover(false);
                 return;
             }
 
@@ -533,10 +554,10 @@ namespace Nicenis.Windows
 
 
             // Sets that it is hover.
-            SetIsHover(true);
+            setIsHover(true);
 
-            // Raises the Hover event.
-            RaiseHoverEvent(currentPositionInScreen, currentTicks);
+            // Calls the hover callback.
+            CallHoverCallback(hoverCallback, currentPositionInScreen, currentTicks);
 
             // Sets the raised flag.
             IsRaisedAfterEnter = true;

@@ -71,12 +71,12 @@
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>
-                        <!-- If a dragged item is over, sets the background to green. -->
+                        <!-- If a dragged item is in this element, sets the background to green. -->
                         <Trigger Property="n:DropTarget.IsDragOver" Value="True">
                             <Setter Property="Background" Value="Green" />
                         </Trigger>
 
-                        <!-- If a dragged item is hover, sets the background to light green. -->
+                        <!-- If the dragged item is hovering, sets the background to light green. -->
                         <Trigger Property="n:DropTarget.IsDragHover" Value="True">
                             <Setter Property="Background" Value="LightGreen" />
                         </Trigger>

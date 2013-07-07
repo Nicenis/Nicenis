@@ -56,19 +56,7 @@ namespace Nicenis.Windows
             /// </summary>
             public DragHoverImplementation DragHoverImplementation
             {
-                get
-                {
-                    if (_dragHoverImplementation == null)
-                        _dragHoverImplementation = new DragHoverImplementation
-                        (
-                            _target,
-                            DropTarget.PreviewDragHoverEvent,
-                            DropTarget.DragHoverEvent,
-                            DropTarget.IsDragHoverPropertyKey
-                        );
-
-                    return _dragHoverImplementation;
-                }
+                get { return _dragHoverImplementation ?? (_dragHoverImplementation = new DragHoverImplementation(_target)); }
             }
 
 
@@ -273,7 +261,10 @@ namespace Nicenis.Windows
             SetIsDragOver(target, true);
 
             // Handles this event using the DragHoverImplementation.
-            context.DragHoverImplementation.ProcessEnter();
+            context.DragHoverImplementation.ProcessEnter
+            (
+                isHover => SetIsDragHover(target, isHover)
+            );
         }
 
         private static void IsActivatedProperty_PropertyHost_PreviewDragOver(object sender, DragEventArgs e)
@@ -287,7 +278,28 @@ namespace Nicenis.Windows
                 GetDragHoverEventMode(target),
                 GetDragHoverTime(target),
                 GetDragHoverWidth(target),
-                GetDragHoverHeight(target)
+                GetDragHoverHeight(target),
+                isHover => SetIsDragHover(target, isHover),
+                (basePosition, baseTicks, hoveredPosition, hoveredTicks) =>
+                {
+                    // Creates an event argument.
+                    DragHoverEventArgs eventArgs = new DragHoverEventArgs
+                    (
+                        PreviewDragHoverEvent,
+                        target,
+                        basePosition,
+                        baseTicks,
+                        hoveredPosition,
+                        hoveredTicks
+                    );
+
+                    // Raises the PreviewDragHoverEvent routed event.
+                    target.RaiseEvent(eventArgs);
+
+                    // Raises the DragHoverEvent routed event.
+                    eventArgs.RoutedEvent = DragHoverEvent;
+                    target.RaiseEvent(eventArgs);
+                }
             );
         }
 
@@ -299,7 +311,10 @@ namespace Nicenis.Windows
             SetIsDragOver(target, false);
 
             // Calls the DragHoverImplementation's ProcessLeave.
-            GetSafeContext(target).DragHoverImplementation.ProcessLeave();
+            GetSafeContext(target).DragHoverImplementation.ProcessLeave
+            (
+                isHover => SetIsDragHover(target, isHover)
+            );
         }
 
         private static void IsActivatedProperty_PropertyHost_PreviewDragLeave(object sender, RoutedEventArgs e)
@@ -560,7 +575,7 @@ namespace Nicenis.Windows
         (
             "PreviewDragHover",
             RoutingStrategy.Tunnel,
-            typeof(EventHandler<HoverEventArgs>),
+            typeof(EventHandler<DragHoverEventArgs>),
             typeof(DropTarget)
         );
 
@@ -569,7 +584,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void AddPreviewDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void AddPreviewDragHoverHandler(UIElement obj, EventHandler<DragHoverEventArgs> handler)
         {
             obj.AddHandler(PreviewDragHoverEvent, handler);
         }
@@ -579,7 +594,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void RemovePreviewDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void RemovePreviewDragHoverHandler(UIElement obj, EventHandler<DragHoverEventArgs> handler)
         {
             obj.RemoveHandler(PreviewDragHoverEvent, handler);
         }
@@ -592,7 +607,7 @@ namespace Nicenis.Windows
         (
             "DragHover",
             RoutingStrategy.Bubble,
-            typeof(EventHandler<HoverEventArgs>),
+            typeof(EventHandler<DragHoverEventArgs>),
             typeof(DropTarget)
         );
 
@@ -601,7 +616,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void AddDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void AddDragHoverHandler(UIElement obj, EventHandler<DragHoverEventArgs> handler)
         {
             obj.AddHandler(DragHoverEvent, handler);
         }
@@ -611,7 +626,7 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void RemoveDragHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void RemoveDragHoverHandler(UIElement obj, EventHandler<DragHoverEventArgs> handler)
         {
             obj.RemoveHandler(DragHoverEvent, handler);
         }

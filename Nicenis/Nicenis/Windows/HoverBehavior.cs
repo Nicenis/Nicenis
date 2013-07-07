@@ -56,19 +56,7 @@ namespace Nicenis.Windows
             /// </summary>
             public HoverBehaviorImplementation HoverBehaviorImplementation
             {
-                get
-                {
-                    if (_hoverBehaviorImplementation == null)
-                        _hoverBehaviorImplementation = new HoverBehaviorImplementation
-                        (
-                            _target,
-                            HoverBehavior.PreviewHoverEvent,
-                            HoverBehavior.HoverEvent,
-                            HoverBehavior.IsHoverPropertyKey
-                        );
-
-                    return _hoverBehaviorImplementation;
-                }
+                get { return _hoverBehaviorImplementation ?? (_hoverBehaviorImplementation = new HoverBehaviorImplementation(_target)); }
             }
 
             #endregion
@@ -183,8 +171,13 @@ namespace Nicenis.Windows
 
         private static void IsActivatedProperty_PropertyHost_MouseEnter(object sender, RoutedEventArgs e)
         {
+            UIElement target = sender as UIElement;
+
             // Handles this event using the HoverBehaviorImplementation.
-            GetSafeContext((UIElement)sender).HoverBehaviorImplementation.ProcessEnter();
+            GetSafeContext(target).HoverBehaviorImplementation.ProcessEnter
+            (
+                isHover => SetIsMouseHover(target, isHover)
+            );
         }
 
         private static void IsActivatedProperty_PropertyHost_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -199,55 +192,81 @@ namespace Nicenis.Windows
                 GetHoverHeight(target),
                 () => Mouse.GetPosition(target),
                 () => GetHoverEventMode(target),
-                () => GetHoverTime(target)
+                () => GetHoverTime(target),
+                isHover => SetIsMouseHover(target, isHover),
+                (basePosition, baseTicks, hoveredPosition, hoveredTicks) =>
+                {
+                    // Creates an event argument.
+                    MouseHoverEventArgs eventArgs = new MouseHoverEventArgs
+                    (
+                        PreviewMouseHoverEvent,
+                        target,
+                        basePosition,
+                        baseTicks,
+                        hoveredPosition,
+                        hoveredTicks
+                    );
+
+                    // Raises the PreviewMouseHoverEvent routed event.
+                    target.RaiseEvent(eventArgs);
+
+                    // Raises the MouseHoverEvent routed event.
+                    eventArgs.RoutedEvent = MouseHoverEvent;
+                    target.RaiseEvent(eventArgs);
+                }
             );
         }
 
         private static void IsActivatedProperty_PropertyHost_MouseLeave(object sender, RoutedEventArgs e)
         {
+            UIElement target = sender as UIElement;
+
             // Handles this event using the HoverBehaviorImplementation.
-            GetSafeContext((UIElement)sender).HoverBehaviorImplementation.ProcessLeave();
+            GetSafeContext(target).HoverBehaviorImplementation.ProcessLeave
+            (
+                isHover => SetIsMouseHover(target, isHover)
+            );
         }
 
         #endregion
 
 
-        #region IsHover ReadOnly Attached Property
+        #region IsMouseHover ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the pointing device is hover.
+        /// The readonly attached property key for a value that indicates whether the mouse is hover.
         /// </summary>
-        private static readonly DependencyPropertyKey IsHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
+        private static readonly DependencyPropertyKey IsMouseHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
-            "IsHover",
+            "IsMouseHover",
             typeof(bool),
             typeof(HoverBehavior),
             new PropertyMetadata(false)
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the pointing device is hover.
+        /// The readonly attached property for a value that indicates whether the mouse is hover.
         /// </summary>
-        public static readonly DependencyProperty IsHoverProperty = IsHoverPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsMouseHoverProperty = IsMouseHoverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the pointing device is hover.
+        /// Gets a value that indicates whether the mouse is hover.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the pointing device is hover.</param>
-        public static bool GetIsHover(DependencyObject obj)
+        /// <param name="value">A value that indicates whether the mouse is hover.</param>
+        public static bool GetIsMouseHover(DependencyObject obj)
         {
-            return (bool)obj.GetValue(IsHoverProperty);
+            return (bool)obj.GetValue(IsMouseHoverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the pointing device is hover.
+        /// Sets a value that indicates whether the mouse is hover.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the pointing device is hover.</param>
-        private static void SetIsHover(DependencyObject obj, bool value)
+        /// <param name="value">A value that indicates whether the mouse is hover.</param>
+        private static void SetIsMouseHover(DependencyObject obj, bool value)
         {
-            obj.SetValue(IsHoverPropertyKey, value);
+            obj.SetValue(IsMouseHoverPropertyKey, value);
         }
 
         #endregion
@@ -400,69 +419,69 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Hover Event Related
+        #region MouseHover Event Related
 
         /// <summary>
-        /// Identifies the PreviewHover routed event that is raised when pointing device is hover.
+        /// Identifies the PreviewMouseHover routed event that is raised when the mouse is hover.
         /// </summary>
-        public static readonly RoutedEvent PreviewHoverEvent = EventManager.RegisterRoutedEvent
+        public static readonly RoutedEvent PreviewMouseHoverEvent = EventManager.RegisterRoutedEvent
         (
-            "PreviewHover",
+            "PreviewMouseHover",
             RoutingStrategy.Tunnel,
-            typeof(EventHandler<HoverEventArgs>),
+            typeof(EventHandler<MouseHoverEventArgs>),
             typeof(HoverBehavior)
         );
 
         /// <summary>
-        /// Adds an event handler for the PreviewHover event.
+        /// Adds an event handler for the PreviewMouseHover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void AddPreviewHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void AddPreviewMouseHoverHandler(UIElement obj, EventHandler<MouseHoverEventArgs> handler)
         {
-            obj.AddHandler(PreviewHoverEvent, handler);
+            obj.AddHandler(PreviewMouseHoverEvent, handler);
         }
 
         /// <summary>
-        /// Removes the event handler for the PreviewHover event.
+        /// Removes the event handler for the PreviewMouseHover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void RemovePreviewHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void RemovePreviewMouseHoverHandler(UIElement obj, EventHandler<MouseHoverEventArgs> handler)
         {
-            obj.RemoveHandler(PreviewHoverEvent, handler);
+            obj.RemoveHandler(PreviewMouseHoverEvent, handler);
         }
 
 
         /// <summary>
-        /// Identifies the Hover routed event that is raised when pointing device is hover.
+        /// Identifies the MouseHover routed event that is raised when the mouse is hover.
         /// </summary>
-        public static readonly RoutedEvent HoverEvent = EventManager.RegisterRoutedEvent
+        public static readonly RoutedEvent MouseHoverEvent = EventManager.RegisterRoutedEvent
         (
-            "Hover",
+            "MouseHover",
             RoutingStrategy.Bubble,
-            typeof(EventHandler<HoverEventArgs>),
+            typeof(EventHandler<MouseHoverEventArgs>),
             typeof(HoverBehavior)
         );
 
         /// <summary>
-        /// Adds an event handler for the Hover event.
+        /// Adds an event handler for the MouseHover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void AddHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void AddMouseHoverHandler(UIElement obj, EventHandler<MouseHoverEventArgs> handler)
         {
-            obj.AddHandler(HoverEvent, handler);
+            obj.AddHandler(MouseHoverEvent, handler);
         }
 
         /// <summary>
-        /// Removes the event handler for the Hover event.
+        /// Removes the event handler for the MouseHover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
-        public static void RemoveHoverHandler(UIElement obj, EventHandler<HoverEventArgs> handler)
+        public static void RemoveMouseHoverHandler(UIElement obj, EventHandler<MouseHoverEventArgs> handler)
         {
-            obj.RemoveHandler(HoverEvent, handler);
+            obj.RemoveHandler(MouseHoverEvent, handler);
         }
 
         #endregion

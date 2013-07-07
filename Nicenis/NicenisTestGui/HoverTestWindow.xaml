@@ -10,53 +10,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
         Title="HoverTestWindow" Height="300" Width="300">
-    <Grid>
-        <Border
-            x:Name="theBorder"
-            Margin="40"
-            BorderBrush="Black"
-            n:HoverBehavior.IsActivated="True"
-            n:HoverBehavior.HoverEventMode="Once"
-            n:HoverBehavior.PreviewHover="Border_PreviewHover"
-            n:HoverBehavior.Hover="Border_Hover"
-            >
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Blue" />
-                        </Trigger>
-                    </Style.Triggers>
-                    <Setter Property="Background" Value="Green" />
-                </Style>
-            </Border.Style>
-            
-            <Border.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ThicknessAnimation
-                                Storyboard.TargetName="theBorder" 
-                                Storyboard.TargetProperty="Margin"
-                                To="20" Duration="0:0:2" 
-                                AutoReverse="True" RepeatBehavior="Forever" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Border.Triggers>
 
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Background="Red">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding (n:HoverBehavior.IsHover), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                <Setter Property="Text" Value="Is Hover" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Text" Value="Hover Test" />
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-        </Border>
-    </Grid>
+    <!-- The border to test Hover. -->
+    <Border Margin="10" n:HoverBehavior.IsActivated="True">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <!-- If the mouse is in this element, sets the background to green. -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Green" />
+                    </Trigger>
+
+                    <!-- If the mouse is hovering, sets the background to light green. -->
+                    <Trigger Property="n:HoverBehavior.IsMouseHover" Value="True">
+                        <Setter Property="Background" Value="LightGreen" />
+                    </Trigger>
+                </Style.Triggers>
+
+                <Setter Property="Background" Value="LightGray" />
+            </Style>
+        </Border.Style>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <!-- If the mouse is in this element, sets the background to green. -->
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                            <Setter Property="Text" Value="The mouse is in this element." />
+                        </DataTrigger>
+
+                        <!-- If the mouse is hovering, sets the background to light green. -->
+                        <DataTrigger Binding="{Binding (n:HoverBehavior.IsMouseHover), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                            <Setter Property="Text" Value="The mouse is hovering." />
+                        </DataTrigger>
+                    </Style.Triggers>
+
+                    <Setter Property="Text" Value="Hover the mouse." />
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Border>
 </Window>
