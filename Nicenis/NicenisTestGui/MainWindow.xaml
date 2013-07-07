@@ -14,6 +14,6 @@
         <Button Content="Create a Hover test window." Click="CreateHoverTestWindowButton_Click" />
         <Button Content="Create a DragMover test window." Click="CreateDragMoverTestWindowButton_Click" />
         <Button Content="Create a DragResizer test window." Click="CreateDragResizerTestWindowButton_Click" />
-        <Button Content="Create a DragSource test window." Click="CreateDragSourceTestWindow_Click" />
+        <Button Content="Create a DragSource &amp; DropTarget test window." Click="CreateDragSourceNDropTargetTestWindow_Click" />
     </StackPanel>
 </Window>

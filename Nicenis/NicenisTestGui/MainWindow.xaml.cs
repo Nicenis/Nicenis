@@ -65,9 +65,9 @@ namespace NicenisTestGui
             window.Show();
         }
 
-        private void CreateDragSourceTestWindow_Click(object sender, RoutedEventArgs e)
+        private void CreateDragSourceNDropTargetTestWindow_Click(object sender, RoutedEventArgs e)
         {
-            DragSourceTestWindow window = new DragSourceTestWindow();
+            DragSourceNDropTargetTestWindow window = new DragSourceNDropTargetTestWindow();
             window.Owner = this;
 
             window.Show();

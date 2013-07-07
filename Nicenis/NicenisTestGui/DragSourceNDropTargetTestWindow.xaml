@@ -1,0 +1,188 @@
+﻿<Window x:Class="NicenisTestGui.DragSourceNDropTargetTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
+        xmlns:conv="clr-namespace:Nicenis.Windows.Data.Converters;assembly=Nicenis"
+        Title="DragSourceNDropTargetTestWindow" Height="437.41" Width="767.2" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.Resources>
+            <conv:FalsyToCollapsedConverter x:Key="FalsyToCollapsedConverter" />
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <!-- The border to drag. -->
+        <Border
+            Grid.Column="0"
+            Grid.Row="0"
+            Margin="10 10 5 5"
+            n:DragSource.AllowDrag="True"
+            n:DragSource.AllowedEffects="Copy"
+            n:DragSource.AllowedInitiators="Mouse"
+            n:DragSource.VisualFeedbackOffset="{Binding (n:DragSource.ContactPosition), RelativeSource={RelativeSource Self}}"
+            n:DragSource.Data="Data transferred"
+            >
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- If the border is dragging, sets the background to red. -->
+                        <Trigger Property="n:DragSource.IsDragging" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                        </Trigger>
+                    </Style.Triggers>
+
+                    <Setter Property="Background" Value="LightBlue" />
+                </Style>
+            </Border.Style>
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <!-- If the border is dragging, updates the text. -->
+                            <DataTrigger Binding="{Binding (n:DragSource.IsDragging), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                <Setter Property="Text" Value="It is dragging." />
+                            </DataTrigger>
+                        </Style.Triggers>
+
+                        <Setter Property="Text" Value="Drag this element." />
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Border>
+
+
+        <!-- The border to drag. -->
+        <Border
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="10 5 5 10"
+            AllowDrop="True"
+            n:DropTarget.IsActivated="True"
+            >
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- If a dragged item is over, sets the background to green. -->
+                        <Trigger Property="n:DropTarget.IsDragOver" Value="True">
+                            <Setter Property="Background" Value="Green" />
+                        </Trigger>
+
+                        <!-- If a dragged item is hover, sets the background to light green. -->
+                        <Trigger Property="n:DropTarget.IsDragHover" Value="True">
+                            <Setter Property="Background" Value="LightGreen" />
+                        </Trigger>
+                    </Style.Triggers>
+
+                    <Setter Property="Background" Value="LightGray" />
+                </Style>
+            </Border.Style>
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <!-- If a dragged item is in this element, updates the text. -->
+                            <DataTrigger Binding="{Binding (n:DropTarget.IsDragOver), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                <Setter Property="Text" Value="A dragged item is in this element." />
+                            </DataTrigger>
+
+                            <!-- If the dragged item is hovering, updates the text. -->
+                            <DataTrigger Binding="{Binding (n:DropTarget.IsDragHover), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                <Setter Property="Text" Value="The dragged item is hovering." />
+                            </DataTrigger>
+                        </Style.Triggers>
+
+                        <Setter Property="Text" Value="Hover a dragged item." />
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Border>
+
+
+        <!-- The list box that contains draggable items. -->
+        <ListBox
+            x:Name="_listBox"
+            Grid.Column="1"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            BorderBrush="DarkGray"
+            BorderThickness="1"
+            Margin="5 10 10 10"
+            >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- Makes this element draggable. -->
+                    <Border n:DragSource.AllowDrag="True" n:DragSource.Data="{Binding}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <!-- If the border is dragging, sets the background to red. -->
+                                    <Trigger Property="n:DragSource.IsDragging" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                    </Trigger>
+
+                                    <!-- If it is requested to use a custom visual drag feedback, sets the DragSource.VisualFeedback to a custom element. -->
+                                    <DataTrigger Binding="{Binding IsCustomVisualFeedback}" Value="True">
+                                        <Setter Property="n:DragSource.VisualFeedbackOffset" Value="100 30" />
+                                        <Setter Property="n:DragSource.VisualFeedback">
+                                            <Setter.Value>
+                                                <!-- The current DataContext is the DragSource's DataContext because no explicit DataContext is set.-->
+                                                <Grid Width="200" Height="200">
+                                                    <Ellipse Fill="Red" />
+                                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+
+                                <Setter Property="Background" Value="LightBlue" />
+                                <Setter Property="n:DragSource.VisualFeedbackOffset" Value="{Binding (n:DragSource.ContactPosition), RelativeSource={RelativeSource Self}}" />
+                            </Style>
+                        </Border.Style>
+
+                        <!-- Content area.-->
+                        <StackPanel Margin="4">
+                            <TextBlock Text="{Binding Text}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <!-- If the border is dragging, updates the text. -->
+                                                <DataTrigger Binding="{Binding (n:DragSource.IsDragging), RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                                    <Setter Property="Text" Value="It is dragging." />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+
+                                            <Setter Property="Text" Value="Drag this element." />
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+
+                                <TextBlock Text=" (Custom Visual Drag Feedback)" Visibility="{Binding IsCustomVisualFeedback, Converter={StaticResource FalsyToCollapsedConverter}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
