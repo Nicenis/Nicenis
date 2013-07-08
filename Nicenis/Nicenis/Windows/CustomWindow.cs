@@ -585,39 +585,67 @@ namespace Nicenis.Windows
 
         #region Attached Behaviors
 
-        /// <summary>
-        /// The attached property to set an element as a window icon.
-        /// The WindowIcon element shows the system menu when mouse left button is down or mouse right button is up.
-        /// If mouse is double clicked on the WindowIcon element, the window is closed.
-        /// </summary>
-        public static readonly DependencyProperty IsWindowIconProperty = DependencyProperty.RegisterAttached
-        (
-            "IsWindowIcon",
-            typeof(bool),
-            typeof(CustomWindow),
-            new PropertyMetadata(false, IsWindowIconProperty_Changed)
-        );
-
-        private static void IsWindowIconProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
-        {
-            UIElement element = (UIElement)o;
-
-            element.MouseLeftButtonDown -= IsWindowIconProperty_PropertyHost_MouseLeftButtonDown;
-            element.MouseRightButtonUp -= IsWindowIconProperty_PropertyHost_MouseRightButtonUp;
-
-            if ((bool)e.NewValue)
-            {
-                element.MouseLeftButtonDown += IsWindowIconProperty_PropertyHost_MouseLeftButtonDown;
-                element.MouseRightButtonUp += IsWindowIconProperty_PropertyHost_MouseRightButtonUp;
-            }
-        }
-
-        static void IsWindowIconProperty_PropertyHost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private static Window GetWindowFromEventHandler(object sender)
         {
             Window window = sender as Window;
 
             if (window == null)
                 window = ((DependencyObject)sender).VisualAncestors().OfType<Window>().FirstOrDefault();
+
+            return window;
+        }
+
+        private static void ShowSystemMenuFromMouseEventHandler(object sender, MouseButtonEventArgs e)
+        {
+            // Ignores if the event is not raised in the property host.
+            if (sender != e.Source)
+                return;
+
+            Window window = GetWindowFromEventHandler(sender);
+
+            if (window == null)
+                return;
+
+            // Displays the system menu.
+            window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
+            return;
+        }
+
+
+        /// <summary>
+        /// The attached property to set an element as a window icon.
+        /// The window icon element shows the system menu when mouse left button is down or mouse right button is up.
+        /// If mouse is double clicked on the window icon element, the window is closed.
+        /// </summary>
+        public static readonly DependencyProperty IsIconProperty = DependencyProperty.RegisterAttached
+        (
+            "IsIcon",
+            typeof(bool),
+            typeof(CustomWindow),
+            new PropertyMetadata(false, IsIconProperty_Changed)
+        );
+
+        private static void IsIconProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            UIElement element = (UIElement)o;
+
+            element.MouseLeftButtonDown -= IsIconProperty_PropertyHost_MouseLeftButtonDown;
+            element.MouseRightButtonUp -= IsIconProperty_PropertyHost_MouseRightButtonUp;
+
+            if ((bool)e.NewValue)
+            {
+                element.MouseLeftButtonDown += IsIconProperty_PropertyHost_MouseLeftButtonDown;
+                element.MouseRightButtonUp += IsIconProperty_PropertyHost_MouseRightButtonUp;
+            }
+        }
+
+        static void IsIconProperty_PropertyHost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Ignores if the event is not raised in the property host.
+            if (sender != e.Source)
+                return;
+
+            Window window = GetWindowFromEventHandler(sender);
 
             if (window == null)
                 return;
@@ -634,94 +662,153 @@ namespace Nicenis.Windows
             window.Close();
         }
 
-        static void IsWindowIconProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        static void IsIconProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Window window = sender as Window;
-
-            if (window == null)
-                window = ((DependencyObject)sender).VisualAncestors().OfType<Window>().FirstOrDefault();
-
-            if (window == null)
-                return;
-
-            // Displays the system menu.
-            window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
+            ShowSystemMenuFromMouseEventHandler(sender, e);
         }
 
         /// <summary>
         /// Gets a value that indicates whether the element is set as a window icon.
         /// </summary>
-        /// <param name="element">The target element.</param>
+        /// <param name="target">The target element.</param>
         /// <returns>True if it is set as a window icon; otherwise, false.</returns>
-        public static bool GetIsWindowIcon(FrameworkElement element)
+        public static bool GetIsIcon(FrameworkElement target)
         {
-            return (bool)element.GetValue(IsWindowIconProperty);
+            return (bool)target.GetValue(IsIconProperty);
         }
 
         /// <summary>
         /// Sets a value that indicates whether the element is set as a window icon.
         /// </summary>
-        /// <param name="element">The target element.</param>
-        /// <param name="IsWindowIcon">A value that indicates whether the element is set as a window icon.</param>
-        public static void SetIsWindowIcon(FrameworkElement element, bool IsWindowIcon)
+        /// <param name="target">The target element.</param>
+        /// <param name="isIcon">A value that indicates whether the element is set as a window icon.</param>
+        public static void SetIsIcon(FrameworkElement target, bool isIcon)
         {
-            element.SetValue(IsWindowIconProperty, IsWindowIcon);
+            target.SetValue(IsIconProperty, isIcon);
+        }
+
+
+        /// <summary>
+        /// The attached property to set an element as a window title bar.
+        /// The WindowIcon element shows the system menu when mouse left button is down or mouse right button is up.
+        /// If mouse is double clicked on the WindowIcon element, the window is closed.
+        /// </summary>
+        public static readonly DependencyProperty IsTitleBarProperty = DependencyProperty.RegisterAttached
+        (
+            "IsTitleBar",
+            typeof(bool),
+            typeof(CustomWindow),
+            new PropertyMetadata(false, IsTitleBarProperty_Changed)
+        );
+
+        private static void IsTitleBarProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            UIElement element = (UIElement)o;
+
+            element.MouseLeftButtonDown -= IsTitleBarProperty_PropertyHost_MouseLeftButtonDown;
+            element.MouseRightButtonUp -= IsTitleBarProperty_PropertyHost_MouseRightButtonUp;
+
+            if ((bool)e.NewValue)
+            {
+                element.MouseLeftButtonDown += IsTitleBarProperty_PropertyHost_MouseLeftButtonDown;
+                element.MouseRightButtonUp += IsTitleBarProperty_PropertyHost_MouseRightButtonUp;
+            }
+        }
+
+        static void IsTitleBarProperty_PropertyHost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Ignores if the event is not raised in the property host.
+            if (sender != e.Source)
+                return;
+
+            Window window = GetWindowFromEventHandler(sender);
+
+            if (window == null)
+                return;
+
+            // Moves the window.
+            if (e.ClickCount <= 1)
+            {
+                window.DragMove();
+                return;
+            }
+
+            // Toggles window maximization.
+            window.WindowState = window.WindowState == WindowState.Normal
+                               ? WindowState.Maximized
+                               : WindowState.Normal;
+        }
+
+        static void IsTitleBarProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ShowSystemMenuFromMouseEventHandler(sender, e);
+        }
+
+        /// <summary>
+        /// Gets a value that indicates whether the element is set as a window title bar.
+        /// </summary>
+        /// <param name="target">The target element.</param>
+        /// <returns>True if it is set as a window title bar; otherwise, false.</returns>
+        public static bool GetIsTitleBar(FrameworkElement target)
+        {
+            return (bool)target.GetValue(IsTitleBarProperty);
+        }
+
+        /// <summary>
+        /// Sets a value that indicates whether the element is set as a window title bar.
+        /// </summary>
+        /// <param name="target">The target element.</param>
+        /// <param name="isTitleBar">A value that indicates whether the element is set as a window title bar.</param>
+        public static void SetIsTitleBar(FrameworkElement target, bool isTitleBar)
+        {
+            target.SetValue(IsTitleBarProperty, isTitleBar);
         }
 
 
         /// <summary>
         /// The attached property that makes an element to show the system menu when mouse right button is up.
         /// </summary>
-        public static readonly DependencyProperty IsSystemContextMenuEnabledProperty = DependencyProperty.RegisterAttached
+        public static readonly DependencyProperty IsSystemContextMenuActivatedProperty = DependencyProperty.RegisterAttached
         (
-            "IsSystemContextMenuEnabled",
+            "IsSystemContextMenuActivated",
             typeof(bool),
             typeof(CustomWindow),
-            new PropertyMetadata(false, IsSystemContextMenuEnabledProperty_Changed)
+            new PropertyMetadata(false, IsSystemContextMenuActivatedProperty_Changed)
         );
 
-        private static void IsSystemContextMenuEnabledProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        private static void IsSystemContextMenuActivatedProperty_Changed(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             UIElement element = (UIElement)o;
 
-            element.MouseRightButtonUp -= IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp;
+            element.MouseRightButtonUp -= IsSystemContextMenuActivatedProperty_PropertyHost_MouseRightButtonUp;
 
             if ((bool)e.NewValue)
-                element.MouseRightButtonUp += IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp;
+                element.MouseRightButtonUp += IsSystemContextMenuActivatedProperty_PropertyHost_MouseRightButtonUp;
         }
 
-        static void IsSystemContextMenuEnabledProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        static void IsSystemContextMenuActivatedProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Window window = sender as Window;
-
-            if (window == null)
-                window = ((DependencyObject)sender).VisualAncestors().OfType<Window>().FirstOrDefault();
-
-            if (window == null)
-                return;
-
-            // Displays the system menu.
-            window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
+            ShowSystemMenuFromMouseEventHandler(sender, e);
         }
 
         /// <summary>
         /// Gets a value that indicates whether it shows the system menu when mouse right button is up.
         /// </summary>
-        /// <param name="element">The target element.</param>
+        /// <param name="target">The target element.</param>
         /// <returns>True if it shows system menu when mouse right button is up; otherwise, false.</returns>
-        public static bool GetIsSystemContextMenuEnabled(UIElement element)
+        public static bool GetIsSystemContextMenuActivated(UIElement target)
         {
-            return (bool)element.GetValue(IsSystemContextMenuEnabledProperty);
+            return (bool)target.GetValue(IsSystemContextMenuActivatedProperty);
         }
 
         /// <summary>
         /// Sets a value that indicates whether it shows the system menu when mouse right button is up.
         /// </summary>
-        /// <param name="element">The target element.</param>
-        /// <param name="isSystemContextMenuEnabled">A value that indicates whether it shows the system menu when mouse right button is up.</param>
-        public static void SetIsSystemContextMenuEnabled(UIElement element, bool isSystemContextMenuEnabled)
+        /// <param name="target">The target element.</param>
+        /// <param name="isSystemContextMenuActivated">A value that indicates whether it shows the system menu when mouse right button is up.</param>
+        public static void SetIsSystemContextMenuActivated(UIElement target, bool isSystemContextMenuActivated)
         {
-            element.SetValue(IsSystemContextMenuEnabledProperty, isSystemContextMenuEnabled);
+            target.SetValue(IsSystemContextMenuActivatedProperty, isSystemContextMenuActivated);
         }
 
         #endregion
