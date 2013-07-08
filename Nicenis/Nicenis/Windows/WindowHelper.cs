@@ -22,20 +22,11 @@ namespace Nicenis.Windows
         /// Displays the system menu for the specified window.
         /// </summary>
         /// <param name="window">The window to have its system menu displayed.</param>
-        /// <param name="screenLocation">The location of the system menu.</param>
-        public static void ShowSystemMenu(this Window window, Point screenLocation)
+        /// <param name="locationInScreen">The location of the system menu in screen coordination.</param>
+        public static void ShowSystemMenu(this Window window, Point locationInScreen)
         {
             if (window == null)
                 throw new ArgumentNullException("window");
-
-
-            // Gets the PresentationSource from the window.
-            PresentationSource presentationSource = PresentationSource.FromVisual(window);
-            if (presentationSource == null)
-                return;
-
-            // Gets the location in device coordinate.
-            Point deviceScreenLocation = presentationSource.CompositionTarget.TransformToDevice.Transform(screenLocation);
 
             // Gets the window handle.
             IntPtr hWnd = new WindowInteropHelper(window).Handle;
@@ -43,14 +34,13 @@ namespace Nicenis.Windows
             // Gets the system menu handle.
             IntPtr hMenu = Win32.GetSystemMenu(hWnd, false);
 
-
             // Displays the system menu.
             int menuItemId = Win32.TrackPopupMenuEx
             (
                 hMenu,
                 Win32.TPM_NONOTIFY | Win32.TPM_RETURNCMD | Win32.TPM_RIGHTBUTTON,
-                (int)deviceScreenLocation.X,
-                (int)deviceScreenLocation.Y,
+                (int)locationInScreen.X,
+                (int)locationInScreen.Y,
                 hWnd,
                 IntPtr.Zero
             );
