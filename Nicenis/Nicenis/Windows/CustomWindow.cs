@@ -546,9 +546,15 @@ namespace Nicenis.Windows
             IsMaximized = WindowStateEx == WindowStateEx.Maximized;
             IsFullScreen = WindowStateEx == WindowStateEx.FullScreen;
 
-            // Raises the StateExChanged event.
+            // If it is required to raise the StateExChanged event
             if (isRequiredToRaiseStateExChanged)
+            {
+                // Raises the StateExChanged event.
                 OnStateExChanged(new CustomWindowStateExChangedEventArgs(oldWindowStateEx, windowStateEx));
+
+                // It is required to update UI that binds to CustomWindow's commands.
+                CommandManager.InvalidateRequerySuggested();
+            }
         }
 
         #endregion
