@@ -1,4 +1,4 @@
-﻿// $Id: AssemblyInfo.cs 24043 2013-05-21 14:49:03Z unknown $
+﻿// $Id$
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -14,4 +14,4 @@ using System.Windows;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: ComVisible(false)]
 [assembly: Guid("0f181606-ad59-4b08-b80c-be53b781c9e6")]
-[assembly: AssemblyVersion("0.1")]
+[assembly: AssemblyVersion("1.0.0")]

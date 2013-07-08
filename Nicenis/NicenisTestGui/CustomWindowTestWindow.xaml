@@ -1,0 +1,131 @@
+﻿<!--
+    Author	JO Hyeong-Ryeol
+    Since	2013.07.07
+    Version	$Id$
+
+    Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.   
+-->
+<n:CustomWindow
+    x:Class="NicenisTestGui.CustomWindowTestWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
+    xmlns:conv="clr-namespace:Nicenis.Windows.Data.Converters;assembly=Nicenis"
+    Title="CustomWindowTestWindow" Height="600" Width="800"
+    Icon="CustomWindowIcon.png"
+    >
+    <n:CustomWindow.Resources>
+        <conv:FalsyToVisibleConverter x:Key="FalsyToVisibleConverter" />
+    </n:CustomWindow.Resources>
+
+    <n:CustomWindow.Template>
+        <ControlTemplate TargetType="n:CustomWindow">
+            <!-- The resize border of the window -->
+            <n:DragResizer
+                Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                BorderBrush="Black"
+                BorderThickness="4"
+                Background="{TemplateBinding Background}"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Window title bar -->
+                    <Border
+                        Grid.Row="0"
+                        Background="Green"
+                        Padding="4"
+                        n:CustomWindow.IsTitleBar="True"
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Window icon -->
+                            <Image
+                                Grid.Column="0"
+                                Source="{TemplateBinding Icon}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                n:CustomWindow.IsIcon="True"
+                                />
+
+                            <!-- Window title -->
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{TemplateBinding Title}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                IsHitTestVisible="False"
+                                Margin="4 0 0 0"
+                                />
+
+                            <!-- Minimize button -->
+                            <Button
+                                Grid.Column="2"
+                                Content="Minimize"
+                                HorizontalAlignment="Center"
+                                Command="{TemplateBinding MinimizeCommand}"
+                                Margin="4 0 0 0"
+                                />
+
+                            <!-- Restore button -->
+                            <Button
+                                Grid.Column="3"
+                                Content="Restore"
+                                Command="{TemplateBinding RestoreCommand}"
+                                HorizontalAlignment="Center"
+                                Margin="2 0 0 0"
+                                Visibility="{Binding IsNormal, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FalsyToVisibleConverter}}"
+                                />
+
+                            <!-- Maximize button -->
+                            <Button
+                                Grid.Column="4"
+                                Content="Maximize"
+                                Command="{TemplateBinding MaximizeCommand}"
+                                HorizontalAlignment="Center"
+                                Margin="2 0 0 0"
+                                Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FalsyToVisibleConverter}}"
+                                />
+
+                            <!-- FullScreen button -->
+                            <Button
+                                Grid.Column="5"
+                                Content="FullScreen"
+                                Command="{TemplateBinding FullScreenCommand}"
+                                HorizontalAlignment="Center"
+                                Margin="2 0 0 0"
+                                Visibility="{Binding IsFullScreen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FalsyToVisibleConverter}}"
+                                />
+
+                            <!-- Close button -->
+                            <Button
+                                Grid.Column="6"
+                                Content="Close"
+                                HorizontalAlignment="Center"
+                                Margin="2 0 0 0"
+                                Command="{TemplateBinding CloseCommand}"
+                                />
+                        </Grid>
+                    </Border>
+
+                    <!-- The content area -->
+                    <ContentPresenter Grid.Row="1" />
+                </Grid>
+            </n:DragResizer>
+        </ControlTemplate>
+    </n:CustomWindow.Template>
+
+    <TextBlock Text="Custom Window Content Area" HorizontalAlignment="Center" VerticalAlignment="Center" />
+</n:CustomWindow>

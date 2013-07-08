@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomWindowTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DragMoverTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +81,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CustomWindowTestWindow.xaml.cs">
+      <DependentUpon>CustomWindowTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DragMoverTestWindow.xaml.cs">
       <DependentUpon>DragMoverTestWindow.xaml</DependentUpon>
@@ -109,6 +116,9 @@
       <Project>{dd0939a8-e685-4803-a170-946e43139a78}</Project>
       <Name>Nicenis</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CustomWindowIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

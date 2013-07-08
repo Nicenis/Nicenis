@@ -51,5 +51,13 @@ namespace NicenisTestGui
 
             window.Show();
         }
+
+        private void CreateCustomWindowTestWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomWindowTestWindow window = new CustomWindowTestWindow();
+            window.Owner = this;
+
+            window.Show();
+        }
     }
 }
