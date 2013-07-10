@@ -23,10 +23,24 @@
             <!-- The resize border of the window -->
             <n:DragResizer
                 Target="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                BorderBrush="Black"
-                BorderThickness="4"
+                BorderBrush="Red"
                 Background="{TemplateBinding Background}"
                 >
+                <n:DragResizer.Style>
+                    <Style TargetType="n:DragResizer">
+                        <Style.Triggers>
+                            <!-- If the window is not normal state, hides the DragResizer border.-->
+                            <DataTrigger Binding="{Binding IsNormal, RelativeSource={RelativeSource AncestorType=n:CustomWindow}}" Value="False">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="ResizeModes" Value="None" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        
+                        <Setter Property="BorderThickness" Value="10" />
+                        <Setter Property="ResizeModes" Value="All" />
+                    </Style>
+                </n:DragResizer.Style>
+                
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

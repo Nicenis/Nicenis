@@ -14,6 +14,6 @@
         <Button Padding="4" Content="DragResizer Sample" Click="CreateDragResizerTestWindowButton_Click" />
         <Button Padding="4" Content="DragSource &amp; DropTarget Sample" Click="CreateDragSourceNDropTargetTestWindow_Click" />
         <Button Padding="4" Content="Hover Sample" Click="CreateHoverTestWindowButton_Click" />
-        <Button Padding="4" Content="CustonWindow Sample" Click="CreateCustomWindowTestWindowButton_Click" />
+        <Button Padding="4" Content="CustomWindow Sample" Click="CreateCustomWindowTestWindowButton_Click" />
     </StackPanel>
 </Window>

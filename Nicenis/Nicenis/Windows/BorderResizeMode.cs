@@ -134,5 +134,10 @@ namespace Nicenis.Windows
         /// All modes.
         /// </summary>
         All = Horizontal | Vertical | Corners,
+
+        /// <summary>
+        /// No mode.
+        /// </summary>
+        None = 0x00000000,
     }
 }
