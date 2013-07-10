@@ -3,6 +3,9 @@
  * Since	2013.05.05
  * Version	$Id$
  * 
+ * This file is a part of the Nicenis project.
+ * https://nicenis.codeplex.com
+ * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 

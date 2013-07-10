@@ -62,7 +62,7 @@
     <Compile Include="Windows\FrameworkElementHelper.cs" />
     <Compile Include="Windows\HoverBehavior.cs" />
     <Compile Include="Windows\HoverImplementation.cs" />
-    <Compile Include="Windows\Threading\DispatcherExtensions.cs" />
+    <Compile Include="Windows\Threading\DispatcherHelper.cs" />
     <Compile Include="Windows\WindowHelper.cs" />
     <Compile Include="Windows\DependencyObjectHelper.cs">
       <SubType>Code</SubType>

@@ -1,9 +1,12 @@
 ﻿<!--
-   Author	JO Hyeong-Ryeol
-   Since	2012.11.10
-   Version	$Id$
- 
-   Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
+    Author	JO Hyeong-Ryeol
+    Since	2012.11.10
+    Version	$Id$
+
+    This file is a part of the Nicenis project.
+    https://nicenis.codeplex.com
+
+    Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
 -->
 
 <ResourceDictionary

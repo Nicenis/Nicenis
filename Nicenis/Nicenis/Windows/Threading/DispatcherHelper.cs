@@ -3,6 +3,9 @@
  * Since	2012.11.29
  * Version	$Id$
  * 
+ * This file is a part of the Nicenis project.
+ * https://nicenis.codeplex.com
+ * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
@@ -12,9 +15,9 @@ using System.Windows.Threading;
 namespace Nicenis.Windows.Threading
 {
     /// <summary>
-    /// Provides extension methods for Dispatcher.
+    /// Provides utility methods for Dispatcher.
     /// </summary>
-    public static class DispatcherExtensions
+    public static class DispatcherHelper
     {
         #region BeginInvoke Related
 

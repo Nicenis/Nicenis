@@ -3,6 +3,9 @@
  * Since	2012.11.03
  * Version	$Id$
  * 
+ * This file is a part of the Nicenis project.
+ * https://nicenis.codeplex.com
+ * 
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
@@ -38,12 +41,12 @@ namespace Nicenis.Windows
     }
 
 
-    #region WindowStateExExtensions
+    #region WindowStateExHelper
 
     /// <summary>
-    /// Provides WindowStateEx related extension methods.
+    /// Provides WindowStateEx related utility methods.
     /// </summary>
-    public static class WindowStateExExtensions
+    public static class WindowStateExHelper
     {
         /// <summary>
         /// Converts a WindowState enumeration to a WindowStateEx enumeration.

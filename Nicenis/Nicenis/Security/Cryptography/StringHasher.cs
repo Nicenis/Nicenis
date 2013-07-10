@@ -1,13 +1,12 @@
 ﻿/*
- * Author	JO Hyeong-Ryeol (http://blog.ryeol.com/32)
+ * Author	JO Hyeong-Ryeol
  * Since	2012.12.09
  * Version	$Id$
  * 
+ * This file is a part of the Nicenis project.
+ * https://nicenis.codeplex.com
+ *
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
- * 
- * Permission to copy, use, modify, sell and distribute this software is granted provided this
- * copyright notice appears in all copies. This software is provided "as is" without express
- * or implied warranty, and with no claim as to its suitability for any purpose.
  */
 
 using System;
