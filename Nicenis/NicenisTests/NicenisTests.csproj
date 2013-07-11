@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="BooleanyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\Data\Converters\TruthyToConvertersTests.cs" />
     <Compile Include="Windows\Data\Converters\FalsyToConvertersTests.cs" />
   </ItemGroup>
   <ItemGroup>
