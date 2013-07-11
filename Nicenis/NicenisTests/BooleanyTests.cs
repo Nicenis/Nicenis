@@ -17,7 +17,7 @@ using System.Collections;
 namespace NicenisTests
 {
     [TestClass]
-    public class BooleanyTest
+    public class BooleanyTests
     {
         [TestMethod]
         public void IsTruthy_Check_Object_Null()
