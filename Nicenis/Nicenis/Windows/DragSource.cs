@@ -77,8 +77,8 @@ namespace Nicenis.Windows
         /// MinimumHorizontalDragDistance and MinimumVerticalDragDistance are used to calculate this value.
         /// It is in the dragged source cooridates.
         /// </remarks>
-        /// <seealso cref="MinimumHorizontalDragDistance"/>
-        /// <seealso cref="MinimumVerticalDragDistance"/>
+        /// <seealso cref="DragSource.MinimumHorizontalDragDistanceProperty"/>
+        /// <seealso cref="DragSource.MinimumVerticalDragDistanceProperty"/>
         public Point DraggedPosition { get; private set; }
 
         #endregion
@@ -1090,10 +1090,14 @@ namespace Nicenis.Windows
             /// </summary>
             /// <param name="allowedEffects">A value indicating permitted effects of the drag-and-drop operation.</param>
             /// <param name="data">A data object that contains the data being dragged.</param>
+            /// <param name="isAutoVisualFeedbackAllowed">A value that indicates whether the auto generated visual feedback is allowed or not.</param>
             /// <param name="visualFeedback">An object that is set to the content of the visual drag feedback.</param>
+            /// <param name="visualFeedbackTemplate">A data template used to display the content of the visual drag feedback.</param>
+            /// <param name="visualFeedbackTemplateSelector">A template selector that enables an application writer to provide custom template-selection logic for visual drag feedback.</param>
             /// <param name="visualFeedbackDataContext">An object that is set to the data context of the visual drag feedback.</param>
             /// <param name="visualFeedbackOffset">An offset that is pointed by a pointing device in the visual drag feedback.</param>
             /// <param name="visualFeedbackOpacity">An opacity of the visual drag feedback.</param>
+            /// <param name="visualFeedbackVisibility">A value for the visual drag feedback visibility.</param>
             /// <param name="visualFeedbackWidth">A width of the visual drag feedback.</param>
             /// <param name="visualFeedbackHeight">A height of the visual drag feedback.</param>
             /// <param name="visualFeedbackMinWidth">A minimum width of the visual drag feedback.</param>
@@ -1634,7 +1638,6 @@ namespace Nicenis.Windows
         /// If it is not set, new context is created and set.
         /// </summary>
         /// <param name="obj">A UIElement instance.</param>
-        /// <param name="value">A Context instance.</param>
         private static Context GetSafeContext(UIElement obj)
         {
             Debug.Assert(obj != null);
@@ -2633,8 +2636,8 @@ namespace Nicenis.Windows
         /// MinimumHorizontalDragDistance and MinimumVerticalDragDistance are used to calculate this value.
         /// It is in the dragged source cooridates.
         /// </remarks>
-        /// <seealso cref="MinimumHorizontalDragDistance"/>
-        /// <seealso cref="MinimumVerticalDragDistance"/>
+        /// <seealso cref="MinimumHorizontalDragDistanceProperty"/>
+        /// <seealso cref="MinimumVerticalDragDistanceProperty"/>
         private static readonly DependencyPropertyKey DraggedPositionPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
             "DraggedPosition",

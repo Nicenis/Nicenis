@@ -128,7 +128,6 @@ namespace Nicenis.Windows
         /// If it is not set, new context is created and set.
         /// </summary>
         /// <param name="obj">A DependencyObject instance.</param>
-        /// <param name="value">A Context instance.</param>
         private static Context GetSafeContext(UIElement obj)
         {
             Debug.Assert(obj != null);
@@ -384,7 +383,7 @@ namespace Nicenis.Windows
         #region IsDragHover ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the dragged item is hover.
+        /// The readonly attached property key for a value that indicates whether the dragged item is hoverring in the drop target.
         /// </summary>
         private static readonly DependencyPropertyKey IsDragHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
@@ -395,25 +394,25 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the dragged item is hover.
+        /// The readonly attached property for a value that indicates whether the dragged item is hoverring in the drop target.
         /// </summary>
         public static readonly DependencyProperty IsDragHoverProperty = IsDragHoverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the dragged item is hover.
+        /// Gets a value that indicates whether the dragged item is hoverring in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the dragged item is hover.</param>
+        /// <returns>A value that indicates whether the dragged item is hoverring in the drop target.</returns>
         public static bool GetIsDragHover(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDragHoverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the dragged item is hover.
+        /// Sets a value that indicates whether the dragged item is hoverring in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the dragged item is hover.</param>
+        /// <param name="value">A value that indicates whether the dragged item is hoverring in the drop target.</param>
         private static void SetIsDragHover(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDragHoverPropertyKey, value);
@@ -488,7 +487,7 @@ namespace Nicenis.Windows
         /// Sets the time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.</returns>
+        /// <param name="value">The time, in milliseconds, that the dragged item must remain in the hover rectangle to generate a drag hover event.</param>
         public static void SetDragHoverTime(DependencyObject obj, TimeSpan value)
         {
             obj.SetValue(DragHoverTimeProperty, value);
@@ -524,7 +523,7 @@ namespace Nicenis.Windows
         /// Sets the width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
+        /// <param name="value">The width, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</param>
         public static void SetDragHoverWidth(DependencyObject obj, double value)
         {
             obj.SetValue(DragHoverWidthProperty, value);
@@ -560,7 +559,7 @@ namespace Nicenis.Windows
         /// Sets the height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</returns>
+        /// <param name="value">The height, in pixels, of the rectangle within which the dragged item has to stay to generate a drag hover event.</param>
         public static void SetDragHoverHeight(DependencyObject obj, double value)
         {
             obj.SetValue(DragHoverHeightProperty, value);

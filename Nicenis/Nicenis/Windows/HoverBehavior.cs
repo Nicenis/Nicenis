@@ -105,7 +105,6 @@ namespace Nicenis.Windows
         /// If it is not set, new context is created and set.
         /// </summary>
         /// <param name="obj">A DependencyObject instance.</param>
-        /// <param name="value">A Context instance.</param>
         private static Context GetSafeContext(UIElement obj)
         {
             Debug.Assert(obj != null);
@@ -237,7 +236,7 @@ namespace Nicenis.Windows
         #region IsMouseHover ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the mouse is hover.
+        /// The readonly attached property key for a value that indicates whether the mouse is hoverring in the target element.
         /// </summary>
         private static readonly DependencyPropertyKey IsMouseHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
@@ -248,25 +247,25 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the mouse is hover.
+        /// The readonly attached property for a value that indicates whether the mouse is hoverring in the target element.
         /// </summary>
         public static readonly DependencyProperty IsMouseHoverProperty = IsMouseHoverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the mouse is hover.
+        /// Gets a value that indicates whether the mouse is hoverring in the target element.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the mouse is hover.</param>
+        /// <returns>A value that indicates whether the mouse is hoverring in the target element.</returns>
         public static bool GetIsMouseHover(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsMouseHoverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the mouse is hover.
+        /// Sets a value that indicates whether the mouse is hoverring in the target element.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the mouse is hover.</param>
+        /// <param name="value">A value that indicates whether the mouse is hoverring in the target element.</param>
         private static void SetIsMouseHover(DependencyObject obj, bool value)
         {
             obj.SetValue(IsMouseHoverPropertyKey, value);
@@ -341,7 +340,7 @@ namespace Nicenis.Windows
         /// Sets the time, in milliseconds, that the pointing device must remain in the hover rectangle to generate a hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The time, in milliseconds, that the pointing device must remain in the hover rectangle to generate a hover event.</returns>
+        /// <param name="value">The time, in milliseconds, that the pointing device must remain in the hover rectangle to generate a hover event.</param>
         public static void SetHoverTime(DependencyObject obj, TimeSpan value)
         {
             obj.SetValue(HoverTimeProperty, value);
@@ -377,7 +376,7 @@ namespace Nicenis.Windows
         /// Sets the width, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The width, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.</returns>
+        /// <param name="value">The width, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.</param>
         public static void SetHoverWidth(DependencyObject obj, double value)
         {
             obj.SetValue(HoverWidthProperty, value);
@@ -413,7 +412,7 @@ namespace Nicenis.Windows
         /// Sets the height, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>The height, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.</returns>
+        /// <param name="value">The height, in pixels, of the rectangle within which the pointing device has to stay to generate a hover event.</param>
         public static void SetHoverHeight(DependencyObject obj, double value)
         {
             obj.SetValue(HoverHeightProperty, value);
