@@ -236,7 +236,7 @@ namespace Nicenis.Windows
         #region IsMouseHover ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the mouse is hoverring in the target element.
+        /// The readonly attached property key for a value that indicates whether the mouse is hovering in the target element.
         /// </summary>
         private static readonly DependencyPropertyKey IsMouseHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
@@ -247,25 +247,25 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the mouse is hoverring in the target element.
+        /// The readonly attached property for a value that indicates whether the mouse is hovering in the target element.
         /// </summary>
         public static readonly DependencyProperty IsMouseHoverProperty = IsMouseHoverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the mouse is hoverring in the target element.
+        /// Gets a value that indicates whether the mouse is hovering in the target element.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>A value that indicates whether the mouse is hoverring in the target element.</returns>
+        /// <returns>A value that indicates whether the mouse is hovering in the target element.</returns>
         public static bool GetIsMouseHover(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsMouseHoverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the mouse is hoverring in the target element.
+        /// Sets a value that indicates whether the mouse is hovering in the target element.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the mouse is hoverring in the target element.</param>
+        /// <param name="value">A value that indicates whether the mouse is hovering in the target element.</param>
         private static void SetIsMouseHover(DependencyObject obj, bool value)
         {
             obj.SetValue(IsMouseHoverPropertyKey, value);

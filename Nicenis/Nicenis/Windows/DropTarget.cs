@@ -383,7 +383,7 @@ namespace Nicenis.Windows
         #region IsDragHover ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the dragged item is hoverring in the drop target.
+        /// The readonly attached property key for a value that indicates whether the dragged item is hovering in the drop target.
         /// </summary>
         private static readonly DependencyPropertyKey IsDragHoverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
@@ -394,25 +394,25 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the dragged item is hoverring in the drop target.
+        /// The readonly attached property for a value that indicates whether the dragged item is hovering in the drop target.
         /// </summary>
         public static readonly DependencyProperty IsDragHoverProperty = IsDragHoverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the dragged item is hoverring in the drop target.
+        /// Gets a value that indicates whether the dragged item is hovering in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>A value that indicates whether the dragged item is hoverring in the drop target.</returns>
+        /// <returns>A value that indicates whether the dragged item is hovering in the drop target.</returns>
         public static bool GetIsDragHover(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDragHoverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the dragged item is hoverring in the drop target.
+        /// Sets a value that indicates whether the dragged item is hovering in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the dragged item is hoverring in the drop target.</param>
+        /// <param name="value">A value that indicates whether the dragged item is hovering in the drop target.</param>
         private static void SetIsDragHover(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDragHoverPropertyKey, value);
