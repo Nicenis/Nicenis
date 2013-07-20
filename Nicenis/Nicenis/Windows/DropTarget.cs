@@ -343,7 +343,7 @@ namespace Nicenis.Windows
         #region IsDragOver ReadOnly Attached Property
 
         /// <summary>
-        /// The readonly attached property key for a value that indicates whether the dragged item is over.
+        /// The readonly attached property key for a value that indicates whether a dragged item is in the drop target.
         /// </summary>
         private static readonly DependencyPropertyKey IsDragOverPropertyKey = DependencyProperty.RegisterAttachedReadOnly
         (
@@ -354,25 +354,25 @@ namespace Nicenis.Windows
         );
 
         /// <summary>
-        /// The readonly attached property for a value that indicates whether the dragged item is over.
+        /// The readonly attached property for a value that indicates whether a dragged item is in the drop target.
         /// </summary>
         public static readonly DependencyProperty IsDragOverProperty = IsDragOverPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value that indicates whether the dragged item is over.
+        /// Gets a value that indicates whether a dragged item is in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <returns>A value that indicates whether the dragged item is over.</returns>
+        /// <returns>A value that indicates whether a dragged item is in the drop target.</returns>
         public static bool GetIsDragOver(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsDragOverProperty);
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the dragged item is over.
+        /// Sets a value that indicates whether a dragged item is in the drop target.
         /// </summary>
         /// <param name="obj">The target element.</param>
-        /// <param name="value">A value that indicates whether the dragged item is over.</param>
+        /// <param name="value">A value that indicates whether a dragged item is in the drop target.</param>
         private static void SetIsDragOver(DependencyObject obj, bool value)
         {
             obj.SetValue(IsDragOverPropertyKey, value);
