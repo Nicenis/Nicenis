@@ -1204,9 +1204,9 @@ namespace Nicenis.Windows
             #region Static Helpers
 
             /// <summary>
-            /// creates a host window for the visual drag feedback.
+            /// Creates a host window for the visual drag feedback.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>A new host window.</returns>
             private static Window CreateHostWindow()
             {
                 // Creates a host window for the visual drag feedback.
