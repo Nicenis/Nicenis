@@ -25,7 +25,7 @@ namespace Nicenis
         /// </summary>
         /// <remarks>
         /// Truthy/Falsy concept is originated from the JavaScript.
-        /// There are seven values that is falsy: null, 0, false, NaN, DBNull, an empty string and an empty collection.
+        /// There are seven values that are falsy: null, 0, false, NaN, DBNull, an empty string and an empty collection.
         /// </remarks>
         /// <param name="value">The value to evaluate.</param>
         /// <returns>True if it is a truthy value; otherwise, false.</returns>
