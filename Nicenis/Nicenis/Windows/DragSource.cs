@@ -1182,7 +1182,7 @@ namespace Nicenis.Windows
         /// <summary>
         /// Represents host for the visual drag feedback.
         /// </summary>
-        internal class VisualFeedbackHost : Disposable
+        private class VisualFeedbackHost : Disposable
         {
             UIElement _dragSource;
 
@@ -1452,7 +1452,7 @@ namespace Nicenis.Windows
         /// <summary>
         /// Manages content for the visual feedback.
         /// </summary>
-        internal class VisualFeedbackContentManager : Disposable
+        private class VisualFeedbackContentManager : Disposable
         {
             UIElement _dragSource;
 
