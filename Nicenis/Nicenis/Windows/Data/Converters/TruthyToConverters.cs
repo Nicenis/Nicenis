@@ -18,7 +18,7 @@ using System.Windows.Data;
 
 namespace Nicenis.Windows.Data.Converters
 {
-#pragma warning disable 1591
+#pragma warning disable 1591    // Disables the warning for missing XML comment.
 
     /// <summary>
     /// Returns Visibility.Collapsed if the input value is truthy; otherwise, Visibility.Visible.
@@ -385,5 +385,5 @@ namespace Nicenis.Windows.Data.Converters
         }
     }
 
-#pragma warning restore 1591
+#pragma warning restore 1591    // Restores the warning for missing XML comment.
 }
