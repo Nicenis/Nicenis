@@ -3286,7 +3286,7 @@ namespace Nicenis.Windows
 
         #region Dropped Event Related
 
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
         /// <summary>
         /// Identifies the PreviewDropped routed event that is raised when a drag-and-drop operation is finished.
         /// </summary>
@@ -3298,7 +3298,7 @@ namespace Nicenis.Windows
             typeof(EventHandler<DragSourceDroppedEventArgs>),
             typeof(DragSource)
         );
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
 
         /// <summary>
         /// Adds an event handler for the PreviewDropped event.
@@ -3308,9 +3308,9 @@ namespace Nicenis.Windows
         [Obsolete("Instead, use the Dragged event.")]
         public static void AddPreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
             obj.AddHandler(PreviewDroppedEvent, handler);
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
         }
 
         /// <summary>
@@ -3321,13 +3321,13 @@ namespace Nicenis.Windows
         [Obsolete("Instead, use the Dragged event.")]
         public static void RemovePreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
             obj.RemoveHandler(PreviewDroppedEvent, handler);
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
         }
 
 
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
         /// <summary>
         /// Identifies the Dropped routed event that is raised when a drag-and-drop operation is finished.
         /// </summary>
@@ -3339,7 +3339,7 @@ namespace Nicenis.Windows
             typeof(EventHandler<DragSourceDroppedEventArgs>),
             typeof(DragSource)
         );
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
 
         /// <summary>
         /// Adds an event handler for the Dropped event.
@@ -3349,9 +3349,9 @@ namespace Nicenis.Windows
         [Obsolete("Instead, use the Dragged event.")]
         public static void AddDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
             obj.AddHandler(DroppedEvent, handler);
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
         }
 
         /// <summary>
@@ -3362,9 +3362,9 @@ namespace Nicenis.Windows
         [Obsolete("Instead, use the Dragged event.")]
         public static void RemoveDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
             obj.RemoveHandler(DroppedEvent, handler);
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
         }
 
         #endregion
@@ -3473,7 +3473,7 @@ namespace Nicenis.Windows
                 target.RaiseEvent(eventArgs);
             }
 
-#pragma warning disable 618     // Disables the Obsolete warning.
+#pragma warning disable 618     // Disables the obsolete warning.
             // Raises the Dropped event for backward compatibility.
             {
                 // Creates an event argument.
@@ -3495,7 +3495,7 @@ namespace Nicenis.Windows
                 eventArgs.RoutedEvent = DroppedEvent;
                 target.RaiseEvent(eventArgs);
             }
-#pragma warning restore 618     // Restores the Obsolete warning.
+#pragma warning restore 618     // Restores the obsolete warning.
         }
 
         #endregion
