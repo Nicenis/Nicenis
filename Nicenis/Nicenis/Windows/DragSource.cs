@@ -782,9 +782,9 @@ namespace Nicenis.Windows
 
 
     /// <summary>
-    /// Defines required infomation for the Dropped event.
+    /// Defines required infomation for the Dragged event.
     /// </summary>
-    internal interface IDragSourceDroppedEventArgsContext
+    internal interface IDragSourceDraggedEventArgsContext
     {
         DragDropEffects AllowedEffects { get; }
         object Data { get; }
@@ -805,17 +805,17 @@ namespace Nicenis.Windows
     }
 
     /// <summary>
-    /// Contains arguments for the Dropped event.
+    /// Contains arguments for the Dragged event.
     /// </summary>
-    public class DragSourceDroppedEventArgs : DragSourceEventArgsBase
+    public class DragSourceDraggedEventArgs : DragSourceEventArgsBase
     {
-        IDragSourceDroppedEventArgsContext _context;
+        IDragSourceDraggedEventArgsContext _context;
 
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the DragSourceDroppedEventArgs class.
+        /// Initializes a new instance of the DragSourceDraggedEventArgs class.
         /// </summary>
         /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
         /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
@@ -824,8 +824,8 @@ namespace Nicenis.Windows
         /// <param name="draggedPosition">The dragged position in the dragged source.</param>
         /// <param name="context">The context that contains required information for the Dropped event. Null is not allowed.</param>
         /// <param name="finalEffects">One of the DragDropEffects values that specifies the final effect that was performed during the drag-and-drop operation.</param>
-        internal DragSourceDroppedEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
-                    IDragSourceDroppedEventArgsContext context, DragDropEffects finalEffects)
+        internal DragSourceDraggedEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
+                    IDragSourceDraggedEventArgsContext context, DragDropEffects finalEffects)
             : base(routedEvent, source, initiator, contactPosition, draggedPosition)
         {
             Debug.Assert(context != null);
@@ -930,6 +930,31 @@ namespace Nicenis.Windows
         #endregion
     }
 
+    /// <summary>
+    /// Contains arguments for the Dropped event.
+    /// </summary>
+    [Obsolete("Instead, use the Dragged event.")]
+    public class DragSourceDroppedEventArgs : DragSourceDraggedEventArgs
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the DragSourceDroppedEventArgs class.
+        /// </summary>
+        /// <param name="routedEvent">The routed event identifier for this instance of the RoutedEventArgs class.</param>
+        /// <param name="source">An alternate source that will be reported when the event is handled. This pre-populates the Source property.</param>
+        /// <param name="initiator">The drag initiator.</param>
+        /// <param name="contactPosition">The contact position in the dragged source.</param>
+        /// <param name="draggedPosition">The dragged position in the dragged source.</param>
+        /// <param name="context">The context that contains required information for the Dropped event. Null is not allowed.</param>
+        /// <param name="finalEffects">One of the DragDropEffects values that specifies the final effect that was performed during the drag-and-drop operation.</param>
+        internal DragSourceDroppedEventArgs(RoutedEvent routedEvent, object source, DragInitiator initiator, Point contactPosition, Point draggedPosition,
+                    IDragSourceDraggedEventArgsContext context, DragDropEffects finalEffects)
+            : base(routedEvent, source, initiator, contactPosition, draggedPosition, context, finalEffects) { }
+
+        #endregion
+    }
+
     #endregion
 
 
@@ -948,7 +973,7 @@ namespace Nicenis.Windows
         /// The storage to save context related information.
         /// </summary>
         private class Context : IDragSourceDraggingEventArgsContext,
-                IDragSourceGiveFeedbackEventArgsContext, IDragSourceQueryContinueDragEventArgsContext, IDragSourceDroppedEventArgsContext
+                IDragSourceGiveFeedbackEventArgsContext, IDragSourceQueryContinueDragEventArgsContext, IDragSourceDraggedEventArgsContext
         {
             /// <summary>
             /// The target element to drag.
@@ -1893,9 +1918,8 @@ namespace Nicenis.Windows
                     DetachEventHandlersForDragFeedback(target);
                 }
 
-
-                // Raises the Dropped event.
-                RaiseDroppedEvent(target, initiator, contactPosition, currentPosition, context, finalEffects);
+                // Raises the Dragged event.
+                RaiseDraggedEvent(target, initiator, contactPosition, currentPosition, context, finalEffects);
             }
             finally
             {
@@ -3262,9 +3286,11 @@ namespace Nicenis.Windows
 
         #region Dropped Event Related
 
+#pragma warning disable 618
         /// <summary>
         /// Identifies the PreviewDropped routed event that is raised when a drag-and-drop operation is finished.
         /// </summary>
+        [Obsolete("Instead, use the Dragged event.")]
         public static readonly RoutedEvent PreviewDroppedEvent = EventManager.RegisterRoutedEvent
         (
             "PreviewDropped",
@@ -3272,15 +3298,19 @@ namespace Nicenis.Windows
             typeof(EventHandler<DragSourceDroppedEventArgs>),
             typeof(DragSource)
         );
+#pragma warning restore 618
 
         /// <summary>
         /// Adds an event handler for the PreviewDropped event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
+        [Obsolete("Instead, use the Dragged event.")]
         public static void AddPreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
+#pragma warning disable 618
             obj.AddHandler(PreviewDroppedEvent, handler);
+#pragma warning restore 618
         }
 
         /// <summary>
@@ -3288,15 +3318,20 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
+        [Obsolete("Instead, use the Dragged event.")]
         public static void RemovePreviewDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
+#pragma warning disable 618
             obj.RemoveHandler(PreviewDroppedEvent, handler);
+#pragma warning restore 618
         }
 
 
+#pragma warning disable 618
         /// <summary>
         /// Identifies the Dropped routed event that is raised when a drag-and-drop operation is finished.
         /// </summary>
+        [Obsolete("Instead, use the Dragged event.")]
         public static readonly RoutedEvent DroppedEvent = EventManager.RegisterRoutedEvent
         (
             "Dropped",
@@ -3304,15 +3339,19 @@ namespace Nicenis.Windows
             typeof(EventHandler<DragSourceDroppedEventArgs>),
             typeof(DragSource)
         );
+#pragma warning restore 618
 
         /// <summary>
         /// Adds an event handler for the Dropped event.
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
+        [Obsolete("Instead, use the Dragged event.")]
         public static void AddDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
+#pragma warning disable 618
             obj.AddHandler(DroppedEvent, handler);
+#pragma warning restore 618
         }
 
         /// <summary>
@@ -3320,14 +3359,85 @@ namespace Nicenis.Windows
         /// </summary>
         /// <param name="obj">The target element.</param>
         /// <param name="handler">The event handler.</param>
+        [Obsolete("Instead, use the Dragged event.")]
         public static void RemoveDroppedHandler(UIElement obj, EventHandler<DragSourceDroppedEventArgs> handler)
         {
+#pragma warning disable 618
             obj.RemoveHandler(DroppedEvent, handler);
+#pragma warning restore 618
+        }
+
+        #endregion
+
+
+        #region Dragged Event Related
+
+        /// <summary>
+        /// Identifies the PreviewDragged routed event that is raised when a drag-and-drop operation is finished.
+        /// </summary>
+        public static readonly RoutedEvent PreviewDraggedEvent = EventManager.RegisterRoutedEvent
+        (
+            "PreviewDragged",
+            RoutingStrategy.Tunnel,
+            typeof(EventHandler<DragSourceDraggedEventArgs>),
+            typeof(DragSource)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the PreviewDragged event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddPreviewDraggedHandler(UIElement obj, EventHandler<DragSourceDraggedEventArgs> handler)
+        {
+            obj.AddHandler(PreviewDraggedEvent, handler);
+        }
+
+        /// <summary>
+        /// Removes the event handler for the PreviewDragged event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemovePreviewDraggedHandler(UIElement obj, EventHandler<DragSourceDraggedEventArgs> handler)
+        {
+            obj.RemoveHandler(PreviewDraggedEvent, handler);
         }
 
 
         /// <summary>
-        /// Raises the PreviewDroppedEvent and DroppedEvent.
+        /// Identifies the Dragged routed event that is raised when a drag-and-drop operation is finished.
+        /// </summary>
+        public static readonly RoutedEvent DraggedEvent = EventManager.RegisterRoutedEvent
+        (
+            "Dragged",
+            RoutingStrategy.Bubble,
+            typeof(EventHandler<DragSourceDraggedEventArgs>),
+            typeof(DragSource)
+        );
+
+        /// <summary>
+        /// Adds an event handler for the Dragged event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void AddDraggedHandler(UIElement obj, EventHandler<DragSourceDraggedEventArgs> handler)
+        {
+            obj.AddHandler(DraggedEvent, handler);
+        }
+
+        /// <summary>
+        /// Removes the event handler for the Dragged event.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="handler">The event handler.</param>
+        public static void RemoveDraggedHandler(UIElement obj, EventHandler<DragSourceDraggedEventArgs> handler)
+        {
+            obj.RemoveHandler(DraggedEvent, handler);
+        }
+
+
+        /// <summary>
+        /// Raises the PreviewDraggedEvent and DraggedEvent.
         /// The context instance must be initialized.
         /// </summary>
         /// <param name="target">The target element to raise the routed event.</param>
@@ -3336,33 +3446,56 @@ namespace Nicenis.Windows
         /// <param name="draggedPosition">The dragged position in the dragged source.</param>
         /// <param name="context">The context.</param>
         /// <param name="finalEffects">The value that is returned by the DragDrop.DoDragDrop method.</param>
-        private static void RaiseDroppedEvent(UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition,
-                IDragSourceDroppedEventArgsContext context, DragDropEffects finalEffects)
+        private static void RaiseDraggedEvent(UIElement target, DragInitiator initiator, Point contactPosition, Point draggedPosition,
+                IDragSourceDraggedEventArgsContext context, DragDropEffects finalEffects)
         {
             Debug.Assert(target != null);
             Debug.Assert(context != null);
 
+            {
+                // Creates an event argument.
+                DragSourceDraggedEventArgs eventArgs = new DragSourceDraggedEventArgs
+                (
+                    PreviewDraggedEvent,
+                    target,
+                    initiator,
+                    contactPosition,
+                    draggedPosition,
+                    context,
+                    finalEffects
+                );
 
-            // Creates an event argument.
-            DragSourceDroppedEventArgs eventArgs = new DragSourceDroppedEventArgs
-            (
-                PreviewDroppedEvent,
-                target,
-                initiator,
-                contactPosition,
-                draggedPosition,
-                context,
-                finalEffects
-            );
+                // Raises the PreviewDragged routed event.
+                target.RaiseEvent(eventArgs);
 
+                // Raises the Dragged routed event.
+                eventArgs.RoutedEvent = DraggedEvent;
+                target.RaiseEvent(eventArgs);
+            }
 
-            // Raises the PreviewDropped routed event.
-            target.RaiseEvent(eventArgs);
+#pragma warning disable 618
+            // Raises the Dropped event for backward compatibility.
+            {
+                // Creates an event argument.
+                DragSourceDroppedEventArgs eventArgs = new DragSourceDroppedEventArgs
+                (
+                    PreviewDroppedEvent,
+                    target,
+                    initiator,
+                    contactPosition,
+                    draggedPosition,
+                    context,
+                    finalEffects
+                );
 
+                // Raises the PreviewDropped routed event.
+                target.RaiseEvent(eventArgs);
 
-            // Raises the Dropped routed event.
-            eventArgs.RoutedEvent = DroppedEvent;
-            target.RaiseEvent(eventArgs);
+                // Raises the Dropped routed event.
+                eventArgs.RoutedEvent = DroppedEvent;
+                target.RaiseEvent(eventArgs);
+            }
+#pragma warning restore 618
         }
 
         #endregion
