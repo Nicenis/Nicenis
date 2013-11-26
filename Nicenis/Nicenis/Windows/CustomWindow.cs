@@ -413,6 +413,10 @@ namespace Nicenis.Windows
 
         #region Event Handlers
 
+        /// <summary>
+        /// Raises the SourceInitialized event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -421,6 +425,10 @@ namespace Nicenis.Windows
             HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
         }
 
+        /// <summary>
+        /// Raises the Initialized event. This method is invoked whenever IsInitialized is set to true internally. 
+        /// </summary>
+        /// <param name="e">The RoutedEventArgs that contains the event data.</param>
         protected override void OnInitialized(EventArgs e)
         {
             // Sets the WindowStateEx based on the WindowState.
@@ -429,6 +437,10 @@ namespace Nicenis.Windows
             base.OnInitialized(e);
         }
 
+        /// <summary>
+        /// Raises the StateChanged event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         protected override void OnStateChanged(EventArgs e)
         {
             base.OnStateChanged(e);
