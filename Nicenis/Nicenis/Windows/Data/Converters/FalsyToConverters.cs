@@ -18,6 +18,8 @@ using System.Windows.Data;
 
 namespace Nicenis.Windows.Data.Converters
 {
+#pragma warning disable 1591
+
     /// <summary>
     /// Returns Visibility.Collapsed if the input value is falsy; otherwise, Visibility.Visible.
     /// </summary>
@@ -382,4 +384,6 @@ namespace Nicenis.Windows.Data.Converters
             throw new NotSupportedException();
         }
     }
+
+#pragma warning restore 1591
 }

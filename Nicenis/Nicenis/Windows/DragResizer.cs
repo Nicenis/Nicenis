@@ -195,6 +195,9 @@ namespace Nicenis.Windows
 
         #region Event Handlers
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call ApplyTemplate.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
