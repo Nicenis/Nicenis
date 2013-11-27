@@ -20,22 +20,22 @@ namespace Nicenis.Windows
     public enum WindowStateEx
     {
         /// <summary>
-        /// The windows is normal or restored.
+        /// Window is normal or restored.
         /// </summary>
         Normal,
 
         /// <summary>
-        /// The windows is minimized.
+        /// Window is minimized.
         /// </summary>
         Minimized,
 
         /// <summary>
-        /// The windows is maximized.
+        /// Window is maximized.
         /// </summary>
         Maximized,
 
         /// <summary>
-        /// The windows is full screen.
+        /// Window is in full screen mode.
         /// </summary>
         FullScreen,
     }
