@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using System;
 using System.Windows.Threading;
 
@@ -30,11 +31,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after BeginInvoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static DispatcherOperation BeginInvoke(this Dispatcher dispatcher, Action action, DispatcherPriority priority)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.BeginInvoke(action, priority);
         }
@@ -47,11 +45,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after BeginInvoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static DispatcherOperation BeginInvoke(this Dispatcher dispatcher, Action action)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.BeginInvoke(action);
         }
@@ -71,11 +66,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after Invoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static object Invoke(this Dispatcher dispatcher, Action action, TimeSpan timeout, DispatcherPriority priority)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.Invoke(action, timeout, priority);
         }
@@ -89,11 +81,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after Invoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static object Invoke(this Dispatcher dispatcher, Action action, DispatcherPriority priority)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.Invoke(action, priority);
         }
@@ -107,11 +96,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after Invoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static object Invoke(this Dispatcher dispatcher, Action action, TimeSpan timeout)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.Invoke(action, timeout);
         }
@@ -124,11 +110,8 @@ namespace Nicenis.Windows.Threading
         /// <returns>An object, which is returned immediately after Invoke is called, that can be used to interact with the delegate as it is pending execution in the event queue.</returns>
         public static object Invoke(this Dispatcher dispatcher, Action action)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verifying.ParameterIsNotNull(action, "action");
 
             return dispatcher.Invoke(action);
         }

@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using System;
 using System.Windows.Threading;
 
@@ -37,8 +38,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="dispatcherPriority">The priority at which execute the action.</param>
         public DelayInvoker(Dispatcher dispatcher, Action action, TimeSpan delayTime, DispatcherPriority dispatcherPriority)
         {
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
+            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
 
             _action = action;
 
@@ -142,8 +142,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="delayTime">Time to wait before executing the action.</param>
         public void Begin(Action action, TimeSpan delayTime)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(action, "action");
 
             _dispatcherTimer.Stop();
             _dispatcherTimer.Interval = delayTime;
@@ -158,8 +157,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="action">The action to execute with delay.</param>
         public void Begin(Action action)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            Verifying.ParameterIsNotNull(action, "action");
 
             _dispatcherTimer.Stop();
             _action = action;

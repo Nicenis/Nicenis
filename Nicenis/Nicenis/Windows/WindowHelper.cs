@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using Nicenis.Interop;
 using System;
 using System.Windows;
@@ -28,8 +29,7 @@ namespace Nicenis.Windows
         /// <param name="locationInScreen">The location of the system menu in screen coordination.</param>
         public static void ShowSystemMenu(this Window window, Point locationInScreen)
         {
-            if (window == null)
-                throw new ArgumentNullException("window");
+            Verifying.ParameterIsNotNull(window, "window");
 
             // Gets the window handle.
             IntPtr hWnd = new WindowInteropHelper(window).Handle;

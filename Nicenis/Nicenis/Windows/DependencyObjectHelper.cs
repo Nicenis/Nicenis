@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -29,8 +30,7 @@ namespace Nicenis.Windows
         /// <returns>The collection of elements that contains the visual ancestors.</returns>
         public static IEnumerable<DependencyObject> VisualAncestors(this DependencyObject dependencyObject)
         {
-            if (dependencyObject == null)
-                throw new ArgumentNullException("dependencyObject");
+            Verifying.ParameterIsNotNull(dependencyObject, "dependencyObject");
 
             DependencyObject current = VisualTreeHelper.GetParent(dependencyObject);
 

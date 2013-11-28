@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using Nicenis.Windows.Threading;
 using System;
 using System.Diagnostics;
@@ -177,9 +178,7 @@ namespace Nicenis.Windows
         /// <param name="target">The target element for the hover event.</param>
         internal HoverImplementationBase(UIElement target)
         {
-            if (target == null)
-                throw new ArgumentNullException("target");
-
+            Verifying.ParameterIsNotNull(target, "target");
             _target = target;
         }
 
@@ -275,8 +274,7 @@ namespace Nicenis.Windows
         /// <param name="setIsHover">An action that sets a IsHover.</param>
         public virtual void ProcessEnter(Action<bool> setIsHover)
         {
-            if (setIsHover == null)
-                throw new ArgumentNullException("setIsHover");
+            Verifying.ParameterIsNotNull(setIsHover, "setIsHover");
 
             // Resets the base position.
             BasePositionInScreen = null;
@@ -295,8 +293,7 @@ namespace Nicenis.Windows
         /// <param name="setIsHover">An action that sets a IsHover.</param>
         public virtual void ProcessLeave(Action<bool> setIsHover)
         {
-            if (setIsHover == null)
-                throw new ArgumentNullException("setIsHover");
+            Verifying.ParameterIsNotNull(setIsHover, "setIsHover");
 
             // Sets ths IsHover to false.
             setIsHover(false);
@@ -363,20 +360,11 @@ namespace Nicenis.Windows
                                     Func<Point> getPosition, Func<HoverEventMode> getHoverEventMode, Func<TimeSpan> getHoverTime,
                                     Action<bool> setIsHover, Action<Point, long, Point, long> hoverCallback)
         {
-            if (getPosition == null)
-                throw new ArgumentNullException("getPosition");
-
-            if (getHoverEventMode == null)
-                throw new ArgumentNullException("getHoverEventMode");
-
-            if (getHoverTime == null)
-                throw new ArgumentNullException("getHoverTime");
-
-            if (setIsHover == null)
-                throw new ArgumentNullException("setIsHover");
-
-            if (hoverCallback == null)
-                throw new ArgumentNullException("hoverCallback");
+            Verifying.ParameterIsNotNull(getPosition, "getPosition");
+            Verifying.ParameterIsNotNull(getHoverEventMode, "getHoverEventMode");
+            Verifying.ParameterIsNotNull(getHoverTime, "getHoverTime");
+            Verifying.ParameterIsNotNull(setIsHover, "setIsHover");
+            Verifying.ParameterIsNotNull(hoverCallback, "hoverCallback");
 
 
             // Gets the point in screen coordinates.
@@ -515,11 +503,8 @@ namespace Nicenis.Windows
         public void ProcessOver(Point currentPosition, HoverEventMode hoverEventMode, TimeSpan hoverTime, double hoverWidth, double hoverHeight,
                                     Action<bool> setIsHover, Action<Point, long, Point, long> hoverCallback)
         {
-            if (setIsHover == null)
-                throw new ArgumentNullException("setIsHover");
-
-            if (hoverCallback == null)
-                throw new ArgumentNullException("hoverCallback");
+            Verifying.ParameterIsNotNull(setIsHover, "setIsHover");
+            Verifying.ParameterIsNotNull(hoverCallback, "hoverCallback");
 
 
             // Gets the point in screen coordinates.

@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -37,9 +38,7 @@ namespace Nicenis.Windows
         internal DragMoverEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
             : base(routedEvent, source)
         {
-            if (target == null)
-                throw new ArgumentNullException("target");
-
+            Verifying.ParameterIsNotNull(target, "target");
             Target = target;
         }
 

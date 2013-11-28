@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -140,8 +141,7 @@ namespace Nicenis.Windows
         /// <returns>True if the window is resized.</returns>
         private static bool ResizeWindow(Window window, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
-            if (window == null)
-                throw new ArgumentNullException("window");
+            Verifying.ParameterIsNotNull(window, "window");
 
             bool isNewLeft, isNewTop;
             double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
@@ -196,8 +196,7 @@ namespace Nicenis.Windows
         /// <returns>True if the FrameworkElement is resized.</returns>
         private static bool ResizeFrameworkElement(FrameworkElement element, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
-            if (element == null)
-                throw new ArgumentNullException("element");
+            Verifying.ParameterIsNotNull(element, "element");
 
             bool isNewLeft, isNewTop;
             double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
@@ -338,8 +337,7 @@ namespace Nicenis.Windows
         /// <returns>True if the window is moved.</returns>
         private static bool MoveWindow(Window window, double deltaX, double deltaY)
         {
-            if (window == null)
-                throw new ArgumentNullException("window");
+            Verifying.ParameterIsNotNull(window, "window");
 
             double newLeft, newTop;
 
@@ -364,8 +362,7 @@ namespace Nicenis.Windows
         /// <returns>True if the FrameworkElement is moved.</returns>
         private static bool MoveFrameworkElement(FrameworkElement element, double deltaX, double deltaY)
         {
-            if (element == null)
-                throw new ArgumentNullException("element");
+            Verifying.ParameterIsNotNull(element, "element");
 
             double newLeft, newTop;
 

@@ -9,6 +9,7 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Diagnostics;
 using Nicenis.Interop;
 using System;
 using System.ComponentModel;
@@ -58,9 +59,7 @@ namespace Nicenis.Windows.Shell
         /// <returns>A frozen ImageSource that is the shell icon.</returns>
         public static ImageSource GetIcon(string path, ShellIconSize shellIconSize, bool includeOverlay = false, bool includeLinkOverlay = false, bool isOpen = false, bool isSelected = false)
         {
-            if (path == null)
-                throw new ArgumentNullException("path");
-
+            Verifying.ParameterIsNotNull(path, "path");
 
             // Creates a uFlags for the SHGetFileInfo function.
             uint uFlags = Win32.SHGFI_ICON | Win32.SHGFI_USEFILEATTRIBUTES;
@@ -188,15 +187,12 @@ namespace Nicenis.Windows.Shell
         /// <returns>The shell display name if it succeeds; otherwise, the file name returned by the Path.GetFileName method.</returns>
         public static string GetDisplayName(string path)
         {
-            if (path == null)
-                throw new ArgumentNullException("path");
-
+            Verifying.ParameterIsNotNull(path, "path");
 
             // Calls the SHGetFileInfo function.
             Win32.SHFILEINFO shFileInfo = new Win32.SHFILEINFO();
             if (Win32.SHGetFileInfo(path, 0, ref shFileInfo, (uint)Win32.SizeOfSHFILEINFO, Win32.SHGFI_DISPLAYNAME) == IntPtr.Zero)
                 return Path.GetFileName(path);
-
 
             // Returns the shell display name.
             return shFileInfo.szDisplayName;
