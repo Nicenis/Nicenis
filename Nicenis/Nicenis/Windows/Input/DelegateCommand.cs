@@ -180,7 +180,7 @@ namespace Nicenis.Windows.Input
     ///     and enables a View to bind commands to objects that are not part of the element tree.
     /// </summary>
     /// <typeparam name="T">Type of the parameter passed to the delegates</typeparam>
-    public class DelegateCommand<T> : ICommand
+    internal class DelegateCommand<T> : ICommand
     {
         #region Constructors
 
