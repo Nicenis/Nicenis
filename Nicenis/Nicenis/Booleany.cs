@@ -24,7 +24,7 @@ namespace Nicenis
         /// Indicates whether the specified value is a truthy value.
         /// </summary>
         /// <remarks>
-        /// Truthy/Falsy concept is originated from the JavaScript.
+        /// The truthy/falsy concept is originated from the JavaScript.
         /// There are seven values that are falsy: null, 0, false, NaN, DBNull, an empty string and an empty collection.
         /// </remarks>
         /// <param name="value">The value to evaluate.</param>
