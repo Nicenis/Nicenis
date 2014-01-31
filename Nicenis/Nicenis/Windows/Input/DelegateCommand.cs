@@ -1,7 +1,7 @@
 ﻿/*
- * Modifier	JO Hyeong-Ryeol
- * Since	2012.07.10
- * Version	$Id$
+ * Modifier JO Hyeong-Ryeol
+ * Since    2012.07.10
+ * Version  $Id$
  * 
  * This code is from the WPF MVVM Toolkit 0.1 sample.
  * The namespace has been changed not to mess up the WPF MVVM Toolkit's namespace.

@@ -1,7 +1,7 @@
 ﻿/*
- * Author	JO Hyeong-Ryeol
- * Since	2013.03.26
- * Version	$Id$
+ * Author   JO Hyeong-Ryeol
+ * Since    2013.03.26
+ * Version  $Id$
  * 
  * This file is a part of the Nicenis project.
  * https://nicenis.codeplex.com
