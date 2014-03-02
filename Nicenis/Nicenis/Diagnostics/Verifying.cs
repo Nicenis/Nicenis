@@ -10,6 +10,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nicenis.Diagnostics
 {
@@ -28,6 +30,20 @@ namespace Nicenis.Diagnostics
         {
             if (parameter == null)
                 throw new ArgumentNullException(parameterName);
+        }
+
+        /// <summary>
+        /// Throws an exception if the parameter is null or an empty collection.
+        /// </summary>
+        /// <typeparam name="T">The parameter collection item type.</typeparam>
+        /// <param name="parameter">The parameter collection.</param>
+        /// <param name="parameterName">The parameter name.</param>
+        public static void ParameterIsNotNullAndEmptyCollection<T>(IEnumerable<T> parameter, string parameterName)
+        {
+            ParameterIsNotNull(parameter, parameterName);
+
+            if (parameter.Any() == false)
+                throw new ArgumentException(string.Format("The parameter {0} can not be an empty collection.", parameterName));
         }
     }
 }
