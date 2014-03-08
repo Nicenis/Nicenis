@@ -45,5 +45,18 @@ namespace Nicenis.Diagnostics
             if (parameter.Any() == false)
                 throw new ArgumentException(string.Format("The parameter {0} can not be an empty collection.", parameterName));
         }
+
+        /// <summary>
+        /// Throws an exception if the parameter is null or a whitespace string.
+        /// </summary>
+        /// <param name="parameter">The parameter value.</param>
+        /// <param name="parameterName">The parameter name.</param>
+        public static void ParameterIsNotNullAndWhiteSpace(string parameter, string parameterName)
+        {
+            ParameterIsNotNull(parameter, parameterName);
+
+            if (string.IsNullOrWhiteSpace(parameter))
+                throw new ArgumentException(string.Format("The parameter {0} can not be a whitespace string.", parameterName));
+        }
     }
 }
