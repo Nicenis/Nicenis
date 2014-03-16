@@ -238,7 +238,7 @@ namespace Nicenis.ComponentModel
             return Enumerable.Empty<string>();
         }
 
-        public void RegisterAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
+        public void SetAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
         {
             Verifying.ParameterIsNotNull(affectedPropertyNames, "affectedPropertyNames");
 
@@ -264,7 +264,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public bool RegisterAffectedPropertyName(string propertyName, string affectedPropertyName)
+        public bool SetAffectedPropertyName(string propertyName, string affectedPropertyName)
         {
             Verifying.ParameterIsNotNullAndWhiteSpace(affectedPropertyName, "affectedPropertyName");
 
@@ -284,7 +284,7 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-        public void UnregisterAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
+        public void RemoveAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
         {
             Verifying.ParameterIsNotNull(affectedPropertyNames, "affectedPropertyNames");
 
@@ -310,7 +310,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public void UnregisterAffectedPropertyName(string propertyName, string affectedPropertyName)
+        public void RemoveAffectedPropertyName(string propertyName, string affectedPropertyName)
         {
             Verifying.ParameterIsNotNullAndWhiteSpace(affectedPropertyName, "affectedPropertyName");
 
@@ -359,7 +359,7 @@ namespace Nicenis.ComponentModel
             return Enumerable.Empty<Action>();
         }
 
-        public void RegisterChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void SetChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
             Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
 
@@ -381,7 +381,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public bool RegisterChangedCallback(string propertyName, Action changedCallback)
+        public bool SetChangedCallback(string propertyName, Action changedCallback)
         {
             Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
 
@@ -397,7 +397,7 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-        public void UnregisterChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void RemoveChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
             Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
 
@@ -419,7 +419,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public void UnregisterChangedCallback(string propertyName, Action changedCallback)
+        public void RemoveChangedCallback(string propertyName, Action changedCallback)
         {
             Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
 
@@ -1197,22 +1197,22 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual void RegisterAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
+        protected virtual void SetAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
         {
-            PropertyStorage.RegisterAffectedPropertyName(propertyName, affectedPropertyNames);
+            PropertyStorage.SetAffectedPropertyName(propertyName, affectedPropertyNames);
         }
 
-        protected void RegisterAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
+        protected void SetAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
         {
-            RegisterAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
+            SetAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
         }
 
-        protected virtual void RegisterAffectedPropertyName(string propertyName, string affectedPropertyName)
+        protected virtual void SetAffectedPropertyName(string propertyName, string affectedPropertyName)
         {
-            PropertyStorage.RegisterAffectedPropertyName(propertyName, affectedPropertyName);
+            PropertyStorage.SetAffectedPropertyName(propertyName, affectedPropertyName);
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1222,7 +1222,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
                 Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1235,7 +1235,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1245,7 +1245,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
                 Expression<Func<T20>> affectedPropertyExpression19)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1258,7 +1258,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1267,7 +1267,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1280,7 +1280,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1289,7 +1289,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1302,7 +1302,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
@@ -1310,7 +1310,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1323,14 +1323,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1342,14 +1342,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1361,14 +1361,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1380,13 +1380,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1398,13 +1398,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1416,13 +1416,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1433,12 +1433,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1449,12 +1449,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1465,12 +1465,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1481,11 +1481,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1496,11 +1496,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1510,11 +1510,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1524,10 +1524,10 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1537,38 +1537,38 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
+        protected void SetAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
         {
-            RegisterAffectedPropertyName
+            SetAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName(affectedPropertyExpression, affectedPropertyExpression2)
             );
         }
 
-        protected void RegisterAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
+        protected void SetAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
         {
-            RegisterAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
+            SetAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
         }
 
 
-        protected virtual void UnregisterAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
+        protected virtual void RemoveAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
         {
-            PropertyStorage.UnregisterAffectedPropertyName(propertyName, affectedPropertyNames);
+            PropertyStorage.RemoveAffectedPropertyName(propertyName, affectedPropertyNames);
         }
 
-        protected void UnregisterAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
+        protected void RemoveAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
         {
-            UnregisterAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
+            RemoveAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
         }
 
-        protected virtual void UnregisterAffectedPropertyName(string propertyName, string affectedPropertyName)
+        protected virtual void RemoveAffectedPropertyName(string propertyName, string affectedPropertyName)
         {
-            PropertyStorage.UnregisterAffectedPropertyName(propertyName, affectedPropertyName);
+            PropertyStorage.RemoveAffectedPropertyName(propertyName, affectedPropertyName);
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1578,7 +1578,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
                 Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1591,7 +1591,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1601,7 +1601,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
                 Expression<Func<T20>> affectedPropertyExpression19)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1614,7 +1614,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1623,7 +1623,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1636,7 +1636,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
@@ -1645,7 +1645,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1658,7 +1658,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
@@ -1666,7 +1666,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
                 Expression<Func<T17>> affectedPropertyExpression16)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1679,14 +1679,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1698,14 +1698,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1717,14 +1717,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
                 Expression<Func<T14>> affectedPropertyExpression13)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1736,13 +1736,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1754,13 +1754,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1772,13 +1772,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
                 Expression<Func<T11>> affectedPropertyExpression10)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1789,12 +1789,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1805,12 +1805,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1821,12 +1821,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
                 Expression<Func<T8>> affectedPropertyExpression7)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1837,11 +1837,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1852,11 +1852,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1866,11 +1866,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
                 Expression<Func<T5>> affectedPropertyExpression4)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1880,10 +1880,10 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName
@@ -1893,19 +1893,19 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
+        protected void RemoveAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
         {
-            UnregisterAffectedPropertyName
+            RemoveAffectedPropertyName
             (
                 propertyName: GetPropertyName(propertyExpression),
                 affectedPropertyNames: GetPropertyName(affectedPropertyExpression, affectedPropertyExpression2)
             );
         }
 
-        protected void UnregisterAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
+        protected void RemoveAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
         {
-            UnregisterAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
+            RemoveAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
         }
 
         #endregion
@@ -2243,65 +2243,65 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual void RegisterChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        protected virtual void SetChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.RegisterChangedCallback(propertyName, changedCallbacks);
+            PropertyStorage.SetChangedCallback(propertyName, changedCallbacks);
         }
 
-        protected void RegisterChangedCallback(string propertyName, params Action[] changedCallbacks)
+        protected void SetChangedCallback(string propertyName, params Action[] changedCallbacks)
         {
-            RegisterChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
+            SetChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected virtual void RegisterChangedCallback(string propertyName, Action changedCallback)
+        protected virtual void SetChangedCallback(string propertyName, Action changedCallback)
         {
-            PropertyStorage.RegisterChangedCallback(propertyName, changedCallback);
+            PropertyStorage.SetChangedCallback(propertyName, changedCallback);
         }
 
-        protected void RegisterChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
+        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.RegisterChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
+            PropertyStorage.SetChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
         }
 
-        protected void RegisterChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
+        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
         {
-            RegisterChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
+            SetChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected void RegisterChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
+        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
         {
-            PropertyStorage.RegisterChangedCallback(GetPropertyName(propertyExpression), changedCallback);
+            PropertyStorage.SetChangedCallback(GetPropertyName(propertyExpression), changedCallback);
         }
 
 
-        protected virtual void UnregisterChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        protected virtual void RemoveChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.UnregisterChangedCallback(propertyName, changedCallbacks);
+            PropertyStorage.RemoveChangedCallback(propertyName, changedCallbacks);
         }
 
-        protected void UnregisterChangedCallback(string propertyName, params Action[] changedCallbacks)
+        protected void RemoveChangedCallback(string propertyName, params Action[] changedCallbacks)
         {
-            UnregisterChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
+            RemoveChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected virtual void UnregisterChangedCallback(string propertyName, Action changedCallback)
+        protected virtual void RemoveChangedCallback(string propertyName, Action changedCallback)
         {
-            PropertyStorage.UnregisterChangedCallback(propertyName, changedCallback);
+            PropertyStorage.RemoveChangedCallback(propertyName, changedCallback);
         }
 
-        protected void UnregisterChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
+        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.UnregisterChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
+            PropertyStorage.RemoveChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
         }
 
-        protected void UnregisterChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
+        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
         {
-            UnregisterChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
+            RemoveChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected void UnregisterChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
+        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
         {
-            PropertyStorage.UnregisterChangedCallback(GetPropertyName(propertyExpression), changedCallback);
+            PropertyStorage.RemoveChangedCallback(GetPropertyName(propertyExpression), changedCallback);
         }
 
         #endregion
