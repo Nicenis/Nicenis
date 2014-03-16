@@ -47,6 +47,19 @@ namespace Nicenis.Diagnostics
         }
 
         /// <summary>
+        /// Throws an exception if the parameter is null or an empty string.
+        /// </summary>
+        /// <param name="parameter">The parameter value.</param>
+        /// <param name="parameterName">The parameter name.</param>
+        public static void ParameterIsNotNullAndEmpty(string parameter, string parameterName)
+        {
+            ParameterIsNotNull(parameter, parameterName);
+
+            if (string.IsNullOrEmpty(parameter))
+                throw new ArgumentException(string.Format("The parameter {0} can not be an empty string.", parameterName));
+        }
+
+        /// <summary>
         /// Throws an exception if the parameter is null or a whitespace string.
         /// </summary>
         /// <param name="parameter">The parameter value.</param>
