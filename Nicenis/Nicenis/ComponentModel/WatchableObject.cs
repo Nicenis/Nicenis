@@ -359,7 +359,7 @@ namespace Nicenis.ComponentModel
             return Enumerable.Empty<Action>();
         }
 
-        public void SetChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
             Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
 
@@ -381,7 +381,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public bool SetChangedCallback(string propertyName, Action changedCallback)
+        public bool SetPropertyChangedCallback(string propertyName, Action changedCallback)
         {
             Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
 
@@ -397,7 +397,7 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-        public void RemoveChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
             Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
 
@@ -419,7 +419,7 @@ namespace Nicenis.ComponentModel
             }
         }
 
-        public void RemoveChangedCallback(string propertyName, Action changedCallback)
+        public void RemovePropertyChangedCallback(string propertyName, Action changedCallback)
         {
             Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
 
@@ -2243,65 +2243,65 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual void SetChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.SetChangedCallback(propertyName, changedCallbacks);
+            PropertyStorage.SetPropertyChangedCallback(propertyName, changedCallbacks);
         }
 
-        protected void SetChangedCallback(string propertyName, params Action[] changedCallbacks)
+        protected void SetPropertyChangedCallback(string propertyName, params Action[] changedCallbacks)
         {
-            SetChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
+            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected virtual void SetChangedCallback(string propertyName, Action changedCallback)
+        protected virtual void SetPropertyChangedCallback(string propertyName, Action changedCallback)
         {
-            PropertyStorage.SetChangedCallback(propertyName, changedCallback);
+            PropertyStorage.SetPropertyChangedCallback(propertyName, changedCallback);
         }
 
-        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.SetChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
+            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
         }
 
-        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
         {
-            SetChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
+            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected void SetChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
         {
-            PropertyStorage.SetChangedCallback(GetPropertyName(propertyExpression), changedCallback);
+            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), changedCallback);
         }
 
 
-        protected virtual void RemoveChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.RemoveChangedCallback(propertyName, changedCallbacks);
+            PropertyStorage.RemovePropertyChangedCallback(propertyName, changedCallbacks);
         }
 
-        protected void RemoveChangedCallback(string propertyName, params Action[] changedCallbacks)
+        protected void RemovePropertyChangedCallback(string propertyName, params Action[] changedCallbacks)
         {
-            RemoveChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
+            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected virtual void RemoveChangedCallback(string propertyName, Action changedCallback)
+        protected virtual void RemovePropertyChangedCallback(string propertyName, Action changedCallback)
         {
-            PropertyStorage.RemoveChangedCallback(propertyName, changedCallback);
+            PropertyStorage.RemovePropertyChangedCallback(propertyName, changedCallback);
         }
 
-        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
         {
-            PropertyStorage.RemoveChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
+            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
         }
 
-        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
         {
-            RemoveChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
         }
 
-        protected void RemoveChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
         {
-            PropertyStorage.RemoveChangedCallback(GetPropertyName(propertyExpression), changedCallback);
+            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), changedCallback);
         }
 
         #endregion
