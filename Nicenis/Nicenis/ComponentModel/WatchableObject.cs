@@ -88,348 +88,153 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Metadata Related
+        #region ChangedCallback Related
 
-        #region Metadata
-
-        private class Metadata
-        {
-            public List<string> AffectedPropertyNames { get; set; }
-            public List<Action> ChangedCallbacks { get; set; }
-        }
-
-        #endregion
-
-
-        SortedList<string, Metadata> _metadataDictionary;
+        SortedList<string, List<Action>> _changedCallbackDictionary;
 
         /// <summary>
-        /// The dictionary to store property metadata.
-        /// The dictionary key is property name.
+        /// The dictionary to store property changed callback.
+        /// The dictionary key is property name, and the dictionary value is property changed callback list.
         /// </summary>
-        private SortedList<string, Metadata> MetadataDictionary
+        private SortedList<string, List<Action>> ChangedCallbackDictionary
         {
-            get { return _metadataDictionary ?? (_metadataDictionary = new SortedList<string, Metadata>()); }
+            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action>>()); }
         }
 
-        /// <summary>
-        /// Gets the property metadata specified by the property name.
-        /// If it is not created, a new metadata is returned.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private Metadata GetOrCreateMetadata(string propertyName)
+        private List<Action> GetChangedCallbackList(string propertyName)
         {
-            Verifying.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
-
-            Metadata metadata;
-            if (MetadataDictionary.TryGetValue(propertyName, out metadata))
-                return metadata;
-
-            return MetadataDictionary[propertyName] = new Metadata();
-        }
-
-        /// <summary>
-        /// Gets the affected property names of the property metadata specified by the property name.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private List<string> GetOrCreateMetadataAffectPropertyNames(string propertyName)
-        {
-            // Gets the property metadata.
-            Metadata metadata = GetOrCreateMetadata(propertyName);
-
-            // Initializes the storage.
-            if (metadata.AffectedPropertyNames == null)
-                metadata.AffectedPropertyNames = new List<string>();
-
-            return metadata.AffectedPropertyNames;
-        }
-
-        /// <summary>
-        /// Gets the changed callbacks of the property metadata specified by the property name.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private List<Action> GetOrCreateMetadataChangedCallbacks(string propertyName)
-        {
-            // Gets the property metadata.
-            Metadata metadata = GetOrCreateMetadata(propertyName);
-
-            // Initializes the storage.
-            if (metadata.ChangedCallbacks == null)
-                metadata.ChangedCallbacks = new List<Action>();
-
-            return metadata.ChangedCallbacks;
-        }
-
-        /// <summary>
-        /// Gets the property metadata specified by the property name.
-        /// If it is not created, null is returned.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private Metadata GetMetadata(string propertyName)
-        {
-            Verifying.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
-
-            if (_metadataDictionary != null)
-            {
-                Metadata metadata;
-                if (_metadataDictionary.TryGetValue(propertyName, out metadata))
-                    return metadata;
-            }
+            // Gets the changed callback list.
+            List<Action> changedCallbackList;
+            if (_changedCallbackDictionary != null
+                    && _changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                return changedCallbackList;
 
             return null;
         }
 
-        /// <summary>
-        /// Gets the affected property names of the property metadata specified by the property name.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private List<string> GetMetadataAffectedPropertyNames(string propertyName)
+        private List<Action> GetOrCreateChangedCallbackList(string propertyName)
         {
-            // Gets the property metadata.
-            Metadata metadata = GetMetadata(propertyName);
-            return metadata != null ? metadata.AffectedPropertyNames : null;
+            // Gets the changed callback list.
+            List<Action> changedCallbackList;
+            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                return changedCallbackList;
+
+            // Creats a new list.
+            return ChangedCallbackDictionary[propertyName] = new List<Action>();
         }
 
-        /// <summary>
-        /// Gets the changed callbacks of the property metadata specified by the property name.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private List<Action> GetMetadataChangedCallbacks(string propertyName)
-        {
-            // Gets the property metadata.
-            Metadata metadata = GetMetadata(propertyName);
-            return metadata != null ? metadata.ChangedCallbacks : null;
-        }
-
-        public IEnumerable<string> EnumerateAffectedPropertyName(IEnumerable<string> propertyNames)
+        public IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
             Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
 
-            foreach (string propertyName in propertyNames)
-            {
-                // Gets the property metadata.
-                Metadata metadata = GetMetadata(propertyName);
-
-                // If there is affected property names
-                if (metadata != null && metadata.AffectedPropertyNames != null)
-                {
-                    foreach (string affectedPropertyName in metadata.AffectedPropertyNames)
-                        yield return affectedPropertyName;
-                }
-            }
-        }
-
-        public IEnumerable<string> EnumerateAffectedPropertyName(string propertyName)
-        {
-            // Gets the property metadata.
-            Metadata metadata = GetMetadata(propertyName);
-
-            // If there is affected property names
-            if (metadata != null && metadata.AffectedPropertyNames != null)
-                return metadata.AffectedPropertyNames;
-
-            // If there is no affected property name
-            return Enumerable.Empty<string>();
-        }
-
-        public void SetAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
-        {
-            Verifying.ParameterIsNotNull(affectedPropertyNames, "affectedPropertyNames");
-
-            List<string> metadataAffectedPropertyNames = null;
-
-            // For each affected property name...
-            foreach (string affectedPropertyName in affectedPropertyNames)
-            {
-                // If the affected property name is the property name.
-                if (propertyName == affectedPropertyName)
-                    continue;
-
-                // Initializes the affected property name list in the metadata.
-                if (metadataAffectedPropertyNames == null)
-                    metadataAffectedPropertyNames = GetOrCreateMetadataAffectPropertyNames(propertyName);
-
-                // If the affected property name already exists
-                if (metadataAffectedPropertyNames.Contains(affectedPropertyName))
-                    continue;
-
-                // Adds the affected property name.
-                metadataAffectedPropertyNames.Add(affectedPropertyName);
-            }
-        }
-
-        public bool SetAffectedPropertyName(string propertyName, string affectedPropertyName)
-        {
-            Verifying.ParameterIsNotNullAndWhiteSpace(affectedPropertyName, "affectedPropertyName");
-
-            // If the affected property name is the property name.
-            if (propertyName == affectedPropertyName)
-                return false;
-
-            // Gets the affected property names of the property metadata.
-            List<string> metadataAffectedPropertyNames = GetOrCreateMetadataAffectPropertyNames(propertyName);
-
-            // If the affected property name already exists
-            if (metadataAffectedPropertyNames.Contains(affectedPropertyName))
-                return false;
-
-            // Adds the affected property name.
-            metadataAffectedPropertyNames.Add(affectedPropertyName);
-            return true;
-        }
-
-        public void RemoveAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
-        {
-            Verifying.ParameterIsNotNull(affectedPropertyNames, "affectedPropertyNames");
-
-            List<string> metadataAffectedPropertyNames = null;
-
-            // For each affected property name...
-            foreach (string affectedPropertyName in affectedPropertyNames)
-            {
-                // If the affected property name is the property name.
-                if (propertyName == affectedPropertyName)
-                    continue;
-
-                // Gets the affected property name list in the metadata.
-                if (metadataAffectedPropertyNames == null)
-                {
-                    metadataAffectedPropertyNames = GetMetadataAffectedPropertyNames(propertyName);
-                    if (metadataAffectedPropertyNames == null)
-                        return;
-                }
-
-                // Removes the affected property name.
-                metadataAffectedPropertyNames.Remove(affectedPropertyName);
-            }
-        }
-
-        public void RemoveAffectedPropertyName(string propertyName, string affectedPropertyName)
-        {
-            Verifying.ParameterIsNotNullAndWhiteSpace(affectedPropertyName, "affectedPropertyName");
-
-            // If the affected property name is the property name.
-            if (propertyName == affectedPropertyName)
-                return;
-
-            // Gets the affected property names of the property metadata.
-            List<string> metadataAffectedPropertyNames = GetMetadataAffectedPropertyNames(propertyName);
-            if (metadataAffectedPropertyNames == null)
-                return;
-
-            // Removes the affected property name.
-            metadataAffectedPropertyNames.Remove(affectedPropertyName);
-        }
-
-
-        public IEnumerable<Action> EnumerateChangedCallback(IEnumerable<string> propertyNames)
-        {
-            Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                yield break;
 
             foreach (string propertyName in propertyNames)
             {
-                // Gets the property metadata.
-                Metadata metadata = GetMetadata(propertyName);
+                // Gets the changed callback list.
+                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
 
                 // If there is changed callbacks
-                if (metadata != null && metadata.ChangedCallbacks != null)
+                if (changedCallbackList != null)
                 {
-                    foreach (Action changedCallback in metadata.ChangedCallbacks)
+                    foreach (Action changedCallback in changedCallbackList)
                         yield return changedCallback;
                 }
             }
         }
 
-        public IEnumerable<Action> EnumerateChangedCallback(string propertyName)
+        public IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
         {
-            // Gets the property metadata.
-            Metadata metadata = GetMetadata(propertyName);
+            // Gets the changed callback list.
+            IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
 
             // If there is changed callbacks
-            if (metadata != null && metadata.ChangedCallbacks != null)
-                return metadata.ChangedCallbacks;
+            if (changedCallbackList != null)
+                return changedCallbackList;
 
             // If there is no changed callback
             return Enumerable.Empty<Action>();
         }
 
-        public void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
+            Verifying.ParameterIsNotNull(callbacks, "callbacks");
 
-            List<Action> metadataChangedCallbacks = null;
+            List<Action> callbackList = null;
 
             // For each changed callbacks...
-            foreach (Action changedCallback in changedCallbacks)
+            foreach (Action changedCallback in callbacks)
             {
-                // Initializes the changed callback list in the metadata.
-                if (metadataChangedCallbacks == null)
-                    metadataChangedCallbacks = GetOrCreateMetadataChangedCallbacks(propertyName);
+                // Initializes the changed callback list.
+                if (callbackList == null)
+                    callbackList = GetOrCreateChangedCallbackList(propertyName);
 
                 // If the changed callback already exists
-                if (metadataChangedCallbacks.Contains(changedCallback))
+                if (callbackList.Contains(changedCallback))
                     continue;
 
                 // Adds the changed callback.
-                metadataChangedCallbacks.Add(changedCallback);
+                callbackList.Add(changedCallback);
             }
         }
 
-        public bool SetPropertyChangedCallback(string propertyName, Action changedCallback)
+        public bool SetPropertyChangedCallback(string propertyName, Action callbacks)
         {
-            Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
+            Verifying.ParameterIsNotNull(callbacks, "callbacks");
 
-            // Gets the property metadata.
-            List<Action> metadataChangedCallbacks = GetOrCreateMetadataChangedCallbacks(propertyName);
+            // Gets the changed callback list.
+            List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
 
             // If the changed callback already exists
-            if (metadataChangedCallbacks.Contains(changedCallback))
+            if (callbackList.Contains(callbacks))
                 return false;
 
             // Adds the changed callback.
-            metadataChangedCallbacks.Add(changedCallback);
+            callbackList.Add(callbacks);
             return true;
         }
 
-        public void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        public void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            Verifying.ParameterIsNotNull(changedCallbacks, "changedCallbacks");
+            Verifying.ParameterIsNotNull(callbacks, "callbacks");
 
-            List<Action> metadataChangedCallbacks = null;
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                return;
+
+            List<Action> callbackList = null;
 
             // For each changed callback...
-            foreach (Action changedCallback in changedCallbacks)
+            foreach (Action changedCallback in callbacks)
             {
-                // Gets the changed callback list in the metadata.
-                if (metadataChangedCallbacks == null)
+                // Gets the changed callback list.
+                if (callbackList == null)
                 {
-                    metadataChangedCallbacks = GetMetadataChangedCallbacks(propertyName);
-                    if (metadataChangedCallbacks == null)
+                    callbackList = GetChangedCallbackList(propertyName);
+
+                    // If there is no callback list
+                    if (callbackList == null)
                         return;
                 }
 
                 // Removes the changed callback.
-                metadataChangedCallbacks.Remove(changedCallback);
+                callbackList.Remove(changedCallback);
             }
         }
 
-        public void RemovePropertyChangedCallback(string propertyName, Action changedCallback)
+        public void RemovePropertyChangedCallback(string propertyName, Action callbacks)
         {
-            Verifying.ParameterIsNotNull(changedCallback, "changedCallback");
+            Verifying.ParameterIsNotNull(callbacks, "callbacks");
 
-            // Gets the changed callbacks of the property metadata.
-            List<Action> metadataChangedCallbacks = GetMetadataChangedCallbacks(propertyName);
-            if (metadataChangedCallbacks == null)
+            // Gets the changed callbacks list.
+            List<Action> callbackList = GetChangedCallbackList(propertyName);
+            if (callbackList == null)
                 return;
 
             // Removes the changed callback.
-            metadataChangedCallbacks.Remove(changedCallback);
+            callbackList.Remove(callbacks);
         }
 
         #endregion
@@ -863,27 +668,25 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Affected Property Related
+        #region Property Changed Callback Related
 
-        protected virtual IEnumerable<string> EnumerateAffectedPropertyName(IEnumerable<string> propertyNames)
+        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
             Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
-            return propertyNames.Concat(PropertyStorage.EnumerateAffectedPropertyName(propertyNames))
-                                .Distinct();
+            return PropertyStorage.EnumeratePropertyChangedCallback(propertyNames);
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName(params string[] propertyNames)
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback(params string[] propertyNames)
         {
-            return EnumerateAffectedPropertyName((IEnumerable<string>)propertyNames);
+            return EnumeratePropertyChangedCallback((IEnumerable<string>)propertyNames);
         }
 
-        protected virtual IEnumerable<string> EnumerateAffectedPropertyName(string propertyName)
+        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
         {
-            return Enumerable.Repeat(propertyName, 1)
-                             .Concat(PropertyStorage.EnumerateAffectedPropertyName(propertyName));
+            return PropertyStorage.EnumeratePropertyChangedCallback(propertyName);
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -892,7 +695,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -904,7 +707,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -913,7 +716,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -925,7 +728,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -933,7 +736,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -945,7 +748,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -953,7 +756,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -965,7 +768,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -973,7 +776,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -985,14 +788,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1003,14 +806,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1021,14 +824,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1039,13 +842,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1056,13 +859,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1073,13 +876,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1089,12 +892,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1104,12 +907,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1119,12 +922,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1134,11 +937,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5, T6>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1148,11 +951,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4, T5>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1161,11 +964,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3, T4>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1174,10 +977,10 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2, T3>(
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
         {
-            return EnumerateAffectedPropertyName
+            return EnumeratePropertyChangedCallback
             (
                 GetPropertyName
                 (
@@ -1186,1122 +989,76 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
-            return EnumerateAffectedPropertyName(GetPropertyName(propertyExpression, propertyExpression2));
+            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
         }
 
-        protected IEnumerable<string> EnumerateAffectedPropertyName<T>(Expression<Func<T>> propertyExpression)
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
         {
-            return EnumerateAffectedPropertyName(GetPropertyName(propertyExpression));
+            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
         }
 
 
-        protected virtual void SetAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
+        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.SetAffectedPropertyName(propertyName, affectedPropertyNames);
+            PropertyStorage.SetPropertyChangedCallback(propertyName, callbacks);
         }
 
-        protected void SetAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
+        protected void SetPropertyChangedCallback(string propertyName, params Action[] callbacks)
         {
-            SetAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
+            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
         }
 
-        protected virtual void SetAffectedPropertyName(string propertyName, string affectedPropertyName)
+        protected virtual void SetPropertyChangedCallback(string propertyName, Action callback)
         {
-            PropertyStorage.SetAffectedPropertyName(propertyName, affectedPropertyName);
+            PropertyStorage.SetPropertyChangedCallback(propertyName, callback);
         }
 
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
-                Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
         {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19, affectedPropertyExpression20
-                )
-            );
+            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
         }
 
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
-                Expression<Func<T20>> affectedPropertyExpression19)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
         {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19
-                )
-            );
+            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
         }
 
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
         {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18
-                )
-            );
+            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
         }
 
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
-                )
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
-        {
-            SetAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName(affectedPropertyExpression, affectedPropertyExpression2)
-            );
-        }
-
-        protected void SetAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
-        {
-            SetAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
-        }
-
-
-        protected virtual void RemoveAffectedPropertyName(string propertyName, IEnumerable<string> affectedPropertyNames)
-        {
-            PropertyStorage.RemoveAffectedPropertyName(propertyName, affectedPropertyNames);
-        }
-
-        protected void RemoveAffectedPropertyName(string propertyName, params string[] affectedPropertyNames)
-        {
-            RemoveAffectedPropertyName(propertyName, (IEnumerable<string>)affectedPropertyNames);
-        }
-
-        protected virtual void RemoveAffectedPropertyName(string propertyName, string affectedPropertyName)
-        {
-            PropertyStorage.RemoveAffectedPropertyName(propertyName, affectedPropertyName);
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
-                Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19, affectedPropertyExpression20
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
-                Expression<Func<T20>> affectedPropertyExpression19)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16, affectedPropertyExpression17
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
-                Expression<Func<T17>> affectedPropertyExpression16)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
-                    affectedPropertyExpression16
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
-                Expression<Func<T14>> affectedPropertyExpression13)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11, affectedPropertyExpression12
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
-                    affectedPropertyExpression11
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
-                Expression<Func<T11>> affectedPropertyExpression10)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
-                Expression<Func<T8>> affectedPropertyExpression7)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6, affectedPropertyExpression7
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
-                    affectedPropertyExpression6
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
-                Expression<Func<T5>> affectedPropertyExpression4)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName
-                (
-                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
-                )
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
-        {
-            RemoveAffectedPropertyName
-            (
-                propertyName: GetPropertyName(propertyExpression),
-                affectedPropertyNames: GetPropertyName(affectedPropertyExpression, affectedPropertyExpression2)
-            );
-        }
-
-        protected void RemoveAffectedPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> affectedPropertyExpression)
-        {
-            RemoveAffectedPropertyName(GetPropertyName(propertyExpression), GetPropertyName(affectedPropertyExpression));
-        }
-
-        #endregion
-
-
-        #region Changed Callback Related
-
-        protected virtual IEnumerable<Action> EnumerateChangedCallback(IEnumerable<string> propertyNames)
-        {
-            Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
-            return PropertyStorage.EnumerateChangedCallback(propertyNames).Distinct();
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback(params string[] propertyNames)
-        {
-            return EnumerateChangedCallback((IEnumerable<string>)propertyNames);
-        }
-
-        protected virtual IEnumerable<Action> EnumerateChangedCallback(string propertyName)
-        {
-            return PropertyStorage.EnumerateChangedCallback(propertyName);
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6, T7>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5, T6>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4, T5>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3, T4>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2, T3>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
-        {
-            return EnumerateChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
-        {
-            return EnumerateChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
-        }
-
-        protected IEnumerable<Action> EnumerateChangedCallback<T>(Expression<Func<T>> propertyExpression)
-        {
-            return EnumerateChangedCallback(GetPropertyName(propertyExpression));
-        }
-
-
-        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
-        {
-            PropertyStorage.SetPropertyChangedCallback(propertyName, changedCallbacks);
-        }
-
-        protected void SetPropertyChangedCallback(string propertyName, params Action[] changedCallbacks)
-        {
-            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
-        }
-
-        protected virtual void SetPropertyChangedCallback(string propertyName, Action changedCallback)
-        {
-            PropertyStorage.SetPropertyChangedCallback(propertyName, changedCallback);
-        }
-
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
-        {
-            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
-        }
-
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
-        {
-            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
-        }
-
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
-        {
-            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), changedCallback);
-        }
-
 
-        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> changedCallbacks)
+        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.RemovePropertyChangedCallback(propertyName, changedCallbacks);
+            PropertyStorage.RemovePropertyChangedCallback(propertyName, callbacks);
         }
 
-        protected void RemovePropertyChangedCallback(string propertyName, params Action[] changedCallbacks)
+        protected void RemovePropertyChangedCallback(string propertyName, params Action[] callbacks)
         {
-            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)changedCallbacks);
+            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
         }
 
-        protected virtual void RemovePropertyChangedCallback(string propertyName, Action changedCallback)
+        protected virtual void RemovePropertyChangedCallback(string propertyName, Action callback)
         {
-            PropertyStorage.RemovePropertyChangedCallback(propertyName, changedCallback);
+            PropertyStorage.RemovePropertyChangedCallback(propertyName, callback);
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> changedCallbacks)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), changedCallbacks);
+            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] changedCallbacks)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
         {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)changedCallbacks);
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action changedCallback)
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
         {
-            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), changedCallback);
+            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
         }
 
         #endregion
@@ -2419,14 +1176,15 @@ namespace Nicenis.ComponentModel
             // If the property is changed
             if (SetPropertyWithoutNotification(propertyName, value))
             {
-                // Gets all affected property names
-                IEnumerable<string> allAffectedPropertyNames = EnumerateAffectedPropertyName(Enumerable.Repeat(propertyName, 1).Concat(affectedPropertyNames));
-
-                // Raises PropertyChanged events for all affected properties.
-                OnPropertyChanged(allAffectedPropertyNames);
+                // Raises PropertyChanged events.
+                OnPropertyChanged(propertyName);
+                OnPropertyChanged(affectedPropertyNames);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumerateChangedCallback(allAffectedPropertyNames))
+                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
+                    changedCallback();
+
+                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(affectedPropertyNames))
                     changedCallback();
 
                 return true;
@@ -2445,14 +1203,15 @@ namespace Nicenis.ComponentModel
             // If the property is changed
             if (SetPropertyWithoutNotification(propertyName, value))
             {
-                // Gets all affected property names
-                IEnumerable<string> allAffectedPropertyNames = EnumerateAffectedPropertyName(propertyName, affectedPropertyName);
-
-                // Raises PropertyChanged events for all affected properties.
-                OnPropertyChanged(allAffectedPropertyNames);
+                // Raises PropertyChanged events.
+                OnPropertyChanged(propertyName);
+                OnPropertyChanged(affectedPropertyName);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumerateChangedCallback(allAffectedPropertyNames))
+                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
+                    changedCallback();
+
+                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(affectedPropertyName))
                     changedCallback();
 
                 return true;
@@ -2466,14 +1225,11 @@ namespace Nicenis.ComponentModel
             // If the property is changed
             if (SetPropertyWithoutNotification(propertyName, value))
             {
-                // Gets all affected property names
-                IEnumerable<string> allAffectedPropertyNames = EnumerateAffectedPropertyName(propertyName);
-
                 // Raises PropertyChanged event.
-                OnPropertyChanged(allAffectedPropertyNames);
+                OnPropertyChanged(propertyName);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumerateChangedCallback(allAffectedPropertyNames))
+                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
                     changedCallback();
 
                 return true;
