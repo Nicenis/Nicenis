@@ -29,7 +29,7 @@ namespace Nicenis.Windows
         /// <param name="locationInScreen">The location of the system menu in screen coordination.</param>
         public static void ShowSystemMenu(this Window window, Point locationInScreen)
         {
-            Verifying.ParameterIsNotNull(window, "window");
+            Verify.ParameterIsNotNull(window, "window");
 
             // Gets the window handle.
             IntPtr hWnd = new WindowInteropHelper(window).Handle;

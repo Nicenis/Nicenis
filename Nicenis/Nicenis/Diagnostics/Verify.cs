@@ -18,7 +18,7 @@ namespace Nicenis.Diagnostics
     /// <summary>
     /// Verifies conditions.
     /// </summary>
-    internal static class Verifying
+    internal static class Verify
     {
         /// <summary>
         /// Throws an exception if the parameter is null.

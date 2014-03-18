@@ -30,7 +30,7 @@ namespace Nicenis.Windows
         /// <returns>The collection of elements that contains the visual ancestors.</returns>
         public static IEnumerable<DependencyObject> VisualAncestors(this DependencyObject dependencyObject)
         {
-            Verifying.ParameterIsNotNull(dependencyObject, "dependencyObject");
+            Verify.ParameterIsNotNull(dependencyObject, "dependencyObject");
 
             DependencyObject current = VisualTreeHelper.GetParent(dependencyObject);
 

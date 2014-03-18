@@ -143,7 +143,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.All(p => Booleany.IsTruthy(p)) ? Visibility.Collapsed : Visibility.Visible;
         }
 
@@ -162,7 +162,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return !values.All(p => Booleany.IsTruthy(p));
         }
 
@@ -181,7 +181,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.All(p => Booleany.IsTruthy(p)) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -200,7 +200,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.All(p => Booleany.IsTruthy(p));
         }
 
@@ -219,7 +219,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.All(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Collapsed;
         }
 
@@ -238,7 +238,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.All(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Hidden;
         }
 
@@ -257,7 +257,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.Any(p => Booleany.IsTruthy(p)) ? Visibility.Collapsed : Visibility.Visible;
         }
 
@@ -276,7 +276,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return !values.Any(p => Booleany.IsTruthy(p));
         }
 
@@ -295,7 +295,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.Any(p => Booleany.IsTruthy(p)) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -314,7 +314,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.Any(p => Booleany.IsTruthy(p));
         }
 
@@ -333,7 +333,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.Any(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Collapsed;
         }
 
@@ -352,7 +352,7 @@ namespace Nicenis.Windows.Data.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Verifying.ParameterIsNotNull(values, "values");
+            Verify.ParameterIsNotNull(values, "values");
             return values.Any(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Hidden;
         }
 

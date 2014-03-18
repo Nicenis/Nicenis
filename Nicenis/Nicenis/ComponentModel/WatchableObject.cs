@@ -55,7 +55,7 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
         public bool GetValue<T>(string propertyName, out T value)
         {
-            Verifying.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
 
             // Tries to retrieve the value if it exists.
             if (_valueDictionary != null)
@@ -81,7 +81,7 @@ namespace Nicenis.ComponentModel
         /// <param name="value"></param>
         public void SetValue<T>(string propertyName, T value)
         {
-            Verifying.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
             ValueDictionary[propertyName] = value;
         }
 
@@ -125,7 +125,7 @@ namespace Nicenis.ComponentModel
 
         public IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
-            Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
 
             // If the changed callback dictionary is not created
             if (_changedCallbackDictionary == null)
@@ -160,7 +160,7 @@ namespace Nicenis.ComponentModel
 
         public void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            Verifying.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
 
             List<Action> callbackList = null;
 
@@ -182,7 +182,7 @@ namespace Nicenis.ComponentModel
 
         public bool SetPropertyChangedCallback(string propertyName, Action callbacks)
         {
-            Verifying.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
 
             // Gets the changed callback list.
             List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
@@ -198,7 +198,7 @@ namespace Nicenis.ComponentModel
 
         public void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            Verifying.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
 
             // If the changed callback dictionary is not created
             if (_changedCallbackDictionary == null)
@@ -226,7 +226,7 @@ namespace Nicenis.ComponentModel
 
         public void RemovePropertyChangedCallback(string propertyName, Action callbacks)
         {
-            Verifying.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
 
             // Gets the changed callbacks list.
             List<Action> callbackList = GetChangedCallbackList(propertyName);
@@ -262,7 +262,7 @@ namespace Nicenis.ComponentModel
 
         protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
-            Verifying.ParameterIsNotNull(propertyExpression, "propertyExpression");
+            Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
 
             var memberExpression = propertyExpression.Body as MemberExpression;
             if (memberExpression == null)
@@ -672,7 +672,7 @@ namespace Nicenis.ComponentModel
 
         protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
-            Verifying.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
             return PropertyStorage.EnumeratePropertyChangedCallback(propertyNames);
         }
 
@@ -1109,7 +1109,7 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected virtual T GetProperty<T>(string propertyName, Func<T> initializer)
         {
-            Verifying.ParameterIsNotNull(initializer, "initializer");
+            Verify.ParameterIsNotNull(initializer, "initializer");
 
             // Returns the property value if it exists
             T value;
@@ -1147,7 +1147,7 @@ namespace Nicenis.ComponentModel
         /// <returns></returns>
         private bool SetPropertyWithoutNotification<T>(string propertyName, T value)
         {
-            Verifying.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
 
             // Gets the property value.
             T oldValue = (T)GetType().InvokeMember
@@ -1666,7 +1666,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyNames">The property names that changed. Null is not allowed.</param>
         protected virtual void OnPropertyChanged(IEnumerable<string> propertyNames)
         {
-            Verifying.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
 
             foreach (string propertyName in propertyNames)
                 OnPropertyChanged(propertyName);

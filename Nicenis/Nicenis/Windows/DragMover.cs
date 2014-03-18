@@ -38,7 +38,7 @@ namespace Nicenis.Windows
         internal DragMoverEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
             : base(routedEvent, source)
         {
-            Verifying.ParameterIsNotNull(target, "target");
+            Verify.ParameterIsNotNull(target, "target");
             Target = target;
         }
 

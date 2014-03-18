@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Collections\StaticArray.cs" />
     <Compile Include="ComponentModel\WatchableObject.cs" />
-    <Compile Include="Diagnostics\Verifying.cs" />
+    <Compile Include="Diagnostics\Verify.cs" />
     <Compile Include="Disposable.cs" />
     <Compile Include="Interop\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

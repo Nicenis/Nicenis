@@ -38,7 +38,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="dispatcherPriority">The priority at which execute the action.</param>
         public DelayInvoker(Dispatcher dispatcher, Action action, TimeSpan delayTime, DispatcherPriority dispatcherPriority)
         {
-            Verifying.ParameterIsNotNull(dispatcher, "dispatcher");
+            Verify.ParameterIsNotNull(dispatcher, "dispatcher");
 
             _action = action;
 
@@ -142,7 +142,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="delayTime">Time to wait before executing the action.</param>
         public void Begin(Action action, TimeSpan delayTime)
         {
-            Verifying.ParameterIsNotNull(action, "action");
+            Verify.ParameterIsNotNull(action, "action");
 
             _dispatcherTimer.Stop();
             _dispatcherTimer.Interval = delayTime;
@@ -157,7 +157,7 @@ namespace Nicenis.Windows.Threading
         /// <param name="action">The action to execute with delay.</param>
         public void Begin(Action action)
         {
-            Verifying.ParameterIsNotNull(action, "action");
+            Verify.ParameterIsNotNull(action, "action");
 
             _dispatcherTimer.Stop();
             _action = action;

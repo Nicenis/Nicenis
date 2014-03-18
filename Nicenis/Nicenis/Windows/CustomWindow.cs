@@ -589,7 +589,7 @@ namespace Nicenis.Windows
         /// <param name="e">The event arguments.</param>
         protected virtual void OnStateExChanged(CustomWindowStateExChangedEventArgs e)
         {
-            Verifying.ParameterIsNotNull(e, "e");
+            Verify.ParameterIsNotNull(e, "e");
 
             if (StateExChanged != null)
                 StateExChanged(this, e);

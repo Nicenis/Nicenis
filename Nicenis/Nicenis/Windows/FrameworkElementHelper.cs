@@ -141,7 +141,7 @@ namespace Nicenis.Windows
         /// <returns>True if the window is resized.</returns>
         private static bool ResizeWindow(Window window, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
-            Verifying.ParameterIsNotNull(window, "window");
+            Verify.ParameterIsNotNull(window, "window");
 
             bool isNewLeft, isNewTop;
             double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
@@ -196,7 +196,7 @@ namespace Nicenis.Windows
         /// <returns>True if the FrameworkElement is resized.</returns>
         private static bool ResizeFrameworkElement(FrameworkElement element, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
-            Verifying.ParameterIsNotNull(element, "element");
+            Verify.ParameterIsNotNull(element, "element");
 
             bool isNewLeft, isNewTop;
             double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
@@ -337,7 +337,7 @@ namespace Nicenis.Windows
         /// <returns>True if the window is moved.</returns>
         private static bool MoveWindow(Window window, double deltaX, double deltaY)
         {
-            Verifying.ParameterIsNotNull(window, "window");
+            Verify.ParameterIsNotNull(window, "window");
 
             double newLeft, newTop;
 
@@ -362,7 +362,7 @@ namespace Nicenis.Windows
         /// <returns>True if the FrameworkElement is moved.</returns>
         private static bool MoveFrameworkElement(FrameworkElement element, double deltaX, double deltaY)
         {
-            Verifying.ParameterIsNotNull(element, "element");
+            Verify.ParameterIsNotNull(element, "element");
 
             double newLeft, newTop;
 

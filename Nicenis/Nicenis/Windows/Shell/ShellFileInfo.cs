@@ -59,7 +59,7 @@ namespace Nicenis.Windows.Shell
         /// <returns>A frozen ImageSource that is the shell icon.</returns>
         public static ImageSource GetIcon(string path, ShellIconSize shellIconSize, bool includeOverlay = false, bool includeLinkOverlay = false, bool isOpen = false, bool isSelected = false)
         {
-            Verifying.ParameterIsNotNull(path, "path");
+            Verify.ParameterIsNotNull(path, "path");
 
             // Creates a uFlags for the SHGetFileInfo function.
             uint uFlags = Win32.SHGFI_ICON | Win32.SHGFI_USEFILEATTRIBUTES;
@@ -187,7 +187,7 @@ namespace Nicenis.Windows.Shell
         /// <returns>The shell display name if it succeeds; otherwise, the file name returned by the Path.GetFileName method.</returns>
         public static string GetDisplayName(string path)
         {
-            Verifying.ParameterIsNotNull(path, "path");
+            Verify.ParameterIsNotNull(path, "path");
 
             // Calls the SHGetFileInfo function.
             Win32.SHFILEINFO shFileInfo = new Win32.SHFILEINFO();
