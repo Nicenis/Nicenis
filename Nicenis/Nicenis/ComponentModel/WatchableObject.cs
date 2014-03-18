@@ -19,230 +19,6 @@ using System.Reflection;
 
 namespace Nicenis.ComponentModel
 {
-    #region PropertyStorage
-
-    internal class PropertyStorage
-    {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance.
-        /// </summary>
-        public PropertyStorage() { }
-
-        #endregion
-
-
-        #region Value Related
-
-        SortedList<string, object> _valueDictionary;
-
-        /// <summary>
-        /// The dictionary to store property value.
-        /// The dictionary key is property name, and the dictionary value is property value.
-        /// </summary>
-        private SortedList<string, object> ValueDictionary
-        {
-            get { return _valueDictionary ?? (_valueDictionary = new SortedList<string, object>()); }
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property name.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value returned.</param>
-        /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
-        public bool GetValue<T>(string propertyName, out T value)
-        {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
-
-            // Tries to retrieve the value if it exists.
-            if (_valueDictionary != null)
-            {
-                object rawValue;
-                if (_valueDictionary.TryGetValue(propertyName, out rawValue))
-                {
-                    value = (T)rawValue;
-                    return true;
-                }
-            }
-
-            // If the property is not found
-            value = default(T);
-            return false;
-        }
-
-        /// <summary>
-        /// Sets the value to the property specified by the property name.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="propertyName"></param>
-        /// <param name="value"></param>
-        public void SetValue<T>(string propertyName, T value)
-        {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
-            ValueDictionary[propertyName] = value;
-        }
-
-        #endregion
-
-
-        #region ChangedCallback Related
-
-        SortedList<string, List<Action>> _changedCallbackDictionary;
-
-        /// <summary>
-        /// The dictionary to store property changed callback.
-        /// The dictionary key is property name, and the dictionary value is property changed callback list.
-        /// </summary>
-        private SortedList<string, List<Action>> ChangedCallbackDictionary
-        {
-            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action>>()); }
-        }
-
-        private List<Action> GetChangedCallbackList(string propertyName)
-        {
-            // Gets the changed callback list.
-            List<Action> changedCallbackList;
-            if (_changedCallbackDictionary != null
-                    && _changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                return changedCallbackList;
-
-            return null;
-        }
-
-        private List<Action> GetOrCreateChangedCallbackList(string propertyName)
-        {
-            // Gets the changed callback list.
-            List<Action> changedCallbackList;
-            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                return changedCallbackList;
-
-            // Creats a new list.
-            return ChangedCallbackDictionary[propertyName] = new List<Action>();
-        }
-
-        public IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
-        {
-            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
-
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                yield break;
-
-            foreach (string propertyName in propertyNames)
-            {
-                // Gets the changed callback list.
-                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
-
-                // If there is changed callbacks
-                if (changedCallbackList != null)
-                {
-                    foreach (Action changedCallback in changedCallbackList)
-                        yield return changedCallback;
-                }
-            }
-        }
-
-        public IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
-        {
-            // Gets the changed callback list.
-            IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
-
-            // If there is changed callbacks
-            if (changedCallbackList != null)
-                return changedCallbackList;
-
-            // If there is no changed callback
-            return Enumerable.Empty<Action>();
-        }
-
-        public void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            List<Action> callbackList = null;
-
-            // For each changed callbacks...
-            foreach (Action changedCallback in callbacks)
-            {
-                // Initializes the changed callback list.
-                if (callbackList == null)
-                    callbackList = GetOrCreateChangedCallbackList(propertyName);
-
-                // If the changed callback already exists
-                if (callbackList.Contains(changedCallback))
-                    continue;
-
-                // Adds the changed callback.
-                callbackList.Add(changedCallback);
-            }
-        }
-
-        public bool SetPropertyChangedCallback(string propertyName, Action callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            // Gets the changed callback list.
-            List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
-
-            // If the changed callback already exists
-            if (callbackList.Contains(callbacks))
-                return false;
-
-            // Adds the changed callback.
-            callbackList.Add(callbacks);
-            return true;
-        }
-
-        public void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                return;
-
-            List<Action> callbackList = null;
-
-            // For each changed callback...
-            foreach (Action changedCallback in callbacks)
-            {
-                // Gets the changed callback list.
-                if (callbackList == null)
-                {
-                    callbackList = GetChangedCallbackList(propertyName);
-
-                    // If there is no callback list
-                    if (callbackList == null)
-                        return;
-                }
-
-                // Removes the changed callback.
-                callbackList.Remove(changedCallback);
-            }
-        }
-
-        public void RemovePropertyChangedCallback(string propertyName, Action callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            // Gets the changed callbacks list.
-            List<Action> callbackList = GetChangedCallbackList(propertyName);
-            if (callbackList == null)
-                return;
-
-            // Removes the changed callback.
-            callbackList.Remove(callbacks);
-        }
-
-        #endregion
-    }
-
-    #endregion
-
-
     /// <summary>
     /// 
     /// </summary>
@@ -656,24 +432,67 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region PropertyStorage
+        #region Property Changed Callback Related
 
-        PropertyStorage _propertyStorage;
+        #region Storage Related
 
-        private PropertyStorage PropertyStorage
+        SortedList<string, List<Action>> _changedCallbackDictionary;
+
+        /// <summary>
+        /// The dictionary to store property changed callback.
+        /// The dictionary key is property name, and the dictionary value is property changed callback list.
+        /// </summary>
+        private SortedList<string, List<Action>> ChangedCallbackDictionary
         {
-            get { return _propertyStorage ?? (_propertyStorage = new PropertyStorage()); }
+            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action>>()); }
+        }
+
+        private List<Action> GetChangedCallbackList(string propertyName)
+        {
+            if (_changedCallbackDictionary != null)
+            {
+                // Gets the changed callback list.
+                List<Action> changedCallbackList;
+                if (_changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                    return changedCallbackList;
+            }
+
+            return null;
+        }
+
+        private List<Action> GetOrCreateChangedCallbackList(string propertyName)
+        {
+            // Gets the changed callback list.
+            List<Action> changedCallbackList;
+            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                return changedCallbackList;
+
+            // Creats a new list.
+            return ChangedCallbackDictionary[propertyName] = new List<Action>();
         }
 
         #endregion
 
-
-        #region Property Changed Callback Related
-
         protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
-            return PropertyStorage.EnumeratePropertyChangedCallback(propertyNames);
+
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                yield break;
+
+            foreach (string propertyName in propertyNames)
+            {
+                // Gets the changed callback list.
+                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
+
+                // If there is changed callbacks
+                if (changedCallbackList != null)
+                {
+                    foreach (Action changedCallback in changedCallbackList)
+                        yield return changedCallback;
+                }
+            }
         }
 
         protected IEnumerable<Action> EnumeratePropertyChangedCallback(params string[] propertyNames)
@@ -683,7 +502,15 @@ namespace Nicenis.ComponentModel
 
         protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
         {
-            return PropertyStorage.EnumeratePropertyChangedCallback(propertyName);
+            // Gets the changed callback list.
+            IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
+
+            // If there is changed callbacks
+            if (changedCallbackList != null)
+                return changedCallbackList;
+
+            // If there is no changed callback
+            return Enumerable.Empty<Action>();
         }
 
         protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
@@ -999,10 +826,27 @@ namespace Nicenis.ComponentModel
             return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
         }
 
-
+  
         protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.SetPropertyChangedCallback(propertyName, callbacks);
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
+
+            List<Action> callbackList = null;
+
+            // For each changed callbacks...
+            foreach (Action changedCallback in callbacks)
+            {
+                // Initializes the changed callback list.
+                if (callbackList == null)
+                    callbackList = GetOrCreateChangedCallbackList(propertyName);
+
+                // If the changed callback already exists
+                if (callbackList.Contains(changedCallback))
+                    continue;
+
+                // Adds the changed callback.
+                callbackList.Add(changedCallback);
+            }
         }
 
         protected void SetPropertyChangedCallback(string propertyName, params Action[] callbacks)
@@ -1010,14 +854,25 @@ namespace Nicenis.ComponentModel
             SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
         }
 
-        protected virtual void SetPropertyChangedCallback(string propertyName, Action callback)
+        protected virtual bool SetPropertyChangedCallback(string propertyName, Action callback)
         {
-            PropertyStorage.SetPropertyChangedCallback(propertyName, callback);
+            Verify.ParameterIsNotNull(callback, "callback");
+
+            // Gets the changed callback list.
+            List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
+
+            // If the changed callback already exists
+            if (callbackList.Contains(callback))
+                return false;
+
+            // Adds the changed callback.
+            callbackList.Add(callback);
+            return true;
         }
 
         protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+            SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
         }
 
         protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
@@ -1025,15 +880,38 @@ namespace Nicenis.ComponentModel
             SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
         }
 
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
+        protected bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
         {
-            PropertyStorage.SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+            return SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
         }
 
 
         protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.RemovePropertyChangedCallback(propertyName, callbacks);
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
+
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                return;
+
+            List<Action> callbackList = null;
+
+            // For each changed callback...
+            foreach (Action changedCallback in callbacks)
+            {
+                // Gets the changed callback list.
+                if (callbackList == null)
+                {
+                    callbackList = GetChangedCallbackList(propertyName);
+
+                    // If there is no callback list
+                    if (callbackList == null)
+                        return;
+                }
+
+                // Removes the changed callback.
+                callbackList.Remove(changedCallback);
+            }
         }
 
         protected void RemovePropertyChangedCallback(string propertyName, params Action[] callbacks)
@@ -1043,12 +921,20 @@ namespace Nicenis.ComponentModel
 
         protected virtual void RemovePropertyChangedCallback(string propertyName, Action callback)
         {
-            PropertyStorage.RemovePropertyChangedCallback(propertyName, callback);
+            Verify.ParameterIsNotNull(callback, "callback");
+
+            // Gets the changed callbacks list.
+            List<Action> callbackList = GetChangedCallbackList(propertyName);
+            if (callbackList == null)
+                return;
+
+            // Removes the changed callback.
+            callbackList.Remove(callback);
         }
 
         protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
         {
-            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
         }
 
         protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
@@ -1058,13 +944,67 @@ namespace Nicenis.ComponentModel
 
         protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
         {
-            PropertyStorage.RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
         }
 
         #endregion
 
 
         #region Get/Set Property Related
+
+        #region Storage Related
+
+        SortedList<string, object> _valueDictionary;
+
+        /// <summary>
+        /// The dictionary to store property value.
+        /// The dictionary key is property name, and the dictionary value is property value.
+        /// </summary>
+        private SortedList<string, object> ValueDictionary
+        {
+            get { return _valueDictionary ?? (_valueDictionary = new SortedList<string, object>()); }
+        }
+
+        /// <summary>
+        /// Gets the property value specified by the property name in the storage.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value returned.</param>
+        /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
+        private bool GetPropertyFromStorage<T>(string propertyName, out T value)
+        {
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+
+            // Tries to retrieve the value if it exists.
+            if (_valueDictionary != null)
+            {
+                object rawValue;
+                if (_valueDictionary.TryGetValue(propertyName, out rawValue))
+                {
+                    value = (T)rawValue;
+                    return true;
+                }
+            }
+
+            // If the property is not found
+            value = default(T);
+            return false;
+        }
+
+        /// <summary>
+        /// Sets the value to the property specified by the property name in the storage.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <param name="value"></param>
+        private void SetPropertyToStorage<T>(string propertyName, T value)
+        {
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            ValueDictionary[propertyName] = value;
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets the property value specified by the property name.
@@ -1078,7 +1018,7 @@ namespace Nicenis.ComponentModel
         {
             // Returns the property value if it exists
             T value;
-            if (_propertyStorage != null && PropertyStorage.GetValue(propertyName, out value))
+            if (GetPropertyFromStorage(propertyName, out value))
                 return value;
 
             // Returns the default if the property does not exist.
@@ -1113,12 +1053,12 @@ namespace Nicenis.ComponentModel
 
             // Returns the property value if it exists
             T value;
-            if (_propertyStorage != null && PropertyStorage.GetValue(propertyName, out value))
+            if (GetPropertyFromStorage(propertyName, out value))
                 return value;
 
             // Initializes the property value
             value = initializer();
-            PropertyStorage.SetValue(propertyName, value);
+            SetPropertyToStorage(propertyName, value);
 
             // Returns the initialized vaule.
             return value;
@@ -1137,6 +1077,7 @@ namespace Nicenis.ComponentModel
         {
             return GetProperty(GetPropertyName(propertyExpression), initializer);
         }
+
 
         /// <summary>
         /// 
@@ -1167,7 +1108,7 @@ namespace Nicenis.ComponentModel
                 return false;
 
             // Sets the property value.
-            PropertyStorage.SetValue(propertyName, value);
+            SetPropertyToStorage(propertyName, value);
             return true;
         }
 
@@ -1181,10 +1122,10 @@ namespace Nicenis.ComponentModel
                 OnPropertyChanged(affectedPropertyNames);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
+                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
                     changedCallback();
 
-                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(affectedPropertyNames))
+                foreach (Action changedCallback in EnumeratePropertyChangedCallback(affectedPropertyNames))
                     changedCallback();
 
                 return true;
@@ -1208,10 +1149,10 @@ namespace Nicenis.ComponentModel
                 OnPropertyChanged(affectedPropertyName);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
+                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
                     changedCallback();
 
-                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(affectedPropertyName))
+                foreach (Action changedCallback in EnumeratePropertyChangedCallback(affectedPropertyName))
                     changedCallback();
 
                 return true;
@@ -1229,7 +1170,7 @@ namespace Nicenis.ComponentModel
                 OnPropertyChanged(propertyName);
 
                 // Calls changed callbacks
-                foreach (Action changedCallback in PropertyStorage.EnumeratePropertyChangedCallback(propertyName))
+                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
                     changedCallback();
 
                 return true;
