@@ -432,524 +432,6 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Property Changed Callback Related
-
-        #region Storage Related
-
-        SortedList<string, List<Action>> _changedCallbackDictionary;
-
-        /// <summary>
-        /// The dictionary to store property changed callback.
-        /// The dictionary key is property name, and the dictionary value is property changed callback list.
-        /// </summary>
-        private SortedList<string, List<Action>> ChangedCallbackDictionary
-        {
-            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action>>()); }
-        }
-
-        private List<Action> GetChangedCallbackList(string propertyName)
-        {
-            if (_changedCallbackDictionary != null)
-            {
-                // Gets the changed callback list.
-                List<Action> changedCallbackList;
-                if (_changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                    return changedCallbackList;
-            }
-
-            return null;
-        }
-
-        private List<Action> GetOrCreateChangedCallbackList(string propertyName)
-        {
-            // Gets the changed callback list.
-            List<Action> changedCallbackList;
-            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                return changedCallbackList;
-
-            // Creats a new list.
-            return ChangedCallbackDictionary[propertyName] = new List<Action>();
-        }
-
-        #endregion
-
-        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
-        {
-            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
-
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                yield break;
-
-            foreach (string propertyName in propertyNames)
-            {
-                // Gets the changed callback list.
-                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
-
-                // If there is changed callbacks
-                if (changedCallbackList != null)
-                {
-                    foreach (Action changedCallback in changedCallbackList)
-                        yield return changedCallback;
-                }
-            }
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback(params string[] propertyNames)
-        {
-            return EnumeratePropertyChangedCallback((IEnumerable<string>)propertyNames);
-        }
-
-        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
-        {
-            // Gets the changed callback list.
-            IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
-
-            // If there is changed callbacks
-            if (changedCallbackList != null)
-                return changedCallbackList;
-
-            // If there is no changed callback
-            return Enumerable.Empty<Action>();
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
-        {
-            return EnumeratePropertyChangedCallback
-            (
-                GetPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3
-                )
-            );
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
-        {
-            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
-        }
-
-        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
-        {
-            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
-        }
-
-  
-        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            List<Action> callbackList = null;
-
-            // For each changed callbacks...
-            foreach (Action changedCallback in callbacks)
-            {
-                // Initializes the changed callback list.
-                if (callbackList == null)
-                    callbackList = GetOrCreateChangedCallbackList(propertyName);
-
-                // If the changed callback already exists
-                if (callbackList.Contains(changedCallback))
-                    continue;
-
-                // Adds the changed callback.
-                callbackList.Add(changedCallback);
-            }
-        }
-
-        protected void SetPropertyChangedCallback(string propertyName, params Action[] callbacks)
-        {
-            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
-        }
-
-        protected virtual bool SetPropertyChangedCallback(string propertyName, Action callback)
-        {
-            Verify.ParameterIsNotNull(callback, "callback");
-
-            // Gets the changed callback list.
-            List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
-
-            // If the changed callback already exists
-            if (callbackList.Contains(callback))
-                return false;
-
-            // Adds the changed callback.
-            callbackList.Add(callback);
-            return true;
-        }
-
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
-        {
-            SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
-        }
-
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
-        {
-            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
-        }
-
-        protected bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
-        {
-            return SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
-        }
-
-
-        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
-        {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
-
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                return;
-
-            List<Action> callbackList = null;
-
-            // For each changed callback...
-            foreach (Action changedCallback in callbacks)
-            {
-                // Gets the changed callback list.
-                if (callbackList == null)
-                {
-                    callbackList = GetChangedCallbackList(propertyName);
-
-                    // If there is no callback list
-                    if (callbackList == null)
-                        return;
-                }
-
-                // Removes the changed callback.
-                callbackList.Remove(changedCallback);
-            }
-        }
-
-        protected void RemovePropertyChangedCallback(string propertyName, params Action[] callbacks)
-        {
-            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
-        }
-
-        protected virtual void RemovePropertyChangedCallback(string propertyName, Action callback)
-        {
-            Verify.ParameterIsNotNull(callback, "callback");
-
-            // Gets the changed callbacks list.
-            List<Action> callbackList = GetChangedCallbackList(propertyName);
-            if (callbackList == null)
-                return;
-
-            // Removes the changed callback.
-            callbackList.Remove(callback);
-        }
-
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
-        {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
-        }
-
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
-        {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
-        }
-
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
-        {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
-        }
-
-        #endregion
-
-
         #region Get/Set Property Related
 
         #region Storage Related
@@ -1120,14 +602,6 @@ namespace Nicenis.ComponentModel
                 // Raises PropertyChanged events.
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(affectedPropertyNames);
-
-                // Calls changed callbacks
-                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
-                    changedCallback();
-
-                foreach (Action changedCallback in EnumeratePropertyChangedCallback(affectedPropertyNames))
-                    changedCallback();
-
                 return true;
             }
 
@@ -1147,14 +621,6 @@ namespace Nicenis.ComponentModel
                 // Raises PropertyChanged events.
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(affectedPropertyName);
-
-                // Calls changed callbacks
-                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
-                    changedCallback();
-
-                foreach (Action changedCallback in EnumeratePropertyChangedCallback(affectedPropertyName))
-                    changedCallback();
-
                 return true;
             }
 
@@ -1168,11 +634,6 @@ namespace Nicenis.ComponentModel
             {
                 // Raises PropertyChanged event.
                 OnPropertyChanged(propertyName);
-
-                // Calls changed callbacks
-                foreach (Action changedCallback in EnumeratePropertyChangedCallback(propertyName))
-                    changedCallback();
-
                 return true;
             }
 
@@ -1583,6 +1044,536 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
+        #region Property Changed Callback Related
+
+        #region Storage Related
+
+        SortedList<string, List<Action>> _changedCallbackDictionary;
+
+        /// <summary>
+        /// The dictionary to store property changed callback.
+        /// The dictionary key is property name, and the dictionary value is property changed callback list.
+        /// </summary>
+        private SortedList<string, List<Action>> ChangedCallbackDictionary
+        {
+            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action>>()); }
+        }
+
+        private List<Action> GetChangedCallbackList(string propertyName)
+        {
+            if (_changedCallbackDictionary != null)
+            {
+                // Gets the changed callback list.
+                List<Action> changedCallbackList;
+                if (_changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                    return changedCallbackList;
+            }
+
+            return null;
+        }
+
+        private List<Action> GetOrCreateChangedCallbackList(string propertyName)
+        {
+            // Gets the changed callback list.
+            List<Action> changedCallbackList;
+            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
+                return changedCallbackList;
+
+            // Creats a new list.
+            return ChangedCallbackDictionary[propertyName] = new List<Action>();
+        }
+
+        #endregion
+
+        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+        {
+            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                yield break;
+
+            foreach (string propertyName in propertyNames)
+            {
+                // Gets the changed callback list.
+                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
+
+                // If there is changed callbacks
+                if (changedCallbackList != null)
+                {
+                    foreach (Action changedCallback in changedCallbackList)
+                        yield return changedCallback;
+                }
+            }
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback(params string[] propertyNames)
+        {
+            return EnumeratePropertyChangedCallback((IEnumerable<string>)propertyNames);
+        }
+
+        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
+        {
+            // Gets the changed callback list.
+            IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
+
+            // If there is changed callbacks
+            if (changedCallbackList != null)
+                return changedCallbackList;
+
+            // If there is no changed callback
+            return Enumerable.Empty<Action>();
+        }
+
+        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback()
+        {
+            if (_changedCallbackDictionary == null)
+                yield break;
+
+            foreach (KeyValuePair<string, List<Action>> pair in _changedCallbackDictionary)
+            {
+                foreach (Action action in pair.Value)
+                    yield return action;
+            }
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
+        {
+            return EnumeratePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3
+                )
+            );
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        {
+            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
+        }
+
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
+        {
+            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
+        }
+
+
+        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
+        {
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
+
+            List<Action> callbackList = null;
+
+            // For each changed callbacks...
+            foreach (Action changedCallback in callbacks)
+            {
+                // Initializes the changed callback list.
+                if (callbackList == null)
+                    callbackList = GetOrCreateChangedCallbackList(propertyName);
+
+                // If the changed callback already exists
+                if (callbackList.Contains(changedCallback))
+                    continue;
+
+                // Adds the changed callback.
+                callbackList.Add(changedCallback);
+            }
+        }
+
+        protected void SetPropertyChangedCallback(string propertyName, params Action[] callbacks)
+        {
+            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
+        }
+
+        protected virtual bool SetPropertyChangedCallback(string propertyName, Action callback)
+        {
+            Verify.ParameterIsNotNull(callback, "callback");
+
+            // Gets the changed callback list.
+            List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
+
+            // If the changed callback already exists
+            if (callbackList.Contains(callback))
+                return false;
+
+            // Adds the changed callback.
+            callbackList.Add(callback);
+            return true;
+        }
+
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
+        {
+            SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+        }
+
+        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
+        {
+            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
+        }
+
+        protected bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
+        {
+            return SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+        }
+
+
+        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
+        {
+            Verify.ParameterIsNotNull(callbacks, "callbacks");
+
+            // If the changed callback dictionary is not created
+            if (_changedCallbackDictionary == null)
+                return;
+
+            List<Action> callbackList = null;
+
+            // For each changed callback...
+            foreach (Action changedCallback in callbacks)
+            {
+                // Gets the changed callback list.
+                if (callbackList == null)
+                {
+                    callbackList = GetChangedCallbackList(propertyName);
+
+                    // If there is no callback list
+                    if (callbackList == null)
+                        return;
+                }
+
+                // Removes the changed callback.
+                callbackList.Remove(changedCallback);
+            }
+        }
+
+        protected void RemovePropertyChangedCallback(string propertyName, params Action[] callbacks)
+        {
+            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
+        }
+
+        protected virtual void RemovePropertyChangedCallback(string propertyName, Action callback)
+        {
+            Verify.ParameterIsNotNull(callback, "callback");
+
+            // Gets the changed callbacks list.
+            List<Action> callbackList = GetChangedCallbackList(propertyName);
+            if (callbackList == null)
+                return;
+
+            // Removes the changed callback.
+            callbackList.Remove(callback);
+        }
+
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
+        {
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+        }
+
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
+        {
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
+        }
+
+        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
+        {
+            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+        }
+
+        #endregion
+
+
         #region INotifyPropertyChanged Implementation Related
 
         /// <summary>
@@ -1596,9 +1587,19 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
+            // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if (propertyChanged != null)
                 propertyChanged(this, new PropertyChangedEventArgs(propertyName));
+
+            // If all properties are changed, calls all property changed callbacks.
+            IEnumerable<Action> callbacks = string.IsNullOrEmpty(propertyName)
+                                          ? EnumeratePropertyChangedCallback()
+                                          : EnumeratePropertyChangedCallback(propertyName);
+
+            // Calls the property changed callbacks.
+            foreach (Action callback in callbacks)
+                callback();
         }
 
         /// <summary>
