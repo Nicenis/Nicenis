@@ -1061,6 +1061,8 @@ namespace Nicenis.ComponentModel
 
         private List<Action> GetChangedCallbackList(string propertyName)
         {
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+
             if (_changedCallbackDictionary != null)
             {
                 // Gets the changed callback list.
@@ -1074,6 +1076,8 @@ namespace Nicenis.ComponentModel
 
         private List<Action> GetOrCreateChangedCallbackList(string propertyName)
         {
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+
             // Gets the changed callback list.
             List<Action> changedCallbackList;
             if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
@@ -1451,31 +1455,29 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual void SetPropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
+        protected virtual int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNull(callback, "callback");
 
-            List<Action> callbackList = null;
-
-            // For each changed callbacks...
-            foreach (Action changedCallback in callbacks)
+            int counter = 0;
+            foreach (string propertyName in propertyNames)
             {
-                // Initializes the changed callback list.
-                if (callbackList == null)
-                    callbackList = GetOrCreateChangedCallbackList(propertyName);
+                // Gets the changed callback list.
+                List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
 
                 // If the changed callback already exists
-                if (callbackList.Contains(changedCallback))
+                if (callbackList.Contains(callback))
                     continue;
 
                 // Adds the changed callback.
-                callbackList.Add(changedCallback);
-            }
-        }
+                callbackList.Add(callback);
 
-        protected void SetPropertyChangedCallback(string propertyName, params Action[] callbacks)
-        {
-            SetPropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
+                // Increases the counter.
+                counter++;
+            }
+
+            return counter;
         }
 
         protected virtual bool SetPropertyChangedCallback(string propertyName, Action callback)
@@ -1494,14 +1496,330 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action callback)
         {
-            SetPropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
+                ),
+                callback
+            );
         }
 
-        protected void SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Action callback)
         {
-            SetPropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3, T4>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action callback)
+        {
+            return SetPropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3
+                ),
+                callback
+            );
+        }
+
+        protected int SetPropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action callback)
+        {
+            return SetPropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2), callback);
         }
 
         protected bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
@@ -1510,60 +1828,369 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual void RemovePropertyChangedCallback(string propertyName, IEnumerable<Action> callbacks)
+        protected virtual int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
-            Verify.ParameterIsNotNull(callbacks, "callbacks");
+            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNull(callback, "callback");
 
             // If the changed callback dictionary is not created
             if (_changedCallbackDictionary == null)
-                return;
+                return 0;
 
-            List<Action> callbackList = null;
-
-            // For each changed callback...
-            foreach (Action changedCallback in callbacks)
+            int counter = 0;
+            foreach (string propertyName in propertyNames)
             {
                 // Gets the changed callback list.
+                List<Action> callbackList = GetChangedCallbackList(propertyName);
+
                 if (callbackList == null)
-                {
-                    callbackList = GetChangedCallbackList(propertyName);
+                    continue;
 
-                    // If there is no callback list
-                    if (callbackList == null)
-                        return;
-                }
-
-                // Removes the changed callback.
-                callbackList.Remove(changedCallback);
+                // If the callback is removed, increases the counter.
+                if (callbackList.Remove(callback))
+                    counter++;
             }
+
+            return counter;
         }
 
-        protected void RemovePropertyChangedCallback(string propertyName, params Action[] callbacks)
-        {
-            RemovePropertyChangedCallback(propertyName, (IEnumerable<Action>)callbacks);
-        }
-
-        protected virtual void RemovePropertyChangedCallback(string propertyName, Action callback)
+        protected virtual bool RemovePropertyChangedCallback(string propertyName, Action callback)
         {
             Verify.ParameterIsNotNull(callback, "callback");
 
             // Gets the changed callbacks list.
             List<Action> callbackList = GetChangedCallbackList(propertyName);
             if (callbackList == null)
-                return;
+                return false;
 
             // Removes the changed callback.
-            callbackList.Remove(callback);
+            return callbackList.Remove(callback);
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, IEnumerable<Action> callbacks)
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action callback)
         {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callbacks);
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
+                ),
+                callback
+            );
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, params Action[] callbacks)
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Action callback)
         {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), (IEnumerable<Action>)callbacks);
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3, T4>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action callback)
+        {
+            return RemovePropertyChangedCallback
+            (
+                GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3
+                ),
+                callback
+            );
+        }
+
+        protected int RemovePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action callback)
+        {
+            return RemovePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2), callback);
         }
 
         protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action callback)
