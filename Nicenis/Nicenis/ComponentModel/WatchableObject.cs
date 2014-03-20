@@ -407,31 +407,6 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region IsEqualPropertyValue
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="leftValue"></param>
-        /// <param name="rightValue"></param>
-        /// <returns></returns>
-        private static bool IsEqualPropertyValue<T>(T leftValue, T rightValue)
-        {
-            // If the left and right value are null, it means they are the same.
-            if (leftValue == null && rightValue == null)
-                return true;
-
-            // If the left and right value are not null, 
-            if (leftValue != null && rightValue != null && leftValue.Equals(rightValue))
-                return true;
-
-            return false;
-        }
-
-        #endregion
-
-
         #region Get/Set Property Related
 
         #region Storage Related
@@ -585,8 +560,12 @@ namespace Nicenis.ComponentModel
                 args: null
             );
 
-            // If the old and new values are equal...
-            if (IsEqualPropertyValue(oldValue, value))
+            // If the old and new value are null, it means they are the same.
+            if (oldValue == null && value == null)
+                return false;
+
+            // If the old and new value are not null, compares the values.
+            if (oldValue != null && value != null && oldValue.Equals(value))
                 return false;
 
             // Sets the property value.
