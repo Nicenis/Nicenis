@@ -36,292 +36,14 @@ namespace Nicenis.ComponentModel
 
         #region GetPropertyName
 
-        protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
-        {
-            Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
-
-            var memberExpression = propertyExpression.Body as MemberExpression;
-            if (memberExpression == null)
-                throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
-
-            return memberExpression.Member.Name;
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                Expression<Func<T3>> propertyExpression3)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
-                Expression<Func<T11>> propertyExpression11)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
-        {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-            yield return GetPropertyName(propertyExpression17);
-        }
-
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
         {
             yield return GetPropertyName(propertyExpression);
             yield return GetPropertyName(propertyExpression2);
@@ -341,6 +63,8 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression16);
             yield return GetPropertyName(propertyExpression17);
             yield return GetPropertyName(propertyExpression18);
+            yield return GetPropertyName(propertyExpression19);
+            yield return GetPropertyName(propertyExpression20);
         }
 
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
@@ -373,14 +97,13 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression19);
         }
 
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
         {
             yield return GetPropertyName(propertyExpression);
             yield return GetPropertyName(propertyExpression2);
@@ -400,8 +123,286 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression16);
             yield return GetPropertyName(propertyExpression17);
             yield return GetPropertyName(propertyExpression18);
-            yield return GetPropertyName(propertyExpression19);
-            yield return GetPropertyName(propertyExpression20);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+            yield return GetPropertyName(propertyExpression13);
+            yield return GetPropertyName(propertyExpression14);
+            yield return GetPropertyName(propertyExpression15);
+            yield return GetPropertyName(propertyExpression16);
+            yield return GetPropertyName(propertyExpression17);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                Expression<Func<T16>> propertyExpression16)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+            yield return GetPropertyName(propertyExpression13);
+            yield return GetPropertyName(propertyExpression14);
+            yield return GetPropertyName(propertyExpression15);
+            yield return GetPropertyName(propertyExpression16);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+            yield return GetPropertyName(propertyExpression13);
+            yield return GetPropertyName(propertyExpression14);
+            yield return GetPropertyName(propertyExpression15);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+            yield return GetPropertyName(propertyExpression13);
+            yield return GetPropertyName(propertyExpression14);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                Expression<Func<T13>> propertyExpression13)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+            yield return GetPropertyName(propertyExpression13);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+            yield return GetPropertyName(propertyExpression12);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
+                Expression<Func<T11>> propertyExpression11)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+            yield return GetPropertyName(propertyExpression11);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+            yield return GetPropertyName(propertyExpression10);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+            yield return GetPropertyName(propertyExpression9);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+            yield return GetPropertyName(propertyExpression8);
+        }
+
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+            yield return GetPropertyName(propertyExpression7);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+            yield return GetPropertyName(propertyExpression6);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+            yield return GetPropertyName(propertyExpression5);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+            yield return GetPropertyName(propertyExpression4);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                Expression<Func<T3>> propertyExpression3)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+            yield return GetPropertyName(propertyExpression3);
+        }
+
+        protected static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        {
+            yield return GetPropertyName(propertyExpression);
+            yield return GetPropertyName(propertyExpression2);
+        }
+
+        protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
+        {
+            Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
+
+            var memberExpression = propertyExpression.Body as MemberExpression;
+            if (memberExpression == null)
+                throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
+
+            return memberExpression.Member.Name;
         }
 
         #endregion
