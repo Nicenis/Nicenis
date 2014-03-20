@@ -334,7 +334,6 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression8);
         }
 
-
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
@@ -569,7 +568,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private bool SetPropertyWithoutNotification<T>(string propertyName, T value)
+        protected bool SetPropertyWithoutNotification<T>(string propertyName, T value)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
 
@@ -595,13 +594,12 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-        protected virtual bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
+        protected bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
         {
             // If the property is changed
-            if (SetPropertyWithoutNotification(propertyName, value))
+            if (SetProperty(propertyName, value))
             {
-                // Raises PropertyChanged events.
-                OnPropertyChanged(propertyName);
+                // Raises PropertyChanged events for the affected property names.
                 OnPropertyChanged(affectedPropertyNames);
                 return true;
             }
@@ -614,13 +612,12 @@ namespace Nicenis.ComponentModel
             return SetProperty(propertyName, value, (IEnumerable<string>)affectedPropertyNames);
         }
 
-        protected virtual bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
+        protected bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
         {
             // If the property is changed
-            if (SetPropertyWithoutNotification(propertyName, value))
+            if (SetProperty(propertyName, value))
             {
-                // Raises PropertyChanged events.
-                OnPropertyChanged(propertyName);
+                // Raises a PropertyChanged event for the affected property name.
                 OnPropertyChanged(affectedPropertyName);
                 return true;
             }
@@ -1090,7 +1087,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
-        protected virtual IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+        protected IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
 
@@ -1099,17 +1096,8 @@ namespace Nicenis.ComponentModel
                 yield break;
 
             foreach (string propertyName in propertyNames)
-            {
-                // Gets the changed callback list.
-                IEnumerable<Action> changedCallbackList = GetChangedCallbackList(propertyName);
-
-                // If there is changed callbacks
-                if (changedCallbackList != null)
-                {
-                    foreach (Action changedCallback in changedCallbackList)
-                        yield return changedCallback;
-                }
-            }
+                foreach (Action callback in EnumeratePropertyChangedCallback(propertyName))
+                    yield return callback;
         }
 
         protected IEnumerable<Action> EnumeratePropertyChangedCallback(params string[] propertyNames)
@@ -1135,11 +1123,9 @@ namespace Nicenis.ComponentModel
             if (_changedCallbackDictionary == null)
                 yield break;
 
-            foreach (KeyValuePair<string, List<Action>> pair in _changedCallbackDictionary)
-            {
-                foreach (Action action in pair.Value)
-                    yield return action;
-            }
+            foreach (List<Action> callbacks in _changedCallbackDictionary.Values)
+                foreach (Action callback in callbacks)
+                    yield return callback;
         }
 
         protected IEnumerable<Action> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
@@ -1456,7 +1442,7 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
+        protected int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
             Verify.ParameterIsNotNull(callback, "callback");
@@ -1464,18 +1450,9 @@ namespace Nicenis.ComponentModel
             int counter = 0;
             foreach (string propertyName in propertyNames)
             {
-                // Gets the changed callback list.
-                List<Action> callbackList = GetOrCreateChangedCallbackList(propertyName);
-
-                // If the changed callback already exists
-                if (callbackList.Contains(callback))
-                    continue;
-
-                // Adds the changed callback.
-                callbackList.Add(callback);
-
-                // Increases the counter.
-                counter++;
+                // If the changed callback is added, increases the counter.
+                if (SetPropertyChangedCallback(propertyName, callback))
+                    counter++;
             }
 
             return counter;
@@ -1829,7 +1806,7 @@ namespace Nicenis.ComponentModel
         }
 
 
-        protected virtual int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
+        protected int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
             Verify.ParameterIsNotNull(callback, "callback");
@@ -1841,14 +1818,8 @@ namespace Nicenis.ComponentModel
             int counter = 0;
             foreach (string propertyName in propertyNames)
             {
-                // Gets the changed callback list.
-                List<Action> callbackList = GetChangedCallbackList(propertyName);
-
-                if (callbackList == null)
-                    continue;
-
                 // If the callback is removed, increases the counter.
-                if (callbackList.Remove(callback))
+                if (RemovePropertyChangedCallback(propertyName, callback))
                     counter++;
             }
 
@@ -2234,7 +2205,7 @@ namespace Nicenis.ComponentModel
         /// Raises PropertyChanged events.
         /// </summary>
         /// <param name="propertyNames">The property names that changed. Null is not allowed.</param>
-        protected virtual void OnPropertyChanged(IEnumerable<string> propertyNames)
+        protected void OnPropertyChanged(IEnumerable<string> propertyNames)
         {
             Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
 
