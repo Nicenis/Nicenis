@@ -407,7 +407,25 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Get/Set Property Related
+        #region IsEqualPropertyValue
+
+        protected static bool IsEqualPropertyValue<T>(T left, T right)
+        {
+            // If the left and right value are null, it means they are the same.
+            if (left == null && right == null)
+                return true;
+
+            // If the left and right value are not null, compares the values.
+            if (left != null && right != null && left.Equals(right))
+                return true;
+
+            return false;
+        }
+
+        #endregion
+
+
+        #region GetProperty/SetProperty Related
 
         #region Storage Related
 
@@ -560,12 +578,8 @@ namespace Nicenis.ComponentModel
                 args: null
             );
 
-            // If the old and new value are null, it means they are the same.
-            if (oldValue == null && value == null)
-                return false;
-
-            // If the old and new value are not null, compares the values.
-            if (oldValue != null && value != null && oldValue.Equals(value))
+            // If the values are equal
+            if (IsEqualPropertyValue(oldValue, value))
                 return false;
 
             // Sets the property value.
@@ -615,7 +629,7 @@ namespace Nicenis.ComponentModel
             // If the property is changed
             if (SetPropertyWithoutNotification(propertyName, value))
             {
-                // Raises PropertyChanged event.
+                // Raises a PropertyChanged event.
                 OnPropertyChanged(propertyName);
                 return true;
             }
@@ -1022,6 +1036,487 @@ namespace Nicenis.ComponentModel
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
         {
             return SetProperty(GetPropertyName(propertyExpression), value);
+        }
+
+        #endregion
+
+
+        #region SetProperty with Local Storage Related
+
+        protected bool SetPropertyWithoutNotification<T>(ref T storage, T value)
+        {
+            // If the values are equal
+            if (IsEqualPropertyValue(storage, value))
+                return false;
+
+            // Sets the property value.
+            storage = value;
+            return true;
+        }
+
+
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
+        {
+            // If the property is changed
+            if (SetProperty(propertyName, ref storage, value))
+            {
+                // Raises PropertyChanged events for the affected property names.
+                OnPropertyChanged(affectedPropertyNames);
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
+        {
+            return SetProperty(propertyName, ref storage, value, (IEnumerable<string>)affectedPropertyNames);
+        }
+
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
+        {
+            // If the property is changed
+            if (SetProperty(propertyName, ref storage, value))
+            {
+                // Raises a PropertyChanged event for the affected property name.
+                OnPropertyChanged(affectedPropertyName);
+                return true;
+            }
+
+            return false;
+        }
+
+        protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
+        {
+            // If the property is changed
+            if (SetPropertyWithoutNotification(ref storage, value))
+            {
+                // Raises a PropertyChanged event.
+                OnPropertyChanged(propertyName);
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19, affectedPropertyExpression20
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                Expression<Func<T20>> affectedPropertyExpression19)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                Expression<Func<T17>> affectedPropertyExpression16)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                Expression<Func<T14>> affectedPropertyExpression13)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                Expression<Func<T11>> affectedPropertyExpression10)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                Expression<Func<T8>> affectedPropertyExpression7)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6, T7>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5, T6>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4, T5>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                Expression<Func<T5>> affectedPropertyExpression4)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3, T4>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, ref T storage, T value,
+                Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
+        {
+            // Sets the property value.
+            return SetProperty
+            (
+                propertyName: GetPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                affectedPropertyNames: GetPropertyName
+                (
+                    affectedPropertyExpression, affectedPropertyExpression2
+                )
+            );
+        }
+
+        protected bool SetProperty<T, T2>(Expression<Func<T>> propertyExpression, ref T storage, T value, Expression<Func<T2>> affectedPropertyExpression2)
+        {
+            return SetProperty(GetPropertyName(propertyExpression), ref storage, value, GetPropertyName(affectedPropertyExpression2));
+        }
+
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
+        {
+            return SetProperty(GetPropertyName(propertyExpression), ref storage, value);
         }
 
         #endregion
