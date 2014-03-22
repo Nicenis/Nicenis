@@ -537,7 +537,7 @@ namespace Nicenis.ComponentModel
 
 
         /// <summary>
-        /// 
+        /// Sets the value to the property named propertyName without raising PropertyChanged event.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="propertyName"></param>
@@ -572,6 +572,12 @@ namespace Nicenis.ComponentModel
             SetPropertyToStorage(propertyName, value);
             return true;
         }
+
+        protected bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
+        {
+            return SetPropertyWithoutNotification(GetPropertyName(propertyExpression), value);
+        }
+
 
         protected bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
         {
