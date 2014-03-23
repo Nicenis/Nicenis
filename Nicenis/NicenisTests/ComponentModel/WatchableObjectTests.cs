@@ -32,6 +32,8 @@ namespace NicenisTests.ComponentModel
                 return WatchableObject.IsEqualPropertyValue(left, right);
             }
 
+            #region GetProperty Related
+
             public new T GetProperty<T>(string propertyName, T defaultValue = default(T))
             {
                 return base.GetProperty(propertyName, defaultValue);
@@ -41,6 +43,10 @@ namespace NicenisTests.ComponentModel
             {
                 return base.GetProperty(propertyName, initializer);
             }
+
+            #endregion
+
+            #region SetProperty Related
 
             public new bool SetPropertyWithoutNotification<T>(string propertyName, T value)
             {
@@ -81,6 +87,65 @@ namespace NicenisTests.ComponentModel
             {
                 return base.SetProperty(propertyName, ref storage, value);
             }
+
+            #endregion
+
+            #region EnumeratePropertyChangedCallback Related
+
+            public new IEnumerable<Action> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+            {
+                return base.EnumeratePropertyChangedCallback(propertyNames);
+            }
+
+            public new IEnumerable<Action> EnumeratePropertyChangedCallback(string propertyName)
+            {
+                return base.EnumeratePropertyChangedCallback(propertyName);
+            }
+
+            public new IEnumerable<Action> EnumeratePropertyChangedCallback()
+            {
+                return base.EnumeratePropertyChangedCallback();
+            }
+
+            #endregion
+
+            #region SetPropertyChangedCallback/RemovePropertyChangedCallback Related
+
+            public new int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
+            {
+                return base.SetPropertyChangedCallback(propertyNames, callback);
+            }
+
+            public new bool SetPropertyChangedCallback(string propertyName, Action callback)
+            {
+                return base.SetPropertyChangedCallback(propertyName, callback);
+            }
+
+            public new int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
+            {
+                return base.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+
+            public new bool RemovePropertyChangedCallback(string propertyName, Action callback)
+            {
+                return base.RemovePropertyChangedCallback(propertyName, callback);
+            }
+
+            #endregion
+
+            #region OnPropertyChanged Related
+
+            public new void OnPropertyChanged(string propertyName)
+            {
+                base.OnPropertyChanged(propertyName);
+            }
+
+            public new void OnPropertyChanged(IEnumerable<string> propertyNames)
+            {
+                base.OnPropertyChanged(propertyNames);
+            }
+
+            #endregion
 
             #endregion
 
@@ -2585,6 +2650,678 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsTrue(exception is ArgumentException);
             StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region EnumeratePropertyChangedCallback Parameter Check Related
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_not_throw_exception_if_property_names_is_empty_collection()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Sample sample = new Sample();
+
+            // act
+            sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_empty_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_name_is_empty_string()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region SetPropertyChangedCallback Parameter Check Related
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_is_empty_collection()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_emtpy_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_with_property_names_must_throw_exception_if_callback_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test" };
+            Action callback = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "callback");
+        }
+
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_emtpy_string()
+        {
+            // arrange
+            string propertyName = "";
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyChangedCallback_must_throw_exception_if_callback_is_null()
+        {
+            // arrange
+            string propertyName = "test";
+            Action callback = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "callback");
+        }
+
+        #endregion
+
+
+        #region RemovePropertyChangedCallback Parameter Check Related
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_is_empty_collection()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_emtpy_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_with_property_names_must_throw_exception_if_callback_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test" };
+            Action callback = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyNames, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "callback");
+        }
+
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_emtpy_string()
+        {
+            // arrange
+            string propertyName = "";
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Action callback = () => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_throw_exception_if_callback_is_null()
+        {
+            // arrange
+            string propertyName = "test";
+            Action callback = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyChangedCallback(propertyName, callback);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "callback");
         }
 
         #endregion
