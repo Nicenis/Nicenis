@@ -1573,10 +1573,6 @@ namespace Nicenis.ComponentModel
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
 
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                yield break;
-
             foreach (string propertyName in propertyNames)
                 foreach (Action callback in EnumeratePropertyChangedCallback(propertyName))
                     yield return callback;
@@ -1926,7 +1922,7 @@ namespace Nicenis.ComponentModel
 
         protected int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
-            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
             Verify.ParameterIsNotNull(callback, "callback");
 
             int counter = 0;
@@ -2290,12 +2286,8 @@ namespace Nicenis.ComponentModel
 
         protected int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action callback)
         {
-            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
             Verify.ParameterIsNotNull(callback, "callback");
-
-            // If the changed callback dictionary is not created
-            if (_changedCallbackDictionary == null)
-                return 0;
 
             int counter = 0;
             foreach (string propertyName in propertyNames)
