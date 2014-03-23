@@ -25,6 +25,11 @@ namespace NicenisTests.ComponentModel
 
         class Sample : WatchableObject
         {
+            public new static bool IsEqualPropertyValue<T>(T left, T right)
+            {
+                return WatchableObject.IsEqualPropertyValue(left, right);
+            }
+
             public int ValueProperty
             {
                 get { return GetProperty(() => ValueProperty); }
@@ -1305,6 +1310,126 @@ namespace NicenisTests.ComponentModel
 
 
         [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_values()
+        {
+            // arrange
+            const int left = 10;
+            const int right = 10;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_different_values()
+        {
+            // arrange
+            const int left = 10;
+            const int right = 20;
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_references()
+        {
+            // arrange
+            Sample left = new Sample();
+            Sample right = left;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_different_references()
+        {
+            // arrange
+            Sample left = new Sample();
+            Sample right = new Sample();
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_strings()
+        {
+            // arrange
+            string left = "Test";
+            string right = "Test";
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_different_strings()
+        {
+            // arrange
+            string left = "Test";
+            string right = "Haha";
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_null_and_non_null()
+        {
+            // arrange
+            Sample left = null;
+            Sample right = new Sample();
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_null_values()
+        {
+            // arrange
+            Sample left = null;
+            Sample right = null;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
         public void Uninitialized_value_property_must_return_zero()
         {
             // arrange
@@ -1642,10 +1767,5 @@ namespace NicenisTests.ComponentModel
                     Assert.IsTrue(changedPropertyNames.Contains("TestProperty" + (j + 1)));
             }
         }
-
-
-
-
-
     }
 }
