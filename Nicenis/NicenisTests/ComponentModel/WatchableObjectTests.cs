@@ -25,10 +25,65 @@ namespace NicenisTests.ComponentModel
 
         class Sample : WatchableObject
         {
+            #region Raw Methods
+
             public new static bool IsEqualPropertyValue<T>(T left, T right)
             {
                 return WatchableObject.IsEqualPropertyValue(left, right);
             }
+
+            public new T GetProperty<T>(string propertyName, T defaultValue = default(T))
+            {
+                return base.GetProperty(propertyName, defaultValue);
+            }
+
+            public new T GetProperty<T>(string propertyName, Func<T> initializer)
+            {
+                return base.GetProperty(propertyName, initializer);
+            }
+
+            public new bool SetPropertyWithoutNotification<T>(string propertyName, T value)
+            {
+                return base.SetPropertyWithoutNotification(propertyName, value);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value)
+            {
+                return base.SetProperty(propertyName, value);
+            }
+
+            public new bool SetPropertyWithoutNotification<T>(ref T storage, T value)
+            {
+                return base.SetPropertyWithoutNotification(ref storage, value);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value)
+            {
+                return base.SetProperty(propertyName, ref storage, value);
+            }
+
+            #endregion
+
 
             public int ValueProperty
             {
@@ -1309,6 +1364,8 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
+        #region IsEqualPropertyValue Related
+
         [TestMethod]
         public void IsEqualPropertyValue_must_return_true_for_same_values()
         {
@@ -1428,6 +1485,1110 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(expectedEquality, result);
         }
+
+        #endregion
+
+
+        #region GetProperty Parameter Check Related
+
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_null_initializer_is_passed()
+        {
+            // arrange
+            string propertyName = "propertyName";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, initializer: null);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "initializer");
+        }
+
+        #endregion
+
+
+        #region SetPropertyWithoutNotification Parameter Check Related
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWithoutNotification(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWithoutNotification(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWithoutNotification(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_throw_exception_if_property_does_not_exist()
+        {
+            // arrange
+            string propertyName = "NotExistedPropertyName";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWithoutNotification(propertyName, "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsNotNull(exception);
+            StringAssert.Contains(exception.Message, propertyName);
+        }
+
+        #endregion
+
+
+        #region SetProperty Parameter Check Related
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_property_does_not_exist()
+        {
+            // arrange
+            string propertyName = "NotExistedPropertyName";
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "Test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsNotNull(exception);
+            StringAssert.Contains(exception.Message, propertyName);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[0];
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_property_does_not_exist()
+        {
+            // arrange
+            string propertyName = "NotExistedPropertyName";
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "Test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsNotNull(exception);
+            StringAssert.Contains(exception.Message, propertyName);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = null;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = "";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_property_does_not_exist()
+        {
+            // arrange
+            string propertyName = "NotExistedPropertyName";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsNotNull(exception);
+            StringAssert.Contains(exception.Message, propertyName);
+        }
+
+        #endregion
+
+
+        #region SetProperty with local storage Parameter Check Related
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[0];
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = null;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = "";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
 
         [TestMethod]
         public void Uninitialized_value_property_must_return_zero()
