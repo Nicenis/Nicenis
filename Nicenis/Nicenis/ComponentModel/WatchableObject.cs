@@ -1088,6 +1088,8 @@ namespace Nicenis.ComponentModel
 
         protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
         {
+            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+
             // If the property is changed
             if (SetPropertyWithoutNotification(ref storage, value))
             {
