@@ -3985,11 +3985,11 @@ namespace NicenisTests.ComponentModel
             const int newValue = 10;
             Sample sample = new Sample();
             int counter = 0;
-            Action<PropertyChangedEventArgs> action = p => counter++;
+            Action<PropertyChangedEventArgs> callback = p => counter++;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, action);
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, action);
+            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
             sample.ValueProperty = newValue;
             sample.ValueProperty = newValue;
 
@@ -4722,6 +4722,708 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "callback");
+        }
+
+        #endregion
+
+
+        #region RemovePropertyChangedCallback Test Related
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_remove_PropertyChangedCallback()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> callback = p => counter++;
+
+            // act
+            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_support_duplicated_call()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> callback = p => counter++;
+
+            // act
+            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_succeed_if_PropertyChangedCallback_is_not_set()
+        {
+            // arrange
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> callback = p => counter++;
+
+            // act
+            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_must_support_multiple_properties()
+        {
+            // arrange
+            const int newValue = 10;
+            const string newReference = "test";
+            Sample sample = new Sample();
+            int counterForValue = 0;
+            int counterForReference = 0;
+            Action<PropertyChangedEventArgs> callbackForValue = p => counterForValue++;
+            Action<PropertyChangedEventArgs> callbackForReference = p => counterForReference++;
+
+            // act
+            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callbackForValue);
+            sample.SetPropertyChangedCallback(() => sample.ReferenceProperty, callbackForReference);
+            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callbackForValue);
+            sample.ValueProperty = newValue;
+            sample.ReferenceProperty = newReference;
+
+            // assert
+            Assert.AreEqual(0, counterForValue);
+            Assert.AreEqual(1, counterForReference);
+        }
+
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_20_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 20;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_19_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 19;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_18_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 18;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_17_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 17;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_16_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 16;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_15_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 15;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_14_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 14;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_13_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 13;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_12_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 12;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_11_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 11;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_10_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 10;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_9_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 9;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_8_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 8;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_7_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 7;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_6_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 6;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_5_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 5;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_4_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 4;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_3_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 3;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_2_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 2;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
+        }
+
+        [TestMethod]
+        public void RemovePropertyChangedCallback_for_1_parameter_name_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 1;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1,
+                callback
+            );
+            sample.RemovePropertyChangedCallback
+            (
+                () => sample.TestProperty1,
+                callback
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 0));
         }
 
         #endregion
