@@ -332,7 +332,17 @@ namespace NicenisTests.ComponentModel
                 return base.SetPropertyWithoutNotification(propertyName, value);
             }
 
+            public new bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
+            {
+                return base.SetPropertyWithoutNotification(propertyExpression, value);
+            }
+
             public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, params string[] affectedPropertyNames)
             {
                 return base.SetProperty(propertyName, value, affectedPropertyNames);
             }
@@ -345,6 +355,318 @@ namespace NicenisTests.ComponentModel
             public new bool SetProperty<T>(string propertyName, T value)
             {
                 return base.SetProperty(propertyName, value);
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                    Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19, affectedPropertyExpression20
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                    Expression<Func<T20>> affectedPropertyExpression19)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression, affectedPropertyExpression2
+                );
+            }
+
+            public new bool SetProperty<T, T2>(
+                    Expression<Func<T>> propertyExpression, T value,
+                    Expression<Func<T2>> affectedPropertyExpression)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, value,
+                    affectedPropertyExpression
+                );
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
+            {
+                return base.SetProperty(propertyExpression, value);
             }
 
             #endregion
@@ -1260,18 +1582,6 @@ namespace NicenisTests.ComponentModel
 
             public const int DefaultOfValuePropertyWithDefault = 10;
 
-            public int ValuePropertyWithDefault
-            {
-                get { return GetProperty(() => ValuePropertyWithDefault, DefaultOfValuePropertyWithDefault); }
-                set { SetProperty(() => ValuePropertyWithDefault, value); }
-            }
-
-            public int ValuePropertyWithoutNotification
-            {
-                get { return GetProperty(() => ValueProperty); }
-                set { SetPropertyWithoutNotification(() => ValueProperty, value); }
-            }
-
             int _valuePropertyWithLocalStorage;
 
             public int ValuePropertyWithLocalStorage
@@ -1292,12 +1602,6 @@ namespace NicenisTests.ComponentModel
             {
                 get { return GetProperty(() => ReferenceProperty); }
                 set { SetProperty(() => ReferenceProperty, value); }
-            }
-
-            public List<int> ReferencePropertyWithInitializer
-            {
-                get { return GetProperty(() => ReferencePropertyWithInitializer, () => new List<int>()); }
-                set { SetProperty(() => ReferencePropertyWithInitializer, value); }
             }
 
             string _referencePropertyWithLocalStorage;
@@ -1453,674 +1757,6 @@ namespace NicenisTests.ComponentModel
             {
                 get { return GetProperty(() => TestProperty20); }
                 set { SetProperty(() => TestProperty20, value); }
-            }
-
-            #endregion
-
-            #region AffectedPropertyTest Series
-
-            public int AffectedPropertyTest20
-            {
-                get { return GetProperty(() => AffectedPropertyTest20); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest20,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18, () => TestProperty19, () => TestProperty20
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest19
-            {
-                get { return GetProperty(() => AffectedPropertyTest19); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest19,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18, () => TestProperty19
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest18
-            {
-                get { return GetProperty(() => AffectedPropertyTest18); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest18,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest17
-            {
-                get { return GetProperty(() => AffectedPropertyTest17); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest17,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest16
-            {
-                get { return GetProperty(() => AffectedPropertyTest16); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest16,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest15
-            {
-                get { return GetProperty(() => AffectedPropertyTest15); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest15,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest14
-            {
-                get { return GetProperty(() => AffectedPropertyTest14); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest14,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest13
-            {
-                get { return GetProperty(() => AffectedPropertyTest13); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest13,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest12
-            {
-                get { return GetProperty(() => AffectedPropertyTest12); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest12,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest11
-            {
-                get { return GetProperty(() => AffectedPropertyTest11); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest11,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest10
-            {
-                get { return GetProperty(() => AffectedPropertyTest10); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest10,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest9
-            {
-                get { return GetProperty(() => AffectedPropertyTest9); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest9,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest8
-            {
-                get { return GetProperty(() => AffectedPropertyTest8); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest8,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest7
-            {
-                get { return GetProperty(() => AffectedPropertyTest7); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest7,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest6
-            {
-                get { return GetProperty(() => AffectedPropertyTest6); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest6,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest5
-            {
-                get { return GetProperty(() => AffectedPropertyTest5); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest5,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest4
-            {
-                get { return GetProperty(() => AffectedPropertyTest4); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest4,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest3
-            {
-                get { return GetProperty(() => AffectedPropertyTest3); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest3,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest2
-            {
-                get { return GetProperty(() => AffectedPropertyTest2); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest2,
-                        value,
-                        () => TestProperty1, () => TestProperty2
-                    );
-                }
-            }
-
-            public int AffectedPropertyTest1
-            {
-                get { return GetProperty(() => AffectedPropertyTest1); }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTest1,
-                        value,
-                        () => TestProperty1
-                    );
-                }
-            }
-
-            #endregion
-
-            #region OnPropertyChangedTest Series
-
-            public int OnPropertyChangedTest20
-            {
-                get { return GetProperty(() => OnPropertyChangedTest20); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest20, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                            () => TestProperty17, () => TestProperty18, () => TestProperty19, () => TestProperty20
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest19
-            {
-                get { return GetProperty(() => OnPropertyChangedTest19); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest19, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                            () => TestProperty17, () => TestProperty18, () => TestProperty19
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest18
-            {
-                get { return GetProperty(() => OnPropertyChangedTest18); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest18, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                            () => TestProperty17, () => TestProperty18
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest17
-            {
-                get { return GetProperty(() => OnPropertyChangedTest17); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest17, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                            () => TestProperty17
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest16
-            {
-                get { return GetProperty(() => OnPropertyChangedTest16); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest16, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest15
-            {
-                get { return GetProperty(() => OnPropertyChangedTest15); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest15, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14, () => TestProperty15
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest14
-            {
-                get { return GetProperty(() => OnPropertyChangedTest14); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest14, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13, () => TestProperty14
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest13
-            {
-                get { return GetProperty(() => OnPropertyChangedTest13); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest13, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                            () => TestProperty13
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest12
-            {
-                get { return GetProperty(() => OnPropertyChangedTest12); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest12, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest11
-            {
-                get { return GetProperty(() => OnPropertyChangedTest11); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest11, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10, () => TestProperty11
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest10
-            {
-                get { return GetProperty(() => OnPropertyChangedTest10); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest10, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9, () => TestProperty10
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest9
-            {
-                get { return GetProperty(() => OnPropertyChangedTest9); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest9, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                            () => TestProperty9
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest8
-            {
-                get { return GetProperty(() => OnPropertyChangedTest8); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest8, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest7
-            {
-                get { return GetProperty(() => OnPropertyChangedTest7); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest7, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6, () => TestProperty7
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest6
-            {
-                get { return GetProperty(() => OnPropertyChangedTest6); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest6, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5, () => TestProperty6
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest5
-            {
-                get { return GetProperty(() => OnPropertyChangedTest5); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest5, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                            () => TestProperty5
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest4
-            {
-                get { return GetProperty(() => OnPropertyChangedTest4); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest4, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest3
-            {
-                get { return GetProperty(() => OnPropertyChangedTest3); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest3, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2, () => TestProperty3
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest2
-            {
-                get { return GetProperty(() => OnPropertyChangedTest2); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest2, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1, () => TestProperty2
-                        );
-                    }
-                }
-            }
-
-            public int OnPropertyChangedTest1
-            {
-                get { return GetProperty(() => OnPropertyChangedTest1); }
-                set
-                {
-                    if (SetProperty(() => OnPropertyChangedTest1, value))
-                    {
-                        OnPropertyChanged
-                        (
-                            () => TestProperty1
-                        );
-                    }
-                }
             }
 
             #endregion
@@ -2940,6 +2576,28 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
         }
 
+        [TestMethod]
+        public void GetProperty_must_not_call_initializer_if_it_is_set()
+        {
+            // arrange
+            const int setValue = 100;
+            const int initializedValue = 10;
+            const int expectedInitializerCallCount = 0;
+            Sample sample = new Sample();
+            int initializerCallCount = 0;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, setValue);
+            sample.GetProperty(() => sample.ValueProperty, () =>
+            {
+                initializerCallCount++;
+                return initializedValue;
+            });
+
+            // assert
+            Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
+        }
+
         #endregion
 
 
@@ -3481,6 +3139,827 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsNotNull(exception);
             StringAssert.Contains(exception.Message, propertyName);
+        }
+
+        #endregion
+
+
+        #region SetProperty Test Related
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
+        }
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_must_not_raise_PropertyChanged()
+        {
+            // arrange
+            const int testValue = 100;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            sample.PropertyChanged += (_, __) => propertyChangedCount++;
+
+            // act
+            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
+            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_set_reference_properly()
+        {
+            // arrange
+            const string testReference = "Test";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ReferenceProperty, testReference);
+            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+
+            // assert
+            Assert.AreEqual(propertyReference, testReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_multiple_properties()
+        {
+            // arrange
+            const int testValue = 10;
+            const string testReference = "Test";
+
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+            sample.SetProperty(() => sample.ReferenceProperty, testReference);
+
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+
+            // assert
+            Assert.AreEqual(testValue, propertyValue);
+            Assert.AreEqual(testReference, propertyReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(1, propertyChangedCount);
+            Assert.AreEqual(1, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_not_raise_PropertyChanged_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = default(int);
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+            Assert.AreEqual(0, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_20_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 21;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_19_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 20;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_18_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 19;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_17_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 18;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_16_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 17;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_15_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 16;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_14_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 15;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_13_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 14;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_12_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 13;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_11_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 12;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_10_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 11;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_9_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 10;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_8_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 9;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_7_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 8;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_6_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 7;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_5_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 6;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_4_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 5;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_3_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 4;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 3;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_1_affected_properties_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 2;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue,
+                () => sample.TestProperty1
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
         }
 
         #endregion
@@ -4121,7 +4600,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 20;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4131,7 +4610,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4147,7 +4626,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4156,7 +4635,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 19;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4166,7 +4645,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4182,7 +4661,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4191,7 +4670,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 18;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4201,7 +4680,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4217,7 +4696,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4226,7 +4705,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 17;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4236,7 +4715,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4252,7 +4731,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4261,7 +4740,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 16;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4270,7 +4749,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4285,7 +4764,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4294,7 +4773,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 15;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4303,7 +4782,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4318,7 +4797,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4327,7 +4806,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 14;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4336,7 +4815,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4351,7 +4830,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4360,7 +4839,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 13;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4369,7 +4848,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4384,7 +4863,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4393,7 +4872,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 12;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4401,7 +4880,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4415,7 +4894,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4424,7 +4903,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 11;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4432,7 +4911,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4446,7 +4925,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4455,7 +4934,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 10;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4463,7 +4942,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4477,7 +4956,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4486,7 +4965,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 9;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -4494,7 +4973,7 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4508,7 +4987,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4517,14 +4996,14 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 8;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4537,7 +5016,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4546,14 +5025,14 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 7;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4566,7 +5045,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4575,14 +5054,14 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 6;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4595,7 +5074,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4604,14 +5083,14 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 5;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4624,7 +5103,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4633,13 +5112,13 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 4;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4651,7 +5130,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4660,13 +5139,13 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 3;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4678,7 +5157,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4687,13 +5166,13 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 2;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4705,7 +5184,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -4714,13 +5193,13 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 1;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
@@ -4732,7 +5211,7 @@ namespace NicenisTests.ComponentModel
                 callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         #endregion
@@ -5049,7 +5528,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 20;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5059,13 +5538,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5074,7 +5553,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 19;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5084,13 +5563,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5099,7 +5578,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 18;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5109,13 +5588,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5124,7 +5603,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 17;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5134,13 +5613,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5149,7 +5628,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 16;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5158,13 +5637,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5173,7 +5652,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 15;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5182,13 +5661,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5197,7 +5676,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 14;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5206,13 +5685,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5221,7 +5700,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 13;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5230,13 +5709,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5245,7 +5724,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 12;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5253,13 +5732,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5268,7 +5747,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 11;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5276,13 +5755,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5291,7 +5770,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 10;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5299,13 +5778,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5314,7 +5793,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 9;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
@@ -5322,13 +5801,13 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5337,20 +5816,20 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 8;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5359,20 +5838,20 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 7;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5381,20 +5860,20 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 6;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5403,20 +5882,20 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 5;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5425,19 +5904,19 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 4;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5446,19 +5925,19 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 3;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5467,19 +5946,19 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 2;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
@@ -5488,19 +5967,19 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 1;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
             sample.SetPropertyChangedCallback
             (
                 () => sample.TestProperty1,
-                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 1));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         #endregion
@@ -5837,8 +6316,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 20;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -5863,7 +6342,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -5872,8 +6351,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 19;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -5898,7 +6377,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -5907,8 +6386,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 18;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -5933,7 +6412,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -5942,8 +6421,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 17;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -5968,7 +6447,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -5977,8 +6456,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 16;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6001,7 +6480,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6010,8 +6489,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 15;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6034,7 +6513,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6043,8 +6522,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 14;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6067,7 +6546,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6076,8 +6555,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 13;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6100,7 +6579,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6109,8 +6588,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 12;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6131,7 +6610,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6140,8 +6619,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 11;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6162,7 +6641,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6171,8 +6650,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 10;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6193,7 +6672,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6202,8 +6681,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 9;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6224,7 +6703,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6233,8 +6712,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 8;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6253,7 +6732,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6262,8 +6741,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 7;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6282,7 +6761,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6291,8 +6770,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 6;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6311,7 +6790,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6320,8 +6799,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 5;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6340,7 +6819,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6349,8 +6828,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 4;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6367,7 +6846,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6376,8 +6855,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 3;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6394,7 +6873,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6403,8 +6882,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 2;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6421,7 +6900,7 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         [TestMethod]
@@ -6430,8 +6909,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int parameterNameCount = 1;
             Sample sample = new Sample();
-            int[] counters = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
             sample.SetPropertyChangedCallback
@@ -6448,26 +6927,12 @@ namespace NicenisTests.ComponentModel
             ChangeTestProperty(sample, parameterNameCount);
 
             // assert
-            Assert.IsTrue(counters.All(p => p == 0));
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
         }
 
         #endregion
 
 
-        [TestMethod]
-        public void Set_value_property_and_get_it()
-        {
-            // arrange
-            const int expected = 10;
-            Sample sample = new Sample();
-
-            // act
-            sample.ValueProperty = expected;
-            int property = sample.ValueProperty;
-
-            // assert
-            Assert.AreEqual(expected, property);
-        }
 
         [TestMethod]
         public void Set_value_property_with_local_storage_and_get_it()
@@ -6484,88 +6949,8 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(expected, property);
         }
 
-        [TestMethod]
-        public void SetPropertyWithoutNotification_must_not_raise_PropertyChanged()
-        {
-            // arrange
-            const int testInt = 100;
-            int propertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, __) => propertyChangedCount++;
-
-            // act
-            sample.ValuePropertyWithoutNotification = testInt;
-            sample.ValuePropertyWithoutNotification = testInt;
-
-            // assert
-            Assert.AreEqual(0, propertyChangedCount);
-        }
-
-        [TestMethod]
-        public void Set_reference_property_and_get_it()
-        {
-            // arrange
-            const string expected = "Test";
-            Sample sample = new Sample();
-
-            // act
-            sample.ReferenceProperty = expected;
-            string property = sample.ReferenceProperty;
-
-            // assert
-            Assert.AreEqual(expected, property);
-        }
 
 
-        [TestMethod]
-        public void SetProperty_initializer_must_not_be_called_twice()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            List<int> property = sample.ReferencePropertyWithInitializer;
-            List<int> property2 = sample.ReferencePropertyWithInitializer;
-
-            // assert
-            Assert.AreEqual(property, property2);
-        }
-
-        [TestMethod]
-        public void SetProperty_initializer_must_not_be_called_if_property_is_initialized()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            sample.ReferencePropertyWithInitializer = null;
-            List<int> property = sample.ReferencePropertyWithInitializer;
-
-            // assert
-            Assert.IsNull(property);
-        }
-
-        [TestMethod]
-        public void SetProperty_must_not_interfere_other_property()
-        {
-            // arrange
-            const int testInt = 1;
-            const int testInt2 = 2;
-
-            Sample sample = new Sample();
-
-            // act
-            sample.ValueProperty = testInt;
-            sample.ValuePropertyWithDefault = testInt2;
-
-            int propertyValue = sample.ValueProperty;
-            int propertyValue2 = sample.ValuePropertyWithDefault;
-
-            // assert
-            Assert.AreEqual(testInt, propertyValue);
-            Assert.AreEqual(testInt2, propertyValue2);
-        }
 
         [TestMethod]
         public void SetProperty_with_local_storage_must_not_interfere_other_property()
@@ -6621,63 +7006,6 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(1, referencePropertyChangedCount);
         }
 
-        [TestMethod]
-        public void PropertyChanged_must_not_be_raised_if_property_is_not_changed()
-        {
-            // arrange
-            const int testInt = 1000;
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == "ValueProperty")
-                    valuePropertyChangedCount++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.ValueProperty = testInt;
-            sample.ValueProperty = testInt;
-
-            // assert
-            Assert.AreEqual(1, propertyChangedCount);
-            Assert.AreEqual(1, valuePropertyChangedCount);
-        }
-
-        [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_affected_properties_specified()
-        {
-            // arrange
-            const int testInt = 1000;
-
-            List<string> changedPropertyNames = new List<string>();
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, e) => changedPropertyNames.Add(e.PropertyName);
-
-            for (int i = 0; i < Sample.TestPropertyCount; i++)
-            {
-                changedPropertyNames.Clear();
-                int affectedPropertyCount = i + 1;
-                string targetPropertyName = "AffectedPropertyTest" + affectedPropertyCount;
-
-                // act
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-
-                // assert
-                Assert.AreEqual(affectedPropertyCount + 1, changedPropertyNames.Count());
-                Assert.IsTrue(changedPropertyNames.Count() == changedPropertyNames.Distinct().Count());
-                Assert.IsTrue(changedPropertyNames.Contains(targetPropertyName));
-
-                for (int j = 0; j < affectedPropertyCount; j++)
-                    Assert.IsTrue(changedPropertyNames.Contains("TestProperty" + (j + 1)));
-            }
-        }
 
         [TestMethod]
         public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_affected_properties_specified()
@@ -6706,38 +7034,6 @@ namespace NicenisTests.ComponentModel
                 Assert.IsTrue(changedPropertyNames.Contains(targetPropertyName));
 
                 for (int j = 0; j < affectedPropertyCount; j++)
-                    Assert.IsTrue(changedPropertyNames.Contains("TestProperty" + (j + 1)));
-            }
-        }
-
-        [TestMethod]
-        public void OnPropertyChanged_must_raise_PropertyChanged_for_specified_properties()
-        {
-            // arrange
-            const int maxPropertyCount = 20;
-            const int testInt = 1000;
-
-            List<string> changedPropertyNames = new List<string>();
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, e) => changedPropertyNames.Add(e.PropertyName);
-
-            for (int i = 0; i < maxPropertyCount; i++)
-            {
-                changedPropertyNames.Clear();
-                int propertyCount = i + 1;
-                string targetPropertyName = "OnPropertyChangedTest" + propertyCount;
-
-                // act
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-
-                // assert
-                Assert.AreEqual(propertyCount + 1, changedPropertyNames.Count());
-                Assert.IsTrue(changedPropertyNames.Count() == changedPropertyNames.Distinct().Count());
-                Assert.IsTrue(changedPropertyNames.Contains(targetPropertyName));
-
-                for (int j = 0; j < propertyCount; j++)
                     Assert.IsTrue(changedPropertyNames.Contains("TestProperty" + (j + 1)));
             }
         }
