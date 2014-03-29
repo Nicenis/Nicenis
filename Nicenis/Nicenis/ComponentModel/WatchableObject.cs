@@ -19,6 +19,35 @@ using System.Reflection;
 
 namespace Nicenis.ComponentModel
 {
+    #region PropertyChangedCallbackInfo
+
+    public class PropertyChangedCallbackInfo
+    {
+        #region Constructors
+
+        public PropertyChangedCallbackInfo(string propertyName, Action<PropertyChangedEventArgs> callback)
+        {
+            Verify.ParameterIsNotNullAndEmpty(propertyName, "propertyName");
+            Verify.ParameterIsNotNull(callback, "callback");
+
+            PropertyName = propertyName;
+            Callback = callback;
+        }
+
+        #endregion
+
+
+        #region Properties
+
+        public string PropertyName { get; private set; }
+        public Action<PropertyChangedEventArgs> Callback { get; private set; }
+
+        #endregion
+    }
+
+    #endregion
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -1569,44 +1598,44 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
 
             foreach (string propertyName in propertyNames)
-                foreach (Action<PropertyChangedEventArgs> callback in EnumeratePropertyChangedCallback(propertyName))
-                    yield return callback;
+                foreach (PropertyChangedCallbackInfo callbackInfo in EnumeratePropertyChangedCallback(propertyName))
+                    yield return callbackInfo;
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback(params string[] propertyNames)
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(params string[] propertyNames)
         {
             return EnumeratePropertyChangedCallback((IEnumerable<string>)propertyNames);
         }
 
-        protected virtual IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback(string propertyName)
+        protected virtual IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(string propertyName)
         {
             // Gets the changed callback list.
             IEnumerable<Action<PropertyChangedEventArgs>> changedCallbackList = GetChangedCallbackList(propertyName);
 
             // If there is changed callbacks
             if (changedCallbackList != null)
-                return changedCallbackList;
+                return changedCallbackList.Select(p => new PropertyChangedCallbackInfo(propertyName, p));
 
             // If there is no changed callback
-            return Enumerable.Empty<Action<PropertyChangedEventArgs>>();
+            return Enumerable.Empty<PropertyChangedCallbackInfo>();
         }
 
-        protected virtual IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback()
+        protected virtual IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback()
         {
             if (_changedCallbackDictionary == null)
                 yield break;
 
-            foreach (List<Action<PropertyChangedEventArgs>> callbacks in _changedCallbackDictionary.Values)
-                foreach (Action<PropertyChangedEventArgs> callback in callbacks)
-                    yield return callback;
+            foreach (KeyValuePair<string, List<Action<PropertyChangedEventArgs>>> pair in _changedCallbackDictionary)
+                foreach (Action<PropertyChangedEventArgs> callback in pair.Value)
+                    yield return new PropertyChangedCallbackInfo(pair.Key, callback);
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1627,7 +1656,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1648,7 +1677,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1668,7 +1697,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1688,7 +1717,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1708,7 +1737,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1726,7 +1755,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1744,7 +1773,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1762,7 +1791,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1779,7 +1808,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1796,7 +1825,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1812,7 +1841,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
@@ -1827,7 +1856,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
@@ -1842,7 +1871,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7)
@@ -1857,7 +1886,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
         {
@@ -1871,7 +1900,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
         {
@@ -1884,7 +1913,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4)
         {
@@ -1897,7 +1926,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3>(
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
         {
             return EnumeratePropertyChangedCallback
@@ -1909,12 +1938,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
             return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
         }
 
-        protected IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
+        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
         {
             return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
         }
@@ -2667,13 +2696,13 @@ namespace Nicenis.ComponentModel
                 propertyChanged(this, e);
 
             // If all properties are changed, calls all property changed callbacks.
-            IEnumerable<Action<PropertyChangedEventArgs>> callbacks = string.IsNullOrEmpty(propertyName)
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = string.IsNullOrEmpty(propertyName)
                                           ? EnumeratePropertyChangedCallback()
                                           : EnumeratePropertyChangedCallback(propertyName);
 
             // Calls the property changed callbacks.
-            foreach (Action<PropertyChangedEventArgs> callback in callbacks)
-                callback(e);
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(e);
         }
 
         /// <summary>

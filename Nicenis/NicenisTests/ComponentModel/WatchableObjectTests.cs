@@ -31,9 +31,263 @@ namespace NicenisTests.ComponentModel
 
             #region GetPropertyName Related
 
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                    Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                    Expression<Func<T19>> propertyExpression19)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
+                    Expression<Func<T11>> propertyExpression11)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                    Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                    Expression<Func<T3>> propertyExpression3)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3
+                );
+            }
+
+            public new static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+            {
+                return WatchableObject.GetPropertyName
+                (
+                    propertyExpression, propertyExpression2
+                );
+            }
+
             public new static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
             {
-                return Sample.GetPropertyName(propertyExpression);
+                return WatchableObject.GetPropertyName(propertyExpression);
             }
 
             #endregion
@@ -111,23 +365,23 @@ namespace NicenisTests.ComponentModel
 
             #region EnumeratePropertyChangedCallback Related
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
             {
                 return base.EnumeratePropertyChangedCallback(propertyNames);
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback(string propertyName)
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(string propertyName)
             {
                 return base.EnumeratePropertyChangedCallback(propertyName);
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback()
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback()
             {
                 return base.EnumeratePropertyChangedCallback();
             }
 
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -145,7 +399,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -163,7 +417,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -180,7 +434,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -197,7 +451,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -214,7 +468,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -229,7 +483,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -244,7 +498,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -259,7 +513,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -273,7 +527,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -287,7 +541,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -300,7 +554,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
@@ -312,7 +566,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
@@ -324,7 +578,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7)
@@ -336,7 +590,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
             {
@@ -347,7 +601,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
             {
@@ -357,7 +611,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4)
             {
@@ -367,7 +621,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2, T3>(
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
             {
                 return base.EnumeratePropertyChangedCallback
@@ -376,12 +630,12 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
             {
                 return base.EnumeratePropertyChangedCallback(propertyExpression, propertyExpression2);
             }
 
-            public new IEnumerable<Action<PropertyChangedEventArgs>> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
+            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
             {
                 return base.EnumeratePropertyChangedCallback(propertyExpression);
             }
@@ -3708,6 +3962,686 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsTrue(exception is ArgumentException);
             StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region EnumeratePropertyChangedCallback Test Related
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_enumerate_callback_for_a_property()
+        {
+            // arrange
+            Sample sample = new Sample();
+            int counter = 0;
+            string propertyName = Sample.GetPropertyName(() => sample.TestProperty1);
+
+            // act
+            sample.SetPropertyChangedCallback(propertyName, p =>
+            {
+                if (p.PropertyName == propertyName)
+                    counter++;
+            });
+
+            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName))
+                info.Callback(new PropertyChangedEventArgs(info.PropertyName));
+
+            // assert
+            Assert.AreEqual(1, counter);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_must_support_multiple_properties()
+        {
+            // arrange
+            Sample sample = new Sample();
+            int counter = 0, counter2 = 0;
+            string propertyName = Sample.GetPropertyName(() => sample.TestProperty1);
+            string propertyName2 = Sample.GetPropertyName(() => sample.TestProperty2);
+
+            // act
+            sample.SetPropertyChangedCallback(propertyName, p =>
+            {
+                if (p.PropertyName == propertyName)
+                    counter++;
+            });
+
+            sample.SetPropertyChangedCallback(propertyName2, p =>
+            {
+                if (p.PropertyName == propertyName2)
+                    counter2++;
+            });
+
+            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName))
+                info.Callback(new PropertyChangedEventArgs(propertyName));
+
+            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName2))
+                info.Callback(new PropertyChangedEventArgs(propertyName2));
+
+            // assert
+            Assert.AreEqual(1, counter);
+            Assert.AreEqual(1, counter2);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_20_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 20;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_19_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 19;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_18_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 18;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_17_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 17;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_16_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 16;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_15_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 15;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_14_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 14;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_13_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 13;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_12_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 12;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_11_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 11;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_10_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 10;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_9_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 9;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_8_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 8;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_7_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 7;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_6_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 6;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_5_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 5;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_4_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 4;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_3_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 3;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for_2_parameter_names_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 2;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1, () => sample.TestProperty2
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyChangedCallback_for12_parameter_name_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 1;
+            Sample sample = new Sample();
+            int[] counters = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyChangedCallback
+            (
+                () => sample.TestProperty1,
+                p => counters[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            (
+                () => sample.TestProperty1
+            );
+
+            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
+                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+
+            // assert
+            Assert.IsTrue(counters.All(p => p == 1));
         }
 
         #endregion
