@@ -308,9 +308,19 @@ namespace NicenisTests.ComponentModel
                 return base.GetProperty(propertyName, defaultValue);
             }
 
+            public new T GetProperty<T>(Expression<Func<T>> propertyExpression, T defaultValue = default(T))
+            {
+                return base.GetProperty(propertyExpression, defaultValue);
+            }
+
             public new T GetProperty<T>(string propertyName, Func<T> initializer)
             {
                 return base.GetProperty(propertyName, initializer);
+            }
+
+            public new T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
+            {
+                return base.GetProperty(propertyExpression, initializer);
             }
 
             #endregion
@@ -2847,6 +2857,87 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "initializer");
+        }
+
+        #endregion
+
+
+        #region GetProperty Test Related
+
+        [TestMethod]
+        public void GetProperty_must_return_default_value_if_it_is_not_set()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            int property = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(default(int), property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_return_default_value_specified_if_it_is_not_set()
+        {
+            // arrange
+            const int defaultValue = 10;
+            Sample sample = new Sample();
+
+            // act
+            int property = sample.GetProperty(() => sample.ValueProperty, defaultValue);
+
+            // assert
+            Assert.AreEqual(defaultValue, property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_return_default_reference_if_it_is_not_set()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            string property = sample.ReferenceProperty;
+
+            // assert
+            Assert.AreEqual(default(string), property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_return_initialized_value_if_it_is_not_set()
+        {
+            // arrange
+            const int initializedValue = 10;
+            Sample sample = new Sample();
+
+            // act
+            int property = sample.GetProperty(() => sample.ValueProperty, () => initializedValue);
+
+            // assert
+            Assert.AreEqual(initializedValue, property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_not_call_initializer_twice()
+        {
+            // arrange
+            const int initializedValue = 10;
+            const int expectedInitializerCallCount = 1;
+            Sample sample = new Sample();
+            int initializerCallCount = 0;
+            Func<int> initializer = () =>
+            {
+                initializerCallCount++;
+                return initializedValue;
+            };
+
+            // act
+            sample.GetProperty(() => sample.ValueProperty, initializer);
+            sample.GetProperty(() => sample.ValueProperty, initializer);
+
+            // assert
+            Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
         }
 
         #endregion
@@ -6364,32 +6455,6 @@ namespace NicenisTests.ComponentModel
 
 
         [TestMethod]
-        public void Uninitialized_value_property_must_return_zero()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            int property = sample.ValueProperty;
-
-            // assert
-            Assert.AreEqual(0, property);
-        }
-
-        [TestMethod]
-        public void Uninitialized_value_property_with_default_must_return_default()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            int property = sample.ValuePropertyWithDefault;
-
-            // assert
-            Assert.AreEqual(Sample.DefaultOfValuePropertyWithDefault, property);
-        }
-
-        [TestMethod]
         public void Set_value_property_and_get_it()
         {
             // arrange
@@ -6438,19 +6503,6 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void Uninitialized_reference_property_must_return_null()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            string property = sample.ReferenceProperty;
-
-            // assert
-            Assert.AreEqual(null, property);
-        }
-
-        [TestMethod]
         public void Set_reference_property_and_get_it()
         {
             // arrange
@@ -6465,18 +6517,6 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(expected, property);
         }
 
-        [TestMethod]
-        public void Uninitialized_reference_property_with_initializer_must_return_initialized_value()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            List<int> property = sample.ReferencePropertyWithInitializer;
-
-            // assert
-            Assert.IsNotNull(property);
-        }
 
         [TestMethod]
         public void SetProperty_initializer_must_not_be_called_twice()
