@@ -683,6 +683,11 @@ namespace NicenisTests.ComponentModel
                 return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
             }
 
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
+            }
+
             public new bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
             {
                 return base.SetProperty(propertyName, ref storage, value, affectedPropertyName);
@@ -691,6 +696,318 @@ namespace NicenisTests.ComponentModel
             public new bool SetProperty<T>(string propertyName, ref T storage, T value)
             {
                 return base.SetProperty(propertyName, ref storage, value);
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                    Expression<Func<T20>> affectedPropertyExpression19, Expression<Func<T21>> affectedPropertyExpression20)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19, affectedPropertyExpression20
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18,
+                    Expression<Func<T20>> affectedPropertyExpression19)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18, affectedPropertyExpression19
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17, Expression<Func<T19>> affectedPropertyExpression18)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17, affectedPropertyExpression18
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16, Expression<Func<T18>> affectedPropertyExpression17)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16, affectedPropertyExpression17
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15,
+                    Expression<Func<T17>> affectedPropertyExpression16)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15,
+                    affectedPropertyExpression16
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14, Expression<Func<T16>> affectedPropertyExpression15)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14, affectedPropertyExpression15
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13, Expression<Func<T15>> affectedPropertyExpression14)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13, affectedPropertyExpression14
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12,
+                    Expression<Func<T14>> affectedPropertyExpression13)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12, affectedPropertyExpression13
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11, Expression<Func<T13>> affectedPropertyExpression12)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11, affectedPropertyExpression12
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10, Expression<Func<T12>> affectedPropertyExpression11)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
+                    affectedPropertyExpression11
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9,
+                    Expression<Func<T11>> affectedPropertyExpression10)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8, Expression<Func<T10>> affectedPropertyExpression9)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7, Expression<Func<T9>> affectedPropertyExpression8)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7, T8>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6,
+                    Expression<Func<T8>> affectedPropertyExpression7)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6, affectedPropertyExpression7
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6, T7>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5, Expression<Func<T7>> affectedPropertyExpression6)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
+                    affectedPropertyExpression6
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5, T6>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4, Expression<Func<T6>> affectedPropertyExpression5)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4, T5>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3,
+                    Expression<Func<T5>> affectedPropertyExpression4)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3, T4>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2, Expression<Func<T4>> affectedPropertyExpression3)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
+                );
+            }
+
+            public new bool SetProperty<T, T2, T3>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression, Expression<Func<T3>> affectedPropertyExpression2)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression, affectedPropertyExpression2
+                );
+            }
+
+            public new bool SetProperty<T, T2>(
+                    Expression<Func<T>> propertyExpression, ref T storage, T value,
+                    Expression<Func<T2>> affectedPropertyExpression)
+            {
+                return base.SetProperty
+                (
+                    propertyExpression, ref storage, value,
+                    affectedPropertyExpression
+                );
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
+            {
+                return base.SetProperty(propertyExpression, ref storage, value);
             }
 
             #endregion
@@ -1580,36 +1897,10 @@ namespace NicenisTests.ComponentModel
                 set { SetProperty(() => ValueProperty, value); }
             }
 
-            public const int DefaultOfValuePropertyWithDefault = 10;
-
-            int _valuePropertyWithLocalStorage;
-
-            public int ValuePropertyWithLocalStorage
-            {
-                get { return _valuePropertyWithLocalStorage; }
-                set { SetProperty(() => ValuePropertyWithLocalStorage, ref _valuePropertyWithLocalStorage, value); }
-            }
-
-            int _valuePropertyWithLocalStorageWithDefault = DefaultOfValuePropertyWithDefault;
-
-            public int ValuePropertyWithLocalStorageWithDefault
-            {
-                get { return _valuePropertyWithLocalStorageWithDefault; }
-                set { SetProperty(() => ValuePropertyWithLocalStorageWithDefault, ref _valuePropertyWithLocalStorageWithDefault, value); }
-            }
-
             public string ReferenceProperty
             {
                 get { return GetProperty(() => ReferenceProperty); }
                 set { SetProperty(() => ReferenceProperty, value); }
-            }
-
-            string _referencePropertyWithLocalStorage;
-
-            public string ReferencePropertyWithLocalStorage
-            {
-                get { return _referencePropertyWithLocalStorage; }
-                set { SetProperty(() => ReferencePropertyWithLocalStorage, ref _referencePropertyWithLocalStorage, value); }
             }
 
             #endregion
@@ -1757,390 +2048,6 @@ namespace NicenisTests.ComponentModel
             {
                 get { return GetProperty(() => TestProperty20); }
                 set { SetProperty(() => TestProperty20, value); }
-            }
-
-            #endregion
-
-            #region AffectedPropertyTestInSetPropertyWithLocalStorage Series
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage20;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage20
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage20; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage20,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage20,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18, () => TestProperty19, () => TestProperty20
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage19;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage19
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage19; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage19,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage19,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18, () => TestProperty19
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage18;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage18
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage18; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage18,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage18,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17, () => TestProperty18
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage17;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage17
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage17; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage17,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage17,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16,
-                        () => TestProperty17
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage16;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage16
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage16; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage16,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage16,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15, () => TestProperty16
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage15;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage15
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage15; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage15,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage15,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14, () => TestProperty15
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage14;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage14
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage14; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage14,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage14,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13, () => TestProperty14
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage13;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage13
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage13; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage13,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage13,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12,
-                        () => TestProperty13
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage12;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage12
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage12; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage12,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage12,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11, () => TestProperty12
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage11;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage11
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage11; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage11,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage11,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10, () => TestProperty11
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage10;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage10
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage10; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage10,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage10,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9, () => TestProperty10
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage9;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage9
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage9; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage9,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage9,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8,
-                        () => TestProperty9
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage8;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage8
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage8; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage8,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage8,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7, () => TestProperty8
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage7;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage7
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage7; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage7,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage7,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6, () => TestProperty7
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage6;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage6
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage6; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage6,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage6,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5, () => TestProperty6
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage5;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage5
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage5; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage5,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage5,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4,
-                        () => TestProperty5
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage4;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage4
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage4; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage4,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage4,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3, () => TestProperty4
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage3;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage3
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage3; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage3,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage3,
-                        value,
-                        () => TestProperty1, () => TestProperty2, () => TestProperty3
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage2;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage2
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage2; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage2,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage2,
-                        value,
-                        () => TestProperty1, () => TestProperty2
-                    );
-                }
-            }
-
-            int _affectedPropertyTestInSetPropertyWithLocalStorage1;
-
-            public int AffectedPropertyTestInSetPropertyWithLocalStorage1
-            {
-                get { return _affectedPropertyTestInSetPropertyWithLocalStorage1; }
-                set
-                {
-                    SetProperty
-                    (
-                        () => AffectedPropertyTestInSetPropertyWithLocalStorage1,
-                        ref _affectedPropertyTestInSetPropertyWithLocalStorage1,
-                        value,
-                        () => TestProperty1
-                    );
-                }
             }
 
             #endregion
@@ -3283,7 +3190,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_20_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_20_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3319,7 +3226,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_19_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_19_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3355,7 +3262,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_18_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_18_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3391,7 +3298,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_17_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_17_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3427,7 +3334,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_16_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_16_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3462,7 +3369,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_15_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_15_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3497,7 +3404,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_14_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_14_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3532,7 +3439,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_13_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_13_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3567,7 +3474,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_12_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_12_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3601,7 +3508,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_11_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_11_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3635,7 +3542,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_10_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_10_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3669,7 +3576,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_9_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_9_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3703,7 +3610,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_8_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_8_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3736,7 +3643,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_7_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_7_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3769,7 +3676,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_6_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_6_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3802,7 +3709,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_5_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_5_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3835,7 +3742,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_4_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_4_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3867,7 +3774,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_3_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_3_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3899,7 +3806,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -3931,7 +3838,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_1_affected_properties_if_it_is_not_changed()
+        public void SetProperty_must_raise_PropertyChanged_for_1_affected_properties_if_it_is_changed()
         {
             // arrange
             const int testValue = 1000;
@@ -4352,6 +4259,830 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.IsTrue(exception is ArgumentException);
             StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region SetProperty with local storage Test Related
+
+        [TestMethod]
+        public void SetPropertyWithoutNotification_with_local_storage_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+            int valueStorage = 0;
+
+            // act
+            sample.SetPropertyWithoutNotification(ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(valueStorage, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+            int valueStorage = 0;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(valueStorage, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_set_reference_properly()
+        {
+            // arrange
+            const string testReference = "Test";
+            Sample sample = new Sample();
+            string referenceStorage = null;
+
+            // act
+            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+
+            // assert
+            Assert.AreEqual(referenceStorage, testReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_support_multiple_properties()
+        {
+            // arrange
+            const int testValue = 10;
+            const string testReference = "Test";
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            string referenceStorage = null;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+
+            // assert
+            Assert.AreEqual(testValue, valueStorage);
+            Assert.AreEqual(testReference, referenceStorage);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(1, propertyChangedCount);
+            Assert.AreEqual(1, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_not_raise_PropertyChanged_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = default(int);
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+            Assert.AreEqual(0, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_20_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 21;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_19_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 20;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_18_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 19;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17, () => sample.TestProperty18
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_17_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 18;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
+                () => sample.TestProperty17
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_16_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 17;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_15_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 16;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_14_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 15;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13, () => sample.TestProperty14
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_13_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 14;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
+                () => sample.TestProperty13
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_12_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 13;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_11_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 12;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_10_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 11;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9, () => sample.TestProperty10
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_9_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 10;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
+                () => sample.TestProperty9
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_8_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 9;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_7_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 8;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_6_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 7;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5, () => sample.TestProperty6
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_5_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 6;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
+                () => sample.TestProperty5
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_4_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 5;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_3_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 4;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 3;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1, () => sample.TestProperty2
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_1_affected_property_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 2;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue,
+                () => sample.TestProperty1
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
         }
 
         #endregion
@@ -6931,111 +7662,5 @@ namespace NicenisTests.ComponentModel
         }
 
         #endregion
-
-
-
-        [TestMethod]
-        public void Set_value_property_with_local_storage_and_get_it()
-        {
-            // arrange
-            const int expected = 10;
-            Sample sample = new Sample();
-
-            // act
-            sample.ValuePropertyWithLocalStorage = expected;
-            int property = sample.ValuePropertyWithLocalStorage;
-
-            // assert
-            Assert.AreEqual(expected, property);
-        }
-
-
-
-
-        [TestMethod]
-        public void SetProperty_with_local_storage_must_not_interfere_other_property()
-        {
-            // arrange
-            const int testInt = 1;
-            const int testInt2 = 2;
-
-            Sample sample = new Sample();
-
-            // act
-            sample.ValuePropertyWithLocalStorage = testInt;
-            sample.ValuePropertyWithLocalStorageWithDefault = testInt2;
-
-            int propertyValue = sample.ValuePropertyWithLocalStorage;
-            int propertyValue2 = sample.ValuePropertyWithLocalStorageWithDefault;
-
-            // assert
-            Assert.AreEqual(testInt, propertyValue);
-            Assert.AreEqual(testInt2, propertyValue2);
-        }
-
-        [TestMethod]
-        public void PropertyChanged_must_be_raised_per_changed_property()
-        {
-            // arrange
-            const int testInt = 1000;
-            const string testString = "test";
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-            int referencePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == "ValueProperty")
-                    valuePropertyChangedCount++;
-
-                if (e.PropertyName == "ReferenceProperty")
-                    referencePropertyChangedCount++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.ValueProperty = testInt;
-            sample.ReferenceProperty = testString;
-
-            // assert
-            Assert.AreEqual(2, propertyChangedCount);
-            Assert.AreEqual(1, valuePropertyChangedCount);
-            Assert.AreEqual(1, referencePropertyChangedCount);
-        }
-
-
-        [TestMethod]
-        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_affected_properties_specified()
-        {
-            // arrange
-            const int testInt = 1000;
-
-            List<string> changedPropertyNames = new List<string>();
-
-            Sample sample = new Sample();
-            sample.PropertyChanged += (_, e) => changedPropertyNames.Add(e.PropertyName);
-
-            for (int i = 0; i < Sample.TestPropertyCount; i++)
-            {
-                changedPropertyNames.Clear();
-                int affectedPropertyCount = i + 1;
-                string targetPropertyName = "AffectedPropertyTestInSetPropertyWithLocalStorage" + affectedPropertyCount;
-
-                // act
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-                SetPropertyByReflection(sample, targetPropertyName, testInt);
-
-                // assert
-                Assert.AreEqual(affectedPropertyCount + 1, changedPropertyNames.Count());
-                Assert.IsTrue(changedPropertyNames.Count() == changedPropertyNames.Distinct().Count());
-                Assert.IsTrue(changedPropertyNames.Contains(targetPropertyName));
-
-                for (int j = 0; j < affectedPropertyCount; j++)
-                    Assert.IsTrue(changedPropertyNames.Contains("TestProperty" + (j + 1)));
-            }
-        }
     }
 }
