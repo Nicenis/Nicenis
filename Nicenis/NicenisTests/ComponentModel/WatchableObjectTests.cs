@@ -1012,25 +1012,25 @@ namespace NicenisTests.ComponentModel
 
             #endregion
 
-            #region EnumeratePropertyChangedCallback Related
+            #region EnumeratePropertyWatch Related
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
             {
-                return base.EnumeratePropertyChangedCallback(propertyNames);
+                return base.EnumeratePropertyWatch(propertyNames);
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(string propertyName)
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
             {
-                return base.EnumeratePropertyChangedCallback(propertyName);
+                return base.EnumeratePropertyWatch(propertyName);
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback()
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch()
             {
-                return base.EnumeratePropertyChangedCallback();
+                return base.EnumeratePropertyWatch();
             }
 
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1039,7 +1039,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                     Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1048,7 +1048,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1057,7 +1057,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                     Expression<Func<T19>> propertyExpression19)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1066,7 +1066,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1074,7 +1074,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1083,7 +1083,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1091,7 +1091,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1100,7 +1100,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1108,7 +1108,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1117,14 +1117,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1132,14 +1132,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1147,14 +1147,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1162,13 +1162,13 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1176,13 +1176,13 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -1190,685 +1190,685 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3>(
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
             {
-                return base.EnumeratePropertyChangedCallback
+                return base.EnumeratePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 );
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
             {
-                return base.EnumeratePropertyChangedCallback(propertyExpression, propertyExpression2);
+                return base.EnumeratePropertyWatch(propertyExpression, propertyExpression2);
             }
 
-            public new IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
             {
-                return base.EnumeratePropertyChangedCallback(propertyExpression);
+                return base.EnumeratePropertyWatch(propertyExpression);
             }
 
             #endregion
 
-            #region SetPropertyChangedCallback Related
+            #region SetPropertyWatch Related
 
-            public new int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> callback)
+            public new int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback(propertyNames, callback);
+                return base.SetPropertyWatch(propertyNames, action);
             }
 
-            public new bool SetPropertyChangedCallback(string propertyName, Action<PropertyChangedEventArgs> callback)
+            public new bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback(propertyName, callback);
+                return base.SetPropertyWatch(propertyName, action);
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                    Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5, T6>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4, T5>(
+            public new int SetPropertyWatch<T, T2, T3, T4, T5>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3, T4>(
+            public new int SetPropertyWatch<T, T2, T3, T4>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2, T3>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> callback)
+            public new int SetPropertyWatch<T, T2, T3>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback
+                return base.SetPropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3,
-                    callback
+                    action
                 );
             }
 
-            public new int SetPropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> callback)
+            public new int SetPropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback(propertyExpression, propertyExpression2, callback);
+                return base.SetPropertyWatch(propertyExpression, propertyExpression2, action);
             }
 
-            public new bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> callback)
+            public new bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
             {
-                return base.SetPropertyChangedCallback(propertyExpression, callback);
+                return base.SetPropertyWatch(propertyExpression, action);
             }
 
             #endregion
 
-            #region RemovePropertyChangedCallback Related
+            #region RemovePropertyWatch Related
 
-            public new int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> callback)
+            public new int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback(propertyNames, callback);
+                return base.RemovePropertyWatch(propertyNames, action);
             }
 
-            public new bool RemovePropertyChangedCallback(string propertyName, Action<PropertyChangedEventArgs> callback)
+            public new bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback(propertyName, callback);
+                return base.RemovePropertyWatch(propertyName, action);
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                    Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                    Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5, T6>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4, T5>(
+            public new int RemovePropertyWatch<T, T2, T3, T4, T5>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3, T4>(
+            public new int RemovePropertyWatch<T, T2, T3, T4>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> callback)
+                    Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2, T3>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> callback)
+            public new int RemovePropertyWatch<T, T2, T3>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback
+                return base.RemovePropertyWatch
                 (
                     propertyExpression, propertyExpression2, propertyExpression3,
-                    callback
+                    action
                 );
             }
 
-            public new int RemovePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> callback)
+            public new int RemovePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
             {
-                return base.RemovePropertyChangedCallback(propertyExpression, propertyExpression2, callback);
+                return base.RemovePropertyWatch(propertyExpression, propertyExpression2, action);
             }
 
-            public new void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> callback)
+            public new void RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
             {
-                base.RemovePropertyChangedCallback(propertyExpression, callback);
+                base.RemovePropertyWatch(propertyExpression, action);
             }
 
             #endregion
@@ -5088,10 +5088,10 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region EnumeratePropertyChangedCallback Parameter Check Related
+        #region EnumeratePropertyWatch Parameter Check Related
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_null()
         {
             // arrange
             IEnumerable<string> propertyNames = null;
@@ -5101,7 +5101,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+                sample.EnumeratePropertyWatch(propertyNames).Count();
             }
             catch (Exception e)
             {
@@ -5114,21 +5114,21 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_not_throw_exception_if_property_names_is_empty_collection()
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[0];
             Sample sample = new Sample();
 
             // act
-            sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+            sample.EnumeratePropertyWatch(propertyNames).Count();
 
             // assert
             Assert.IsTrue(true);
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_null()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", null };
@@ -5138,7 +5138,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+                sample.EnumeratePropertyWatch(propertyNames).Count();
             }
             catch (Exception e)
             {
@@ -5151,7 +5151,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_empty_string()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_empty_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
@@ -5161,7 +5161,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+                sample.EnumeratePropertyWatch(propertyNames).Count();
             }
             catch (Exception e)
             {
@@ -5174,7 +5174,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", " " };
@@ -5184,7 +5184,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyNames).Count();
+                sample.EnumeratePropertyWatch(propertyNames).Count();
             }
             catch (Exception e)
             {
@@ -5197,7 +5197,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_name_is_null()
         {
             // arrange
             string propertyName = null;
@@ -5207,7 +5207,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+                sample.EnumeratePropertyWatch(propertyName).Count();
             }
             catch (Exception e)
             {
@@ -5220,7 +5220,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_name_is_empty_string()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_name_is_empty_string()
         {
             // arrange
             string propertyName = "";
@@ -5230,7 +5230,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+                sample.EnumeratePropertyWatch(propertyName).Count();
             }
             catch (Exception e)
             {
@@ -5243,7 +5243,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_throw_exception_if_property_names_is_whitespace_string()
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_whitespace_string()
         {
             // arrange
             string propertyName = " ";
@@ -5253,7 +5253,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.EnumeratePropertyChangedCallback(propertyName).Count();
+                sample.EnumeratePropertyWatch(propertyName).Count();
             }
             catch (Exception e)
             {
@@ -5268,10 +5268,10 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region EnumeratePropertyChangedCallback Test Related
+        #region EnumeratePropertyWatch Test Related
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_enumerate_callback_for_a_property()
+        public void EnumeratePropertyWatch_must_enumerate_watch_action_for_a_property()
         {
             // arrange
             Sample sample = new Sample();
@@ -5279,21 +5279,21 @@ namespace NicenisTests.ComponentModel
             string propertyName = Sample.GetPropertyName(() => sample.TestProperty1);
 
             // act
-            sample.SetPropertyChangedCallback(propertyName, p =>
+            sample.SetPropertyWatch(propertyName, p =>
             {
                 if (p.PropertyName == propertyName)
                     counter++;
             });
 
-            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName))
-                info.Callback(new PropertyChangedEventArgs(info.PropertyName));
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
+                info.Action(new PropertyChangedEventArgs(info.PropertyName));
 
             // assert
             Assert.AreEqual(1, counter);
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_must_support_multiple_properties()
+        public void EnumeratePropertyWatch_must_support_multiple_properties()
         {
             // arrange
             Sample sample = new Sample();
@@ -5302,23 +5302,23 @@ namespace NicenisTests.ComponentModel
             string propertyName2 = Sample.GetPropertyName(() => sample.TestProperty2);
 
             // act
-            sample.SetPropertyChangedCallback(propertyName, p =>
+            sample.SetPropertyWatch(propertyName, p =>
             {
                 if (p.PropertyName == propertyName)
                     counter++;
             });
 
-            sample.SetPropertyChangedCallback(propertyName2, p =>
+            sample.SetPropertyWatch(propertyName2, p =>
             {
                 if (p.PropertyName == propertyName2)
                     counter2++;
             });
 
-            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName))
-                info.Callback(new PropertyChangedEventArgs(propertyName));
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
+                info.Action(new PropertyChangedEventArgs(propertyName));
 
-            foreach (PropertyChangedCallbackInfo info in sample.EnumeratePropertyChangedCallback(propertyName2))
-                info.Callback(new PropertyChangedEventArgs(propertyName2));
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName2))
+                info.Action(new PropertyChangedEventArgs(propertyName2));
 
             // assert
             Assert.AreEqual(1, counter);
@@ -5326,7 +5326,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_20_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_20_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 20;
@@ -5334,7 +5334,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5344,7 +5344,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5353,15 +5353,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_19_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_19_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 19;
@@ -5369,7 +5369,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5379,7 +5379,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5388,15 +5388,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_18_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_18_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 18;
@@ -5404,7 +5404,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5414,7 +5414,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5423,15 +5423,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty17, () => sample.TestProperty18
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_17_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_17_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 17;
@@ -5439,7 +5439,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5449,7 +5449,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5458,15 +5458,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty17
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_16_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_16_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 16;
@@ -5474,7 +5474,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5483,7 +5483,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5491,15 +5491,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_15_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_15_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 15;
@@ -5507,7 +5507,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5516,7 +5516,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5524,15 +5524,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_14_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_14_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 14;
@@ -5540,7 +5540,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5549,7 +5549,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5557,15 +5557,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty13, () => sample.TestProperty14
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_13_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_13_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 13;
@@ -5573,7 +5573,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5582,7 +5582,7 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5590,15 +5590,15 @@ namespace NicenisTests.ComponentModel
                 () => sample.TestProperty13
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_12_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_12_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 12;
@@ -5606,7 +5606,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5614,22 +5614,22 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_11_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_11_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 11;
@@ -5637,7 +5637,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5645,22 +5645,22 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_10_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_10_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 10;
@@ -5668,7 +5668,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5676,22 +5676,22 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_9_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_9_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 9;
@@ -5699,7 +5699,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -5707,22 +5707,22 @@ namespace NicenisTests.ComponentModel
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_8_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_8_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 8;
@@ -5730,28 +5730,28 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_7_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_7_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 7;
@@ -5759,28 +5759,28 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_6_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_6_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 6;
@@ -5788,28 +5788,28 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_5_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_5_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 5;
@@ -5817,28 +5817,28 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_4_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_4_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 4;
@@ -5846,26 +5846,26 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_3_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_3_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 3;
@@ -5873,26 +5873,26 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for_2_parameter_names_must_succeed()
+        public void EnumeratePropertyWatch_for_2_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 2;
@@ -5900,26 +5900,26 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
         [TestMethod]
-        public void EnumeratePropertyChangedCallback_for12_parameter_name_must_succeed()
+        public void EnumeratePropertyWatch_for12_parameter_name_must_succeed()
         {
             // arrange
             const int parameterNameCount = 1;
@@ -5927,19 +5927,19 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
             );
 
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = sample.EnumeratePropertyChangedCallback
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
             (
                 () => sample.TestProperty1
             );
 
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(new PropertyChangedEventArgs(callbackInfo.PropertyName));
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
@@ -5948,21 +5948,21 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region SetPropertyChangedCallback Parameter Check Related
+        #region SetPropertyWatch Parameter Check Related
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        public void SetPropertyWatch_must_throw_exception_if_property_names_is_null()
         {
             // arrange
             IEnumerable<string> propertyNames = null;
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -5975,18 +5975,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_is_empty_collection()
+        public void SetPropertyWatch_must_throw_exception_if_property_names_is_empty_collection()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[0];
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -5999,18 +5999,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_null()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", null };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6023,18 +6023,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_emtpy_string()
+        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_emtpy_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6047,18 +6047,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", " " };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6071,18 +6071,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_with_property_names_must_throw_exception_if_callback_is_null()
+        public void SetPropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test" };
-            Action<PropertyChangedEventArgs> callback = null;
+            Action<PropertyChangedEventArgs> action = null;
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyNames, callback);
+                sample.SetPropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6091,23 +6091,23 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "callback");
+            StringAssert.Contains(exception.Message, "action");
         }
 
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        public void SetPropertyWatch_must_throw_exception_if_property_name_is_null()
         {
             // arrange
             string propertyName = null;
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyName, callback);
+                sample.SetPropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6120,18 +6120,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_emtpy_string()
+        public void SetPropertyWatch_must_throw_exception_if_property_name_is_emtpy_string()
         {
             // arrange
             string propertyName = "";
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyName, callback);
+                sample.SetPropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6144,18 +6144,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_property_name_is_whitespace_string()
+        public void SetPropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
         {
             // arrange
             string propertyName = " ";
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyName, callback);
+                sample.SetPropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6168,18 +6168,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_must_throw_exception_if_callback_is_null()
+        public void SetPropertyWatch_must_throw_exception_if_action_is_null()
         {
             // arrange
             string propertyName = "test";
-            Action<PropertyChangedEventArgs> callback = null;
+            Action<PropertyChangedEventArgs> action = null;
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.SetPropertyChangedCallback(propertyName, callback);
+                sample.SetPropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6188,16 +6188,16 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "callback");
+            StringAssert.Contains(exception.Message, "action");
         }
 
         #endregion
 
 
-        #region SetPropertyChangedCallback Test Related
+        #region SetPropertyWatch Test Related
 
         [TestMethod]
-        public void PropertyChangedCallback_must_be_called_when_the_target_property_is_changed()
+        public void Watch_Action_must_be_called_when_the_target_property_is_changed()
         {
             // arrange
             const int newValue = 10;
@@ -6205,7 +6205,7 @@ namespace NicenisTests.ComponentModel
             int counter = 0;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, p => counter++);
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counter++);
             sample.ValueProperty = newValue;
             sample.ValueProperty = newValue;
 
@@ -6214,17 +6214,17 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void Duplicated_PropertyChangedCallback_must_not_be_called_when_the_target_property_is_changed()
+        public void Duplicated_Watch_Action_must_not_be_called_when_the_target_property_is_changed()
         {
             // arrange
             const int newValue = 10;
             Sample sample = new Sample();
             int counter = 0;
-            Action<PropertyChangedEventArgs> callback = p => counter++;
+            Action<PropertyChangedEventArgs> action = p => counter++;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
             sample.ValueProperty = newValue;
             sample.ValueProperty = newValue;
 
@@ -6233,7 +6233,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void PropertyChangedCallback_must_support_multiple_properties()
+        public void Watch_Action_must_support_multiple_properties()
         {
             // arrange
             const int newValue = 10;
@@ -6243,8 +6243,8 @@ namespace NicenisTests.ComponentModel
             int counterForReference = 0;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, p => counterForValue++);
-            sample.SetPropertyChangedCallback(() => sample.ReferenceProperty, p => counterForReference++);
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
+            sample.SetPropertyWatch(() => sample.ReferenceProperty, p => counterForReference++);
             sample.ValueProperty = newValue;
             sample.ReferenceProperty = newReference;
 
@@ -6254,7 +6254,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_20_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_20_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 20;
@@ -6262,7 +6262,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6279,7 +6279,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_19_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_19_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 19;
@@ -6287,7 +6287,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6304,7 +6304,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_18_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_18_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 18;
@@ -6312,7 +6312,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6329,7 +6329,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_17_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_17_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 17;
@@ -6337,7 +6337,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6354,7 +6354,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_16_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_16_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 16;
@@ -6362,7 +6362,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6378,7 +6378,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_15_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_15_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 15;
@@ -6386,7 +6386,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6402,7 +6402,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_14_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_14_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 14;
@@ -6410,7 +6410,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6426,7 +6426,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_13_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_13_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 13;
@@ -6434,7 +6434,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6450,7 +6450,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_12_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_12_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 12;
@@ -6458,7 +6458,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6473,7 +6473,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_11_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_11_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 11;
@@ -6481,7 +6481,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6496,7 +6496,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_10_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_10_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 10;
@@ -6504,7 +6504,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6519,7 +6519,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_9_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_9_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 9;
@@ -6527,7 +6527,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6542,7 +6542,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_8_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_8_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 8;
@@ -6550,7 +6550,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
@@ -6564,7 +6564,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_7_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_7_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 7;
@@ -6572,7 +6572,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
@@ -6586,7 +6586,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_6_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_6_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 6;
@@ -6594,7 +6594,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
@@ -6608,7 +6608,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_5_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_5_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 5;
@@ -6616,7 +6616,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
@@ -6630,7 +6630,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_4_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_4_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 4;
@@ -6638,7 +6638,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
@@ -6651,7 +6651,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_3_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_3_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 3;
@@ -6659,7 +6659,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
@@ -6672,7 +6672,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_2_parameter_names_must_succeed()
+        public void SetPropertyWatch_for_2_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 2;
@@ -6680,7 +6680,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
@@ -6693,7 +6693,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyChangedCallback_for_1_parameter_name_must_succeed()
+        public void SetPropertyWatch_for_1_parameter_name_must_succeed()
         {
             // arrange
             const int parameterNameCount = 1;
@@ -6701,7 +6701,7 @@ namespace NicenisTests.ComponentModel
             int[] propertyChangedCounts = new int[parameterNameCount];
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1,
                 p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
@@ -6716,21 +6716,21 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region RemovePropertyChangedCallback Parameter Check Related
+        #region RemovePropertyWatch Parameter Check Related
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_is_null()
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_is_null()
         {
             // arrange
             IEnumerable<string> propertyNames = null;
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6743,18 +6743,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_is_empty_collection()
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_is_empty_collection()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[0];
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6767,18 +6767,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_null()
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_null()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", null };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6791,18 +6791,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_emtpy_string()
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_emtpy_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6815,18 +6815,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_names_contain_whitespace_string()
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", " " };
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6839,18 +6839,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_with_property_names_must_throw_exception_if_callback_is_null()
+        public void RemovePropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test" };
-            Action<PropertyChangedEventArgs> callback = null;
+            Action<PropertyChangedEventArgs> action = null;
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyNames, callback);
+                sample.RemovePropertyWatch(propertyNames, action);
             }
             catch (Exception e)
             {
@@ -6859,23 +6859,23 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "callback");
+            StringAssert.Contains(exception.Message, "action");
         }
 
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_null()
+        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_null()
         {
             // arrange
             string propertyName = null;
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyName, callback);
+                sample.RemovePropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6888,18 +6888,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_emtpy_string()
+        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_emtpy_string()
         {
             // arrange
             string propertyName = "";
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyName, callback);
+                sample.RemovePropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6912,18 +6912,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_property_name_is_whitespace_string()
+        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
         {
             // arrange
             string propertyName = " ";
-            Action<PropertyChangedEventArgs> callback = p => Console.WriteLine("");
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyName, callback);
+                sample.RemovePropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6936,18 +6936,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_throw_exception_if_callback_is_null()
+        public void RemovePropertyWatch_must_throw_exception_if_action_is_null()
         {
             // arrange
             string propertyName = "test";
-            Action<PropertyChangedEventArgs> callback = null;
+            Action<PropertyChangedEventArgs> action = null;
             Exception exception = null;
             Sample sample = new Sample();
 
             // act
             try
             {
-                sample.RemovePropertyChangedCallback(propertyName, callback);
+                sample.RemovePropertyWatch(propertyName, action);
             }
             catch (Exception e)
             {
@@ -6956,26 +6956,26 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "callback");
+            StringAssert.Contains(exception.Message, "action");
         }
 
         #endregion
 
 
-        #region RemovePropertyChangedCallback Test Related
+        #region RemovePropertyWatch Test Related
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_remove_PropertyChangedCallback()
+        public void RemovePropertyWatch_must_remove_Watch_Action()
         {
             // arrange
             const int newValue = 10;
             Sample sample = new Sample();
             int counter = 0;
-            Action<PropertyChangedEventArgs> callback = p => counter++;
+            Action<PropertyChangedEventArgs> action = p => counter++;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
-            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
             sample.ValueProperty = newValue;
 
             // assert
@@ -6983,18 +6983,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_support_duplicated_call()
+        public void RemovePropertyWatch_must_support_duplicated_call()
         {
             // arrange
             const int newValue = 10;
             Sample sample = new Sample();
             int counter = 0;
-            Action<PropertyChangedEventArgs> callback = p => counter++;
+            Action<PropertyChangedEventArgs> action = p => counter++;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callback);
-            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
-            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
             sample.ValueProperty = newValue;
 
             // assert
@@ -7002,22 +7002,22 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_succeed_if_PropertyChangedCallback_is_not_set()
+        public void RemovePropertyWatch_must_succeed_if_Watch_Action_is_not_set()
         {
             // arrange
             Sample sample = new Sample();
             int counter = 0;
-            Action<PropertyChangedEventArgs> callback = p => counter++;
+            Action<PropertyChangedEventArgs> action = p => counter++;
 
             // act
-            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callback);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
 
             // assert
             Assert.IsTrue(true);
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_must_support_multiple_properties()
+        public void RemovePropertyWatch_must_support_multiple_properties()
         {
             // arrange
             const int newValue = 10;
@@ -7025,13 +7025,13 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
             int counterForValue = 0;
             int counterForReference = 0;
-            Action<PropertyChangedEventArgs> callbackForValue = p => counterForValue++;
-            Action<PropertyChangedEventArgs> callbackForReference = p => counterForReference++;
+            Action<PropertyChangedEventArgs> actionForValue = p => counterForValue++;
+            Action<PropertyChangedEventArgs> actionForReference = p => counterForReference++;
 
             // act
-            sample.SetPropertyChangedCallback(() => sample.ValueProperty, callbackForValue);
-            sample.SetPropertyChangedCallback(() => sample.ReferenceProperty, callbackForReference);
-            sample.RemovePropertyChangedCallback(() => sample.ValueProperty, callbackForValue);
+            sample.SetPropertyWatch(() => sample.ValueProperty, actionForValue);
+            sample.SetPropertyWatch(() => sample.ReferenceProperty, actionForReference);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, actionForValue);
             sample.ValueProperty = newValue;
             sample.ReferenceProperty = newReference;
 
@@ -7042,32 +7042,32 @@ namespace NicenisTests.ComponentModel
 
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_20_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_20_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 20;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19, () => sample.TestProperty20,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7077,32 +7077,32 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_19_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_19_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 19;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18, () => sample.TestProperty19,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7112,32 +7112,32 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_18_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_18_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 18;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17, () => sample.TestProperty18,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7147,32 +7147,32 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_17_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_17_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 17;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
                 () => sample.TestProperty17,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7182,30 +7182,30 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_16_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_16_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 16;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15, () => sample.TestProperty16,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7215,30 +7215,30 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_15_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_15_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 15;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14, () => sample.TestProperty15,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7248,30 +7248,30 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_14_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_14_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 14;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13, () => sample.TestProperty14,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7281,30 +7281,30 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_13_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_13_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 13;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
                 () => sample.TestProperty13,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7314,28 +7314,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_12_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_12_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 12;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11, () => sample.TestProperty12,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7345,28 +7345,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_11_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_11_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 11;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10, () => sample.TestProperty11,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7376,28 +7376,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_10_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_10_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 10;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9, () => sample.TestProperty10,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7407,28 +7407,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_9_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_9_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 9;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
                 () => sample.TestProperty9,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7438,26 +7438,26 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_8_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_8_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 8;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7, () => sample.TestProperty8,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7467,26 +7467,26 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_7_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_7_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 7;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6, () => sample.TestProperty7,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7496,26 +7496,26 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_6_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_6_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 6;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5, () => sample.TestProperty6,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7525,26 +7525,26 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_5_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_5_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 5;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
                 () => sample.TestProperty5,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7554,24 +7554,24 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_4_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_4_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 4;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3, () => sample.TestProperty4,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7581,24 +7581,24 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_3_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_3_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 3;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2, () => sample.TestProperty3,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7608,24 +7608,24 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_2_parameter_names_must_succeed()
+        public void RemovePropertyWatch_for_2_parameter_names_must_succeed()
         {
             // arrange
             const int parameterNameCount = 2;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1, () => sample.TestProperty2,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);
@@ -7635,24 +7635,24 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyChangedCallback_for_1_parameter_name_must_succeed()
+        public void RemovePropertyWatch_for_1_parameter_name_must_succeed()
         {
             // arrange
             const int parameterNameCount = 1;
             Sample sample = new Sample();
             int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> callback = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
 
             // act
-            sample.SetPropertyChangedCallback
+            sample.SetPropertyWatch
             (
                 () => sample.TestProperty1,
-                callback
+                action
             );
-            sample.RemovePropertyChangedCallback
+            sample.RemovePropertyWatch
             (
                 () => sample.TestProperty1,
-                callback
+                action
             );
 
             ChangeTestProperty(sample, parameterNameCount);

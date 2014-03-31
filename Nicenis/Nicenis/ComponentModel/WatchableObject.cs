@@ -19,19 +19,19 @@ using System.Reflection;
 
 namespace Nicenis.ComponentModel
 {
-    #region PropertyChangedCallbackInfo
+    #region PropertyWatch
 
-    public class PropertyChangedCallbackInfo
+    public class PropertyWatch
     {
         #region Constructors
 
-        public PropertyChangedCallbackInfo(string propertyName, Action<PropertyChangedEventArgs> callback)
+        public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
             Verify.ParameterIsNotNullAndEmpty(propertyName, "propertyName");
-            Verify.ParameterIsNotNull(callback, "callback");
+            Verify.ParameterIsNotNull(action, "action");
 
             PropertyName = propertyName;
-            Callback = callback;
+            Action = action;
         }
 
         #endregion
@@ -40,7 +40,7 @@ namespace Nicenis.ComponentModel
         #region Properties
 
         public string PropertyName { get; private set; }
-        public Action<PropertyChangedEventArgs> Callback { get; private set; }
+        public Action<PropertyChangedEventArgs> Action { get; private set; }
 
         #endregion
     }
@@ -1553,89 +1553,89 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Property Changed Callback Related
+        #region Property Watch Related
 
         #region Storage Related
 
-        SortedList<string, List<Action<PropertyChangedEventArgs>>> _changedCallbackDictionary;
+        SortedList<string, List<Action<PropertyChangedEventArgs>>> _watchDictionary;
 
         /// <summary>
-        /// The dictionary to store property changed callback.
-        /// The dictionary key is property name, and the dictionary value is property changed callback list.
+        /// The dictionary to store property watches.
+        /// The dictionary key is property name, and the dictionary value is watch action list.
         /// </summary>
-        private SortedList<string, List<Action<PropertyChangedEventArgs>>> ChangedCallbackDictionary
+        private SortedList<string, List<Action<PropertyChangedEventArgs>>> WatchDictionary
         {
-            get { return _changedCallbackDictionary ?? (_changedCallbackDictionary = new SortedList<string, List<Action<PropertyChangedEventArgs>>>()); }
+            get { return _watchDictionary ?? (_watchDictionary = new SortedList<string, List<Action<PropertyChangedEventArgs>>>()); }
         }
 
-        private List<Action<PropertyChangedEventArgs>> GetChangedCallbackList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetWatchActionList(string propertyName)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
 
-            if (_changedCallbackDictionary != null)
+            if (_watchDictionary != null)
             {
-                // Gets the changed callback list.
-                List<Action<PropertyChangedEventArgs>> changedCallbackList;
-                if (_changedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                    return changedCallbackList;
+                // Gets the watch action list.
+                List<Action<PropertyChangedEventArgs>> watchActionList;
+                if (_watchDictionary.TryGetValue(propertyName, out watchActionList))
+                    return watchActionList;
             }
 
             return null;
         }
 
-        private List<Action<PropertyChangedEventArgs>> GetOrCreateChangedCallbackList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionList(string propertyName)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
 
-            // Gets the changed callback list.
-            List<Action<PropertyChangedEventArgs>> changedCallbackList;
-            if (ChangedCallbackDictionary.TryGetValue(propertyName, out changedCallbackList))
-                return changedCallbackList;
+            // Gets the watch action list.
+            List<Action<PropertyChangedEventArgs>> watchActionList;
+            if (WatchDictionary.TryGetValue(propertyName, out watchActionList))
+                return watchActionList;
 
             // Creats a new list.
-            return ChangedCallbackDictionary[propertyName] = new List<Action<PropertyChangedEventArgs>>();
+            return WatchDictionary[propertyName] = new List<Action<PropertyChangedEventArgs>>();
         }
 
         #endregion
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(IEnumerable<string> propertyNames)
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
         {
             Verify.ParameterIsNotNull(propertyNames, "propertyNames");
 
             foreach (string propertyName in propertyNames)
-                foreach (PropertyChangedCallbackInfo callbackInfo in EnumeratePropertyChangedCallback(propertyName))
-                    yield return callbackInfo;
+                foreach (PropertyWatch propertyWatch in EnumeratePropertyWatch(propertyName))
+                    yield return propertyWatch;
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(params string[] propertyNames)
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(params string[] propertyNames)
         {
-            return EnumeratePropertyChangedCallback((IEnumerable<string>)propertyNames);
+            return EnumeratePropertyWatch((IEnumerable<string>)propertyNames);
         }
 
-        protected virtual IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback(string propertyName)
+        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
         {
-            // Gets the changed callback list.
-            IEnumerable<Action<PropertyChangedEventArgs>> changedCallbackList = GetChangedCallbackList(propertyName);
+            // Gets the watch action list.
+            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
 
-            // If there is changed callbacks
-            if (changedCallbackList != null)
-                return changedCallbackList.Select(p => new PropertyChangedCallbackInfo(propertyName, p));
+            // If there is watch actions
+            if (watchActionList != null)
+                return watchActionList.Select(p => new PropertyWatch(propertyName, p));
 
-            // If there is no changed callback
-            return Enumerable.Empty<PropertyChangedCallbackInfo>();
+            // If there is no watch action
+            return Enumerable.Empty<PropertyWatch>();
         }
 
-        protected virtual IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback()
+        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch()
         {
-            if (_changedCallbackDictionary == null)
+            if (_watchDictionary == null)
                 yield break;
 
-            foreach (KeyValuePair<string, List<Action<PropertyChangedEventArgs>>> pair in _changedCallbackDictionary)
-                foreach (Action<PropertyChangedEventArgs> callback in pair.Value)
-                    yield return new PropertyChangedCallbackInfo(pair.Key, callback);
+            foreach (KeyValuePair<string, List<Action<PropertyChangedEventArgs>>> pair in _watchDictionary)
+                foreach (Action<PropertyChangedEventArgs> watchAction in pair.Value)
+                    yield return new PropertyWatch(pair.Key, watchAction);
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1644,7 +1644,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1656,7 +1656,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1665,7 +1665,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1677,7 +1677,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1685,7 +1685,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1697,7 +1697,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1705,7 +1705,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1717,7 +1717,7 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1725,7 +1725,7 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1737,14 +1737,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1755,14 +1755,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1773,14 +1773,14 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1791,13 +1791,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1808,13 +1808,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1825,13 +1825,13 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1841,12 +1841,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1856,12 +1856,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1871,12 +1871,12 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1886,11 +1886,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5, T6>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1900,11 +1900,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4, T5>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4, T5>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1913,11 +1913,11 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3, T4>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3, T4>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1926,10 +1926,10 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2, T3>(
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2, T3>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3)
         {
-            return EnumeratePropertyChangedCallback
+            return EnumeratePropertyWatch
             (
                 GetPropertyName
                 (
@@ -1938,59 +1938,59 @@ namespace Nicenis.ComponentModel
             );
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
-            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2));
+            return EnumeratePropertyWatch(GetPropertyName(propertyExpression, propertyExpression2));
         }
 
-        protected IEnumerable<PropertyChangedCallbackInfo> EnumeratePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression)
+        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
         {
-            return EnumeratePropertyChangedCallback(GetPropertyName(propertyExpression));
+            return EnumeratePropertyWatch(GetPropertyName(propertyExpression));
         }
 
 
-        protected int SetPropertyChangedCallback(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> callback)
+        protected int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
         {
             Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
-            Verify.ParameterIsNotNull(callback, "callback");
+            Verify.ParameterIsNotNull(action, "action");
 
             int counter = 0;
             foreach (string propertyName in propertyNames)
             {
-                // If the changed callback is added, increases the counter.
-                if (SetPropertyChangedCallback(propertyName, callback))
+                // If the watch action is added, increases the counter.
+                if (SetPropertyWatch(propertyName, action))
                     counter++;
             }
 
             return counter;
         }
 
-        protected virtual bool SetPropertyChangedCallback(string propertyName, Action<PropertyChangedEventArgs> callback)
+        protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNull(callback, "callback");
+            Verify.ParameterIsNotNull(action, "action");
 
-            // Gets the changed callback list.
-            List<Action<PropertyChangedEventArgs>> callbackList = GetOrCreateChangedCallbackList(propertyName);
+            // Gets the watch action list.
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionList(propertyName);
 
-            // If the changed callback already exists
-            if (callbackList.Contains(callback))
+            // If the action already exists
+            if (watchActionList.Contains(action))
                 return false;
 
-            // Adds the changed callback.
-            callbackList.Add(callback);
+            // Adds the action.
+            watchActionList.Add(action);
             return true;
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -1999,20 +1999,20 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2021,19 +2021,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2042,19 +2042,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2063,19 +2063,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2084,18 +2084,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2103,18 +2103,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2122,18 +2122,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2141,17 +2141,17 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2159,17 +2159,17 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
@@ -2177,181 +2177,181 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5, T6>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4, T5>(
+        protected int SetPropertyWatch<T, T2, T3, T4, T5>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3, T4>(
+        protected int SetPropertyWatch<T, T2, T3, T4>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2, T3>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> callback)
+        protected int SetPropertyWatch<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback
+            return SetPropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 ),
-                callback
+                action
             );
         }
 
-        protected int SetPropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> callback)
+        protected int SetPropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2), callback);
+            return SetPropertyWatch(GetPropertyName(propertyExpression, propertyExpression2), action);
         }
 
-        protected bool SetPropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> callback)
+        protected bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+            return SetPropertyWatch(GetPropertyName(propertyExpression), action);
         }
 
 
-        protected int RemovePropertyChangedCallback(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> callback)
+        protected int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
         {
             Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
-            Verify.ParameterIsNotNull(callback, "callback");
+            Verify.ParameterIsNotNull(action, "action");
 
             int counter = 0;
             foreach (string propertyName in propertyNames)
             {
-                // If the callback is removed, increases the counter.
-                if (RemovePropertyChangedCallback(propertyName, callback))
+                // If the action is removed, increases the counter.
+                if (RemovePropertyWatch(propertyName, action))
                     counter++;
             }
 
             return counter;
         }
 
-        protected virtual bool RemovePropertyChangedCallback(string propertyName, Action<PropertyChangedEventArgs> callback)
+        protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNull(callback, "callback");
+            Verify.ParameterIsNotNull(action, "action");
 
-            // Gets the changed callbacks list.
-            List<Action<PropertyChangedEventArgs>> callbackList = GetChangedCallbackList(propertyName);
-            if (callbackList == null)
+            // Gets the watch action list.
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
+            if (watchActionList == null)
                 return false;
 
-            // Removes the changed callback.
-            return callbackList.Remove(callback);
+            // Removes the action.
+            return watchActionList.Remove(action);
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2360,20 +2360,20 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T19>> propertyExpression19, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2382,19 +2382,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2403,19 +2403,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17, propertyExpression18
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2424,19 +2424,19 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16, propertyExpression17
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T16>> propertyExpression16, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2445,18 +2445,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
                     propertyExpression16
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2464,18 +2464,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2483,18 +2483,18 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T13>> propertyExpression13, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2502,17 +2502,17 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12, propertyExpression13
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2520,17 +2520,17 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11, propertyExpression12
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
@@ -2538,139 +2538,139 @@ namespace Nicenis.ComponentModel
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
                     propertyExpression11
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T10>> propertyExpression10, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8, T9>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7, T8>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7, T8>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6, T7>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6, T7>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T7>> propertyExpression7, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5, T6>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5, T6>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4, T5>(
+        protected int RemovePropertyWatch<T, T2, T3, T4, T5>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3, T4>(
+        protected int RemovePropertyWatch<T, T2, T3, T4>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> callback)
+                Expression<Func<T4>> propertyExpression4, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2, T3>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> callback)
+        protected int RemovePropertyWatch<T, T2, T3>(
+                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback
+            return RemovePropertyWatch
             (
                 GetPropertyName
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 ),
-                callback
+                action
             );
         }
 
-        protected int RemovePropertyChangedCallback<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> callback)
+        protected int RemovePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyChangedCallback(GetPropertyName(propertyExpression, propertyExpression2), callback);
+            return RemovePropertyWatch(GetPropertyName(propertyExpression, propertyExpression2), action);
         }
 
-        protected void RemovePropertyChangedCallback<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> callback)
+        protected void RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
         {
-            RemovePropertyChangedCallback(GetPropertyName(propertyExpression), callback);
+            RemovePropertyWatch(GetPropertyName(propertyExpression), action);
         }
 
         #endregion
@@ -2695,14 +2695,14 @@ namespace Nicenis.ComponentModel
             if (propertyChanged != null)
                 propertyChanged(this, e);
 
-            // If all properties are changed, calls all property changed callbacks.
-            IEnumerable<PropertyChangedCallbackInfo> callbackInfos = string.IsNullOrEmpty(propertyName)
-                                          ? EnumeratePropertyChangedCallback()
-                                          : EnumeratePropertyChangedCallback(propertyName);
+            // If all properties are changed, calls all watch actions.
+            IEnumerable<PropertyWatch> propertyWatches = string.IsNullOrEmpty(propertyName)
+                                                       ? EnumeratePropertyWatch()
+                                                       : EnumeratePropertyWatch(propertyName);
 
-            // Calls the property changed callbacks.
-            foreach (PropertyChangedCallbackInfo callbackInfo in callbackInfos)
-                callbackInfo.Callback(e);
+            // Calls the watch actions.
+            foreach (PropertyWatch propertyWatch in propertyWatches)
+                propertyWatch.Action(e);
         }
 
         /// <summary>
