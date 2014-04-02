@@ -60,7 +60,7 @@ namespace Nicenis.Diagnostics
         }
 
         /// <summary>
-        /// Throws an exception if the parameter is null or a whitespace string.
+        /// Throws an exception if the parameter is null, emtpy, or consists only of white-space characters.
         /// </summary>
         /// <param name="parameter">The parameter value.</param>
         /// <param name="parameterName">The parameter name.</param>
@@ -70,6 +70,20 @@ namespace Nicenis.Diagnostics
 
             if (string.IsNullOrWhiteSpace(parameter))
                 throw new ArgumentException(string.Format("The parameter {0} can not be a whitespace string.", parameterName));
+        }
+
+        /// <summary>
+        /// Throws an exception if the parameter is null, or consists only of white-space characters.
+        /// An empty string is allowed.
+        /// </summary>
+        /// <param name="parameter">The parameter value.</param>
+        /// <param name="parameterName">The parameter name.</param>
+        public static void ParameterIsNotNullAndWhiteSpaceButAllowEmpty(string parameter, string parameterName)
+        {
+            if (parameter == "")
+                return;
+
+            ParameterIsNotNullAndWhiteSpace(parameter, parameterName);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Nicenis.ComponentModel
 
         public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNullAndEmpty(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
             Verify.ParameterIsNotNull(action, "action");
 
             PropertyName = propertyName;
@@ -39,6 +39,7 @@ namespace Nicenis.ComponentModel
 
         #region Properties
 
+        public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
         public string PropertyName { get; private set; }
         public Action<PropertyChangedEventArgs> Action { get; private set; }
 
@@ -431,6 +432,18 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
 
             return memberExpression.Member.Name;
+        }
+
+        #endregion
+
+
+        #region IsAllPropertyName
+
+        public const string AllPropertyName = "";
+
+        public static bool IsAllPropertyName(string propertyName)
+        {
+            return string.IsNullOrEmpty(propertyName);
         }
 
         #endregion
@@ -1570,7 +1583,7 @@ namespace Nicenis.ComponentModel
 
         private List<Action<PropertyChangedEventArgs>> GetWatchActionList(string propertyName)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
 
             if (_watchDictionary != null)
             {
@@ -1585,7 +1598,7 @@ namespace Nicenis.ComponentModel
 
         private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionList(string propertyName)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
 
             // Gets the watch action list.
             List<Action<PropertyChangedEventArgs>> watchActionList;
@@ -1979,6 +1992,11 @@ namespace Nicenis.ComponentModel
             // Adds the action.
             watchActionList.Add(action);
             return true;
+        }
+
+        protected bool SetPropertyWatch(Action<PropertyChangedEventArgs> action)
+        {
+            return SetPropertyWatch(AllPropertyName, action);
         }
 
         protected int SetPropertyWatch<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
@@ -2696,9 +2714,9 @@ namespace Nicenis.ComponentModel
                 propertyChanged(this, e);
 
             // If all properties are changed, calls all watch actions.
-            IEnumerable<PropertyWatch> propertyWatches = string.IsNullOrEmpty(propertyName)
+            IEnumerable<PropertyWatch> propertyWatches = IsAllPropertyName(propertyName)
                                                        ? EnumeratePropertyWatch()
-                                                       : EnumeratePropertyWatch(propertyName);
+                                                       : EnumeratePropertyWatch(propertyName).Concat(EnumeratePropertyWatch(AllPropertyName));
 
             // Calls the watch actions.
             foreach (PropertyWatch propertyWatch in propertyWatches)

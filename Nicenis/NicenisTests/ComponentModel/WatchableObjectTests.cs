@@ -5151,26 +5151,17 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_empty_string()
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_contain_empty_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyNames).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.EnumeratePropertyWatch(propertyNames).Count();
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -5220,26 +5211,17 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_name_is_empty_string()
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_name_is_empty_string()
         {
             // arrange
             string propertyName = "";
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyName).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.EnumeratePropertyWatch(propertyName).Count();
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -6023,27 +6005,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_emtpy_string()
+        public void SetPropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.SetPropertyWatch(propertyNames, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -6120,27 +6093,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_name_is_emtpy_string()
+        public void SetPropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
         {
             // arrange
             string propertyName = "";
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.SetPropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.SetPropertyWatch(propertyName, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -6251,6 +6215,26 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(1, counterForValue);
             Assert.AreEqual(1, counterForReference);
+        }
+
+        [TestMethod]
+        public void Watch_Action_for_all_property_must_be_called_when_any_target_property_is_changed()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            int counterForValue = 0;
+
+            // act
+            sample.SetPropertyWatch(WatchableObject.AllPropertyName, p => counter++);
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
+            sample.ValueProperty = newValue;
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(1, counter);
+            Assert.AreEqual(1, counterForValue);
         }
 
         [TestMethod]
@@ -6791,27 +6775,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_emtpy_string()
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[] { "test", "" };
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.RemovePropertyWatch(propertyNames, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -6888,27 +6863,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_emtpy_string()
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
         {
             // arrange
             string propertyName = "";
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.RemovePropertyWatch(propertyName, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
