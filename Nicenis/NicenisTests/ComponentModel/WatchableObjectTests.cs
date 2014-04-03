@@ -17,13 +17,15 @@ using System.Linq;
 using System.Reflection;
 using System.Linq.Expressions;
 using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace NicenisTests.ComponentModel
 {
     [TestClass]
     public class WatchableObjectTests
     {
-        #region Sample class
+        #region Sample classes
 
         class Sample : WatchableObject
         {
@@ -2051,6 +2053,24 @@ namespace NicenisTests.ComponentModel
             }
 
             #endregion
+        }
+
+        [DataContract]
+        class SerializationSample : WatchableObject
+        {
+            [DataMember]
+            public int TestValue
+            {
+                get { return GetProperty(() => TestValue); }
+                set { SetProperty(() => TestValue, value); }
+            }
+
+            [DataMember]
+            public string TestString
+            {
+                get { return GetProperty(() => TestString, "Test String"); }
+                set { SetProperty(() => TestString, value); }
+            }
         }
 
         #endregion
@@ -7625,6 +7645,35 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
+        }
+
+        #endregion
+
+
+        #region DataContract Serialization Test Related
+
+        [TestMethod]
+        public void DataContractSerializer_must_be_supported()
+        {
+            // arrange
+            const int testValue = 20;
+            const string testString = "haha";
+            SerializationSample sample = new SerializationSample();
+
+            // act
+            sample.TestValue = testValue;
+            sample.TestString = testString;
+
+            MemoryStream memoryStream = new MemoryStream();
+            DataContractSerializer serializer = new DataContractSerializer(typeof(SerializationSample));
+            serializer.WriteObject(memoryStream, sample);
+
+            memoryStream.Position = 0;
+            SerializationSample deserialized = (SerializationSample)serializer.ReadObject(memoryStream);
+
+            // assert
+            Assert.AreEqual(sample.TestValue, deserialized.TestValue);
+            Assert.AreEqual(sample.TestString, deserialized.TestString);
         }
 
         #endregion

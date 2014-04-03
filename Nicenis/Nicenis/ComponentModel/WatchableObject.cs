@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Nicenis.ComponentModel
 {
@@ -52,6 +53,7 @@ namespace Nicenis.ComponentModel
     /// <summary>
     /// 
     /// </summary>
+    [DataContract]
     public class WatchableObject : INotifyPropertyChanged
     {
         #region Constructors
