@@ -22,10 +22,18 @@ namespace Nicenis.ComponentModel
 {
     #region PropertyWatch
 
+    /// <summary>
+    /// Represents a callback that is called when the watched property value has changed.
+    /// </summary>
     public class PropertyWatch
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance.
+        /// </summary>
+        /// <param name="propertyName">The property name to watch. An empty string means that all properties are watched.</param>
+        /// <param name="action">The callback that is called when the watched property value has changed.</param>
         public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
             Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
@@ -40,8 +48,20 @@ namespace Nicenis.ComponentModel
 
         #region Properties
 
-        public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
+        /// <summary>
+        /// Gets a value indicating whether all properties are watched.
+        /// </summary>
+        public bool IsAllPropertyWatched { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
+
+        /// <summary>
+        /// Gets the property name to watch.
+        /// If all properties are watched, en empty string is returned.
+        /// </summary>
         public string PropertyName { get; private set; }
+
+        /// <summary>
+        /// Gets the callback that is called when the watched property value has changed.
+        /// </summary>
         public Action<PropertyChangedEventArgs> Action { get; private set; }
 
         #endregion
