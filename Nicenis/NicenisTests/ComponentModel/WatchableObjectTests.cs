@@ -9,23 +9,23 @@
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nicenis.ComponentModel;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Linq.Expressions;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace NicenisTests.ComponentModel
 {
     [TestClass]
     public class WatchableObjectTests
     {
-        #region Sample classes
+        #region Sample Classes
 
         class Sample : WatchableObject
         {
