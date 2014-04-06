@@ -49,13 +49,13 @@ namespace Nicenis.ComponentModel
         #region Properties
 
         /// <summary>
-        /// Gets a value indicating whether all properties are watched.
+        /// Gets a value indicating whether it is all property watch.
         /// </summary>
-        public bool IsAllPropertyWatched { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
+        public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
 
         /// <summary>
         /// Gets the property name to watch.
-        /// If all properties are watched, en empty string is returned.
+        /// If all properties are watched, an empty string is returned.
         /// </summary>
         public string PropertyName { get; private set; }
 
