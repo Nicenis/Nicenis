@@ -71,7 +71,7 @@ namespace Nicenis.ComponentModel
 
 
     /// <summary>
-    /// 
+    /// Provides a base implementation for the INotifyPropertyChanged interface.
     /// </summary>
     [DataContract]
     public class WatchableObject : INotifyPropertyChanged
@@ -88,6 +88,50 @@ namespace Nicenis.ComponentModel
 
         #region GetPropertyName
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T19">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T20">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression20">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -119,6 +163,48 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression20);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T19">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -149,6 +235,46 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression19);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -177,6 +303,44 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression18);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -204,6 +368,42 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression17);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -230,6 +430,40 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression16);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -254,6 +488,38 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression15);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -277,6 +543,36 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression14);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -299,6 +595,34 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression13);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
@@ -319,6 +643,32 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression12);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -338,6 +688,30 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression11);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -355,6 +729,28 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression10);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -371,6 +767,26 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression9);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -386,6 +802,24 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression8);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
@@ -399,6 +833,22 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression7);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
@@ -411,6 +861,20 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression6);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5)
@@ -422,6 +886,18 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression5);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
         {
@@ -431,6 +907,16 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression4);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3)
         {
@@ -439,12 +925,26 @@ namespace Nicenis.ComponentModel
             yield return GetPropertyName(propertyExpression3);
         }
 
+        /// <summary>
+        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
         protected static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
             yield return GetPropertyName(propertyExpression);
             yield return GetPropertyName(propertyExpression2);
         }
 
+        /// <summary>
+        /// Returns the property name extracted from the lambda expression that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <returns>The property name extracted.</returns>
         protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
             Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
@@ -461,8 +961,16 @@ namespace Nicenis.ComponentModel
 
         #region IsAllPropertyName
 
+        /// <summary>
+        /// The property name that represents all properties.
+        /// </summary>
         public const string AllPropertyName = "";
 
+        /// <summary>
+        /// Returns true if the propertyName parameter represents all properties.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        /// <returns>True if it represents all properties; otherwise false.</returns>
         public static bool IsAllPropertyName(string propertyName)
         {
             return string.IsNullOrEmpty(propertyName);
@@ -473,6 +981,13 @@ namespace Nicenis.ComponentModel
 
         #region IsEqualPropertyValue
 
+        /// <summary>
+        /// Determines whether the 2 property values are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of the property.</typeparam>
+        /// <param name="left">The left property value.</param>
+        /// <param name="right">The right property value.</param>
+        /// <returns>True if the 2 property values are equal; otherwise false.</returns>
         protected static bool IsEqualPropertyValue<T>(T left, T right)
         {
             // If the left and right value are null, it means they are the same.
@@ -496,7 +1011,7 @@ namespace Nicenis.ComponentModel
         SortedList<string, object> _valueDictionary;
 
         /// <summary>
-        /// The dictionary to store property value.
+        /// The dictionary to store property values.
         /// The dictionary key is property name, and the dictionary value is property value.
         /// </summary>
         private SortedList<string, object> ValueDictionary
@@ -533,10 +1048,11 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Sets the value to the property specified by the property name in the storage.
+        /// If the property is not in the storage, it is added. Otherwise it replaces the existing value.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="propertyName"></param>
-        /// <param name="value"></param>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
         private void SetPropertyToStorage<T>(string propertyName, T value)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
@@ -619,12 +1135,12 @@ namespace Nicenis.ComponentModel
 
 
         /// <summary>
-        /// Sets the value to the property named propertyName without raising PropertyChanged event.
+        /// Sets the property value without raising a PropertyChanged event.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="propertyName"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyWithoutNotification<T>(string propertyName, T value)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
@@ -651,12 +1167,27 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
+        /// <summary>
+        /// Sets the property value without raising a PropertyChanged event.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
         {
             return SetPropertyWithoutNotification(GetPropertyName(propertyExpression), value);
         }
 
-
+        /// <summary>
+        /// Sets the property value.
+        /// TODO: more descriptions
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
         {
             // If the property is changed
