@@ -31,9 +31,9 @@ namespace NicenisTests.ComponentModel
         {
             #region Converted Methods From Protected To Public
 
-            #region GetPropertyName Related
+            #region NameOf Related
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -42,7 +42,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                     Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -51,7 +51,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -60,7 +60,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                     Expression<Func<T19>> propertyExpression19)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -69,7 +69,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -77,7 +77,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -86,7 +86,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -94,7 +94,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -103,7 +103,7 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -111,7 +111,7 @@ namespace NicenisTests.ComponentModel
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                     Expression<Func<T16>> propertyExpression16)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -120,14 +120,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -135,14 +135,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -150,14 +150,14 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                     Expression<Func<T13>> propertyExpression13)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -165,13 +165,13 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                     Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                     Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                     Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                     Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -179,13 +179,13 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                     Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
                     Expression<Func<T11>> propertyExpression11)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -193,103 +193,103 @@ namespace NicenisTests.ComponentModel
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                     Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                     Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                     Expression<Func<T8>> propertyExpression8)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                     Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                     Expression<Func<T5>> propertyExpression5)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+            public new static IEnumerable<string> NameOf<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                     Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+            public new static IEnumerable<string> NameOf<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                     Expression<Func<T3>> propertyExpression3)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 );
             }
 
-            public new static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+            public new static IEnumerable<string> NameOf<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
             {
-                return WatchableObject.GetPropertyName
+                return WatchableObject.NameOf
                 (
                     propertyExpression, propertyExpression2
                 );
             }
 
-            public new static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
+            public new static string NameOf<T>(Expression<Func<T>> propertyExpression)
             {
-                return WatchableObject.GetPropertyName(propertyExpression);
+                return WatchableObject.NameOf(propertyExpression);
             }
 
             #endregion
@@ -3169,7 +3169,7 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == Sample.NameOf(() => sample.ValueProperty))
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
@@ -3195,7 +3195,7 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == Sample.NameOf(() => sample.ValueProperty))
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
@@ -3223,7 +3223,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3259,7 +3259,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3295,7 +3295,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3331,7 +3331,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3367,7 +3367,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3402,7 +3402,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3437,7 +3437,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3472,7 +3472,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3507,7 +3507,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3541,7 +3541,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3575,7 +3575,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3609,7 +3609,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3643,7 +3643,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3676,7 +3676,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3709,7 +3709,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3742,7 +3742,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3775,7 +3775,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3807,7 +3807,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3839,7 +3839,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -3871,7 +3871,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4364,7 +4364,7 @@ namespace NicenisTests.ComponentModel
             int valueStorage = 0;
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == Sample.NameOf(() => sample.ValueProperty))
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
@@ -4391,7 +4391,7 @@ namespace NicenisTests.ComponentModel
             int valueStorage = 0;
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == Sample.NameOf(() => sample.ValueProperty))
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
@@ -4420,7 +4420,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4457,7 +4457,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4494,7 +4494,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4531,7 +4531,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4568,7 +4568,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4604,7 +4604,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4640,7 +4640,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4676,7 +4676,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4712,7 +4712,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4747,7 +4747,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4782,7 +4782,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4817,7 +4817,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4852,7 +4852,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4886,7 +4886,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4920,7 +4920,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4954,7 +4954,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -4988,7 +4988,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -5021,7 +5021,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -5054,7 +5054,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -5087,7 +5087,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.GetPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != Sample.NameOf(() => sample.ValueProperty))
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -5278,7 +5278,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             Sample sample = new Sample();
             int counter = 0;
-            string propertyName = Sample.GetPropertyName(() => sample.TestProperty1);
+            string propertyName = Sample.NameOf(() => sample.TestProperty1);
 
             // act
             sample.SetPropertyWatch(propertyName, p =>
@@ -5300,8 +5300,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             Sample sample = new Sample();
             int counter = 0, counter2 = 0;
-            string propertyName = Sample.GetPropertyName(() => sample.TestProperty1);
-            string propertyName2 = Sample.GetPropertyName(() => sample.TestProperty2);
+            string propertyName = Sample.NameOf(() => sample.TestProperty1);
+            string propertyName2 = Sample.NameOf(() => sample.TestProperty2);
 
             // act
             sample.SetPropertyWatch(propertyName, p =>

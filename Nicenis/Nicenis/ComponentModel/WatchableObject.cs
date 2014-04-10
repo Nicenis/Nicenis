@@ -86,7 +86,7 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region GetPropertyName
+        #region NameOf
 
         /// <summary>
         /// Returns the property names extracted from the lambda expressions that return a property.
@@ -132,7 +132,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression20">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -141,26 +141,26 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-            yield return GetPropertyName(propertyExpression17);
-            yield return GetPropertyName(propertyExpression18);
-            yield return GetPropertyName(propertyExpression19);
-            yield return GetPropertyName(propertyExpression20);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
+            yield return NameOf(propertyExpression16);
+            yield return NameOf(propertyExpression17);
+            yield return NameOf(propertyExpression18);
+            yield return NameOf(propertyExpression19);
+            yield return NameOf(propertyExpression20);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -214,25 +214,25 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
                 Expression<Func<T19>> propertyExpression19)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-            yield return GetPropertyName(propertyExpression17);
-            yield return GetPropertyName(propertyExpression18);
-            yield return GetPropertyName(propertyExpression19);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
+            yield return NameOf(propertyExpression16);
+            yield return NameOf(propertyExpression17);
+            yield return NameOf(propertyExpression18);
+            yield return NameOf(propertyExpression19);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -283,24 +283,24 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-            yield return GetPropertyName(propertyExpression17);
-            yield return GetPropertyName(propertyExpression18);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
+            yield return NameOf(propertyExpression16);
+            yield return NameOf(propertyExpression17);
+            yield return NameOf(propertyExpression18);
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -349,23 +349,23 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
-            yield return GetPropertyName(propertyExpression17);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
+            yield return NameOf(propertyExpression16);
+            yield return NameOf(propertyExpression17);
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -412,22 +412,22 @@ namespace Nicenis.ComponentModel
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
                 Expression<Func<T16>> propertyExpression16)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
-            yield return GetPropertyName(propertyExpression16);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
+            yield return NameOf(propertyExpression16);
         }
 
         /// <summary>
@@ -464,28 +464,28 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
-            yield return GetPropertyName(propertyExpression15);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
+            yield return NameOf(propertyExpression15);
         }
 
         /// <summary>
@@ -520,27 +520,27 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
-            yield return GetPropertyName(propertyExpression14);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
+            yield return NameOf(propertyExpression14);
         }
 
         /// <summary>
@@ -573,26 +573,26 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
                 Expression<Func<T13>> propertyExpression13)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
-            yield return GetPropertyName(propertyExpression13);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
+            yield return NameOf(propertyExpression13);
         }
 
         /// <summary>
@@ -623,24 +623,24 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
                 Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
-            yield return GetPropertyName(propertyExpression12);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
+            yield return NameOf(propertyExpression12);
         }
 
         /// <summary>
@@ -669,23 +669,23 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
                 Expression<Func<T11>> propertyExpression11)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
-            yield return GetPropertyName(propertyExpression11);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
+            yield return NameOf(propertyExpression11);
         }
 
         /// <summary>
@@ -712,21 +712,21 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
-            yield return GetPropertyName(propertyExpression10);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
+            yield return NameOf(propertyExpression10);
         }
 
         /// <summary>
@@ -751,20 +751,20 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
-            yield return GetPropertyName(propertyExpression9);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
+            yield return NameOf(propertyExpression9);
         }
 
         /// <summary>
@@ -787,19 +787,19 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
-            yield return GetPropertyName(propertyExpression8);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
+            yield return NameOf(propertyExpression8);
         }
 
         /// <summary>
@@ -820,17 +820,17 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
-            yield return GetPropertyName(propertyExpression7);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
+            yield return NameOf(propertyExpression7);
         }
 
         /// <summary>
@@ -849,16 +849,16 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
-            yield return GetPropertyName(propertyExpression6);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
+            yield return NameOf(propertyExpression6);
         }
 
         /// <summary>
@@ -875,15 +875,15 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
-            yield return GetPropertyName(propertyExpression5);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
+            yield return NameOf(propertyExpression5);
         }
 
         /// <summary>
@@ -898,13 +898,13 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+        protected static IEnumerable<string> NameOf<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
-            yield return GetPropertyName(propertyExpression4);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
+            yield return NameOf(propertyExpression4);
         }
 
         /// <summary>
@@ -917,12 +917,12 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+        protected static IEnumerable<string> NameOf<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
-            yield return GetPropertyName(propertyExpression3);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
+            yield return NameOf(propertyExpression3);
         }
 
         /// <summary>
@@ -933,10 +933,10 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> GetPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        protected static IEnumerable<string> NameOf<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
-            yield return GetPropertyName(propertyExpression);
-            yield return GetPropertyName(propertyExpression2);
+            yield return NameOf(propertyExpression);
+            yield return NameOf(propertyExpression2);
         }
 
         /// <summary>
@@ -945,7 +945,7 @@ namespace Nicenis.ComponentModel
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <returns>The property name extracted.</returns>
-        protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
+        protected static string NameOf<T>(Expression<Func<T>> propertyExpression)
         {
             Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
 
@@ -1090,7 +1090,7 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the default value.</returns>
         protected T GetProperty<T>(Expression<Func<T>> propertyExpression, T defaultValue = default(T))
         {
-            return GetProperty(GetPropertyName(propertyExpression), defaultValue);
+            return GetProperty(NameOf(propertyExpression), defaultValue);
         }
 
         /// <summary>
@@ -1130,7 +1130,7 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
         {
-            return GetProperty(GetPropertyName(propertyExpression), initializer);
+            return GetProperty(NameOf(propertyExpression), initializer);
         }
 
 
@@ -1176,7 +1176,7 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
         {
-            return SetPropertyWithoutNotification(GetPropertyName(propertyExpression), value);
+            return SetPropertyWithoutNotification(NameOf(propertyExpression), value);
         }
 
         /// <summary>
@@ -1271,9 +1271,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1296,9 +1296,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1320,9 +1320,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1344,9 +1344,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1368,9 +1368,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1391,9 +1391,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1413,9 +1413,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1435,9 +1435,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1456,9 +1456,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1477,9 +1477,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1498,9 +1498,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
@@ -1517,9 +1517,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
@@ -1536,9 +1536,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
@@ -1555,9 +1555,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7
@@ -1573,9 +1573,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6
@@ -1591,9 +1591,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
                 )
@@ -1608,9 +1608,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
                 )
@@ -1624,9 +1624,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
                 )
@@ -1640,9 +1640,9 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2
                 )
@@ -1651,12 +1651,12 @@ namespace Nicenis.ComponentModel
 
         protected bool SetProperty<T, T2>(Expression<Func<T>> propertyExpression, T value, Expression<Func<T2>> affectedPropertyExpression2)
         {
-            return SetProperty(GetPropertyName(propertyExpression), value, GetPropertyName(affectedPropertyExpression2));
+            return SetProperty(NameOf(propertyExpression), value, NameOf(affectedPropertyExpression2));
         }
 
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
         {
-            return SetProperty(GetPropertyName(propertyExpression), value);
+            return SetProperty(NameOf(propertyExpression), value);
         }
 
         #endregion
@@ -1735,10 +1735,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1761,10 +1761,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1786,10 +1786,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1811,10 +1811,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1836,10 +1836,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1860,10 +1860,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1883,10 +1883,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1906,10 +1906,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1928,10 +1928,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1950,10 +1950,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10,
@@ -1972,10 +1972,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9, affectedPropertyExpression10
@@ -1992,10 +1992,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8, affectedPropertyExpression9
@@ -2012,10 +2012,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7, affectedPropertyExpression8
@@ -2032,10 +2032,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6, affectedPropertyExpression7
@@ -2051,10 +2051,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5,
                     affectedPropertyExpression6
@@ -2070,10 +2070,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4, affectedPropertyExpression5
                 )
@@ -2088,10 +2088,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3, affectedPropertyExpression4
                 )
@@ -2105,10 +2105,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2, affectedPropertyExpression3
                 )
@@ -2122,10 +2122,10 @@ namespace Nicenis.ComponentModel
             // Sets the property value.
             return SetProperty
             (
-                propertyName: GetPropertyName(propertyExpression),
+                propertyName: NameOf(propertyExpression),
                 storage: ref storage,
                 value: value,
-                affectedPropertyNames: GetPropertyName
+                affectedPropertyNames: NameOf
                 (
                     affectedPropertyExpression, affectedPropertyExpression2
                 )
@@ -2134,12 +2134,12 @@ namespace Nicenis.ComponentModel
 
         protected bool SetProperty<T, T2>(Expression<Func<T>> propertyExpression, ref T storage, T value, Expression<Func<T2>> affectedPropertyExpression2)
         {
-            return SetProperty(GetPropertyName(propertyExpression), ref storage, value, GetPropertyName(affectedPropertyExpression2));
+            return SetProperty(NameOf(propertyExpression), ref storage, value, NameOf(affectedPropertyExpression2));
         }
 
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
         {
-            return SetProperty(GetPropertyName(propertyExpression), ref storage, value);
+            return SetProperty(NameOf(propertyExpression), ref storage, value);
         }
 
         #endregion
@@ -2238,7 +2238,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2259,7 +2259,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2279,7 +2279,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2299,7 +2299,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2319,7 +2319,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2338,7 +2338,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2356,7 +2356,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2374,7 +2374,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2391,7 +2391,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2408,7 +2408,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2425,7 +2425,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
@@ -2440,7 +2440,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
@@ -2455,7 +2455,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
@@ -2470,7 +2470,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
@@ -2484,7 +2484,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
@@ -2498,7 +2498,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 )
@@ -2511,7 +2511,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 )
@@ -2523,7 +2523,7 @@ namespace Nicenis.ComponentModel
         {
             return EnumeratePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 )
@@ -2532,12 +2532,12 @@ namespace Nicenis.ComponentModel
 
         protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
-            return EnumeratePropertyWatch(GetPropertyName(propertyExpression, propertyExpression2));
+            return EnumeratePropertyWatch(NameOf(propertyExpression, propertyExpression2));
         }
 
         protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
         {
-            return EnumeratePropertyWatch(GetPropertyName(propertyExpression));
+            return EnumeratePropertyWatch(NameOf(propertyExpression));
         }
 
 
@@ -2589,7 +2589,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2611,7 +2611,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2632,7 +2632,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2653,7 +2653,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2674,7 +2674,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2694,7 +2694,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2713,7 +2713,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2732,7 +2732,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2750,7 +2750,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2768,7 +2768,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2786,7 +2786,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
@@ -2802,7 +2802,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
@@ -2818,7 +2818,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
@@ -2834,7 +2834,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
@@ -2849,7 +2849,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
@@ -2864,7 +2864,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 ),
@@ -2878,7 +2878,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 ),
@@ -2891,7 +2891,7 @@ namespace Nicenis.ComponentModel
         {
             return SetPropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 ),
@@ -2901,12 +2901,12 @@ namespace Nicenis.ComponentModel
 
         protected int SetPropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyWatch(GetPropertyName(propertyExpression, propertyExpression2), action);
+            return SetPropertyWatch(NameOf(propertyExpression, propertyExpression2), action);
         }
 
         protected bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
         {
-            return SetPropertyWatch(GetPropertyName(propertyExpression), action);
+            return SetPropertyWatch(NameOf(propertyExpression), action);
         }
 
 
@@ -2950,7 +2950,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2972,7 +2972,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -2993,7 +2993,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3014,7 +3014,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3035,7 +3035,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3055,7 +3055,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3074,7 +3074,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3093,7 +3093,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3111,7 +3111,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3129,7 +3129,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3147,7 +3147,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
@@ -3163,7 +3163,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
@@ -3179,7 +3179,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
@@ -3195,7 +3195,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
@@ -3210,7 +3210,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
@@ -3225,7 +3225,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 ),
@@ -3239,7 +3239,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 ),
@@ -3252,7 +3252,7 @@ namespace Nicenis.ComponentModel
         {
             return RemovePropertyWatch
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 ),
@@ -3262,12 +3262,12 @@ namespace Nicenis.ComponentModel
 
         protected int RemovePropertyWatch<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Action<PropertyChangedEventArgs> action)
         {
-            return RemovePropertyWatch(GetPropertyName(propertyExpression, propertyExpression2), action);
+            return RemovePropertyWatch(NameOf(propertyExpression, propertyExpression2), action);
         }
 
         protected void RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
         {
-            RemovePropertyWatch(GetPropertyName(propertyExpression), action);
+            RemovePropertyWatch(NameOf(propertyExpression), action);
         }
 
         #endregion
@@ -3377,7 +3377,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3439,7 +3439,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3499,7 +3499,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3556,7 +3556,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3611,7 +3611,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3664,7 +3664,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3713,7 +3713,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3760,7 +3760,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3805,7 +3805,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3847,7 +3847,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
@@ -3886,7 +3886,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
@@ -3922,7 +3922,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
@@ -3955,7 +3955,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7, propertyExpression8
@@ -3986,7 +3986,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6, propertyExpression7
@@ -4015,7 +4015,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
                     propertyExpression6
@@ -4041,7 +4041,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
                 )
@@ -4064,7 +4064,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
                 )
@@ -4085,7 +4085,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2, propertyExpression3
                 )
@@ -4103,7 +4103,7 @@ namespace Nicenis.ComponentModel
         {
             OnPropertyChanged
             (
-                GetPropertyName
+                NameOf
                 (
                     propertyExpression, propertyExpression2
                 )
@@ -4117,7 +4117,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression">The lambda expression that returns the property that changed.</param>
         protected void OnPropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
-            OnPropertyChanged(GetPropertyName(propertyExpression));
+            OnPropertyChanged(NameOf(propertyExpression));
         }
 
         #endregion
