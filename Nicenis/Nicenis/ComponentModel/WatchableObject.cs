@@ -1135,7 +1135,7 @@ namespace Nicenis.ComponentModel
 
 
         /// <summary>
-        /// Sets the property value without raising a PropertyChanged event.
+        /// Sets a property value without raising a PropertyChanged event.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
@@ -1168,7 +1168,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets the property value without raising a PropertyChanged event.
+        /// Sets a property value without raising a PropertyChanged event.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The property expression.</param>
@@ -1180,8 +1180,8 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets the property value.
-        /// TODO: more descriptions
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
@@ -1201,11 +1201,29 @@ namespace Nicenis.ComponentModel
             return false;
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, params string[] affectedPropertyNames)
         {
             return SetProperty(propertyName, value, (IEnumerable<string>)affectedPropertyNames);
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
         {
             // If the property is changed
@@ -1219,6 +1237,14 @@ namespace Nicenis.ComponentModel
             return false;
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(string propertyName, T value)
         {
             // If the property is changed
