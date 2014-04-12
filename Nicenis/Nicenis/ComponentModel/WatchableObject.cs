@@ -9,7 +9,6 @@
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using Nicenis.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
