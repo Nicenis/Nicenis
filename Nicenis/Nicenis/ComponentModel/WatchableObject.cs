@@ -13,7 +13,6 @@ using Nicenis.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -948,10 +947,13 @@ namespace Nicenis.ComponentModel
         /// <returns>The property name extracted.</returns>
         protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
-            Debug.Assert(propertyExpression != null);
-            Debug.Assert(propertyExpression.Body is MemberExpression);
+            Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
 
-            return ((MemberExpression)propertyExpression.Body).Member.Name;
+            var memberExpression = propertyExpression.Body as MemberExpression;
+            if (memberExpression == null)
+                throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
+
+            return memberExpression.Member.Name;
         }
 
         #endregion
