@@ -769,7 +769,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -838,7 +838,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1038,7 +1038,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1136,7 +1136,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1334,7 +1334,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1484,7 +1484,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1786,7 +1786,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -1968,7 +1968,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2100,7 +2100,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2401,7 +2401,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2461,7 +2461,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2662,7 +2662,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2750,7 +2750,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -2993,7 +2993,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 
@@ -3081,7 +3081,7 @@ namespace NicenisTests.ComponentModel
             }
 
             // assert
-            Assert.IsTrue(exception is ArgumentNullException);
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
             StringAssert.Contains(exception.Message, "propertyName");
         }
 

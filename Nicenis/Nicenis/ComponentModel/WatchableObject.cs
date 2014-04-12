@@ -36,8 +36,11 @@ namespace Nicenis.ComponentModel
         /// <param name="action">The callback that is called when the watched property value has changed.</param>
         public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
-            Verify.ParameterIsNotNull(action, "action");
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+
+            if (action == null)
+                throw new ArgumentNullException("action");
 
             PropertyName = propertyName;
             Action = action;
@@ -947,7 +950,8 @@ namespace Nicenis.ComponentModel
         /// <returns>The property name extracted.</returns>
         protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
-            Verify.ParameterIsNotNull(propertyExpression, "propertyExpression");
+            if (propertyExpression == null)
+                throw new ArgumentNullException("propertyExpression");
 
             var memberExpression = propertyExpression.Body as MemberExpression;
             if (memberExpression == null)
@@ -1028,7 +1032,8 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
         private bool GetPropertyFromStorage<T>(string propertyName, out T value)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // Tries to retrieve the value if it exists.
             if (_valueDictionary != null)
@@ -1055,7 +1060,9 @@ namespace Nicenis.ComponentModel
         /// <param name="value">The property value.</param>
         private void SetPropertyToStorage<T>(string propertyName, T value)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
             ValueDictionary[propertyName] = value;
         }
 
@@ -1104,7 +1111,8 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected virtual T GetProperty<T>(string propertyName, Func<T> initializer)
         {
-            Verify.ParameterIsNotNull(initializer, "initializer");
+            if (initializer == null)
+                throw new ArgumentNullException("initializer");
 
             // Returns the property value if it exists
             T value;
@@ -1143,7 +1151,8 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyWithoutNotification<T>(string propertyName, T value)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // Gets the property value.
             T oldValue = (T)GetType().InvokeMember
@@ -1408,7 +1417,8 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
         {
-            Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // If the property is changed
             if (SetPropertyWithoutNotification(ref storage, value))
@@ -1506,7 +1516,8 @@ namespace Nicenis.ComponentModel
         /// <returns>The watch action list if it exists; otherwise null.</returns>
         private List<Action<PropertyChangedEventArgs>> GetWatchActionList(string propertyName)
         {
-            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
 
             if (_watchDictionary != null)
             {
@@ -1527,7 +1538,8 @@ namespace Nicenis.ComponentModel
         /// <returns>The watch action list.</returns>
         private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionList(string propertyName)
         {
-            Verify.ParameterIsNotNullAndWhiteSpaceButAllowEmpty(propertyName, "propertyName");
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
 
             // Gets the watch action list.
             List<Action<PropertyChangedEventArgs>> watchActionList;
@@ -1547,7 +1559,8 @@ namespace Nicenis.ComponentModel
         /// <returns>The property watches.</returns>
         protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
         {
-            Verify.ParameterIsNotNull(propertyNames, "propertyNames");
+            if (propertyNames == null)
+                throw new ArgumentNullException("propertyNames");
 
             foreach (string propertyName in propertyNames)
                 foreach (PropertyWatch propertyWatch in EnumeratePropertyWatch(propertyName))
@@ -1616,8 +1629,14 @@ namespace Nicenis.ComponentModel
         /// <returns>The number of property watches that are newly set.</returns>
         protected int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
-            Verify.ParameterIsNotNull(action, "action");
+            if (propertyNames == null)
+                throw new ArgumentNullException("propertyNames");
+
+            if (propertyNames.Any() == false)
+                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
+
+            if (action == null)
+                throw new ArgumentNullException("action");
 
             int counter = 0;
             foreach (string propertyName in propertyNames)
@@ -1640,7 +1659,8 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the action is newly set; otherwise false.</returns>
         protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNull(action, "action");
+            if (action == null)
+                throw new ArgumentNullException("action");
 
             // Gets the watch action list.
             List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionList(propertyName);
@@ -1685,8 +1705,14 @@ namespace Nicenis.ComponentModel
         /// <returns>The number of actions that are removed.</returns>
         protected int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
-            Verify.ParameterIsNotNull(action, "action");
+            if (propertyNames == null)
+                throw new ArgumentNullException("propertyNames");
+
+            if (propertyNames.Any() == false)
+                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
+
+            if (action == null)
+                throw new ArgumentNullException("action");
 
             int counter = 0;
             foreach (string propertyName in propertyNames)
@@ -1709,7 +1735,8 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the action is removed; otherwise false.</returns>
         protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
-            Verify.ParameterIsNotNull(action, "action");
+            if (action == null)
+                throw new ArgumentNullException("action");
 
             // Gets the watch action list.
             List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
@@ -1770,7 +1797,11 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyNames">The property names that changed. Null is not allowed.</param>
         protected void OnPropertyChanged(IEnumerable<string> propertyNames)
         {
-            Verify.ParameterIsNotNullAndEmptyCollection(propertyNames, "propertyNames");
+            if (propertyNames == null)
+                throw new ArgumentNullException("propertyNames");
+
+            if (propertyNames.Any() == false)
+                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
 
             foreach (string propertyName in propertyNames)
                 OnPropertyChanged(propertyName);
