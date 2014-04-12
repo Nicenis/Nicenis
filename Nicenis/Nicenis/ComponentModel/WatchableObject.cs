@@ -1617,16 +1617,6 @@ namespace Nicenis.ComponentModel
             OnPropertyChanged((IEnumerable<string>)propertyNames);
         }
 
-        /// <summary>
-        /// Raises a PropertyChanged event.
-        /// </summary>
-        /// <typeparam name="T">The type of the property that changed.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property that changed.</param>
-        protected void OnPropertyChanged<T>(Expression<Func<T>> propertyExpression)
-        {
-            OnPropertyChanged(ToPropertyName(propertyExpression));
-        }
-
         #endregion
     }
 }
