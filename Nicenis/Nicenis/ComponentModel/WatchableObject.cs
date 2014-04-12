@@ -1318,6 +1318,13 @@ namespace Nicenis.ComponentModel
 
         #region SetProperty with Local Storage Related
 
+        /// <summary>
+        /// Sets a property value without raising a PropertyChanged event.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyWithoutNotification<T>(ref T storage, T value)
         {
             // If the values are equal
@@ -1329,7 +1336,16 @@ namespace Nicenis.ComponentModel
             return true;
         }
 
-
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
         {
             // If the property is changed
@@ -1343,11 +1359,31 @@ namespace Nicenis.ComponentModel
             return false;
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
         {
             return SetProperty(propertyName, ref storage, value, (IEnumerable<string>)affectedPropertyNames);
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
         {
             // If the property is changed
@@ -1361,6 +1397,15 @@ namespace Nicenis.ComponentModel
             return false;
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
         {
             Verify.ParameterIsNotNullAndWhiteSpace(propertyName, "propertyName");
@@ -1376,21 +1421,60 @@ namespace Nicenis.ComponentModel
             return false;
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, params string[] affectedPropertyNames)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, string affectedPropertyName)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyName);
         }
 
+        /// <summary>
+        /// Sets a property value.
+        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value);
