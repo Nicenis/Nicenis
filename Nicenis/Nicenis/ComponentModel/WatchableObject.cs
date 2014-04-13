@@ -78,6 +78,154 @@ namespace Nicenis.ComponentModel
     [DataContract]
     public class WatchableObject : INotifyPropertyChanged
     {
+        #region Storage Related
+
+        #region KeyValue
+
+        /// <summary>
+        /// Represents a key/value pair.
+        /// </summary>
+        /// <typeparam name="TKey">The key type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        private class KeyValue<TKey, TValue>
+        {
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            /// <param name="key">The key.</param>
+            /// <param name="value">The value.</param>
+            public KeyValue(TKey key, TValue value)
+            {
+                Key = key;
+                Value = value;
+            }
+
+            #endregion
+
+
+            #region Properties
+
+            /// <summary>
+            /// The key.
+            /// </summary>
+            public TKey Key { get; private set; }
+
+            /// <summary>
+            /// The value.
+            /// </summary>
+            public TValue Value { get; set; }
+
+            #endregion
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Provides storage for key/value pairs.
+        /// </summary>
+        /// <typeparam name="TKey">The key type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        private class Storage<TKey, TValue> : IEnumerable<KeyValue<TKey, TValue>>
+        {
+            List<KeyValue<TKey, TValue>> _keyValues = new List<KeyValue<TKey, TValue>>();
+
+
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            public Storage() { }
+
+            #endregion
+
+
+            #region Helpers
+
+            /// <summary>
+            /// Finds a key/value pair.
+            /// If it does not exist, null is returned.
+            /// </summary>
+            /// <param name="key">The key to find.</param>
+            /// <returns>The key/value pair if it exists; otherwise null.</returns>
+            private KeyValue<TKey, TValue> Find(TKey key)
+            {
+                return _keyValues.FirstOrDefault(p => object.Equals(p.Key, key));
+            }
+
+            #endregion
+
+
+            #region Publics
+
+            /// <summary>
+            /// Gets or sets the value associated with the specified key.
+            /// </summary>
+            /// <param name="key">The key of the value to get or set.</param>
+            /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a KeyNotFoundException, and a set operation creates a new element with the specified key.</returns>
+            public TValue this[TKey key]
+            {
+                get
+                {
+                    KeyValue<TKey, TValue> keyValue = Find(key);
+                    if (keyValue == null)
+                        throw new KeyNotFoundException(string.Format("The key {0} does not exist.", key));
+
+                    return keyValue.Value;
+                }
+
+                set
+                {
+                    KeyValue<TKey, TValue> keyValue = Find(key);
+                    if (keyValue == null)
+                        _keyValues.Add(new KeyValue<TKey, TValue>(key, value));
+                    else
+                        keyValue.Value = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets the value associated with the specified key.
+            /// </summary>
+            /// <param name="key">The key of the value to get.</param>
+            /// <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
+            /// <returns>true if the Storage contains an element with the specified key; otherwise, false.</returns>
+            public bool TryGetValue(TKey key, out TValue value)
+            {
+                KeyValue<TKey, TValue> keyValue = Find(key);
+                if (keyValue == null)
+                {
+                    value = default(TValue);
+                    return false;
+                }
+
+                value = keyValue.Value;
+                return true;
+            }
+
+            #endregion
+
+
+            #region IEnumerable Implementation Related
+
+            public IEnumerator<KeyValue<TKey, TValue>> GetEnumerator()
+            {
+                return _keyValues.GetEnumerator();
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return _keyValues.GetEnumerator();
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+
         #region Constructors
 
         /// <summary>
@@ -986,15 +1134,15 @@ namespace Nicenis.ComponentModel
 
         #region Storage Related
 
-        SortedList<string, object> _valueDictionary;
+        Storage<string, object> _valueStorage;
 
         /// <summary>
-        /// The dictionary to store property values.
-        /// The dictionary key is property name, and the dictionary value is property value.
+        /// The storage to store property values.
+        /// The storage key is property name, and the storage value is property value.
         /// </summary>
-        private SortedList<string, object> ValueDictionary
+        private Storage<string, object> ValueStorage
         {
-            get { return _valueDictionary ?? (_valueDictionary = new SortedList<string, object>()); }
+            get { return _valueStorage ?? (_valueStorage = new Storage<string, object>()); }
         }
 
         /// <summary>
@@ -1010,10 +1158,10 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // Tries to retrieve the value if it exists.
-            if (_valueDictionary != null)
+            if (_valueStorage != null)
             {
                 object rawValue;
-                if (_valueDictionary.TryGetValue(propertyName, out rawValue))
+                if (_valueStorage.TryGetValue(propertyName, out rawValue))
                 {
                     value = (T)rawValue;
                     return true;
@@ -1037,7 +1185,7 @@ namespace Nicenis.ComponentModel
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
-            ValueDictionary[propertyName] = value;
+            ValueStorage[propertyName] = value;
         }
 
         #endregion
@@ -1466,15 +1614,15 @@ namespace Nicenis.ComponentModel
 
         #region Storage Related
 
-        SortedList<string, List<Action<PropertyChangedEventArgs>>> _watchDictionary;
+        Storage<string, List<Action<PropertyChangedEventArgs>>> _watchStorage;
 
         /// <summary>
-        /// The dictionary to store property watches.
-        /// The dictionary key is property name, and the dictionary value is watch action list.
+        /// The storage to store property watches.
+        /// The storage key is property name, and the dictionary value is watch action list.
         /// </summary>
-        private SortedList<string, List<Action<PropertyChangedEventArgs>>> WatchDictionary
+        private Storage<string, List<Action<PropertyChangedEventArgs>>> WatchStorage
         {
-            get { return _watchDictionary ?? (_watchDictionary = new SortedList<string, List<Action<PropertyChangedEventArgs>>>()); }
+            get { return _watchStorage ?? (_watchStorage = new Storage<string, List<Action<PropertyChangedEventArgs>>>()); }
         }
 
         /// <summary>
@@ -1488,11 +1636,11 @@ namespace Nicenis.ComponentModel
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
 
-            if (_watchDictionary != null)
+            if (_watchStorage != null)
             {
                 // Gets the watch action list.
                 List<Action<PropertyChangedEventArgs>> watchActionList;
-                if (_watchDictionary.TryGetValue(propertyName, out watchActionList))
+                if (_watchStorage.TryGetValue(propertyName, out watchActionList))
                     return watchActionList;
             }
 
@@ -1512,11 +1660,11 @@ namespace Nicenis.ComponentModel
 
             // Gets the watch action list.
             List<Action<PropertyChangedEventArgs>> watchActionList;
-            if (WatchDictionary.TryGetValue(propertyName, out watchActionList))
+            if (WatchStorage.TryGetValue(propertyName, out watchActionList))
                 return watchActionList;
 
             // Creats a new list.
-            return WatchDictionary[propertyName] = new List<Action<PropertyChangedEventArgs>>();
+            return WatchStorage[propertyName] = new List<Action<PropertyChangedEventArgs>>();
         }
 
         #endregion
@@ -1570,10 +1718,10 @@ namespace Nicenis.ComponentModel
         /// <returns>The property watches.</returns>
         protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch()
         {
-            if (_watchDictionary == null)
+            if (_watchStorage == null)
                 yield break;
 
-            foreach (KeyValuePair<string, List<Action<PropertyChangedEventArgs>>> pair in _watchDictionary)
+            foreach (KeyValue<string, List<Action<PropertyChangedEventArgs>>> pair in _watchStorage)
                 foreach (Action<PropertyChangedEventArgs> watchAction in pair.Value)
                     yield return new PropertyWatch(pair.Key, watchAction);
         }
