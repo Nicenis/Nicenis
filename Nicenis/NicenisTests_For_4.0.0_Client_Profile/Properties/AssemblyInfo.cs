@@ -1,17 +1,15 @@
 ﻿// $Id$
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows;
 
-[assembly: AssemblyTitle("Nicenis Library")]
+[assembly: AssemblyTitle("Nicenis Library Tests")]
 [assembly: AssemblyDescription("https://nicenis.codeplex.com")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nicenis")]
+[assembly: AssemblyProduct("Nicenis Tests")]
 [assembly: AssemblyCopyright("Copyright © 2013 JO Hyeong-Ryeol. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: ComVisible(false)]
-[assembly: Guid("0f181606-ad59-4b08-b80c-be53b781c9e6")]
-[assembly: AssemblyVersion("1.0.0")]
+[assembly: Guid("2ea457e9-0ff0-4723-bce1-7815f5b39a7f")]
+[assembly: AssemblyVersion("1.0.*")]

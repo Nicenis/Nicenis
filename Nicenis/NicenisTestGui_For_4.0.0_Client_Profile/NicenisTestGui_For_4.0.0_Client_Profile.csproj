@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87E16728-6CFD-46E6-9FE0-35E6B98AEBD9}</ProjectGuid>
+    <ProjectGuid>{E1A9308A-FD94-4733-AFB7-E10CE71B2108}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NicenisTestGui</RootNamespace>
     <AssemblyName>NicenisTestGui</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -25,7 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,7 +33,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,59 +50,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="CustomWindowTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DragMoverTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DragResizerTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DragSourceNDropTargetTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HoverTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="..\NicenisTestGui\App.xaml.cs">
+      <Link>App.xaml.cs</Link>
     </Compile>
-    <Compile Include="CustomWindowTestWindow.xaml.cs">
-      <DependentUpon>CustomWindowTestWindow.xaml</DependentUpon>
+    <Compile Include="..\NicenisTestGui\CustomWindowTestWindow.xaml.cs">
+      <Link>CustomWindowTestWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="DragMoverTestWindow.xaml.cs">
-      <DependentUpon>DragMoverTestWindow.xaml</DependentUpon>
+    <Compile Include="..\NicenisTestGui\DragMoverTestWindow.xaml.cs">
+      <Link>DragMoverTestWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="DragResizerTestWindow.xaml.cs">
-      <DependentUpon>DragResizerTestWindow.xaml</DependentUpon>
+    <Compile Include="..\NicenisTestGui\DragResizerTestWindow.xaml.cs">
+      <Link>DragResizerTestWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="DragSourceNDropTargetTestWindow.xaml.cs">
-      <DependentUpon>DragSourceNDropTargetTestWindow.xaml</DependentUpon>
+    <Compile Include="..\NicenisTestGui\DragSourceNDropTargetTestWindow.xaml.cs">
+      <Link>DragSourceNDropTargetTestWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="HoverTestWindow.xaml.cs">
-      <DependentUpon>HoverTestWindow.xaml</DependentUpon>
+    <Compile Include="..\NicenisTestGui\HoverTestWindow.xaml.cs">
+      <Link>HoverTestWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="..\NicenisTestGui\MainWindow.xaml.cs">
+      <Link>MainWindow.xaml.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,13 +80,52 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nicenis\Nicenis.csproj">
-      <Project>{dd0939a8-e685-4803-a170-946e43139a78}</Project>
-      <Name>Nicenis</Name>
-    </ProjectReference>
+    <Resource Include="..\NicenisTestGui\CustomWindowIcon.png">
+      <Link>CustomWindowIcon.png</Link>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CustomWindowIcon.png" />
+    <ApplicationDefinition Include="..\NicenisTestGui\App.xaml">
+      <Link>App.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="..\NicenisTestGui\CustomWindowTestWindow.xaml">
+      <Link>CustomWindowTestWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\NicenisTestGui\DragMoverTestWindow.xaml">
+      <Link>DragMoverTestWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\NicenisTestGui\DragResizerTestWindow.xaml">
+      <Link>DragResizerTestWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\NicenisTestGui\DragSourceNDropTargetTestWindow.xaml">
+      <Link>DragSourceNDropTargetTestWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\NicenisTestGui\HoverTestWindow.xaml">
+      <Link>HoverTestWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\NicenisTestGui\MainWindow.xaml">
+      <Link>MainWindow.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nicenis_For_4.0.0_Client_Profile\Nicenis_For_4.0.0_Client_Profile.csproj">
+      <Project>{326ba87d-9a12-4401-8a5b-03bd56ca8578}</Project>
+      <Name>Nicenis_For_4.0.0_Client_Profile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

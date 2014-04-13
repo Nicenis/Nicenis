@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{307920D4-87A4-47B2-B189-D9A1E5CDB7CC}</ProjectGuid>
+    <ProjectGuid>{A0EEB482-58B3-4294-9555-DDAAE869C39A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NicenisTests</RootNamespace>
     <AssemblyName>NicenisTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -55,16 +55,24 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BooleanyTests.cs" />
-    <Compile Include="ComponentModel\WatchableObjectTests.cs" />
+    <Compile Include="..\NicenisTests\BooleanyTests.cs">
+      <Link>BooleanyTests.cs</Link>
+    </Compile>
+    <Compile Include="..\NicenisTests\ComponentModel\WatchableObjectTests.cs">
+      <Link>ComponentModel\WatchableObjectTests.cs</Link>
+    </Compile>
+    <Compile Include="..\NicenisTests\Windows\Data\Converters\FalsyToConvertersTests.cs">
+      <Link>Windows\Data\Converters\FalsyToConvertersTests.cs</Link>
+    </Compile>
+    <Compile Include="..\NicenisTests\Windows\Data\Converters\TruthyToConvertersTests.cs">
+      <Link>Windows\Data\Converters\TruthyToConvertersTests.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Windows\Data\Converters\TruthyToConvertersTests.cs" />
-    <Compile Include="Windows\Data\Converters\FalsyToConvertersTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nicenis\Nicenis.csproj">
-      <Project>{dd0939a8-e685-4803-a170-946e43139a78}</Project>
-      <Name>Nicenis</Name>
+    <ProjectReference Include="..\Nicenis_For_4.0.0_Client_Profile\Nicenis_For_4.0.0_Client_Profile.csproj">
+      <Project>{326ba87d-9a12-4401-8a5b-03bd56ca8578}</Project>
+      <Name>Nicenis_For_4.0.0_Client_Profile</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
