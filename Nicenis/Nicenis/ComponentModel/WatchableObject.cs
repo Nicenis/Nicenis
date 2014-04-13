@@ -1128,18 +1128,13 @@ namespace Nicenis.ComponentModel
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
+            // Gets the property info.
+            PropertyInfo propertyInfo = GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
+            if (propertyInfo == null)
+                throw new ArgumentException(string.Format("The property {0} does not exist.", propertyName));
+
             // Gets the property value.
-            T oldValue = (T)GetType().InvokeMember
-            (
-                name: propertyName,
-                invokeAttr: BindingFlags.Public
-                          | BindingFlags.NonPublic
-                          | BindingFlags.Instance
-                          | BindingFlags.GetProperty,
-                binder: null,
-                target: this,
-                args: null
-            );
+            T oldValue = (T)propertyInfo.GetValue(this);
 
             // If the values are equal
             if (object.Equals(oldValue, value))

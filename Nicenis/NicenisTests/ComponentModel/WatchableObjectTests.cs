@@ -513,6 +513,18 @@ namespace NicenisTests.ComponentModel
                 set { SetProperty(() => ReferenceProperty, value); }
             }
 
+            private int PrivateValueProperty
+            {
+                get { return GetProperty(() => PrivateValueProperty); }
+                set { SetProperty(() => PrivateValueProperty, value); }
+            }
+
+            public int IndirectPrivateValueProperty
+            {
+                get { return PrivateValueProperty; }
+                set { PrivateValueProperty = value; }
+            }
+
             #endregion
 
             #region TestProperty1 ~ TestProperty2
@@ -1615,6 +1627,19 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(propertyChangedCount, changedPropertyCount);
             Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_private_property()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            sample.IndirectPrivateValueProperty = 10;
+
+            // assert
+            Assert.IsTrue(true);
         }
 
         #endregion
