@@ -84,7 +84,7 @@ namespace Nicenis.Windows.Threading
             Verify.ParameterIsNotNull(dispatcher, "dispatcher");
             Verify.ParameterIsNotNull(action, "action");
 
-            return dispatcher.Invoke(action, priority);
+            return dispatcher.Invoke((Delegate)action, priority);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Nicenis.Windows.Threading
             Verify.ParameterIsNotNull(dispatcher, "dispatcher");
             Verify.ParameterIsNotNull(action, "action");
 
-            return dispatcher.Invoke(action);
+            return dispatcher.Invoke((Delegate)action);
         }
 
         #endregion
