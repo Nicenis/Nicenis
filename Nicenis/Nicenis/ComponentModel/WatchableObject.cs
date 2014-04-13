@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace Nicenis.ComponentModel
@@ -1884,7 +1885,7 @@ namespace Nicenis.ComponentModel
         /// Raises a PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
