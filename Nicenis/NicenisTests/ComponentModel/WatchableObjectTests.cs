@@ -294,6 +294,15 @@ namespace NicenisTests.ComponentModel
 
             #endregion
 
+            #region IsEqualPropertyValue Related
+
+            public new static bool IsEqualPropertyValue<T>(T left, T right)
+            {
+                return WatchableObject.IsEqualPropertyValue(left, right);
+            }
+
+            #endregion
+
             #region GetProperty Related
 
             public new T GetProperty<T>(string propertyName, T defaultValue = default(T))
@@ -609,6 +618,131 @@ namespace NicenisTests.ComponentModel
             };
 
             return int.Parse(numberString);
+        }
+
+        #endregion
+
+
+        #region IsEqualPropertyValue Related
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_values()
+        {
+            // arrange
+            const int left = 10;
+            const int right = 10;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_different_values()
+        {
+            // arrange
+            const int left = 10;
+            const int right = 20;
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_references()
+        {
+            // arrange
+            Sample left = new Sample();
+            Sample right = left;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_different_references()
+        {
+            // arrange
+            Sample left = new Sample();
+            Sample right = new Sample();
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_same_strings()
+        {
+            // arrange
+            string left = "Test";
+            string right = "Test";
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_different_strings()
+        {
+            // arrange
+            string left = "Test";
+            string right = "Haha";
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_false_for_null_and_non_null()
+        {
+            // arrange
+            Sample left = null;
+            Sample right = new Sample();
+            const bool expectedEquality = false;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
+        }
+
+        [TestMethod]
+        public void IsEqualPropertyValue_must_return_true_for_null_values()
+        {
+            // arrange
+            Sample left = null;
+            Sample right = null;
+            const bool expectedEquality = true;
+
+            // act
+            bool result = Sample.IsEqualPropertyValue(left, right);
+
+            // assert
+            Assert.AreEqual(expectedEquality, result);
         }
 
         #endregion

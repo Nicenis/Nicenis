@@ -982,6 +982,31 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
+        #region IsEqualPropertyValue
+
+        /// <summary>
+        /// Determines whether the 2 property values are equal.
+        /// </summary>
+        /// <typeparam name="T">The type of the property.</typeparam>
+        /// <param name="left">The left property value.</param>
+        /// <param name="right">The right property value.</param>
+        /// <returns>True if the 2 property values are equal; otherwise false.</returns>
+        protected static bool IsEqualPropertyValue<T>(T left, T right)
+        {
+            // If the left and right value are null, it means they are the same.
+            if (left == null && right == null)
+                return true;
+
+            // If the left and right value are not null, compares the values.
+            if (left != null && right != null && left.Equals(right))
+                return true;
+
+            return false;
+        }
+
+        #endregion
+
+
         #region GetProperty/SetProperty Related
 
         #region Storage Related
@@ -1142,7 +1167,7 @@ namespace Nicenis.ComponentModel
             );
 
             // If the values are equal
-            if (object.Equals(oldValue, value))
+            if (IsEqualPropertyValue(oldValue, value))
                 return false;
 
             // Sets the property value.
@@ -1311,7 +1336,7 @@ namespace Nicenis.ComponentModel
         protected bool SetPropertyWithoutNotification<T>(ref T storage, T value)
         {
             // If the values are equal
-            if (object.Equals(storage, value))
+            if (IsEqualPropertyValue(storage, value))
                 return false;
 
             // Sets the property value.
