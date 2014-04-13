@@ -1123,7 +1123,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyWithoutNotification<T>(string propertyName, T value)
+        protected bool SetPropertyOnly<T>(string propertyName, T value)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
@@ -1157,9 +1157,9 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
+        protected bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value)
         {
-            return SetPropertyWithoutNotification(ToPropertyName(propertyExpression), value);
+            return SetPropertyOnly(ToPropertyName(propertyExpression), value);
         }
 
         /// <summary>
@@ -1231,7 +1231,7 @@ namespace Nicenis.ComponentModel
         protected virtual bool SetProperty<T>(string propertyName, T value)
         {
             // If the property is changed
-            if (SetPropertyWithoutNotification(propertyName, value))
+            if (SetPropertyOnly(propertyName, value))
             {
                 // Raises a PropertyChanged event.
                 OnPropertyChanged(propertyName);
@@ -1308,7 +1308,7 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage for the property value.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyWithoutNotification<T>(ref T storage, T value)
+        protected bool SetPropertyOnly<T>(ref T storage, T value)
         {
             // If the values are equal
             if (object.Equals(storage, value))
@@ -1395,7 +1395,7 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // If the property is changed
-            if (SetPropertyWithoutNotification(ref storage, value))
+            if (SetPropertyOnly(ref storage, value))
             {
                 // Raises a PropertyChanged event.
                 OnPropertyChanged(propertyName);

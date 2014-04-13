@@ -320,14 +320,14 @@ namespace NicenisTests.ComponentModel
 
             #region SetProperty Related
 
-            public new bool SetPropertyWithoutNotification<T>(string propertyName, T value)
+            public new bool SetPropertyOnly<T>(string propertyName, T value)
             {
-                return base.SetPropertyWithoutNotification(propertyName, value);
+                return base.SetPropertyOnly(propertyName, value);
             }
 
-            public new bool SetPropertyWithoutNotification<T>(Expression<Func<T>> propertyExpression, T value)
+            public new bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value)
             {
-                return base.SetPropertyWithoutNotification(propertyExpression, value);
+                return base.SetPropertyOnly(propertyExpression, value);
             }
 
             public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
@@ -374,9 +374,9 @@ namespace NicenisTests.ComponentModel
 
             #region SetProperty with Local Storage Related
 
-            public new bool SetPropertyWithoutNotification<T>(ref T storage, T value)
+            public new bool SetPropertyOnly<T>(ref T storage, T value)
             {
-                return base.SetPropertyWithoutNotification(ref storage, value);
+                return base.SetPropertyOnly(ref storage, value);
             }
 
             public new bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
@@ -883,10 +883,10 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region SetPropertyWithoutNotification Parameter Check Related
+        #region SetPropertyOnly Parameter Check Related
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_throw_exception_if_null_property_name_is_passed()
+        public void SetPropertyOnly_must_throw_exception_if_null_property_name_is_passed()
         {
             // arrange
             string propertyName = null;
@@ -896,7 +896,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetPropertyWithoutNotification(propertyName, "test");
+                sample.SetPropertyOnly(propertyName, "test");
             }
             catch (Exception e)
             {
@@ -909,7 +909,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetPropertyOnly_must_throw_exception_if_empty_property_name_is_passed()
         {
             // arrange
             string propertyName = "";
@@ -919,7 +919,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetPropertyWithoutNotification(propertyName, "test");
+                sample.SetPropertyOnly(propertyName, "test");
             }
             catch (Exception e)
             {
@@ -932,7 +932,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetPropertyOnly_must_throw_exception_if_whitespace_property_name_is_passed()
         {
             // arrange
             string propertyName = " ";
@@ -942,7 +942,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetPropertyWithoutNotification(propertyName, "test");
+                sample.SetPropertyOnly(propertyName, "test");
             }
             catch (Exception e)
             {
@@ -955,7 +955,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_throw_exception_if_property_does_not_exist()
+        public void SetPropertyOnly_must_throw_exception_if_property_does_not_exist()
         {
             // arrange
             string propertyName = "NotExistedPropertyName";
@@ -965,7 +965,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetPropertyWithoutNotification(propertyName, "Test");
+                sample.SetPropertyOnly(propertyName, "Test");
             }
             catch (Exception e)
             {
@@ -1420,14 +1420,14 @@ namespace NicenisTests.ComponentModel
         #region SetProperty Test Related
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_set_value_properly()
+        public void SetPropertyOnly_must_set_value_properly()
         {
             // arrange
             const int testValue = 100;
             Sample sample = new Sample();
 
             // act
-            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
             int propertyValue = sample.GetProperty(() => sample.ValueProperty);
 
             // assert
@@ -1435,7 +1435,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_must_not_raise_PropertyChanged()
+        public void SetPropertyOnly_must_not_raise_PropertyChanged()
         {
             // arrange
             const int testValue = 100;
@@ -1445,8 +1445,8 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, __) => propertyChangedCount++;
 
             // act
-            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
-            sample.SetPropertyWithoutNotification(() => sample.ValueProperty, testValue);
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
 
             // assert
             Assert.AreEqual(0, propertyChangedCount);
@@ -2006,7 +2006,7 @@ namespace NicenisTests.ComponentModel
         #region SetProperty with local storage Test Related
 
         [TestMethod]
-        public void SetPropertyWithoutNotification_with_local_storage_must_set_value_properly()
+        public void SetPropertyOnly_with_local_storage_must_set_value_properly()
         {
             // arrange
             const int testValue = 100;
@@ -2014,7 +2014,7 @@ namespace NicenisTests.ComponentModel
             int valueStorage = 0;
 
             // act
-            sample.SetPropertyWithoutNotification(ref valueStorage, testValue);
+            sample.SetPropertyOnly(ref valueStorage, testValue);
 
             // assert
             Assert.AreEqual(valueStorage, testValue);
