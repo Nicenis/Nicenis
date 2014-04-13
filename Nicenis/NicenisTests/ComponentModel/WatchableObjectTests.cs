@@ -1103,27 +1103,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_empty()
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
             // arrange
             string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[0];
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.SetProperty(propertyName, 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -1732,28 +1723,19 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_empty()
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
             // arrange
             string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[0];
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -2485,27 +2467,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_names_is_empty_collection()
+        public void SetPropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[0];
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.SetPropertyWatch(propertyNames, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]
@@ -2816,27 +2789,18 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_names_is_empty_collection()
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
         {
             // arrange
             IEnumerable<string> propertyNames = new string[0];
             Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            sample.RemovePropertyWatch(propertyNames, action);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            Assert.IsTrue(true);
         }
 
         [TestMethod]

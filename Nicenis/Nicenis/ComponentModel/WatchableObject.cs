@@ -1606,9 +1606,6 @@ namespace Nicenis.ComponentModel
             if (propertyNames == null)
                 throw new ArgumentNullException("propertyNames");
 
-            if (propertyNames.Any() == false)
-                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
-
             if (action == null)
                 throw new ArgumentNullException("action");
 
@@ -1681,9 +1678,6 @@ namespace Nicenis.ComponentModel
         {
             if (propertyNames == null)
                 throw new ArgumentNullException("propertyNames");
-
-            if (propertyNames.Any() == false)
-                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
 
             if (action == null)
                 throw new ArgumentNullException("action");
@@ -1773,9 +1767,6 @@ namespace Nicenis.ComponentModel
         {
             if (propertyNames == null)
                 throw new ArgumentNullException("propertyNames");
-
-            if (propertyNames.Any() == false)
-                throw new ArgumentException("The parameter propertyNames can not be an empty collection.");
 
             foreach (string propertyName in propertyNames)
                 OnPropertyChanged(propertyName);
