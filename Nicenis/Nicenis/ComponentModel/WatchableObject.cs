@@ -1443,6 +1443,41 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
+        #region GetCurrentProperty/SetCurrentProperty Related
+
+        protected T GetCurrentProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
+        {
+            return GetProperty(propertyName, defaultValue);
+        }
+
+        protected T GetCurrentProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
+        {
+            return GetProperty(propertyName, initializer);
+        }
+
+        protected bool SetCurrentPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
+        {
+            return SetPropertyOnly(propertyName, value);
+        }
+
+        protected bool SetCurrentProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, value, affectedPropertyNames);
+        }
+
+        protected bool SetCurrentProperty<T>(T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, value, affectedPropertyName);
+        }
+
+        protected bool SetCurrentProperty<T>(T value, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, value);
+        }
+
+        #endregion
+
+
         #region SetProperty with Local Storage Related
 
         /// <summary>
@@ -1606,6 +1641,26 @@ namespace Nicenis.ComponentModel
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value);
+        }
+
+        #endregion
+
+
+        #region SetCurrentProperty with Local Storage Related
+
+        protected bool SetCurrentProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, ref storage, value, affectedPropertyNames);
+        }
+
+        protected bool SetCurrentProperty<T>(ref T storage, T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, ref storage, value, affectedPropertyName);
+        }
+
+        protected bool SetCurrentProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty(propertyName, ref storage, value);
         }
 
         #endregion
