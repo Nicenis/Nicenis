@@ -1487,7 +1487,7 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region GetCallingProperty/SetCallingProperty Related
+        #region GetCallerProperty/SetCallerProperty Related
 
         /// <summary>
         /// Gets the property value specified by the property name that is obtained by the CallerMemberName attribute in a property getter.
@@ -1501,7 +1501,7 @@ namespace Nicenis.ComponentModel
         /// <param name="defaultValue">The default value.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected T GetCallingProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
+        protected T GetCallerProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
         {
             return GetProperty(propertyName, defaultValue);
         }
@@ -1518,7 +1518,7 @@ namespace Nicenis.ComponentModel
         /// <param name="initializer">The initializer that returns the initialization value.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected T GetCallingProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
+        protected T GetCallerProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
         {
             return GetProperty(propertyName, initializer);
         }
@@ -1535,7 +1535,7 @@ namespace Nicenis.ComponentModel
         /// <param name="value">The property value.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetCallingPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallerPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
         {
             return SetPropertyOnly(propertyName, value);
         }
@@ -1553,7 +1553,7 @@ namespace Nicenis.ComponentModel
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetCallingProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        protected bool SetCallerProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value, affectedPropertyNames);
         }
@@ -1570,7 +1570,7 @@ namespace Nicenis.ComponentModel
         /// <param name="value">The property value.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetCallingProperty<T>(T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallerProperty<T>(T value, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value);
         }
@@ -1747,7 +1747,7 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region SetCallingProperty with Local Storage Related
+        #region SetCallerProperty with Local Storage Related
 
         /// <summary>
         /// Sets a value to the specified storage.
@@ -1760,7 +1760,7 @@ namespace Nicenis.ComponentModel
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetCallingProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        protected bool SetCallerProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value, affectedPropertyNames);
         }
@@ -1775,7 +1775,7 @@ namespace Nicenis.ComponentModel
         /// <param name="value">The property value.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetCallingProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallerProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value);
         }
@@ -1804,7 +1804,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         /// <param name="propertyName">The property name.</param>
         /// <returns>The watch action list if it exists; otherwise null.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetWatchActionList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetWatchActionListFromStorage(string propertyName)
         {
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
@@ -1826,7 +1826,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         /// <param name="propertyName">The property name.</param>
         /// <returns>The watch action list.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionListFromStorage(string propertyName)
         {
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
@@ -1875,7 +1875,7 @@ namespace Nicenis.ComponentModel
         protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
         {
             // Gets the watch action list.
-            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
+            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
 
             // If there is watch actions
             if (watchActionList != null)
@@ -1950,7 +1950,7 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("action");
 
             // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionList(propertyName);
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionListFromStorage(propertyName);
 
             // If the action already exists
             if (watchActionList.Contains(action))
@@ -2025,7 +2025,7 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("action");
 
             // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
             if (watchActionList == null)
                 return false;
 

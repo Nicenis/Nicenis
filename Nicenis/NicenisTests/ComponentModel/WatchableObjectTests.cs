@@ -375,31 +375,31 @@ namespace NicenisTests.ComponentModel
 
 #if !NICENIS_4C
 
-            #region GetCallingProperty/SetCallingProperty Related
+            #region GetCallerProperty/SetCallerProperty Related
 
-            public new T GetCallingProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
+            public new T GetCallerProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
             {
-                return base.GetCallingProperty(defaultValue, propertyName);
+                return base.GetCallerProperty(defaultValue, propertyName);
             }
 
-            public new T GetCallingProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
+            public new T GetCallerProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
             {
-                return base.GetCallingProperty(initializer, propertyName);
+                return base.GetCallerProperty(initializer, propertyName);
             }
 
-            public new bool SetCallingPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
+            public new bool SetCallerPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
             {
-                return base.SetCallingPropertyOnly(value, propertyName);
+                return base.SetCallerPropertyOnly(value, propertyName);
             }
 
-            public new bool SetCallingProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+            public new bool SetCallerProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
             {
-                return base.SetCallingProperty(value, affectedPropertyNames, propertyName);
+                return base.SetCallerProperty(value, affectedPropertyNames, propertyName);
             }
 
-            public new bool SetCallingProperty<T>(T value, [CallerMemberName] string propertyName = "")
+            public new bool SetCallerProperty<T>(T value, [CallerMemberName] string propertyName = "")
             {
-                return base.SetCallingProperty(value, propertyName);
+                return base.SetCallerProperty(value, propertyName);
             }
 
             #endregion
@@ -457,16 +457,16 @@ namespace NicenisTests.ComponentModel
 
 #if !NICENIS_4C
 
-            #region SetCallingProperty with Local Storage Related
+            #region SetCallerProperty with Local Storage Related
 
-            public new bool SetCallingProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+            public new bool SetCallerProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
             {
-                return base.SetCallingProperty(ref storage, value, affectedPropertyNames, propertyName);
+                return base.SetCallerProperty(ref storage, value, affectedPropertyNames, propertyName);
             }
 
-            public new bool SetCallingProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+            public new bool SetCallerProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
             {
-                return base.SetCallingProperty(ref storage, value, propertyName);
+                return base.SetCallerProperty(ref storage, value, propertyName);
             }
 
             #endregion
@@ -579,24 +579,24 @@ namespace NicenisTests.ComponentModel
 
 #if !NICENIS_4C
 
-            public string CallingMemberNameProperty
+            public string CallerMemberNameProperty
             {
-                get { return GetCallingProperty<string>(); }
-                set { SetCallingProperty(value); }
+                get { return GetCallerProperty<string>(); }
+                set { SetCallerProperty(value); }
             }
 
-            public string CallingMemberNamePropertyWithoutPropertyChangedEvent
+            public string CallerMemberNamePropertyWithoutPropertyChangedEvent
             {
-                get { return GetCallingProperty<string>(); }
-                set { SetCallingPropertyOnly(value); }
+                get { return GetCallerProperty<string>(); }
+                set { SetCallerPropertyOnly(value); }
             }
 
-            string _callingMemberNamePropertyWithLocalStorage;
+            string _callerMemberNamePropertyWithLocalStorage;
 
-            public string CallingMemberNamePropertyWithLocalStorage
+            public string CallerMemberNamePropertyWithLocalStorage
             {
-                get { return _callingMemberNamePropertyWithLocalStorage; }
-                set { SetCallingProperty(ref _callingMemberNamePropertyWithLocalStorage, value); }
+                get { return _callerMemberNamePropertyWithLocalStorage; }
+                set { SetCallerProperty(ref _callerMemberNamePropertyWithLocalStorage, value); }
             }
 
 #endif
@@ -2294,29 +2294,29 @@ namespace NicenisTests.ComponentModel
 
 #if !NICENIS_4C
 
-        #region GetCallingProperty/SetCallingProperty Test Related
+        #region GetCallerProperty/SetCallerProperty Test Related
 
         [TestMethod]
-        public void SetCallingProperty_must_set_value_properly()
+        public void SetCallerProperty_must_set_value_properly()
         {
             // arrange
             const string testValue = "test value";
             Sample sample = new Sample();
 
             // act
-            sample.CallingMemberNameProperty = testValue;
-            string propertyValue = sample.CallingMemberNameProperty;
+            sample.CallerMemberNameProperty = testValue;
+            string propertyValue = sample.CallerMemberNameProperty;
 
             // assert
             Assert.AreEqual(propertyValue, testValue);
         }
 
         [TestMethod]
-        public void SetCallingProperty_must_raise_property_changed_event()
+        public void SetCallerProperty_must_raise_property_changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 1;
-            const string expectedChangedPropertyName = "CallingMemberNameProperty";
+            const string expectedChangedPropertyName = "CallerMemberNameProperty";
 
             Sample sample = new Sample();
             int propertyChangedCount = 0;
@@ -2329,7 +2329,7 @@ namespace NicenisTests.ComponentModel
             };
 
             // act
-            sample.CallingMemberNameProperty = "test value";
+            sample.CallerMemberNameProperty = "test value";
 
             // assert
             Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
@@ -2337,7 +2337,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallingPropertyOnly_must_not_raise_property_changed_event()
+        public void SetCallerPropertyOnly_must_not_raise_property_changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 0;
@@ -2348,7 +2348,7 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, __) => propertyChangedCount++;
 
             // act
-            sample.CallingMemberNamePropertyWithoutPropertyChangedEvent = "Test Value";
+            sample.CallerMemberNamePropertyWithoutPropertyChangedEvent = "Test Value";
 
             // assert
             Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
@@ -2357,29 +2357,29 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region SetCallingProperty with local storage Test Related
+        #region SetCallerProperty with local storage Test Related
 
         [TestMethod]
-        public void SetCallingPropertyWithLocalStorage_must_set_value_properly()
+        public void SetCallerPropertyWithLocalStorage_must_set_value_properly()
         {
             // arrange
             const string testValue = "test value";
             Sample sample = new Sample();
 
             // act
-            sample.CallingMemberNamePropertyWithLocalStorage = testValue;
-            string propertyValue = sample.CallingMemberNamePropertyWithLocalStorage;
+            sample.CallerMemberNamePropertyWithLocalStorage = testValue;
+            string propertyValue = sample.CallerMemberNamePropertyWithLocalStorage;
 
             // assert
             Assert.AreEqual(propertyValue, testValue);
         }
 
         [TestMethod]
-        public void SetCallingPropertyWithLocalStorage_must_raise_property_changed_event()
+        public void SetCallerPropertyWithLocalStorage_must_raise_property_changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 1;
-            const string expectedChangedPropertyName = "CallingMemberNamePropertyWithLocalStorage";
+            const string expectedChangedPropertyName = "CallerMemberNamePropertyWithLocalStorage";
 
             Sample sample = new Sample();
             int propertyChangedCount = 0;
@@ -2392,7 +2392,7 @@ namespace NicenisTests.ComponentModel
             };
 
             // act
-            sample.CallingMemberNamePropertyWithLocalStorage = "test value";
+            sample.CallerMemberNamePropertyWithLocalStorage = "test value";
 
             // assert
             Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
