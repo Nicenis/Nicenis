@@ -1465,11 +1465,6 @@ namespace Nicenis.ComponentModel
             return SetProperty(propertyName, value, affectedPropertyNames);
         }
 
-        protected bool SetCallingProperty<T>(T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
-        {
-            return SetProperty(propertyName, value, affectedPropertyName);
-        }
-
         protected bool SetCallingProperty<T>(T value, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value);
@@ -1651,11 +1646,6 @@ namespace Nicenis.ComponentModel
         protected bool SetCallingProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value, affectedPropertyNames);
-        }
-
-        protected bool SetCallingProperty<T>(ref T storage, T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
-        {
-            return SetProperty(propertyName, ref storage, value, affectedPropertyName);
         }
 
         protected bool SetCallingProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
