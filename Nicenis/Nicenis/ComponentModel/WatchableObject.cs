@@ -1443,34 +1443,34 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region GetCurrentProperty/SetCurrentProperty Related
+        #region GetCallingProperty/SetCallingProperty Related
 
-        protected T GetCurrentProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
+        protected T GetCallingProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
         {
             return GetProperty(propertyName, defaultValue);
         }
 
-        protected T GetCurrentProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
+        protected T GetCallingProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
         {
             return GetProperty(propertyName, initializer);
         }
 
-        protected bool SetCurrentPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
         {
             return SetPropertyOnly(propertyName, value);
         }
 
-        protected bool SetCurrentProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value, affectedPropertyNames);
         }
 
-        protected bool SetCurrentProperty<T>(T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value, affectedPropertyName);
         }
 
-        protected bool SetCurrentProperty<T>(T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(T value, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, value);
         }
@@ -1646,19 +1646,19 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region SetCurrentProperty with Local Storage Related
+        #region SetCallingProperty with Local Storage Related
 
-        protected bool SetCurrentProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value, affectedPropertyNames);
         }
 
-        protected bool SetCurrentProperty<T>(ref T storage, T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(ref T storage, T value, string affectedPropertyName, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value, affectedPropertyName);
         }
 
-        protected bool SetCurrentProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+        protected bool SetCallingProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
         {
             return SetProperty(propertyName, ref storage, value);
         }
