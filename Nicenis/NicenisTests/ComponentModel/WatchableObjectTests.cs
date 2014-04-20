@@ -20,6 +20,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace NicenisTests.ComponentModel
 {
@@ -624,7 +625,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [DataContract]
-        class SerializationSample : WatchableObject
+        public class SerializationSample : WatchableObject
         {
             [DataMember]
             public int TestValue
@@ -3302,7 +3303,7 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 
-        #region DataContract Serialization Test Related
+        #region Serialization Test Related
 
         [TestMethod]
         public void DataContractSerializer_must_be_supported()
@@ -3322,6 +3323,30 @@ namespace NicenisTests.ComponentModel
 
             memoryStream.Position = 0;
             SerializationSample deserialized = (SerializationSample)serializer.ReadObject(memoryStream);
+
+            // assert
+            Assert.AreEqual(sample.TestValue, deserialized.TestValue);
+            Assert.AreEqual(sample.TestString, deserialized.TestString);
+        }
+
+        [TestMethod]
+        public void XmlSerializer_must_be_supported()
+        {
+            // arrange
+            const int testValue = 20;
+            const string testString = "haha";
+            SerializationSample sample = new SerializationSample();
+
+            // act
+            sample.TestValue = testValue;
+            sample.TestString = testString;
+
+            MemoryStream memoryStream = new MemoryStream();
+            XmlSerializer serializer = new XmlSerializer(typeof(SerializationSample));
+            serializer.Serialize(memoryStream, sample);
+
+            memoryStream.Position = 0;
+            SerializationSample deserialized = (SerializationSample)serializer.Deserialize(memoryStream);
 
             // assert
             Assert.AreEqual(sample.TestValue, deserialized.TestValue);
