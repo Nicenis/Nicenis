@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisTests_For_4.0.0_Clie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisTestGui_For_4.0.0_Client_Profile", "NicenisTestGui_For_4.0.0_Client_Profile\NicenisTestGui_For_4.0.0_Client_Profile.csproj", "{E1A9308A-FD94-4733-AFB7-E10CE71B2108}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchableObjectPerformanceTest", "WatchableObjectPerformanceTest\WatchableObjectPerformanceTest.csproj", "{643D3927-CED4-49E3-9C35-B19A7CB64A89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{E1A9308A-FD94-4733-AFB7-E10CE71B2108}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A9308A-FD94-4733-AFB7-E10CE71B2108}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A9308A-FD94-4733-AFB7-E10CE71B2108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{643D3927-CED4-49E3-9C35-B19A7CB64A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{643D3927-CED4-49E3-9C35-B19A7CB64A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{643D3927-CED4-49E3-9C35-B19A7CB64A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{643D3927-CED4-49E3-9C35-B19A7CB64A89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
