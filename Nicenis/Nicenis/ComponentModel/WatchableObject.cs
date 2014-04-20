@@ -1135,7 +1135,7 @@ namespace Nicenis.ComponentModel
 
         #region GetProperty/SetProperty Related
 
-        #region Storage Related
+        #region ValueStorage Related
 
         Storage<string, object> _valueStorage;
 
@@ -1189,6 +1189,64 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             ValueStorage[propertyName] = value;
+        }
+
+        #endregion
+
+        #region GetterStorage Related
+
+        Storage<string, object> _getterStorage;
+
+        /// <summary>
+        /// The property getter storage.
+        /// The storage key is a property name, and the storage value is a property getter delegate.
+        /// </summary>
+        private Storage<string, object> GetterStorage
+        {
+            get { return _getterStorage ?? (_getterStorage = new Storage<string, object>()); }
+        }
+
+        /// <summary>
+        /// Gets the property getter specified by the property name from the storage.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="getter">The property getter.</param>
+        /// <returns>True if the property getter is found in the internal storage; otherwise false.</returns>
+        private bool GetPropertyGetterFromStorage<T>(string propertyName, out Func<T> getter)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
+            // Tries to retrieve the getter if it exists.
+            if (_getterStorage != null)
+            {
+                object rawGetter;
+                if (_getterStorage.TryGetValue(propertyName, out rawGetter))
+                {
+                    getter = (Func<T>)rawGetter;
+                    return true;
+                }
+            }
+
+            // If the property getter is not found
+            getter = default(Func<T>);
+            return false;
+        }
+
+        /// <summary>
+        /// Sets the property getter specified by the property name in the storage.
+        /// If the property getter is not in the storage, it is added. Otherwise it replaces the existing value.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="getter">The property getter.</param>
+        private void SetPropertyGetterToStorage<T>(string propertyName, Func<T> getter)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
+            GetterStorage[propertyName] = getter;
         }
 
         #endregion
@@ -1290,16 +1348,24 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyOnly<T>(string propertyName, T value)
         {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+            // Tries to get the cached property getter delegate.
+            Func<T> getter = null;
+            if (GetPropertyGetterFromStorage(propertyName, out getter) == false)
+            {
+                // Gets the property info.
+                PropertyInfo propertyInfo = GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
+                if (propertyInfo == null)
+                    throw new ArgumentException(string.Format("The property {0} does not exist.", propertyName));
 
-            // Gets the property info.
-            PropertyInfo propertyInfo = GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
-            if (propertyInfo == null)
-                throw new ArgumentException(string.Format("The property {0} does not exist.", propertyName));
+                // Creates a property getter delegate.
+                getter = (Func<T>)propertyInfo.GetMethod.CreateDelegate(typeof(Func<T>), this);
+
+                // Saves the getter to the storage.
+                SetPropertyGetterToStorage(propertyName, getter);
+            }
 
             // Gets the property value.
-            T oldValue = (T)propertyInfo.GetValue(this);
+            T oldValue = getter();
 
             // If the values are equal
             if (object.Equals(oldValue, value))
