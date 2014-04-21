@@ -12,9 +12,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace Nicenis.ComponentModel
@@ -22,7 +24,7 @@ namespace Nicenis.ComponentModel
     #region PropertyWatch
 
     /// <summary>
-    /// Represents a callback that is called when the watched property value has changed.
+    /// Represents an event handler for property changed events.
     /// </summary>
     public class PropertyWatch
     {
@@ -31,8 +33,8 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        /// <param name="propertyName">The property name to watch. An empty string means that all properties are watched.</param>
-        /// <param name="action">The callback that is called when the watched property value has changed.</param>
+        /// <param name="propertyName">The property name to watch. An empty string represents all properties.</param>
+        /// <param name="action">The event handler that is called when the watched property is changed.</param>
         public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
@@ -51,18 +53,20 @@ namespace Nicenis.ComponentModel
         #region Properties
 
         /// <summary>
-        /// Gets a value indicating whether it is all property watch.
+        /// Gets the value indicating whether the Action is called for any property change.
         /// </summary>
         public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
 
         /// <summary>
         /// Gets the property name to watch.
-        /// If all properties are watched, an empty string is returned.
+        /// An empty string represents all properties.
+        /// It is always not null.
         /// </summary>
         public string PropertyName { get; private set; }
 
         /// <summary>
-        /// Gets the callback that is called when the watched property value has changed.
+        /// Gets the event handler that is called when the watched property is changed.
+        /// It is always not null.
         /// </summary>
         public Action<PropertyChangedEventArgs> Action { get; private set; }
 
@@ -123,7 +127,7 @@ namespace Nicenis.ComponentModel
         #endregion
 
         /// <summary>
-        /// Provides storage for key/value pairs.
+        /// Stores key/value pairs.
         /// </summary>
         /// <typeparam name="TKey">The key type.</typeparam>
         /// <typeparam name="TValue">The value type.</typeparam>
@@ -142,23 +146,31 @@ namespace Nicenis.ComponentModel
             #endregion
 
 
-            #region Helpers
+            #region Publics
 
             /// <summary>
-            /// Finds a key/value pair.
+            /// Finds a key/value pair associated with the specified key.
             /// If it does not exist, null is returned.
             /// </summary>
             /// <param name="key">The key to find.</param>
             /// <returns>The key/value pair if it exists; otherwise null.</returns>
-            private KeyValue<TKey, TValue> Find(TKey key)
+            public KeyValue<TKey, TValue> Find(TKey key)
             {
                 return _keyValues.FirstOrDefault(p => object.Equals(p.Key, key));
             }
 
-            #endregion
+            /// <summary>
+            /// Adds a new KeyValue pair.
+            /// The added key must not be a duplicated key.
+            /// </summary>
+            /// <param name="keyValue">The KeyValue pair to add.</param>
+            public void Add(KeyValue<TKey, TValue> keyValue)
+            {
+                Debug.Assert(keyValue != null);
+                Debug.Assert(_keyValues.Any(p => p.Key.Equals(keyValue.Key)) == false);
 
-
-            #region Publics
+                _keyValues.Add(keyValue);
+            }
 
             /// <summary>
             /// Gets or sets the value associated with the specified key.
@@ -191,7 +203,7 @@ namespace Nicenis.ComponentModel
             /// </summary>
             /// <param name="key">The key of the value to get.</param>
             /// <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
-            /// <returns>true if the Storage contains an element with the specified key; otherwise, false.</returns>
+            /// <returns>True if the Storage contains an element with the specified key; otherwise, false.</returns>
             public bool TryGetValue(TKey key, out TValue value)
             {
                 KeyValue<TKey, TValue> keyValue = Find(key);
@@ -239,7 +251,7 @@ namespace Nicenis.ComponentModel
         #region ToPropertyName
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -314,7 +326,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -386,7 +398,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -454,7 +466,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -519,7 +531,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -581,7 +593,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -639,7 +651,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -694,7 +706,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -746,7 +758,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -794,7 +806,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -839,7 +851,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -880,7 +892,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -918,7 +930,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -953,7 +965,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -984,7 +996,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -1012,7 +1024,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -1037,7 +1049,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -1058,7 +1070,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -1076,7 +1088,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Returns the property names extracted from the lambda expressions that return a property.
+        /// Enumerates property names extracted from the lambda expressions that return a property.
         /// </summary>
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
@@ -1137,8 +1149,8 @@ namespace Nicenis.ComponentModel
         Storage<string, object> _valueStorage;
 
         /// <summary>
-        /// The storage to store property values.
-        /// The storage key is property name, and the storage value is property value.
+        /// The property value storage.
+        /// The storage key is a property name, and the storage value is a property value.
         /// </summary>
         private Storage<string, object> ValueStorage
         {
@@ -1146,11 +1158,11 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Gets the property value specified by the property name in the storage.
+        /// Gets the property value specified by the property name from the storage.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value returned.</param>
+        /// <param name="value">The property value.</param>
         /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
         private bool GetPropertyFromStorage<T>(string propertyName, out T value)
         {
@@ -1174,7 +1186,25 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets the value to the property specified by the property name in the storage.
+        /// Finds a property name/value pair associated with the specified property name.
+        /// If it does not exist, null is returned.
+        /// </summary>
+        /// <param name="propertyName">The property name to find.</param>
+        /// <returns>The property name/value pair if it exists; otherwise null.</returns>
+        private KeyValue<string, object> GetPropertyFromStorage(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
+            // Tries to retrieve the value if it exists.
+            if (_valueStorage != null)
+                return _valueStorage.Find(propertyName);
+
+            return null;
+        }
+
+        /// <summary>
+        /// Sets the property value specified by the property name in the storage.
         /// If the property is not in the storage, it is added. Otherwise it replaces the existing value.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
@@ -1190,68 +1220,13 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
-        #region GetterStorage Related
-
-        Storage<string, object> _getterStorage;
-
-        /// <summary>
-        /// The property getter storage.
-        /// The storage key is a property name, and the storage value is a property getter delegate.
-        /// </summary>
-        private Storage<string, object> GetterStorage
-        {
-            get { return _getterStorage ?? (_getterStorage = new Storage<string, object>()); }
-        }
-
-        /// <summary>
-        /// Gets the property getter specified by the property name from the storage.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="getter">The property getter.</param>
-        /// <returns>True if the property getter is found in the internal storage; otherwise false.</returns>
-        private bool GetPropertyGetterFromStorage<T>(string propertyName, out Func<T> getter)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            // Tries to retrieve the getter if it exists.
-            if (_getterStorage != null)
-            {
-                object rawGetter;
-                if (_getterStorage.TryGetValue(propertyName, out rawGetter))
-                {
-                    getter = (Func<T>)rawGetter;
-                    return true;
-                }
-            }
-
-            // If the property getter is not found
-            getter = default(Func<T>);
-            return false;
-        }
-
-        /// <summary>
-        /// Sets the property getter specified by the property name in the storage.
-        /// If the property getter is not in the storage, it is added. Otherwise it replaces the existing value.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="getter">The property getter.</param>
-        private void SetPropertyGetterToStorage<T>(string propertyName, Func<T> getter)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            GetterStorage[propertyName] = getter;
-        }
-
-        #endregion
-
         /// <summary>
         /// Gets the property value specified by the property name.
         /// If it does not exist, the default is returned.
         /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="defaultValue">The default value.</param>
@@ -1268,9 +1243,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Gets the property value specified by the property expression.
+        /// Gets the property value specified by the property expression that is used to extract the property name.
         /// If it does not exist, the default is returned.
         /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="defaultValue">The default value.</param>
@@ -1282,12 +1260,14 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Gets the property value specified by the property name.
-        /// If it does not exist, the property value is set to the value returned by the initializer,
-        /// and the value is returned.
+        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
         /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="initializer">The initializer that returns initialization value.</param>
+        /// <param name="initializer">The initializer that returns the initialization value.</param>
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected virtual T GetProperty<T>(string propertyName, Func<T> initializer)
         {
@@ -1308,13 +1288,15 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Gets the property value specified by the property expression.
-        /// If it does not exist, the property value is set to the value returned by the initializer,
-        /// and the value is returned.
+        /// Gets the property value specified by the property expression that is used to extract the property name.
+        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
         /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="initializer">The initializer that returns initialization value.</param>
+        /// <param name="initializer">The initializer that returns the initialization value.</param>
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
         {
@@ -1323,45 +1305,43 @@ namespace Nicenis.ComponentModel
 
 
         /// <summary>
-        /// Sets a property value without raising a PropertyChanged event.
+        /// Sets a value to the property specified by the property name.
+        /// This method does not raise a PropertyChanged event.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyOnly<T>(string propertyName, T value)
         {
-            // Tries to get the cached property getter delegate.
-            Func<T> getter = null;
-            if (GetPropertyGetterFromStorage(propertyName, out getter) == false)
+            // Finds the KeyValue from the storage
+            KeyValue<string, object> keyValue = null;
+            if ((keyValue = GetPropertyFromStorage(propertyName)) == null)
             {
-                // Gets the property info.
-                PropertyInfo propertyInfo = GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                if (propertyInfo == null)
-                    throw new ArgumentException(string.Format("The property {0} does not exist.", propertyName));
-
-                // Creates a property getter delegate.
-                getter = (Func<T>)Delegate.CreateDelegate(typeof(Func<T>), this, propertyInfo.GetGetMethod(true));
-
-                // Saves the getter to the storage.
-                SetPropertyGetterToStorage(propertyName, getter);
+                // Adds a new key value.
+                keyValue = new KeyValue<string, object>(propertyName, default(T));
+                ValueStorage.Add(keyValue);
             }
 
-            // Gets the property value.
-            T oldValue = getter();
-
             // If the values are equal
-            if (object.Equals(oldValue, value))
+            if (object.Equals(keyValue.Value, value))
                 return false;
 
             // Sets the property value.
-            SetPropertyToStorage(propertyName, value);
+            keyValue.Value = value;
             return true;
         }
 
         /// <summary>
-        /// Sets a property value without raising a PropertyChanged event.
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// This method does not raise a PropertyChanged event.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
@@ -1372,9 +1352,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
@@ -1394,9 +1377,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
@@ -1408,9 +1394,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
@@ -1430,9 +1419,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, a PropertyChanged event are raised for the property name.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
@@ -1451,9 +1443,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
@@ -1465,9 +1460,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
@@ -1479,9 +1477,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
@@ -1493,9 +1494,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
         /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="value">The property value.</param>
@@ -1511,12 +1515,13 @@ namespace Nicenis.ComponentModel
         #region SetProperty with Local Storage Related
 
         /// <summary>
-        /// Sets a property value without raising a PropertyChanged event.
+        /// Sets a value to the specified storage.
+        /// This method does not raise a PropertyChanged event.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetPropertyOnly<T>(ref T storage, T value)
         {
             // If the values are equal
@@ -1529,15 +1534,15 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
         {
             // If the property is changed
@@ -1552,30 +1557,30 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
         {
             return SetProperty(propertyName, ref storage, value, (IEnumerable<string>)affectedPropertyNames);
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
         {
             // If the property is changed
@@ -1590,14 +1595,14 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
@@ -1615,59 +1620,59 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected properties.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, params string[] affectedPropertyNames)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, PropertyChanged events are raised for the property and the affected property.
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property name.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, string affectedPropertyName)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyName);
         }
 
         /// <summary>
-        /// Sets a property value.
-        /// If it is changed, a PropertyChanged event is raised for the property.
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name extracted from the property expression.
         /// </summary>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage for the property value.</param>
+        /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
         {
             return SetProperty(ToPropertyName(propertyExpression), ref storage, value);
@@ -1683,8 +1688,8 @@ namespace Nicenis.ComponentModel
         Storage<string, List<Action<PropertyChangedEventArgs>>> _watchStorage;
 
         /// <summary>
-        /// The storage to store property watches.
-        /// The storage key is property name, and the dictionary value is watch action list.
+        /// The property watch storage.
+        /// The storage key is a property name, and the storage value is a watch action list.
         /// </summary>
         private Storage<string, List<Action<PropertyChangedEventArgs>>> WatchStorage
         {
@@ -1692,12 +1697,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Gets the watch action list for the property.
+        /// Gets the watch action list specified by the property name from the storage.
         /// If there is no watch action list, null is returned.
         /// </summary>
         /// <param name="propertyName">The property name.</param>
         /// <returns>The watch action list if it exists; otherwise null.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetWatchActionList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetWatchActionListFromStorage(string propertyName)
         {
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
@@ -1714,12 +1719,12 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Gets the watch action list for the property.
+        /// Gets the watch action list specified by the property name from the storage.
         /// If there is no watch action list, a new list is created.
         /// </summary>
         /// <param name="propertyName">The property name.</param>
         /// <returns>The watch action list.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionList(string propertyName)
+        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionListFromStorage(string propertyName)
         {
             if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
@@ -1768,7 +1773,7 @@ namespace Nicenis.ComponentModel
         protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
         {
             // Gets the watch action list.
-            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
+            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
 
             // If there is watch actions
             if (watchActionList != null)
@@ -1793,7 +1798,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Enumerates property watches for the specified property.
+        /// Enumerates property watches for the specified property expression that is used to extract the property name.
         /// </summary>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <returns>The property watches.</returns>
@@ -1805,11 +1810,11 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Sets an action that is called when one of the specified properties is changed.
-        /// If the action is already set, it does nothing.
+        /// If the action is already set for each property names, it does nothing.
         /// </summary>
-        /// <param name="propertyNames">The property names to set a property watch.</param>
+        /// <param name="propertyNames">The property names to watch.</param>
         /// <param name="action">The action that is called when one of the properties is changed.</param>
-        /// <returns>The number of property watches that are newly set.</returns>
+        /// <returns>The number of actions that are newly set.</returns>
         protected int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
         {
             if (propertyNames == null)
@@ -1831,10 +1836,10 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Sets an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action is called for any property changes.
-        /// If the action is already set, it does nothing.
+        /// If the property name is the AllPropertyName, the action is called when any property is changed.
+        /// If the action is already set for the property name, it does nothing.
         /// </summary>
-        /// <param name="propertyName">The property name to set a property watch.</param>
+        /// <param name="propertyName">The property name to watch.</param>
         /// <param name="action">The action that is called when the property is changed.</param>
         /// <returns>True if the action is newly set; otherwise false.</returns>
         protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
@@ -1843,7 +1848,7 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("action");
 
             // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionList(propertyName);
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionListFromStorage(propertyName);
 
             // If the action already exists
             if (watchActionList.Contains(action))
@@ -1856,6 +1861,7 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Sets an action that is called when any property is changed.
+        /// If the action is already set, it does nothing.
         /// </summary>
         /// <param name="action">The action that is called when any property is changed.</param>
         /// <returns>True if the action is newly set; otherwise false.</returns>
@@ -1865,7 +1871,7 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Sets an action that is called when the specified property is changed.
+        /// Sets an action that is called when the property specified by the property expression is changed.
         /// If the action is already set, it does nothing.
         /// </summary>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
@@ -1879,8 +1885,9 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Removes an action that is called when one of the specified properties is changed.
+        /// If the action is already removed for each property names, it does nothing.
         /// </summary>
-        /// <param name="propertyNames">The property names to remove a property watch.</param>
+        /// <param name="propertyNames">The property names not to watch.</param>
         /// <param name="action">The action that is called when one of the properties is changed.</param>
         /// <returns>The number of actions that are removed.</returns>
         protected int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
@@ -1904,10 +1911,10 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Removes an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action for any property changes is removed.
-        /// If there is no registered action, it does nothing.
+        /// If the property name is the AllPropertyName, the action that is called when any property is changed is removed.
+        /// If the action is already removed, it does nothing.
         /// </summary>
-        /// <param name="propertyName">The property name to set a property watch.</param>
+        /// <param name="propertyName">The property name not to watch.</param>
         /// <param name="action">The action that is called when the property is changed.</param>
         /// <returns>True if the action is removed; otherwise false.</returns>
         protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
@@ -1916,7 +1923,7 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("action");
 
             // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionList(propertyName);
+            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
             if (watchActionList == null)
                 return false;
 
@@ -1925,8 +1932,8 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
-        /// Removes an action that is called when the specified property is changed.
-        /// If there is no registered action, it does nothing.
+        /// Removes an action that is called when the property specified by the property expression is changed.
+        /// If the action is already removed, it does nothing.
         /// </summary>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="action">The action that is called when the property is changed.</param>

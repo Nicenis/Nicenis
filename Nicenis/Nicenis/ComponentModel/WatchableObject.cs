@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -145,7 +146,7 @@ namespace Nicenis.ComponentModel
             #endregion
 
 
-            #region Helpers
+            #region Publics
 
             /// <summary>
             /// Finds a key/value pair associated with the specified key.
@@ -153,15 +154,23 @@ namespace Nicenis.ComponentModel
             /// </summary>
             /// <param name="key">The key to find.</param>
             /// <returns>The key/value pair if it exists; otherwise null.</returns>
-            private KeyValue<TKey, TValue> Find(TKey key)
+            public KeyValue<TKey, TValue> Find(TKey key)
             {
                 return _keyValues.FirstOrDefault(p => object.Equals(p.Key, key));
             }
 
-            #endregion
+            /// <summary>
+            /// Adds a new KeyValue pair.
+            /// The added key must not be a duplicated key.
+            /// </summary>
+            /// <param name="keyValue">The KeyValue pair to add.</param>
+            public void Add(KeyValue<TKey, TValue> keyValue)
+            {
+                Debug.Assert(keyValue != null);
+                Debug.Assert(_keyValues.Any(p => p.Key.Equals(keyValue.Key)) == false);
 
-
-            #region Publics
+                _keyValues.Add(keyValue);
+            }
 
             /// <summary>
             /// Gets or sets the value associated with the specified key.
@@ -1135,7 +1144,7 @@ namespace Nicenis.ComponentModel
 
         #region GetProperty/SetProperty Related
 
-        #region ValueStorage Related
+        #region Storage Related
 
         Storage<string, object> _valueStorage;
 
@@ -1177,6 +1186,24 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
+        /// Finds a property name/value pair associated with the specified property name.
+        /// If it does not exist, null is returned.
+        /// </summary>
+        /// <param name="propertyName">The property name to find.</param>
+        /// <returns>The property name/value pair if it exists; otherwise null.</returns>
+        private KeyValue<string, object> GetPropertyFromStorage(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
+            // Tries to retrieve the value if it exists.
+            if (_valueStorage != null)
+                return _valueStorage.Find(propertyName);
+
+            return null;
+        }
+
+        /// <summary>
         /// Sets the property value specified by the property name in the storage.
         /// If the property is not in the storage, it is added. Otherwise it replaces the existing value.
         /// </summary>
@@ -1189,64 +1216,6 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             ValueStorage[propertyName] = value;
-        }
-
-        #endregion
-
-        #region GetterStorage Related
-
-        Storage<string, object> _getterStorage;
-
-        /// <summary>
-        /// The property getter storage.
-        /// The storage key is a property name, and the storage value is a property getter delegate.
-        /// </summary>
-        private Storage<string, object> GetterStorage
-        {
-            get { return _getterStorage ?? (_getterStorage = new Storage<string, object>()); }
-        }
-
-        /// <summary>
-        /// Gets the property getter specified by the property name from the storage.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="getter">The property getter.</param>
-        /// <returns>True if the property getter is found in the internal storage; otherwise false.</returns>
-        private bool GetPropertyGetterFromStorage<T>(string propertyName, out Func<T> getter)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            // Tries to retrieve the getter if it exists.
-            if (_getterStorage != null)
-            {
-                object rawGetter;
-                if (_getterStorage.TryGetValue(propertyName, out rawGetter))
-                {
-                    getter = (Func<T>)rawGetter;
-                    return true;
-                }
-            }
-
-            // If the property getter is not found
-            getter = default(Func<T>);
-            return false;
-        }
-
-        /// <summary>
-        /// Sets the property getter specified by the property name in the storage.
-        /// If the property getter is not in the storage, it is added. Otherwise it replaces the existing value.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="getter">The property getter.</param>
-        private void SetPropertyGetterToStorage<T>(string propertyName, Func<T> getter)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            GetterStorage[propertyName] = getter;
         }
 
         #endregion
@@ -1348,31 +1317,21 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyOnly<T>(string propertyName, T value)
         {
-            // Tries to get the cached property getter delegate.
-            Func<T> getter = null;
-            if (GetPropertyGetterFromStorage(propertyName, out getter) == false)
+            // Finds the KeyValue from the storage
+            KeyValue<string, object> keyValue = null;
+            if ((keyValue = GetPropertyFromStorage(propertyName)) == null)
             {
-                // Gets the property info.
-                PropertyInfo propertyInfo = GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
-                if (propertyInfo == null)
-                    throw new ArgumentException(string.Format("The property {0} does not exist.", propertyName));
-
-                // Creates a property getter delegate.
-                getter = (Func<T>)propertyInfo.GetMethod.CreateDelegate(typeof(Func<T>), this);
-
-                // Saves the getter to the storage.
-                SetPropertyGetterToStorage(propertyName, getter);
+                // Adds a new key value.
+                keyValue = new KeyValue<string, object>(propertyName, default(T));
+                ValueStorage.Add(keyValue);
             }
 
-            // Gets the property value.
-            T oldValue = getter();
-
             // If the values are equal
-            if (object.Equals(oldValue, value))
+            if (object.Equals(keyValue.Value, value))
                 return false;
 
             // Sets the property value.
-            SetPropertyToStorage(propertyName, value);
+            keyValue.Value = value;
             return true;
         }
 
