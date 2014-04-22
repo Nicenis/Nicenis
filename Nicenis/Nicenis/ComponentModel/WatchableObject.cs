@@ -172,51 +172,6 @@ namespace Nicenis.ComponentModel
                 _keyValues.Add(keyValue);
             }
 
-            /// <summary>
-            /// Gets or sets the value associated with the specified key.
-            /// </summary>
-            /// <param name="key">The key of the value to get or set.</param>
-            /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a KeyNotFoundException, and a set operation creates a new element with the specified key.</returns>
-            public TValue this[TKey key]
-            {
-                get
-                {
-                    KeyValue<TKey, TValue> keyValue = Find(key);
-                    if (keyValue == null)
-                        throw new KeyNotFoundException(string.Format("The key {0} does not exist.", key));
-
-                    return keyValue.Value;
-                }
-
-                set
-                {
-                    KeyValue<TKey, TValue> keyValue = Find(key);
-                    if (keyValue == null)
-                        _keyValues.Add(new KeyValue<TKey, TValue>(key, value));
-                    else
-                        keyValue.Value = value;
-                }
-            }
-
-            /// <summary>
-            /// Gets the value associated with the specified key.
-            /// </summary>
-            /// <param name="key">The key of the value to get.</param>
-            /// <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
-            /// <returns>True if the Storage contains an element with the specified key; otherwise, false.</returns>
-            public bool TryGetValue(TKey key, out TValue value)
-            {
-                KeyValue<TKey, TValue> keyValue = Find(key);
-                if (keyValue == null)
-                {
-                    value = default(TValue);
-                    return false;
-                }
-
-                value = keyValue.Value;
-                return true;
-            }
-
             #endregion
 
 
@@ -1144,7 +1099,7 @@ namespace Nicenis.ComponentModel
 
         #region GetProperty/SetProperty Related
 
-        #region Storage Related
+        #region ValueStorage
 
         Storage<string, object> _valueStorage;
 
@@ -1155,67 +1110,6 @@ namespace Nicenis.ComponentModel
         private Storage<string, object> ValueStorage
         {
             get { return _valueStorage ?? (_valueStorage = new Storage<string, object>()); }
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property name from the storage.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
-        private bool GetPropertyFromStorage<T>(string propertyName, out T value)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            // Tries to retrieve the value if it exists.
-            if (_valueStorage != null)
-            {
-                object rawValue;
-                if (_valueStorage.TryGetValue(propertyName, out rawValue))
-                {
-                    value = (T)rawValue;
-                    return true;
-                }
-            }
-
-            // If the property is not found
-            value = default(T);
-            return false;
-        }
-
-        /// <summary>
-        /// Finds a property name/value pair associated with the specified property name.
-        /// If it does not exist, null is returned.
-        /// </summary>
-        /// <param name="propertyName">The property name to find.</param>
-        /// <returns>The property name/value pair if it exists; otherwise null.</returns>
-        private KeyValue<string, object> GetPropertyFromStorage(string propertyName)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            // Tries to retrieve the value if it exists.
-            if (_valueStorage != null)
-                return _valueStorage.Find(propertyName);
-
-            return null;
-        }
-
-        /// <summary>
-        /// Sets the property value specified by the property name in the storage.
-        /// If the property is not in the storage, it is added. Otherwise it replaces the existing value.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        private void SetPropertyToStorage<T>(string propertyName, T value)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            ValueStorage[propertyName] = value;
         }
 
         #endregion
@@ -1233,12 +1127,17 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the default value.</returns>
         protected virtual T GetProperty<T>(string propertyName, T defaultValue = default(T))
         {
-            // Returns the property value if it exists
-            T value;
-            if (GetPropertyFromStorage(propertyName, out value))
-                return value;
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
-            // Returns the default if the property does not exist.
+            if (_valueStorage != null)
+            {
+                // If the property exists in the storage
+                KeyValue<string, object> keyValue = _valueStorage.Find(propertyName);
+                if (keyValue != null)
+                    return (T)keyValue.Value;
+            }
+
             return defaultValue;
         }
 
@@ -1271,20 +1170,22 @@ namespace Nicenis.ComponentModel
         /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
         protected virtual T GetProperty<T>(string propertyName, Func<T> initializer)
         {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
             if (initializer == null)
                 throw new ArgumentNullException("initializer");
 
-            // Returns the property value if it exists
-            T value;
-            if (GetPropertyFromStorage(propertyName, out value))
-                return value;
+            // If the property does not exist in the storage
+            KeyValue<string, object> keyValue = null;
+            if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
+            {
+                // Initializes a new one.
+                keyValue = new KeyValue<string, object>(propertyName, initializer());
+                ValueStorage.Add(keyValue);
+            }
 
-            // Initializes the property value
-            value = initializer();
-            SetPropertyToStorage(propertyName, value);
-
-            // Returns the initialized vaule.
-            return value;
+            return (T)keyValue.Value;
         }
 
         /// <summary>
@@ -1317,11 +1218,14 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetPropertyOnly<T>(string propertyName, T value)
         {
-            // Finds the KeyValue from the storage
+            if (string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+
+            // If the property does not exist in the storage
             KeyValue<string, object> keyValue = null;
-            if ((keyValue = GetPropertyFromStorage(propertyName)) == null)
+            if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
             {
-                // Adds a new key value.
+                // Initializes a new one.
                 keyValue = new KeyValue<string, object>(propertyName, default(T));
                 ValueStorage.Add(keyValue);
             }
@@ -1810,7 +1714,7 @@ namespace Nicenis.ComponentModel
 
         #region Property Watch Related
 
-        #region Storage Related
+        #region WatchStorage
 
         Storage<string, List<Action<PropertyChangedEventArgs>>> _watchStorage;
 
@@ -1821,48 +1725,6 @@ namespace Nicenis.ComponentModel
         private Storage<string, List<Action<PropertyChangedEventArgs>>> WatchStorage
         {
             get { return _watchStorage ?? (_watchStorage = new Storage<string, List<Action<PropertyChangedEventArgs>>>()); }
-        }
-
-        /// <summary>
-        /// Gets the watch action list specified by the property name from the storage.
-        /// If there is no watch action list, null is returned.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The watch action list if it exists; otherwise null.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetWatchActionListFromStorage(string propertyName)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            if (_watchStorage != null)
-            {
-                // Gets the watch action list.
-                List<Action<PropertyChangedEventArgs>> watchActionList;
-                if (_watchStorage.TryGetValue(propertyName, out watchActionList))
-                    return watchActionList;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the watch action list specified by the property name from the storage.
-        /// If there is no watch action list, a new list is created.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The watch action list.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionListFromStorage(string propertyName)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList;
-            if (WatchStorage.TryGetValue(propertyName, out watchActionList))
-                return watchActionList;
-
-            // Creats a new list.
-            return WatchStorage[propertyName] = new List<Action<PropertyChangedEventArgs>>();
         }
 
         #endregion
@@ -1899,14 +1761,17 @@ namespace Nicenis.ComponentModel
         /// <returns>The property watches.</returns>
         protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
         {
-            // Gets the watch action list.
-            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
 
-            // If there is watch actions
-            if (watchActionList != null)
-                return watchActionList.Select(p => new PropertyWatch(propertyName, p));
+            if (_watchStorage != null)
+            {
+                // If there is the action list, enumerates PropertyWatchs.
+                KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
+                if (keyValue != null)
+                    return keyValue.Value.Select(p => new PropertyWatch(propertyName, p));
+            }
 
-            // If there is no watch action
             return Enumerable.Empty<PropertyWatch>();
         }
 
@@ -1971,18 +1836,29 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the action is newly set; otherwise false.</returns>
         protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+
             if (action == null)
                 throw new ArgumentNullException("action");
 
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionListFromStorage(propertyName);
-
-            // If the action already exists
-            if (watchActionList.Contains(action))
-                return false;
+            // If the watch action list does not exist
+            KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = null;
+            if (_watchStorage == null || (keyValue = _watchStorage.Find(propertyName)) == null)
+            {
+                // Initializes a new one.
+                keyValue = new KeyValue<string, List<Action<PropertyChangedEventArgs>>>(propertyName, new List<Action<PropertyChangedEventArgs>>());
+                WatchStorage.Add(keyValue);
+            }
+            else
+            {
+                // If the action already exists
+                if (keyValue.Value.Contains(action))
+                    return false;
+            }
 
             // Adds the action.
-            watchActionList.Add(action);
+            keyValue.Value.Add(action);
             return true;
         }
 
@@ -2049,13 +1925,15 @@ namespace Nicenis.ComponentModel
             if (action == null)
                 throw new ArgumentNullException("action");
 
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
-            if (watchActionList == null)
-                return false;
+            if (_watchStorage != null)
+            {
+                // If there is the action list, removes the action from it.
+                KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
+                if (keyValue != null)
+                    return keyValue.Value.Remove(action);
+            }
 
-            // Removes the action.
-            return watchActionList.Remove(action);
+            return false;
         }
 
         /// <summary>
