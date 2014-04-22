@@ -43,7 +43,7 @@ namespace WatchableObjectPerformanceTest
             };
 
 
-            Console.WriteLine("Running performace test... Please wait.");
+            Console.WriteLine("Running performance test... Please wait.");
             Console.WriteLine();
 
             // Runs the performance test.
