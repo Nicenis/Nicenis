@@ -27,6 +27,16 @@ namespace Nicenis.ComponentModel
     [DataContract]
     public class WatchableObject : INotifyPropertyChanged
     {
+        #region Constants
+
+        /// <summary>
+        /// The property name that represents all properties.
+        /// </summary>
+        public const string AllPropertyName = "";
+
+        #endregion
+
+
         #region Constructors
 
         /// <summary>
@@ -906,26 +916,6 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
 
             return memberExpression.Member.Name;
-        }
-
-        #endregion
-
-
-        #region IsAllPropertyName
-
-        /// <summary>
-        /// The property name that represents all properties.
-        /// </summary>
-        public const string AllPropertyName = "";
-
-        /// <summary>
-        /// Returns true if the propertyName parameter represents all properties.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>True if it represents all properties; otherwise false.</returns>
-        public static bool IsAllPropertyName(string propertyName)
-        {
-            return string.IsNullOrEmpty(propertyName);
         }
 
         #endregion
