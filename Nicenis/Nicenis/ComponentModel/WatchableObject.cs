@@ -1099,7 +1099,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(string propertyName, T value)
+        protected virtual bool SetPropertyOnly<T>(string propertyName, T value)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
@@ -1226,7 +1226,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(string propertyName, T value)
+        protected bool SetProperty<T>(string propertyName, T value)
         {
             // If the property is changed
             if (SetPropertyOnly(propertyName, value))
@@ -1409,7 +1409,7 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(ref T storage, T value)
+        protected virtual bool SetPropertyOnly<T>(ref T storage, T value)
         {
             // If the values are equal
             if (object.Equals(storage, value))
@@ -1500,7 +1500,7 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
