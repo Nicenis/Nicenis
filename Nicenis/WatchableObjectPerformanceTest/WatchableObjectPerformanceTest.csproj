@@ -44,10 +44,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITestable.cs" />
-    <Compile Include="SampleAE.cs" />
-    <Compile Include="SampleA.cs" />
-    <Compile Include="SampleLE.cs" />
-    <Compile Include="SampleL.cs" />
+    <Compile Include="SampleA6.cs" />
+    <Compile Include="SampleA12.cs" />
+    <Compile Include="SampleA25.cs" />
+    <Compile Include="SampleA50.cs" />
+    <Compile Include="SampleAE6.cs" />
+    <Compile Include="SampleAE12.cs" />
+    <Compile Include="SampleAE25.cs" />
+    <Compile Include="SampleAE50.cs" />
+    <Compile Include="SampleAE100.cs" />
+    <Compile Include="SampleA100.cs" />
+    <Compile Include="SampleL6.cs" />
+    <Compile Include="SampleL12.cs" />
+    <Compile Include="SampleL25.cs" />
+    <Compile Include="SampleL50.cs" />
+    <Compile Include="SampleLE6.cs" />
+    <Compile Include="SampleLE12.cs" />
+    <Compile Include="SampleLE25.cs" />
+    <Compile Include="SampleLE50.cs" />
+    <Compile Include="SampleLE100.cs" />
+    <Compile Include="SampleL100.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
