@@ -87,11 +87,10 @@ namespace Nicenis.ComponentModel
         #region KeyValue
 
         /// <summary>
-        /// Represents a key/value pair.
+        /// Represents a value with a string key.
         /// </summary>
-        /// <typeparam name="TKey">The key type.</typeparam>
         /// <typeparam name="TValue">The value type.</typeparam>
-        private class KeyValue<TKey, TValue>
+        private class KeyValue<TValue>
         {
             #region Constructors
 
@@ -100,7 +99,7 @@ namespace Nicenis.ComponentModel
             /// </summary>
             /// <param name="key">The key.</param>
             /// <param name="value">The value.</param>
-            public KeyValue(TKey key, TValue value)
+            public KeyValue(string key, TValue value)
             {
                 Key = key;
                 Value = value;
@@ -114,7 +113,7 @@ namespace Nicenis.ComponentModel
             /// <summary>
             /// The key.
             /// </summary>
-            public TKey Key { get; private set; }
+            public string Key { get; private set; }
 
             /// <summary>
             /// The value.
@@ -127,13 +126,12 @@ namespace Nicenis.ComponentModel
         #endregion
 
         /// <summary>
-        /// Stores key/value pairs.
+        /// Stores values with string keys.
         /// </summary>
-        /// <typeparam name="TKey">The key type.</typeparam>
         /// <typeparam name="TValue">The value type.</typeparam>
-        private class Storage<TKey, TValue> : IEnumerable<KeyValue<TKey, TValue>>
+        private class Storage<TValue> : IEnumerable<KeyValue<TValue>>
         {
-            List<KeyValue<TKey, TValue>> _keyValues = new List<KeyValue<TKey, TValue>>();
+            List<KeyValue<TValue>> _keyValues = new List<KeyValue<TValue>>();
 
 
             #region Constructors
@@ -154,9 +152,9 @@ namespace Nicenis.ComponentModel
             /// </summary>
             /// <param name="key">The key to find.</param>
             /// <returns>The key/value pair if it exists; otherwise null.</returns>
-            public KeyValue<TKey, TValue> Find(TKey key)
+            public KeyValue<TValue> Find(string key)
             {
-                return _keyValues.FirstOrDefault(p => object.Equals(p.Key, key));
+                return _keyValues.FirstOrDefault(p => p.Key == key);
             }
 
             /// <summary>
@@ -164,10 +162,10 @@ namespace Nicenis.ComponentModel
             /// The added key must not be a duplicated key.
             /// </summary>
             /// <param name="keyValue">The KeyValue pair to add.</param>
-            public void Add(KeyValue<TKey, TValue> keyValue)
+            public void Add(KeyValue<TValue> keyValue)
             {
                 Debug.Assert(keyValue != null);
-                Debug.Assert(_keyValues.Any(p => p.Key.Equals(keyValue.Key)) == false);
+                Debug.Assert(_keyValues.Any(p => p.Key == keyValue.Key) == false);
 
                 _keyValues.Add(keyValue);
             }
@@ -177,7 +175,7 @@ namespace Nicenis.ComponentModel
 
             #region IEnumerable Implementation Related
 
-            public IEnumerator<KeyValue<TKey, TValue>> GetEnumerator()
+            public IEnumerator<KeyValue<TValue>> GetEnumerator()
             {
                 return _keyValues.GetEnumerator();
             }
@@ -1101,15 +1099,15 @@ namespace Nicenis.ComponentModel
 
         #region ValueStorage
 
-        Storage<string, object> _valueStorage;
+        Storage<object> _valueStorage;
 
         /// <summary>
         /// The property value storage.
         /// The storage key is a property name, and the storage value is a property value.
         /// </summary>
-        private Storage<string, object> ValueStorage
+        private Storage<object> ValueStorage
         {
-            get { return _valueStorage ?? (_valueStorage = new Storage<string, object>()); }
+            get { return _valueStorage ?? (_valueStorage = new Storage<object>()); }
         }
 
         #endregion
@@ -1134,11 +1132,11 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("initializer");
 
             // If the property does not exist in the storage
-            KeyValue<string, object> keyValue = null;
+            KeyValue<object> keyValue = null;
             if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
             {
                 // Initializes a new one.
-                keyValue = new KeyValue<string, object>(propertyName, initializer());
+                keyValue = new KeyValue<object>(propertyName, initializer());
                 ValueStorage.Add(keyValue);
             }
 
@@ -1207,11 +1205,11 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // If the property does not exist in the storage
-            KeyValue<string, object> keyValue = null;
+            KeyValue<object> keyValue = null;
             if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
             {
                 // Initializes a new one.
-                keyValue = new KeyValue<string, object>(propertyName, default(T));
+                keyValue = new KeyValue<object>(propertyName, default(T));
                 ValueStorage.Add(keyValue);
             }
 
@@ -1574,15 +1572,15 @@ namespace Nicenis.ComponentModel
 
         #region WatchStorage
 
-        Storage<string, List<Action<PropertyChangedEventArgs>>> _watchStorage;
+        Storage<List<Action<PropertyChangedEventArgs>>> _watchStorage;
 
         /// <summary>
         /// The property watch storage.
         /// The storage key is a property name, and the storage value is a watch action list.
         /// </summary>
-        private Storage<string, List<Action<PropertyChangedEventArgs>>> WatchStorage
+        private Storage<List<Action<PropertyChangedEventArgs>>> WatchStorage
         {
-            get { return _watchStorage ?? (_watchStorage = new Storage<string, List<Action<PropertyChangedEventArgs>>>()); }
+            get { return _watchStorage ?? (_watchStorage = new Storage<List<Action<PropertyChangedEventArgs>>>()); }
         }
 
         #endregion
@@ -1625,7 +1623,7 @@ namespace Nicenis.ComponentModel
             if (_watchStorage != null)
             {
                 // If there is the action list, enumerates PropertyWatchs.
-                KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
+                KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
                 if (keyValue != null)
                     return keyValue.Value.Select(p => new PropertyWatch(propertyName, p));
             }
@@ -1642,7 +1640,7 @@ namespace Nicenis.ComponentModel
             if (_watchStorage == null)
                 yield break;
 
-            foreach (KeyValue<string, List<Action<PropertyChangedEventArgs>>> pair in _watchStorage)
+            foreach (KeyValue<List<Action<PropertyChangedEventArgs>>> pair in _watchStorage)
                 foreach (Action<PropertyChangedEventArgs> watchAction in pair.Value)
                     yield return new PropertyWatch(pair.Key, watchAction);
         }
@@ -1701,11 +1699,11 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("action");
 
             // If the watch action list does not exist
-            KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = null;
+            KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = null;
             if (_watchStorage == null || (keyValue = _watchStorage.Find(propertyName)) == null)
             {
                 // Initializes a new one.
-                keyValue = new KeyValue<string, List<Action<PropertyChangedEventArgs>>>(propertyName, new List<Action<PropertyChangedEventArgs>>());
+                keyValue = new KeyValue<List<Action<PropertyChangedEventArgs>>>(propertyName, new List<Action<PropertyChangedEventArgs>>());
                 WatchStorage.Add(keyValue);
             }
             else
@@ -1789,7 +1787,7 @@ namespace Nicenis.ComponentModel
             if (_watchStorage != null)
             {
                 // If there is the action list, removes the action from it.
-                KeyValue<string, List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
+                KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
                 if (keyValue != null)
                     return keyValue.Value.Remove(action);
             }
