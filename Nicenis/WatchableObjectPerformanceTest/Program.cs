@@ -68,6 +68,10 @@ namespace WatchableObjectPerformanceTest
             foreach (TestItem testItem in testItems)
                 Console.Write(testItem.TotalTicks / iterationCount + " ticks\t\t");
             Console.WriteLine();
+
+            Console.WriteLine();
+            Console.WriteLine(string.Format("Frequency in ticks per second: {0:N0}", Stopwatch.Frequency));
+            Console.WriteLine();
         }
     }
 }
