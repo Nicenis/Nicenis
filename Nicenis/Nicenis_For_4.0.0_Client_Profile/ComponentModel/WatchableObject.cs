@@ -27,128 +27,6 @@ namespace Nicenis.ComponentModel
     [DataContract]
     public class WatchableObject : INotifyPropertyChanged
     {
-        #region Storage Related
-
-        #region KeyValue
-
-        /// <summary>
-        /// Represents a value with a string key.
-        /// </summary>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        private class KeyValue<TValue>
-        {
-            #region Constructors
-
-            /// <summary>
-            /// Initializes a new instance.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            public KeyValue(string key, TValue value)
-            {
-                Debug.Assert(key != null);
-
-                Key = key;
-                Value = value;
-            }
-
-            #endregion
-
-
-            #region Properties
-
-            /// <summary>
-            /// The key.
-            /// </summary>
-            public string Key { get; private set; }
-
-            /// <summary>
-            /// The value.
-            /// </summary>
-            public TValue Value { get; set; }
-
-            #endregion
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Stores values with string keys.
-        /// </summary>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        private class Storage<TValue> : IEnumerable<KeyValue<TValue>>
-        {
-            List<KeyValue<TValue>> _keyValues = new List<KeyValue<TValue>>();
-
-
-            #region Constructors
-
-            /// <summary>
-            /// Initializes a new instance.
-            /// </summary>
-            public Storage() { }
-
-            #endregion
-
-
-            #region Publics
-
-            /// <summary>
-            /// Finds a key/value pair associated with the specified key.
-            /// If it does not exist, null is returned.
-            /// </summary>
-            /// <param name="key">The key to find.</param>
-            /// <returns>The key/value pair if it exists; otherwise null.</returns>
-            public KeyValue<TValue> Find(string key)
-            {
-                Debug.Assert(key != null);
-
-                foreach (KeyValue<TValue> keyValue in _keyValues)
-                {
-                    if (keyValue.Key.Length != key.Length)
-                        continue;
-
-                    if (keyValue.Key == key)
-                        return keyValue;
-                }
-
-                return null;
-            }
-
-            /// <summary>
-            /// Adds a new KeyValue pair.
-            /// The added key must not be a duplicated key.
-            /// </summary>
-            /// <param name="keyValue">The KeyValue pair to add.</param>
-            public void Add(KeyValue<TValue> keyValue)
-            {
-                Debug.Assert(keyValue != null);
-                Debug.Assert(_keyValues.Any(p => p.Key == keyValue.Key) == false);
-
-                _keyValues.Add(keyValue);
-            }
-
-            #endregion
-
-
-            #region IEnumerable Implementation Related
-
-            public IEnumerator<KeyValue<TValue>> GetEnumerator()
-            {
-                return _keyValues.GetEnumerator();
-            }
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return _keyValues.GetEnumerator();
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-
         #region Constructors
 
         /// <summary>
@@ -1055,17 +933,92 @@ namespace Nicenis.ComponentModel
 
         #region GetProperty/SetProperty Related
 
-        #region ValueStorage
+        #region Property Value Storage Related
 
-        Storage<object> _valueStorage;
+        #region PropertyValue
 
         /// <summary>
-        /// The property value storage.
-        /// The storage key is a property name, and the storage value is a property value.
+        /// Represents a property value.
         /// </summary>
-        private Storage<object> ValueStorage
+        private class PropertyValue
         {
-            get { return _valueStorage ?? (_valueStorage = new Storage<object>()); }
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            /// <param name="name">The property name.</param>
+            /// <param name="value">The property value.</param>
+            public PropertyValue(string name, object value)
+            {
+                Debug.Assert(string.IsNullOrWhiteSpace(name) == false);
+
+                Name = name;
+                Value = value;
+            }
+
+            #endregion
+
+
+            #region Properties
+
+            /// <summary>
+            /// The property name.
+            /// </summary>
+            public string Name { get; private set; }
+
+            /// <summary>
+            /// The property value.
+            /// </summary>
+            public object Value { get; set; }
+
+            #endregion
+        }
+
+        #endregion
+
+
+        List<PropertyValue> _propertyValueStorage;
+
+        /// <summary>
+        /// Finds a property value associated with the specified property name.
+        /// If it does not exist, null is returned.
+        /// </summary>
+        /// <param name="propertyName">The property name to find.</param>
+        /// <returns>The property value if it exists; otherwise null.</returns>
+        private PropertyValue FindFromStorage(string propertyName)
+        {
+            Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
+
+            if (_propertyValueStorage == null)
+                return null;
+
+            foreach (PropertyValue propertyValue in _propertyValueStorage)
+            {
+                if (propertyValue.Name.Length != propertyName.Length)
+                    continue;
+
+                if (propertyValue.Name == propertyName)
+                    return propertyValue;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Adds a new property value.
+        /// The added property name must not be a duplicated property name.
+        /// </summary>
+        /// <param name="propertyValue">The property value to add.</param>
+        private void AddToStorage(PropertyValue propertyValue)
+        {
+            Debug.Assert(propertyValue != null);
+
+            if (_propertyValueStorage == null)
+                _propertyValueStorage = new List<PropertyValue>();
+
+            Debug.Assert(_propertyValueStorage.Any(p => p.Name == propertyValue.Name) == false);
+            _propertyValueStorage.Add(propertyValue);
         }
 
         #endregion
@@ -1090,15 +1043,15 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentNullException("initializer");
 
             // If the property does not exist in the storage
-            KeyValue<object> keyValue = null;
-            if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
+            PropertyValue propertyValue = null;
+            if ((propertyValue = FindFromStorage(propertyName)) == null)
             {
                 // Initializes a new one.
-                keyValue = new KeyValue<object>(propertyName, initializer());
-                ValueStorage.Add(keyValue);
+                propertyValue = new PropertyValue(propertyName, initializer());
+                AddToStorage(propertyValue);
             }
 
-            return (T)keyValue.Value;
+            return (T)propertyValue.Value;
         }
 
         /// <summary>
@@ -1163,20 +1116,20 @@ namespace Nicenis.ComponentModel
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
             // If the property does not exist in the storage
-            KeyValue<object> keyValue = null;
-            if (_valueStorage == null || (keyValue = _valueStorage.Find(propertyName)) == null)
+            PropertyValue propertyValue = null;
+            if ((propertyValue = FindFromStorage(propertyName)) == null)
             {
                 // Initializes a new one.
-                keyValue = new KeyValue<object>(propertyName, default(T));
-                ValueStorage.Add(keyValue);
+                propertyValue = new PropertyValue(propertyName, default(T));
+                AddToStorage(propertyValue);
             }
 
             // If the values are equal
-            if (object.Equals(keyValue.Value, value))
+            if (object.Equals(propertyValue.Value, value))
                 return false;
 
             // Sets the property value.
-            keyValue.Value = value;
+            propertyValue.Value = value;
             return true;
         }
 
