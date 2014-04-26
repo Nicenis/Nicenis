@@ -1,2000 +1,3248 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
- * Since    2014.02.23
+ * Since    2014.03.21
  * Version  $Id$
- * 
+ *
  * This file is a part of the Nicenis project.
  * https://nicenis.codeplex.com
  * 
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nicenis.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
-namespace Nicenis.ComponentModel
+namespace NicenisTests.ComponentModel
 {
-    #region PropertyWatch
-
-    /// <summary>
-    /// Represents an event handler for property changed events.
-    /// </summary>
-    public class PropertyWatch
+    [TestClass]
+    public class WatchableObjectTests
     {
-        #region Constructors
+        #region Sample Classes
 
-        /// <summary>
-        /// Initializes a new instance.
-        /// </summary>
-        /// <param name="propertyName">The property name to watch. An empty string represents all properties.</param>
-        /// <param name="action">The event handler that is called when the watched property is changed.</param>
-        public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
+        class Sample : WatchableObject
         {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+            #region Converted Methods From Protected To Public
 
-            if (action == null)
-                throw new ArgumentNullException("action");
+            #region ToPropertyName Related
 
-            PropertyName = propertyName;
-            Action = action;
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                    Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
+                    Expression<Func<T19>> propertyExpression19)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17, propertyExpression18
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16, propertyExpression17
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
+                    Expression<Func<T16>> propertyExpression16)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
+                    propertyExpression16
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
+                    Expression<Func<T13>> propertyExpression13)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12, propertyExpression13
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
+                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
+                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
+                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11, propertyExpression12
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
+                    Expression<Func<T11>> propertyExpression11)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
+                    propertyExpression11
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                    Expression<Func<T8>> propertyExpression8)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7, propertyExpression8
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6, propertyExpression7
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
+                    propertyExpression6
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                    Expression<Func<T5>> propertyExpression5)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                    Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                    Expression<Func<T3>> propertyExpression3)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2, propertyExpression3
+                );
+            }
+
+            public new static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+            {
+                return WatchableObject.ToPropertyName
+                (
+                    propertyExpression, propertyExpression2
+                );
+            }
+
+            public new static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
+            {
+                return WatchableObject.ToPropertyName(propertyExpression);
+            }
+
+            #endregion
+
+            #region GetProperty Related
+
+            public new T GetProperty<T>(string propertyName, Func<T> initializer)
+            {
+                return base.GetProperty(propertyName, initializer);
+            }
+
+            public new T GetProperty<T>(string propertyName)
+            {
+                return base.GetProperty<T>(propertyName);
+            }
+
+            public new T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
+            {
+                return base.GetProperty(propertyExpression, initializer);
+            }
+
+            public new T GetProperty<T>(Expression<Func<T>> propertyExpression)
+            {
+                return base.GetProperty<T>(propertyExpression);
+            }
+
+            #endregion
+
+            #region SetProperty Related
+
+            public new bool SetPropertyOnly<T>(string propertyName, T value)
+            {
+                return base.SetPropertyOnly(propertyName, value);
+            }
+
+            public new bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value)
+            {
+                return base.SetPropertyOnly(propertyExpression, value);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, params string[] affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyName, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(string propertyName, T value)
+            {
+                return base.SetProperty(propertyName, value);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyExpression, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, params string[] affectedPropertyNames)
+            {
+                return base.SetProperty(propertyExpression, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyExpression, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
+            {
+                return base.SetProperty(propertyExpression, value);
+            }
+
+            #endregion
+
+#if !NICENIS_4C
+
+            #region GetCallerProperty/SetCallerProperty Related
+
+            public new T GetCallerProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
+            {
+                return base.GetCallerProperty(initializer, propertyName);
+            }
+
+            public new T GetCallerProperty<T>([CallerMemberName] string propertyName = "")
+            {
+                return base.GetCallerProperty<T>(propertyName);
+            }
+
+            public new bool SetCallerPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
+            {
+                return base.SetCallerPropertyOnly(value, propertyName);
+            }
+
+            public new bool SetCallerProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+            {
+                return base.SetCallerProperty(value, affectedPropertyNames, propertyName);
+            }
+
+            public new bool SetCallerProperty<T>(T value, [CallerMemberName] string propertyName = "")
+            {
+                return base.SetCallerProperty(value, propertyName);
+            }
+
+            #endregion
+
+#endif
+
+            #region SetProperty with Local Storage Related
+
+            public new bool SetPropertyOnly<T>(ref T storage, T value)
+            {
+                return base.SetPropertyOnly(ref storage, value);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyName, ref storage, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(string propertyName, ref T storage, T value)
+            {
+                return base.SetProperty(propertyName, ref storage, value);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
+            {
+                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, params string[] affectedPropertyNames)
+            {
+                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyNames);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, string affectedPropertyName)
+            {
+                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyName);
+            }
+
+            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
+            {
+                return base.SetProperty(propertyExpression, ref storage, value);
+            }
+
+            #endregion
+
+#if !NICENIS_4C
+
+            #region SetCallerProperty with Local Storage Related
+
+            public new bool SetCallerProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+            {
+                return base.SetCallerProperty(ref storage, value, affectedPropertyNames, propertyName);
+            }
+
+            public new bool SetCallerProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+            {
+                return base.SetCallerProperty(ref storage, value, propertyName);
+            }
+
+            #endregion
+
+#endif
+
+            #region EnumeratePropertyWatch Related
+
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
+            {
+                return base.EnumeratePropertyWatch(propertyNames);
+            }
+
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
+            {
+                return base.EnumeratePropertyWatch(propertyName);
+            }
+
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch()
+            {
+                return base.EnumeratePropertyWatch();
+            }
+
+            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
+            {
+                return base.EnumeratePropertyWatch(propertyExpression);
+            }
+
+            #endregion
+
+            #region SetPropertyWatch Related
+
+            public new int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
+            {
+                return base.SetPropertyWatch(propertyNames, action);
+            }
+
+            public new bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
+            {
+                return base.SetPropertyWatch(propertyName, action);
+            }
+
+            public new bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
+            {
+                return base.SetPropertyWatch(propertyExpression, action);
+            }
+
+            #endregion
+
+            #region RemovePropertyWatch Related
+
+            public new int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
+            {
+                return base.RemovePropertyWatch(propertyNames, action);
+            }
+
+            public new bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
+            {
+                return base.RemovePropertyWatch(propertyName, action);
+            }
+
+            public new void RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
+            {
+                base.RemovePropertyWatch(propertyExpression, action);
+            }
+
+            #endregion
+
+            #region OnPropertyChanged Related
+
+            public new void OnPropertyChanged(string propertyName)
+            {
+                base.OnPropertyChanged(propertyName);
+            }
+
+            public new void OnPropertyChanged(IEnumerable<string> propertyNames)
+            {
+                base.OnPropertyChanged(propertyNames);
+            }
+
+            #endregion
+
+            #endregion
+
+            #region ValueProperty & ReferenceProperty Related
+
+            public int ValueProperty
+            {
+                get { return GetProperty(() => ValueProperty); }
+                set { SetProperty(() => ValueProperty, value); }
+            }
+
+            public string ReferenceProperty
+            {
+                get { return GetProperty(() => ReferenceProperty); }
+                set { SetProperty(() => ReferenceProperty, value); }
+            }
+
+            private int PrivateValueProperty
+            {
+                get { return GetProperty(() => PrivateValueProperty); }
+                set { SetProperty(() => PrivateValueProperty, value); }
+            }
+
+            public int IndirectPrivateValueProperty
+            {
+                get { return PrivateValueProperty; }
+                set { PrivateValueProperty = value; }
+            }
+
+#if !NICENIS_4C
+
+            public string CallerMemberNameProperty
+            {
+                get { return GetCallerProperty<string>(); }
+                set { SetCallerProperty(value); }
+            }
+
+            public string CallerMemberNamePropertyWithoutPropertyChangedEvent
+            {
+                get { return GetCallerProperty<string>(); }
+                set { SetCallerPropertyOnly(value); }
+            }
+
+            string _callerMemberNamePropertyWithLocalStorage;
+
+            public string CallerMemberNamePropertyWithLocalStorage
+            {
+                get { return _callerMemberNamePropertyWithLocalStorage; }
+                set { SetCallerProperty(ref _callerMemberNamePropertyWithLocalStorage, value); }
+            }
+
+#endif
+
+            #endregion
+
+            #region TestProperty1 ~ TestProperty2
+
+            public class TestPropertyType1 { }
+            public class TestPropertyType2 { }
+
+            public TestPropertyType1 TestProperty1
+            {
+                get { return GetProperty(() => TestProperty1); }
+                set { SetProperty(() => TestProperty1, value); }
+            }
+
+            public TestPropertyType2 TestProperty2
+            {
+                get { return GetProperty(() => TestProperty2); }
+                set { SetProperty(() => TestProperty2, value); }
+            }
+
+            #endregion
+        }
+
+        [DataContract]
+        public class SerializationSample : WatchableObject
+        {
+            [DataMember]
+            public int TestValue
+            {
+                get { return GetProperty(() => TestValue); }
+                set { SetProperty(() => TestValue, value); }
+            }
+
+            [DataMember]
+            public string TestString
+            {
+                get { return GetProperty(() => TestString, () => "Test String"); }
+                set { SetProperty(() => TestString, value); }
+            }
         }
 
         #endregion
 
 
-        #region Properties
+        #region Helpers
 
-        /// <summary>
-        /// Gets the value indicating whether the Action is called for any property change.
-        /// </summary>
-        public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
-
-        /// <summary>
-        /// Gets the property name to watch.
-        /// An empty string represents all properties.
-        /// It is always not null.
-        /// </summary>
-        public string PropertyName { get; private set; }
-
-        /// <summary>
-        /// Gets the event handler that is called when the watched property is changed.
-        /// It is always not null.
-        /// </summary>
-        public Action<PropertyChangedEventArgs> Action { get; private set; }
-
-        #endregion
-    }
-
-    #endregion
-
-
-    /// <summary>
-    /// Provides a base implementation for the INotifyPropertyChanged interface.
-    /// </summary>
-    [DataContract]
-    public class WatchableObject : INotifyPropertyChanged
-    {
-        #region Storage Related
-
-        #region KeyValue
-
-        /// <summary>
-        /// Represents a key/value pair.
-        /// </summary>
-        /// <typeparam name="TKey">The key type.</typeparam>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        private class KeyValue<TKey, TValue>
+        private void SetPropertyByReflection(Sample sample, string propertyName, object value)
         {
-            #region Constructors
+            Assert.IsNotNull(sample);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(propertyName));
 
-            /// <summary>
-            /// Initializes a new instance.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            public KeyValue(TKey key, TValue value)
-            {
-                Key = key;
-                Value = value;
-            }
-
-            #endregion
-
-
-            #region Properties
-
-            /// <summary>
-            /// The key.
-            /// </summary>
-            public TKey Key { get; private set; }
-
-            /// <summary>
-            /// The value.
-            /// </summary>
-            public TValue Value { get; set; }
-
-            #endregion
+            sample.GetType().InvokeMember
+            (
+                name: propertyName,
+                invokeAttr: BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty,
+                binder: null,
+                target: sample,
+                args: new object[] { value }
+            );
         }
 
-        #endregion
-
-        /// <summary>
-        /// Stores key/value pairs.
-        /// </summary>
-        /// <typeparam name="TKey">The key type.</typeparam>
-        /// <typeparam name="TValue">The value type.</typeparam>
-        private class Storage<TKey, TValue> : IEnumerable<KeyValue<TKey, TValue>>
+        private void ChangeTestProperty(Sample sample, int count)
         {
-            List<KeyValue<TKey, TValue>> _keyValues = new List<KeyValue<TKey, TValue>>();
-
-
-            #region Constructors
-
-            /// <summary>
-            /// Initializes a new instance.
-            /// </summary>
-            public Storage() { }
-
-            #endregion
-
-
-            #region Publics
-
-            /// <summary>
-            /// Finds a key/value pair associated with the specified key.
-            /// If it does not exist, null is returned.
-            /// </summary>
-            /// <param name="key">The key to find.</param>
-            /// <returns>The key/value pair if it exists; otherwise null.</returns>
-            public KeyValue<TKey, TValue> Find(TKey key)
+            for (int i = 0; i < count; i++)
             {
-                return _keyValues.FirstOrDefault(p => object.Equals(p.Key, key));
+                int no = i + 1;
+
+                SetPropertyByReflection
+                (
+                    sample: sample,
+                    propertyName: "TestProperty" + no,
+                    value: Activator.CreateInstance
+                    (
+                        assemblyName: null,
+                        typeName: "NicenisTests.ComponentModel.WatchableObjectTests+Sample+TestPropertyType" + no
+                    ).Unwrap()
+                );
             }
+        }
 
-            /// <summary>
-            /// Adds a new KeyValue pair.
-            /// The added key must not be a duplicated key.
-            /// </summary>
-            /// <param name="keyValue">The KeyValue pair to add.</param>
-            public void Add(KeyValue<TKey, TValue> keyValue)
+        private static int ExtractFirstNumberInPropertyName(string propertyName)
+        {
+            string numberString = "";
+            foreach (char chr in propertyName)
             {
-                Debug.Assert(keyValue != null);
-                Debug.Assert(_keyValues.Any(p => p.Key.Equals(keyValue.Key)) == false);
-
-                _keyValues.Add(keyValue);
-            }
-
-            /// <summary>
-            /// Gets or sets the value associated with the specified key.
-            /// </summary>
-            /// <param name="key">The key of the value to get or set.</param>
-            /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a KeyNotFoundException, and a set operation creates a new element with the specified key.</returns>
-            public TValue this[TKey key]
-            {
-                get
+                if (!char.IsDigit(chr))
                 {
-                    KeyValue<TKey, TValue> keyValue = Find(key);
-                    if (keyValue == null)
-                        throw new KeyNotFoundException(string.Format("The key {0} does not exist.", key));
+                    if (numberString == "")
+                        continue;
 
-                    return keyValue.Value;
+                    break;
                 }
 
-                set
-                {
-                    KeyValue<TKey, TValue> keyValue = Find(key);
-                    if (keyValue == null)
-                        _keyValues.Add(new KeyValue<TKey, TValue>(key, value));
-                    else
-                        keyValue.Value = value;
-                }
-            }
+                numberString += chr;
+            };
 
-            /// <summary>
-            /// Gets the value associated with the specified key.
-            /// </summary>
-            /// <param name="key">The key of the value to get.</param>
-            /// <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
-            /// <returns>True if the Storage contains an element with the specified key; otherwise, false.</returns>
-            public bool TryGetValue(TKey key, out TValue value)
-            {
-                KeyValue<TKey, TValue> keyValue = Find(key);
-                if (keyValue == null)
-                {
-                    value = default(TValue);
-                    return false;
-                }
-
-                value = keyValue.Value;
-                return true;
-            }
-
-            #endregion
-
-
-            #region IEnumerable Implementation Related
-
-            public IEnumerator<KeyValue<TKey, TValue>> GetEnumerator()
-            {
-                return _keyValues.GetEnumerator();
-            }
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return _keyValues.GetEnumerator();
-            }
-
-            #endregion
+            return int.Parse(numberString);
         }
 
         #endregion
 
 
-        #region Constructors
+        #region GetProperty Parameter Check Related
 
-        /// <summary>
-        /// Initializes a new instance.
-        /// </summary>
-        public WatchableObject() { }
-
-        #endregion
-
-
-        #region ToPropertyName
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T19">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T20">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression20">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_null_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
-            yield return ToPropertyName(propertyExpression16);
-            yield return ToPropertyName(propertyExpression17);
-            yield return ToPropertyName(propertyExpression18);
-            yield return ToPropertyName(propertyExpression19);
-            yield return ToPropertyName(propertyExpression20);
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T19">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                Expression<Func<T19>> propertyExpression19)
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_empty_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
-            yield return ToPropertyName(propertyExpression16);
-            yield return ToPropertyName(propertyExpression17);
-            yield return ToPropertyName(propertyExpression18);
-            yield return ToPropertyName(propertyExpression19);
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T18">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
+        [TestMethod]
+        public void GetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
-            yield return ToPropertyName(propertyExpression16);
-            yield return ToPropertyName(propertyExpression17);
-            yield return ToPropertyName(propertyExpression18);
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T17">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_null_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
-            yield return ToPropertyName(propertyExpression16);
-            yield return ToPropertyName(propertyExpression17);
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T16">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                Expression<Func<T16>> propertyExpression16)
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_empty_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
-            yield return ToPropertyName(propertyExpression16);
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T15">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_whitespace_property_name_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-            yield return ToPropertyName(propertyExpression15);
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, () => "Test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T14">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
+        [TestMethod]
+        public void GetProperty_with_initializer_must_throw_exception_if_null_initializer_is_passed()
         {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-            yield return ToPropertyName(propertyExpression14);
-        }
+            // arrange
+            string propertyName = "propertyName";
+            Exception exception = null;
+            Sample sample = new Sample();
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T13">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                Expression<Func<T13>> propertyExpression13)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-            yield return ToPropertyName(propertyExpression13);
-        }
+            // act
+            try
+            {
+                sample.GetProperty<string>(propertyName, initializer: null);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T12">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-            yield return ToPropertyName(propertyExpression12);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T11">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
-                Expression<Func<T11>> propertyExpression11)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-            yield return ToPropertyName(propertyExpression11);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-            yield return ToPropertyName(propertyExpression10);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-            yield return ToPropertyName(propertyExpression9);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                Expression<Func<T8>> propertyExpression8)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-            yield return ToPropertyName(propertyExpression8);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-            yield return ToPropertyName(propertyExpression7);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-            yield return ToPropertyName(propertyExpression6);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
-                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                Expression<Func<T5>> propertyExpression5)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-            yield return ToPropertyName(propertyExpression5);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-            yield return ToPropertyName(propertyExpression4);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                Expression<Func<T3>> propertyExpression3)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-            yield return ToPropertyName(propertyExpression3);
-        }
-
-        /// <summary>
-        /// Enumerates property names extracted from the lambda expressions that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
-        /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
-        {
-            yield return ToPropertyName(propertyExpression);
-            yield return ToPropertyName(propertyExpression2);
-        }
-
-        /// <summary>
-        /// Returns the property name extracted from the lambda expression that return a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <returns>The property name extracted.</returns>
-        protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
-        {
-            if (propertyExpression == null)
-                throw new ArgumentNullException("propertyExpression");
-
-            var memberExpression = propertyExpression.Body as MemberExpression;
-            if (memberExpression == null)
-                throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
-
-            return memberExpression.Member.Name;
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "initializer");
         }
 
         #endregion
 
 
-        #region IsAllPropertyName
+        #region GetProperty Test Related
 
-        /// <summary>
-        /// The property name that represents all properties.
-        /// </summary>
-        public const string AllPropertyName = "";
-
-        /// <summary>
-        /// Returns true if the propertyName parameter represents all properties.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>True if it represents all properties; otherwise false.</returns>
-        public static bool IsAllPropertyName(string propertyName)
+        [TestMethod]
+        public void GetProperty_must_return_default_value_if_it_is_not_set()
         {
-            return string.IsNullOrEmpty(propertyName);
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            int property = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(default(int), property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_return_default_reference_if_it_is_not_set()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            string property = sample.ReferenceProperty;
+
+            // assert
+            Assert.AreEqual(default(string), property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_return_initialized_value_if_it_is_not_set()
+        {
+            // arrange
+            const int initializedValue = 10;
+            Sample sample = new Sample();
+
+            // act
+            int property = sample.GetProperty(() => sample.ValueProperty, () => initializedValue);
+
+            // assert
+            Assert.AreEqual(initializedValue, property);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_not_call_initializer_twice()
+        {
+            // arrange
+            const int initializedValue = 10;
+            const int expectedInitializerCallCount = 1;
+            Sample sample = new Sample();
+            int initializerCallCount = 0;
+            Func<int> initializer = () =>
+            {
+                initializerCallCount++;
+                return initializedValue;
+            };
+
+            // act
+            sample.GetProperty(() => sample.ValueProperty, initializer);
+            sample.GetProperty(() => sample.ValueProperty, initializer);
+
+            // assert
+            Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
+        }
+
+        [TestMethod]
+        public void GetProperty_must_not_call_initializer_if_it_is_set()
+        {
+            // arrange
+            const int setValue = 100;
+            const int initializedValue = 10;
+            const int expectedInitializerCallCount = 0;
+            Sample sample = new Sample();
+            int initializerCallCount = 0;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, setValue);
+            sample.GetProperty(() => sample.ValueProperty, () =>
+            {
+                initializerCallCount++;
+                return initializedValue;
+            });
+
+            // assert
+            Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
         }
 
         #endregion
 
 
-        #region GetProperty/SetProperty Related
+        #region SetPropertyOnly Parameter Check Related
 
-        #region Storage Related
-
-        Storage<string, object> _valueStorage;
-
-        /// <summary>
-        /// The property value storage.
-        /// The storage key is a property name, and the storage value is a property value.
-        /// </summary>
-        private Storage<string, object> ValueStorage
+        [TestMethod]
+        public void SetPropertyOnly_must_throw_exception_if_null_property_name_is_passed()
         {
-            get { return _valueStorage ?? (_valueStorage = new Storage<string, object>()); }
-        }
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
 
-        /// <summary>
-        /// Gets the property value specified by the property name from the storage.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is found in the internal storage; otherwise false.</returns>
-        private bool GetPropertyFromStorage<T>(string propertyName, out T value)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            // Tries to retrieve the value if it exists.
-            if (_valueStorage != null)
+            // act
+            try
             {
-                object rawValue;
-                if (_valueStorage.TryGetValue(propertyName, out rawValue))
-                {
-                    value = (T)rawValue;
-                    return true;
-                }
+                sample.SetPropertyOnly(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            // If the property is not found
-            value = default(T);
-            return false;
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Finds a property name/value pair associated with the specified property name.
-        /// If it does not exist, null is returned.
-        /// </summary>
-        /// <param name="propertyName">The property name to find.</param>
-        /// <returns>The property name/value pair if it exists; otherwise null.</returns>
-        private KeyValue<string, object> GetPropertyFromStorage(string propertyName)
+        [TestMethod]
+        public void SetPropertyOnly_must_throw_exception_if_empty_property_name_is_passed()
         {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            // Tries to retrieve the value if it exists.
-            if (_valueStorage != null)
-                return _valueStorage.Find(propertyName);
-
-            return null;
-        }
-
-        /// <summary>
-        /// Sets the property value specified by the property name in the storage.
-        /// If the property is not in the storage, it is added. Otherwise it replaces the existing value.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        private void SetPropertyToStorage<T>(string propertyName, T value)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            ValueStorage[propertyName] = value;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Gets the property value specified by the property name.
-        /// If it does not exist, the default is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected virtual T GetProperty<T>(string propertyName, T defaultValue = default(T))
-        {
-            // Returns the property value if it exists
-            T value;
-            if (GetPropertyFromStorage(propertyName, out value))
-                return value;
-
-            // Returns the default if the property does not exist.
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property expression that is used to extract the property name.
-        /// If it does not exist, the default is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected T GetProperty<T>(Expression<Func<T>> propertyExpression, T defaultValue = default(T))
-        {
-            return GetProperty(ToPropertyName(propertyExpression), defaultValue);
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property name.
-        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="initializer">The initializer that returns the initialization value.</param>
-        /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
-        protected virtual T GetProperty<T>(string propertyName, Func<T> initializer)
-        {
-            if (initializer == null)
-                throw new ArgumentNullException("initializer");
-
-            // Returns the property value if it exists
-            T value;
-            if (GetPropertyFromStorage(propertyName, out value))
-                return value;
-
-            // Initializes the property value
-            value = initializer();
-            SetPropertyToStorage(propertyName, value);
-
-            // Returns the initialized vaule.
-            return value;
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property expression that is used to extract the property name.
-        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="initializer">The initializer that returns the initialization value.</param>
-        /// <returns>The property value if it exists; otherwise the value returned by the initializer.</returns>
-        protected T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
-        {
-            return GetProperty(ToPropertyName(propertyExpression), initializer);
-        }
-
-
-        /// <summary>
-        /// Sets a value to the property specified by the property name.
-        /// This method does not raise a PropertyChanged event.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(string propertyName, T value)
-        {
-            // Finds the KeyValue from the storage
-            KeyValue<string, object> keyValue = null;
-            if ((keyValue = GetPropertyFromStorage(propertyName)) == null)
+            // act
+            try
             {
-                // Adds a new key value.
-                keyValue = new KeyValue<string, object>(propertyName, default(T));
-                ValueStorage.Add(keyValue);
+                sample.SetPropertyOnly(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            // If the values are equal
-            if (object.Equals(keyValue.Value, value))
-                return false;
-
-            // Sets the property value.
-            keyValue.Value = value;
-            return true;
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Sets a value to the property specified by the property expression that is used to extract the property name.
-        /// This method does not raise a PropertyChanged event.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value)
+        [TestMethod]
+        public void SetPropertyOnly_must_throw_exception_if_whitespace_property_name_is_passed()
         {
-            return SetPropertyOnly(ToPropertyName(propertyExpression), value);
-        }
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
 
-        /// <summary>
-        /// Sets a value to the property specified by the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
-        {
-            // If the property is changed
-            if (SetProperty(propertyName, value))
+            // act
+            try
             {
-                // Raises PropertyChanged events for the affected property names.
-                OnPropertyChanged(affectedPropertyNames);
-                return true;
+                sample.SetPropertyOnly(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            return false;
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, params string[] affectedPropertyNames)
-        {
-            return SetProperty(propertyName, value, (IEnumerable<string>)affectedPropertyNames);
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
-        {
-            // If the property is changed
-            if (SetProperty(propertyName, value))
-            {
-                // Raises a PropertyChanged event for the affected property name.
-                OnPropertyChanged(affectedPropertyName);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property name.
-        /// If it is changed, a PropertyChanged event are raised for the property name.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(string propertyName, T value)
-        {
-            // If the property is changed
-            if (SetPropertyOnly(propertyName, value))
-            {
-                // Raises a PropertyChanged event.
-                OnPropertyChanged(propertyName);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property expression that is used to extract the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, IEnumerable<string> affectedPropertyNames)
-        {
-            return SetProperty(ToPropertyName(propertyExpression), value, affectedPropertyNames);
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property expression that is used to extract the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, params string[] affectedPropertyNames)
-        {
-            return SetProperty(ToPropertyName(propertyExpression), value, affectedPropertyNames);
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property expression that is used to extract the property name.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, string affectedPropertyName)
-        {
-            return SetProperty(ToPropertyName(propertyExpression), value, affectedPropertyName);
-        }
-
-        /// <summary>
-        /// Sets a value to the property specified by the property expression that is used to extract the property name.
-        /// If it is changed, a PropertyChanged event is raised for the property name.
-        /// </summary>
-        /// <remarks>
-        /// This method stores the property value in the internal storage.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
-        {
-            return SetProperty(ToPropertyName(propertyExpression), value);
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
         #endregion
 
 
-        #region SetProperty with Local Storage Related
+        #region SetProperty Parameter Check Related
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// This method does not raise a PropertyChanged event.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(ref T storage, T value)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
         {
-            // If the values are equal
-            if (object.Equals(storage, value))
-                return false;
+            // arrange
+            string propertyName = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            // Sets the property value.
-            storage = value;
-            return true;
-        }
-
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
-        {
-            // If the property is changed
-            if (SetProperty(propertyName, ref storage, value))
+            // act
+            try
             {
-                // Raises PropertyChanged events for the affected property names.
-                OnPropertyChanged(affectedPropertyNames);
-                return true;
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            return false;
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
         {
-            return SetProperty(propertyName, ref storage, value, (IEnumerable<string>)affectedPropertyNames);
-        }
+            // arrange
+            string propertyName = "";
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
-        {
-            // If the property is changed
-            if (SetProperty(propertyName, ref storage, value))
+            // act
+            try
             {
-                // Raises a PropertyChanged event for the affected property name.
-                OnPropertyChanged(affectedPropertyName);
-                return true;
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            return false;
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, a PropertyChanged event is raised for the property name.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(string propertyName, ref T storage, T value)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
         {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
+            // arrange
+            string propertyName = " ";
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            // If the property is changed
-            if (SetPropertyOnly(ref storage, value))
+            // act
+            try
             {
-                // Raises a PropertyChanged event.
-                OnPropertyChanged(propertyName);
-                return true;
+                sample.SetProperty(propertyName, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            return false;
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
         {
-            return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyNames">The affected property names.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, params string[] affectedPropertyNames)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
-            return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyNames);
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[0];
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property name.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <param name="affectedPropertyName">The affected property name.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, string affectedPropertyName)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
         {
-            return SetProperty(ToPropertyName(propertyExpression), ref storage, value, affectedPropertyName);
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
         }
 
-        /// <summary>
-        /// Sets a value to the specified storage.
-        /// If it is changed, a PropertyChanged event is raised for the property name extracted from the property expression.
-        /// </summary>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="storage">The storage to store the property value.</param>
-        /// <param name="value">The property value.</param>
-        /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
         {
-            return SetProperty(ToPropertyName(propertyExpression), ref storage, value);
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = null;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = "";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            string affectedPropertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
         #endregion
 
 
-        #region Property Watch Related
+        #region SetProperty Test Related
 
-        #region Storage Related
-
-        Storage<string, List<Action<PropertyChangedEventArgs>>> _watchStorage;
-
-        /// <summary>
-        /// The property watch storage.
-        /// The storage key is a property name, and the storage value is a watch action list.
-        /// </summary>
-        private Storage<string, List<Action<PropertyChangedEventArgs>>> WatchStorage
+        [TestMethod]
+        public void SetPropertyOnly_must_set_value_properly()
         {
-            get { return _watchStorage ?? (_watchStorage = new Storage<string, List<Action<PropertyChangedEventArgs>>>()); }
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
         }
 
-        /// <summary>
-        /// Gets the watch action list specified by the property name from the storage.
-        /// If there is no watch action list, null is returned.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The watch action list if it exists; otherwise null.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetWatchActionListFromStorage(string propertyName)
+        [TestMethod]
+        public void SetPropertyOnly_must_not_raise_PropertyChanged()
         {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+            // arrange
+            const int testValue = 100;
 
-            if (_watchStorage != null)
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            sample.PropertyChanged += (_, __) => propertyChangedCount++;
+
+            // act
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
+            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_set_reference_properly()
+        {
+            // arrange
+            const string testReference = "Test";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ReferenceProperty, testReference);
+            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+
+            // assert
+            Assert.AreEqual(propertyReference, testReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_multiple_properties()
+        {
+            // arrange
+            const int testValue = 10;
+            const string testReference = "Test";
+
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+            sample.SetProperty(() => sample.ReferenceProperty, testReference);
+
+            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+
+            // assert
+            Assert.AreEqual(testValue, propertyValue);
+            Assert.AreEqual(testReference, propertyReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            sample.PropertyChanged += (_, e) =>
             {
-                // Gets the watch action list.
-                List<Action<PropertyChangedEventArgs>> watchActionList;
-                if (_watchStorage.TryGetValue(propertyName, out watchActionList))
-                    return watchActionList;
-            }
+                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
 
-            return null;
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(1, propertyChangedCount);
+            Assert.AreEqual(1, valuePropertyChangedCount);
         }
 
-        /// <summary>
-        /// Gets the watch action list specified by the property name from the storage.
-        /// If there is no watch action list, a new list is created.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The watch action list.</returns>
-        private List<Action<PropertyChangedEventArgs>> GetOrCreateWatchActionListFromStorage(string propertyName)
+        [TestMethod]
+        public void SetProperty_must_not_raise_PropertyChanged_if_it_is_not_changed()
         {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+            // arrange
+            const int testValue = default(int);
 
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList;
-            if (WatchStorage.TryGetValue(propertyName, out watchActionList))
-                return watchActionList;
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
 
-            // Creats a new list.
-            return WatchStorage[propertyName] = new List<Action<PropertyChangedEventArgs>>();
+            Sample sample = new Sample();
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+            Assert.AreEqual(0, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 3;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue, Sample.ToPropertyName(() => sample.TestProperty1, () => sample.TestProperty2)
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_raise_PropertyChanged_for_1_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 2;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, testValue, Sample.ToPropertyName(() => sample.TestProperty1)
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_private_property()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            sample.IndirectPrivateValueProperty = 10;
+
+            // assert
+            Assert.IsTrue(true);
         }
 
         #endregion
 
-        /// <summary>
-        /// Enumerates property watches for the specified properties.
-        /// </summary>
-        /// <param name="propertyNames">The property names.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
 
-            foreach (string propertyName in propertyNames)
-                foreach (PropertyWatch propertyWatch in EnumeratePropertyWatch(propertyName))
-                    yield return propertyWatch;
+        #region SetProperty with local storage Parameter Check Related
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property watches for the specified properties.
-        /// </summary>
-        /// <param name="propertyNames">The property names.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(params string[] propertyNames)
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
         {
-            return EnumeratePropertyWatch((IEnumerable<string>)propertyNames);
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates property watches for the specified property.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The property watches.</returns>
-        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
         {
-            // Gets the watch action list.
-            IEnumerable<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            // If there is watch actions
-            if (watchActionList != null)
-                return watchActionList.Select(p => new PropertyWatch(propertyName, p));
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
-            // If there is no watch action
-            return Enumerable.Empty<PropertyWatch>();
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
-        /// <summary>
-        /// Enumerates all property watches of this instance.
-        /// </summary>
-        /// <returns>The property watches.</returns>
-        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch()
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
         {
-            if (_watchStorage == null)
-                yield break;
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            foreach (KeyValue<string, List<Action<PropertyChangedEventArgs>>> pair in _watchStorage)
-                foreach (Action<PropertyChangedEventArgs> watchAction in pair.Value)
-                    yield return new PropertyWatch(pair.Key, watchAction);
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
         }
 
-        /// <summary>
-        /// Enumerates property watches for the specified property expression that is used to extract the property name.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
-            return EnumeratePropertyWatch(ToPropertyName(propertyExpression));
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[0];
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            string affectedPropertyName = "affected";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = null;
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = "";
+            Sample sample = new Sample();
+
+            // act
+            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        {
+            // arrange
+            string propertyName = "ValueProperty";
+            int storage = 0;
+            string affectedPropertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
         }
 
 
-        /// <summary>
-        /// Sets an action that is called when one of the specified properties is changed.
-        /// If the action is already set for each property names, it does nothing.
-        /// </summary>
-        /// <param name="propertyNames">The property names to watch.</param>
-        /// <param name="action">The action that is called when one of the properties is changed.</param>
-        /// <returns>The number of actions that are newly set.</returns>
-        protected int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_null_property_name_is_passed()
         {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
+            // arrange
+            string propertyName = null;
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
 
-            if (action == null)
-                throw new ArgumentNullException("action");
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_empty_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = "";
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_throw_exception_if_whitespace_property_name_is_passed()
+        {
+            // arrange
+            string propertyName = " ";
+            string storage = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, "test");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region SetProperty with local storage Test Related
+
+        [TestMethod]
+        public void SetPropertyOnly_with_local_storage_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+            int valueStorage = 0;
+
+            // act
+            sample.SetPropertyOnly(ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(valueStorage, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_set_value_properly()
+        {
+            // arrange
+            const int testValue = 100;
+            Sample sample = new Sample();
+            int valueStorage = 0;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(valueStorage, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_set_reference_properly()
+        {
+            // arrange
+            const string testReference = "Test";
+            Sample sample = new Sample();
+            string referenceStorage = null;
+
+            // act
+            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+
+            // assert
+            Assert.AreEqual(referenceStorage, testReference);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_support_multiple_properties()
+        {
+            // arrange
+            const int testValue = 10;
+            const string testReference = "Test";
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            string referenceStorage = null;
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+
+            // assert
+            Assert.AreEqual(testValue, valueStorage);
+            Assert.AreEqual(testReference, referenceStorage);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(1, propertyChangedCount);
+            Assert.AreEqual(1, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_not_raise_PropertyChanged_if_it_is_not_changed()
+        {
+            // arrange
+            const int testValue = default(int);
+
+            int propertyChangedCount = 0;
+            int valuePropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            sample.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                    valuePropertyChangedCount++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+
+            // assert
+            Assert.AreEqual(0, propertyChangedCount);
+            Assert.AreEqual(0, valuePropertyChangedCount);
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 3;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue, Sample.ToPropertyName(() => sample.TestProperty1, () => sample.TestProperty2)
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        [TestMethod]
+        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_1_affected_property_if_it_is_changed()
+        {
+            // arrange
+            const int testValue = 1000;
+            const int changedPropertyCount = 2;
+            const int affectedPropertyCount = changedPropertyCount - 1;
+
+            Sample sample = new Sample();
+            int valueStorage = 0;
+            int propertyChangedCount = 0;
+            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
+            sample.PropertyChanged += (_, e) =>
+            {
+                // If it is not an affected property
+                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
+
+                propertyChangedCount++;
+            };
+
+            // act
+            sample.SetProperty
+            (
+                () => sample.ValueProperty, ref valueStorage, testValue, Sample.ToPropertyName(() => sample.TestProperty1)
+            );
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
+            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+        }
+
+        #endregion
+
+
+#if !NICENIS_4C
+
+        #region GetCallerProperty/SetCallerProperty Test Related
+
+        [TestMethod]
+        public void SetCallerProperty_must_set_value_properly()
+        {
+            // arrange
+            const string testValue = "test value";
+            Sample sample = new Sample();
+
+            // act
+            sample.CallerMemberNameProperty = testValue;
+            string propertyValue = sample.CallerMemberNameProperty;
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
+        }
+
+        [TestMethod]
+        public void SetCallerProperty_must_raise_property_changed_event()
+        {
+            // arrange
+            const int expectedPropertyChangedCount = 1;
+            const string expectedChangedPropertyName = "CallerMemberNameProperty";
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            string changedPropertyName = null;
+
+            sample.PropertyChanged += (_, e) =>
+            {
+                propertyChangedCount++;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // act
+            sample.CallerMemberNameProperty = "test value";
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
+            Assert.AreEqual(changedPropertyName, expectedChangedPropertyName);
+        }
+
+        [TestMethod]
+        public void SetCallerPropertyOnly_must_not_raise_property_changed_event()
+        {
+            // arrange
+            const int expectedPropertyChangedCount = 0;
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+
+            sample.PropertyChanged += (_, __) => propertyChangedCount++;
+
+            // act
+            sample.CallerMemberNamePropertyWithoutPropertyChangedEvent = "Test Value";
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
+        }
+
+        #endregion
+
+
+        #region SetCallerProperty with local storage Test Related
+
+        [TestMethod]
+        public void SetCallerPropertyWithLocalStorage_must_set_value_properly()
+        {
+            // arrange
+            const string testValue = "test value";
+            Sample sample = new Sample();
+
+            // act
+            sample.CallerMemberNamePropertyWithLocalStorage = testValue;
+            string propertyValue = sample.CallerMemberNamePropertyWithLocalStorage;
+
+            // assert
+            Assert.AreEqual(propertyValue, testValue);
+        }
+
+        [TestMethod]
+        public void SetCallerPropertyWithLocalStorage_must_raise_property_changed_event()
+        {
+            // arrange
+            const int expectedPropertyChangedCount = 1;
+            const string expectedChangedPropertyName = "CallerMemberNamePropertyWithLocalStorage";
+
+            Sample sample = new Sample();
+            int propertyChangedCount = 0;
+            string changedPropertyName = null;
+
+            sample.PropertyChanged += (_, e) =>
+            {
+                propertyChangedCount++;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // act
+            sample.CallerMemberNamePropertyWithLocalStorage = "test value";
+
+            // assert
+            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
+            Assert.AreEqual(changedPropertyName, expectedChangedPropertyName);
+        }
+
+        #endregion
+
+#endif
+
+
+        #region EnumeratePropertyWatch Parameter Check Related
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyWatch(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Sample sample = new Sample();
+
+            // act
+            sample.EnumeratePropertyWatch(propertyNames).Count();
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyWatch(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_contain_empty_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Sample sample = new Sample();
+
+            // act
+            sample.EnumeratePropertyWatch(propertyNames).Count();
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyWatch(propertyNames).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyWatch(propertyName).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_name_is_empty_string()
+        {
+            // arrange
+            string propertyName = "";
+            Sample sample = new Sample();
+
+            // act
+            sample.EnumeratePropertyWatch(propertyName).Count();
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.EnumeratePropertyWatch(propertyName).Count();
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        #endregion
+
+
+        #region EnumeratePropertyWatch Test Related
+
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_enumerate_watch_action_for_a_property()
+        {
+            // arrange
+            Sample sample = new Sample();
             int counter = 0;
-            foreach (string propertyName in propertyNames)
+            string propertyName = Sample.ToPropertyName(() => sample.TestProperty1);
+
+            // act
+            sample.SetPropertyWatch(propertyName, p =>
             {
-                // If the watch action is added, increases the counter.
-                if (SetPropertyWatch(propertyName, action))
+                if (p.PropertyName == propertyName)
                     counter++;
-            }
+            });
 
-            return counter;
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
+                info.Action(new PropertyChangedEventArgs(info.PropertyName));
+
+            // assert
+            Assert.AreEqual(1, counter);
         }
 
-        /// <summary>
-        /// Sets an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action is called when any property is changed.
-        /// If the action is already set for the property name, it does nothing.
-        /// </summary>
-        /// <param name="propertyName">The property name to watch.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
+        [TestMethod]
+        public void EnumeratePropertyWatch_must_support_multiple_properties()
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            // arrange
+            Sample sample = new Sample();
+            int counter = 0, counter2 = 0;
+            string propertyName = Sample.ToPropertyName(() => sample.TestProperty1);
+            string propertyName2 = Sample.ToPropertyName(() => sample.TestProperty2);
 
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetOrCreateWatchActionListFromStorage(propertyName);
-
-            // If the action already exists
-            if (watchActionList.Contains(action))
-                return false;
-
-            // Adds the action.
-            watchActionList.Add(action);
-            return true;
-        }
-
-        /// <summary>
-        /// Sets an action that is called when any property is changed.
-        /// If the action is already set, it does nothing.
-        /// </summary>
-        /// <param name="action">The action that is called when any property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected bool SetPropertyWatch(Action<PropertyChangedEventArgs> action)
-        {
-            return SetPropertyWatch(AllPropertyName, action);
-        }
-
-        /// <summary>
-        /// Sets an action that is called when the property specified by the property expression is changed.
-        /// If the action is already set, it does nothing.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-        {
-            return SetPropertyWatch(ToPropertyName(propertyExpression), action);
-        }
-
-
-        /// <summary>
-        /// Removes an action that is called when one of the specified properties is changed.
-        /// If the action is already removed for each property names, it does nothing.
-        /// </summary>
-        /// <param name="propertyNames">The property names not to watch.</param>
-        /// <param name="action">The action that is called when one of the properties is changed.</param>
-        /// <returns>The number of actions that are removed.</returns>
-        protected int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            int counter = 0;
-            foreach (string propertyName in propertyNames)
+            // act
+            sample.SetPropertyWatch(propertyName, p =>
             {
-                // If the action is removed, increases the counter.
-                if (RemovePropertyWatch(propertyName, action))
+                if (p.PropertyName == propertyName)
                     counter++;
-            }
+            });
 
-            return counter;
+            sample.SetPropertyWatch(propertyName2, p =>
+            {
+                if (p.PropertyName == propertyName2)
+                    counter2++;
+            });
+
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
+                info.Action(new PropertyChangedEventArgs(propertyName));
+
+            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName2))
+                info.Action(new PropertyChangedEventArgs(propertyName2));
+
+            // assert
+            Assert.AreEqual(1, counter);
+            Assert.AreEqual(1, counter2);
         }
 
-        /// <summary>
-        /// Removes an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action that is called when any property is changed is removed.
-        /// If the action is already removed, it does nothing.
-        /// </summary>
-        /// <param name="propertyName">The property name not to watch.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is removed; otherwise false.</returns>
-        protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
+        [TestMethod]
+        public void EnumeratePropertyWatch_for_property_expression_must_succeed()
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            // arrange
+            const int parameterNameCount = 1;
+            Sample sample = new Sample();
+            int[] propertyChangedCounts = new int[parameterNameCount];
 
-            // Gets the watch action list.
-            List<Action<PropertyChangedEventArgs>> watchActionList = GetWatchActionListFromStorage(propertyName);
-            if (watchActionList == null)
-                return false;
+            // act
+            sample.SetPropertyWatch
+            (
+                () => sample.TestProperty1,
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
 
-            // Removes the action.
-            return watchActionList.Remove(action);
-        }
+            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
+            (
+                () => sample.TestProperty1
+            );
 
-        /// <summary>
-        /// Removes an action that is called when the property specified by the property expression is changed.
-        /// If the action is already removed, it does nothing.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is removed; otherwise false.</returns>
-        protected bool RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-        {
-            return RemovePropertyWatch(ToPropertyName(propertyExpression), action);
-        }
-
-        #endregion
-
-
-        #region INotifyPropertyChanged Implementation Related
-
-        /// <summary>
-        /// Occurs when a property value is changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises a PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            // Calls the property changed event handlers.
-            PropertyChangedEventHandler propertyChanged = PropertyChanged;
-            PropertyChangedEventArgs e = new PropertyChangedEventArgs(propertyName);
-            if (propertyChanged != null)
-                propertyChanged(this, e);
-
-            // If all properties are changed, calls all watch actions.
-            IEnumerable<PropertyWatch> propertyWatches = IsAllPropertyName(propertyName)
-                                                       ? EnumeratePropertyWatch()
-                                                       : EnumeratePropertyWatch(propertyName).Concat(EnumeratePropertyWatch(AllPropertyName));
-
-            // Calls the watch actions.
             foreach (PropertyWatch propertyWatch in propertyWatches)
-                propertyWatch.Action(e);
+                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
+
+            // assert
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
         }
 
-        /// <summary>
-        /// Raises PropertyChanged events.
-        /// </summary>
-        /// <param name="propertyNames">The property names that changed. Null is not allowed.</param>
-        protected void OnPropertyChanged(IEnumerable<string> propertyNames)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
+        #endregion
 
-            foreach (string propertyName in propertyNames)
-                OnPropertyChanged(propertyName);
+
+        #region SetPropertyWatch Parameter Check Related
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
         }
 
-        /// <summary>
-        /// Raises PropertyChanged events.
-        /// </summary>
-        /// <param name="propertyNames">The property names that changed. Null is not allowed.</param>
-        protected void OnPropertyChanged(params string[] propertyNames)
+        [TestMethod]
+        public void SetPropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
         {
-            OnPropertyChanged((IEnumerable<string>)propertyNames);
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.SetPropertyWatch(propertyNames, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.SetPropertyWatch(propertyNames, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test" };
+            Action<PropertyChangedEventArgs> action = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "action");
+        }
+
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
+        {
+            // arrange
+            string propertyName = "";
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.SetPropertyWatch(propertyName, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_must_throw_exception_if_action_is_null()
+        {
+            // arrange
+            string propertyName = "test";
+            Action<PropertyChangedEventArgs> action = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.SetPropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "action");
+        }
+
+        #endregion
+
+
+        #region SetPropertyWatch Test Related
+
+        [TestMethod]
+        public void Watch_Action_must_be_called_when_the_target_property_is_changed()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counter++);
+            sample.ValueProperty = newValue;
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(1, counter);
+        }
+
+        [TestMethod]
+        public void Duplicated_Watch_Action_must_not_be_called_when_the_target_property_is_changed()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> action = p => counter++;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.ValueProperty = newValue;
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(1, counter);
+        }
+
+        [TestMethod]
+        public void Watch_Action_must_support_multiple_properties()
+        {
+            // arrange
+            const int newValue = 10;
+            const string newReference = "test";
+            Sample sample = new Sample();
+            int counterForValue = 0;
+            int counterForReference = 0;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
+            sample.SetPropertyWatch(() => sample.ReferenceProperty, p => counterForReference++);
+            sample.ValueProperty = newValue;
+            sample.ReferenceProperty = newReference;
+
+            // assert
+            Assert.AreEqual(1, counterForValue);
+            Assert.AreEqual(1, counterForReference);
+        }
+
+        [TestMethod]
+        public void Watch_Action_for_all_property_must_be_called_when_any_target_property_is_changed()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            int counterForValue = 0;
+
+            // act
+            sample.SetPropertyWatch(WatchableObject.AllPropertyName, p => counter++);
+            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
+            sample.ValueProperty = newValue;
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(1, counter);
+            Assert.AreEqual(1, counterForValue);
+        }
+
+        [TestMethod]
+        public void SetPropertyWatch_for_property_expression_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 1;
+            Sample sample = new Sample();
+            int[] propertyChangedCounts = new int[parameterNameCount];
+
+            // act
+            sample.SetPropertyWatch
+            (
+                () => sample.TestProperty1,
+                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
+        }
+
+        #endregion
+
+
+        #region RemovePropertyWatch Parameter Check Related
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = null;
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyNames");
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[0];
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.RemovePropertyWatch(propertyNames, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", null };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", "" };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.RemovePropertyWatch(propertyNames, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test", " " };
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
+        {
+            // arrange
+            IEnumerable<string> propertyNames = new string[] { "test" };
+            Action<PropertyChangedEventArgs> action = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyNames, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "action");
+        }
+
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_null()
+        {
+            // arrange
+            string propertyName = null;
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
+        {
+            // arrange
+            string propertyName = "";
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Sample sample = new Sample();
+
+            // act
+            sample.RemovePropertyWatch(propertyName, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
+        {
+            // arrange
+            string propertyName = " ";
+            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "propertyName");
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_throw_exception_if_action_is_null()
+        {
+            // arrange
+            string propertyName = "test";
+            Action<PropertyChangedEventArgs> action = null;
+            Exception exception = null;
+            Sample sample = new Sample();
+
+            // act
+            try
+            {
+                sample.RemovePropertyWatch(propertyName, action);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            // assert
+            Assert.IsTrue(exception is ArgumentNullException);
+            StringAssert.Contains(exception.Message, "action");
+        }
+
+        #endregion
+
+
+        #region RemovePropertyWatch Test Related
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_remove_Watch_Action()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> action = p => counter++;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_support_duplicated_call()
+        {
+            // arrange
+            const int newValue = 10;
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> action = p => counter++;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
+            sample.ValueProperty = newValue;
+
+            // assert
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_succeed_if_Watch_Action_is_not_set()
+        {
+            // arrange
+            Sample sample = new Sample();
+            int counter = 0;
+            Action<PropertyChangedEventArgs> action = p => counter++;
+
+            // act
+            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
+
+            // assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_must_support_multiple_properties()
+        {
+            // arrange
+            const int newValue = 10;
+            const string newReference = "test";
+            Sample sample = new Sample();
+            int counterForValue = 0;
+            int counterForReference = 0;
+            Action<PropertyChangedEventArgs> actionForValue = p => counterForValue++;
+            Action<PropertyChangedEventArgs> actionForReference = p => counterForReference++;
+
+            // act
+            sample.SetPropertyWatch(() => sample.ValueProperty, actionForValue);
+            sample.SetPropertyWatch(() => sample.ReferenceProperty, actionForReference);
+            sample.RemovePropertyWatch(() => sample.ValueProperty, actionForValue);
+            sample.ValueProperty = newValue;
+            sample.ReferenceProperty = newReference;
+
+            // assert
+            Assert.AreEqual(0, counterForValue);
+            Assert.AreEqual(1, counterForReference);
+        }
+
+        [TestMethod]
+        public void RemovePropertyWatch_for_property_expression_must_succeed()
+        {
+            // arrange
+            const int parameterNameCount = 1;
+            Sample sample = new Sample();
+            int[] propertyChangedCounts = new int[parameterNameCount];
+            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
+
+            // act
+            sample.SetPropertyWatch
+            (
+                () => sample.TestProperty1,
+                action
+            );
+            sample.RemovePropertyWatch
+            (
+                () => sample.TestProperty1,
+                action
+            );
+
+            ChangeTestProperty(sample, parameterNameCount);
+
+            // assert
+            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
+        }
+
+        #endregion
+
+
+        #region Serialization Test Related
+
+        [TestMethod]
+        public void DataContractSerializer_must_be_supported()
+        {
+            // arrange
+            const int testValue = 20;
+            const string testString = "haha";
+            SerializationSample sample = new SerializationSample();
+
+            // act
+            sample.TestValue = testValue;
+            sample.TestString = testString;
+
+            MemoryStream memoryStream = new MemoryStream();
+            DataContractSerializer serializer = new DataContractSerializer(typeof(SerializationSample));
+            serializer.WriteObject(memoryStream, sample);
+
+            memoryStream.Position = 0;
+            SerializationSample deserialized = (SerializationSample)serializer.ReadObject(memoryStream);
+
+            // assert
+            Assert.AreEqual(sample.TestValue, deserialized.TestValue);
+            Assert.AreEqual(sample.TestString, deserialized.TestString);
+        }
+
+        [TestMethod]
+        public void XmlSerializer_must_be_supported()
+        {
+            // arrange
+            const int testValue = 20;
+            const string testString = "haha";
+            SerializationSample sample = new SerializationSample();
+
+            // act
+            sample.TestValue = testValue;
+            sample.TestString = testString;
+
+            MemoryStream memoryStream = new MemoryStream();
+            XmlSerializer serializer = new XmlSerializer(typeof(SerializationSample));
+            serializer.Serialize(memoryStream, sample);
+
+            memoryStream.Position = 0;
+            SerializationSample deserialized = (SerializationSample)serializer.Deserialize(memoryStream);
+
+            // assert
+            Assert.AreEqual(sample.TestValue, deserialized.TestValue);
+            Assert.AreEqual(sample.TestString, deserialized.TestString);
         }
 
         #endregion

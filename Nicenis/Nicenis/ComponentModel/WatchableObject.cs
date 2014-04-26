@@ -1116,49 +1116,6 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Gets the property value specified by the property name.
-        /// If it does not exist, the default is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected virtual T GetProperty<T>(string propertyName, T defaultValue = default(T))
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
-
-            if (_valueStorage != null)
-            {
-                // If the property exists in the storage
-                KeyValue<string, object> keyValue = _valueStorage.Find(propertyName);
-                if (keyValue != null)
-                    return (T)keyValue.Value;
-            }
-
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property expression that is used to extract the property name.
-        /// If it does not exist, the default is returned.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected T GetProperty<T>(Expression<Func<T>> propertyExpression, T defaultValue = default(T))
-        {
-            return GetProperty(ToPropertyName(propertyExpression), defaultValue);
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property name.
         /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
         /// </summary>
         /// <remarks>
@@ -1189,6 +1146,20 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
+        /// Gets the property value specified by the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <returns>The property value if it exists; otherwise default(T).</returns>
+        protected T GetProperty<T>(string propertyName)
+        {
+            return GetProperty<T>(propertyName, () => default(T));
+        }
+
+        /// <summary>
         /// Gets the property value specified by the property expression that is used to extract the property name.
         /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
         /// </summary>
@@ -1202,6 +1173,20 @@ namespace Nicenis.ComponentModel
         protected T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
         {
             return GetProperty(ToPropertyName(propertyExpression), initializer);
+        }
+
+        /// <summary>
+        /// Gets the property value specified by the property expression that is used to extract the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <returns>The property value if it exists; otherwise default(T).</returns>
+        protected T GetProperty<T>(Expression<Func<T>> propertyExpression)
+        {
+            return GetProperty<T>(ToPropertyName(propertyExpression));
         }
 
 
@@ -1420,23 +1405,6 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Gets the property value specified by the property name that is obtained by the CallerMemberName attribute in a property getter.
-        /// If it does not exist, the default is returned.
-        /// This method must be used in a property getter.
-        /// </summary>
-        /// <remarks>
-        /// This method searches the internal storage for the property value.
-        /// </remarks>
-        /// <typeparam name="T">The property type.</typeparam>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
-        /// <returns>The property value if it exists; otherwise the default value.</returns>
-        protected T GetCallerProperty<T>(T defaultValue = default(T), [CallerMemberName] string propertyName = "")
-        {
-            return GetProperty(propertyName, defaultValue);
-        }
-
-        /// <summary>
-        /// Gets the property value specified by the property name that is obtained by the CallerMemberName attribute in a property getter.
         /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
         /// This method must be used in a property getter.
         /// </summary>
@@ -1450,6 +1418,22 @@ namespace Nicenis.ComponentModel
         protected T GetCallerProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
         {
             return GetProperty(propertyName, initializer);
+        }
+
+        /// <summary>
+        /// Gets the property value specified by the property name that is obtained by the CallerMemberName attribute in a property getter.
+        /// If it does not exist, default(T) is returned.
+        /// This method must be used in a property getter.
+        /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>The property value if it exists; otherwise default(T).</returns>
+        protected T GetCallerProperty<T>([CallerMemberName] string propertyName = "")
+        {
+            return GetProperty<T>(propertyName);
         }
 
         /// <summary>
@@ -1922,6 +1906,9 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the action is removed; otherwise false.</returns>
         protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
         {
+            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
+
             if (action == null)
                 throw new ArgumentNullException("action");
 
