@@ -101,6 +101,8 @@ namespace Nicenis.ComponentModel
             /// <param name="value">The value.</param>
             public KeyValue(string key, TValue value)
             {
+                Debug.Assert(key != null);
+
                 Key = key;
                 Value = value;
             }
@@ -154,7 +156,18 @@ namespace Nicenis.ComponentModel
             /// <returns>The key/value pair if it exists; otherwise null.</returns>
             public KeyValue<TValue> Find(string key)
             {
-                return _keyValues.FirstOrDefault(p => p.Key == key);
+                Debug.Assert(key != null);
+
+                foreach (KeyValue<TValue> keyValue in _keyValues)
+                {
+                    if (keyValue.Key.Length != key.Length)
+                        continue;
+
+                    if (keyValue.Key == key)
+                        return keyValue;
+                }
+
+                return null;
             }
 
             /// <summary>
