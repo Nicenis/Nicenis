@@ -474,68 +474,6 @@ namespace NicenisTests.ComponentModel
 
 #endif
 
-            #region EnumeratePropertyWatch Related
-
-            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
-            {
-                return base.EnumeratePropertyWatch(propertyNames);
-            }
-
-            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
-            {
-                return base.EnumeratePropertyWatch(propertyName);
-            }
-
-            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch()
-            {
-                return base.EnumeratePropertyWatch();
-            }
-
-            public new IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
-            {
-                return base.EnumeratePropertyWatch(propertyExpression);
-            }
-
-            #endregion
-
-            #region SetPropertyWatch Related
-
-            public new int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
-            {
-                return base.SetPropertyWatch(propertyNames, action);
-            }
-
-            public new bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
-            {
-                return base.SetPropertyWatch(propertyName, action);
-            }
-
-            public new bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-            {
-                return base.SetPropertyWatch(propertyExpression, action);
-            }
-
-            #endregion
-
-            #region RemovePropertyWatch Related
-
-            public new int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
-            {
-                return base.RemovePropertyWatch(propertyNames, action);
-            }
-
-            public new bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
-            {
-                return base.RemovePropertyWatch(propertyName, action);
-            }
-
-            public new void RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-            {
-                base.RemovePropertyWatch(propertyExpression, action);
-            }
-
-            #endregion
-
             #region OnPropertyChanged Related
 
             public new void OnPropertyChanged(string propertyName)
@@ -1127,7 +1065,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1146,18 +1084,27 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
+        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
         {
             // arrange
             string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
             // assert
-            Assert.IsTrue(true);
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1196,7 +1143,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1272,18 +1219,27 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
         {
             // arrange
             string propertyName = "ValueProperty";
             string affectedPropertyName = null;
+            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, 10, affectedPropertyName);
+            try
+            {
+                sample.SetProperty(propertyName, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
             // assert
-            Assert.IsTrue(true);
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "affectedPropertyName");
         }
 
         [TestMethod]
@@ -1322,7 +1278,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            StringAssert.Contains(exception.Message, "affectedPropertyName");
         }
 
 
@@ -1713,7 +1669,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyNames");
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1733,19 +1689,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_null()
+        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
         {
             // arrange
             string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
+            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
             // assert
-            Assert.IsTrue(true);
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1786,7 +1751,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            StringAssert.Contains(exception.Message, "affectedPropertyNames");
         }
 
         [TestMethod]
@@ -1865,19 +1830,28 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_null()
+        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
         {
             // arrange
             string propertyName = "ValueProperty";
             int storage = 0;
             string affectedPropertyName = null;
+            Exception exception = null;
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+            try
+            {
+                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
 
             // assert
-            Assert.IsTrue(true);
+            Assert.IsTrue(exception is ArgumentException);
+            StringAssert.Contains(exception.Message, "affectedPropertyName");
         }
 
         [TestMethod]
@@ -1918,7 +1892,7 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            StringAssert.Contains(exception.Message, "affectedPropertyName");
         }
 
 
@@ -2295,904 +2269,6 @@ namespace NicenisTests.ComponentModel
         #endregion
 
 #endif
-
-
-        #region EnumeratePropertyWatch Parameter Check Related
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyNames).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyNames");
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[0];
-            Sample sample = new Sample();
-
-            // act
-            sample.EnumeratePropertyWatch(propertyNames).Count();
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", null };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyNames).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_names_contain_empty_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Sample sample = new Sample();
-
-            // act
-            sample.EnumeratePropertyWatch(propertyNames).Count();
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", " " };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyNames).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_name_is_null()
-        {
-            // arrange
-            string propertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyName).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_not_throw_exception_if_property_name_is_empty_string()
-        {
-            // arrange
-            string propertyName = "";
-            Sample sample = new Sample();
-
-            // act
-            sample.EnumeratePropertyWatch(propertyName).Count();
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_throw_exception_if_property_names_is_whitespace_string()
-        {
-            // arrange
-            string propertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.EnumeratePropertyWatch(propertyName).Count();
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        #endregion
-
-
-        #region EnumeratePropertyWatch Test Related
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_enumerate_watch_action_for_a_property()
-        {
-            // arrange
-            Sample sample = new Sample();
-            int counter = 0;
-            string propertyName = Sample.ToPropertyName(() => sample.TestProperty1);
-
-            // act
-            sample.SetPropertyWatch(propertyName, p =>
-            {
-                if (p.PropertyName == propertyName)
-                    counter++;
-            });
-
-            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
-                info.Action(new PropertyChangedEventArgs(info.PropertyName));
-
-            // assert
-            Assert.AreEqual(1, counter);
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_must_support_multiple_properties()
-        {
-            // arrange
-            Sample sample = new Sample();
-            int counter = 0, counter2 = 0;
-            string propertyName = Sample.ToPropertyName(() => sample.TestProperty1);
-            string propertyName2 = Sample.ToPropertyName(() => sample.TestProperty2);
-
-            // act
-            sample.SetPropertyWatch(propertyName, p =>
-            {
-                if (p.PropertyName == propertyName)
-                    counter++;
-            });
-
-            sample.SetPropertyWatch(propertyName2, p =>
-            {
-                if (p.PropertyName == propertyName2)
-                    counter2++;
-            });
-
-            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName))
-                info.Action(new PropertyChangedEventArgs(propertyName));
-
-            foreach (PropertyWatch info in sample.EnumeratePropertyWatch(propertyName2))
-                info.Action(new PropertyChangedEventArgs(propertyName2));
-
-            // assert
-            Assert.AreEqual(1, counter);
-            Assert.AreEqual(1, counter2);
-        }
-
-        [TestMethod]
-        public void EnumeratePropertyWatch_for_property_expression_must_succeed()
-        {
-            // arrange
-            const int parameterNameCount = 1;
-            Sample sample = new Sample();
-            int[] propertyChangedCounts = new int[parameterNameCount];
-
-            // act
-            sample.SetPropertyWatch
-            (
-                () => sample.TestProperty1,
-                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
-            );
-
-            IEnumerable<PropertyWatch> propertyWatches = sample.EnumeratePropertyWatch
-            (
-                () => sample.TestProperty1
-            );
-
-            foreach (PropertyWatch propertyWatch in propertyWatches)
-                propertyWatch.Action(new PropertyChangedEventArgs(propertyWatch.PropertyName));
-
-            // assert
-            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
-        }
-
-        #endregion
-
-
-        #region SetPropertyWatch Parameter Check Related
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_names_is_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = null;
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyNames");
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[0];
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.SetPropertyWatch(propertyNames, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", null };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.SetPropertyWatch(propertyNames, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", " " };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test" };
-            Action<PropertyChangedEventArgs> action = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "action");
-        }
-
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_name_is_null()
-        {
-            // arrange
-            string propertyName = null;
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
-        {
-            // arrange
-            string propertyName = "";
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.SetPropertyWatch(propertyName, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
-        {
-            // arrange
-            string propertyName = " ";
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_must_throw_exception_if_action_is_null()
-        {
-            // arrange
-            string propertyName = "test";
-            Action<PropertyChangedEventArgs> action = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "action");
-        }
-
-        #endregion
-
-
-        #region SetPropertyWatch Test Related
-
-        [TestMethod]
-        public void Watch_Action_must_be_called_when_the_target_property_is_changed()
-        {
-            // arrange
-            const int newValue = 10;
-            Sample sample = new Sample();
-            int counter = 0;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, p => counter++);
-            sample.ValueProperty = newValue;
-            sample.ValueProperty = newValue;
-
-            // assert
-            Assert.AreEqual(1, counter);
-        }
-
-        [TestMethod]
-        public void Duplicated_Watch_Action_must_not_be_called_when_the_target_property_is_changed()
-        {
-            // arrange
-            const int newValue = 10;
-            Sample sample = new Sample();
-            int counter = 0;
-            Action<PropertyChangedEventArgs> action = p => counter++;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, action);
-            sample.SetPropertyWatch(() => sample.ValueProperty, action);
-            sample.ValueProperty = newValue;
-            sample.ValueProperty = newValue;
-
-            // assert
-            Assert.AreEqual(1, counter);
-        }
-
-        [TestMethod]
-        public void Watch_Action_must_support_multiple_properties()
-        {
-            // arrange
-            const int newValue = 10;
-            const string newReference = "test";
-            Sample sample = new Sample();
-            int counterForValue = 0;
-            int counterForReference = 0;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
-            sample.SetPropertyWatch(() => sample.ReferenceProperty, p => counterForReference++);
-            sample.ValueProperty = newValue;
-            sample.ReferenceProperty = newReference;
-
-            // assert
-            Assert.AreEqual(1, counterForValue);
-            Assert.AreEqual(1, counterForReference);
-        }
-
-        [TestMethod]
-        public void Watch_Action_for_all_property_must_be_called_when_any_target_property_is_changed()
-        {
-            // arrange
-            const int newValue = 10;
-            Sample sample = new Sample();
-            int counter = 0;
-            int counterForValue = 0;
-
-            // act
-            sample.SetPropertyWatch(WatchableObject.AllPropertyName, p => counter++);
-            sample.SetPropertyWatch(() => sample.ValueProperty, p => counterForValue++);
-            sample.ValueProperty = newValue;
-            sample.ValueProperty = newValue;
-
-            // assert
-            Assert.AreEqual(1, counter);
-            Assert.AreEqual(1, counterForValue);
-        }
-
-        [TestMethod]
-        public void SetPropertyWatch_for_property_expression_must_succeed()
-        {
-            // arrange
-            const int parameterNameCount = 1;
-            Sample sample = new Sample();
-            int[] propertyChangedCounts = new int[parameterNameCount];
-
-            // act
-            sample.SetPropertyWatch
-            (
-                () => sample.TestProperty1,
-                p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++
-            );
-
-            ChangeTestProperty(sample, parameterNameCount);
-
-            // assert
-            Assert.IsTrue(propertyChangedCounts.All(p => p == 1));
-        }
-
-        #endregion
-
-
-        #region RemovePropertyWatch Parameter Check Related
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_names_is_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = null;
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyNames");
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_is_empty_collection()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[0];
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.RemovePropertyWatch(propertyNames, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", null };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_not_throw_exception_if_property_names_contain_emtpy_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", "" };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.RemovePropertyWatch(propertyNames, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_names_contain_whitespace_string()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test", " " };
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_with_property_names_must_throw_exception_if_action_is_null()
-        {
-            // arrange
-            IEnumerable<string> propertyNames = new string[] { "test" };
-            Action<PropertyChangedEventArgs> action = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyNames, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "action");
-        }
-
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_null()
-        {
-            // arrange
-            string propertyName = null;
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_not_throw_exception_if_property_name_is_emtpy_string()
-        {
-            // arrange
-            string propertyName = "";
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Sample sample = new Sample();
-
-            // act
-            sample.RemovePropertyWatch(propertyName, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_property_name_is_whitespace_string()
-        {
-            // arrange
-            string propertyName = " ";
-            Action<PropertyChangedEventArgs> action = p => Console.WriteLine("");
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_throw_exception_if_action_is_null()
-        {
-            // arrange
-            string propertyName = "test";
-            Action<PropertyChangedEventArgs> action = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.RemovePropertyWatch(propertyName, action);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "action");
-        }
-
-        #endregion
-
-
-        #region RemovePropertyWatch Test Related
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_remove_Watch_Action()
-        {
-            // arrange
-            const int newValue = 10;
-            Sample sample = new Sample();
-            int counter = 0;
-            Action<PropertyChangedEventArgs> action = p => counter++;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, action);
-            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
-            sample.ValueProperty = newValue;
-
-            // assert
-            Assert.AreEqual(0, counter);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_support_duplicated_call()
-        {
-            // arrange
-            const int newValue = 10;
-            Sample sample = new Sample();
-            int counter = 0;
-            Action<PropertyChangedEventArgs> action = p => counter++;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, action);
-            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
-            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
-            sample.ValueProperty = newValue;
-
-            // assert
-            Assert.AreEqual(0, counter);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_succeed_if_Watch_Action_is_not_set()
-        {
-            // arrange
-            Sample sample = new Sample();
-            int counter = 0;
-            Action<PropertyChangedEventArgs> action = p => counter++;
-
-            // act
-            sample.RemovePropertyWatch(() => sample.ValueProperty, action);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_must_support_multiple_properties()
-        {
-            // arrange
-            const int newValue = 10;
-            const string newReference = "test";
-            Sample sample = new Sample();
-            int counterForValue = 0;
-            int counterForReference = 0;
-            Action<PropertyChangedEventArgs> actionForValue = p => counterForValue++;
-            Action<PropertyChangedEventArgs> actionForReference = p => counterForReference++;
-
-            // act
-            sample.SetPropertyWatch(() => sample.ValueProperty, actionForValue);
-            sample.SetPropertyWatch(() => sample.ReferenceProperty, actionForReference);
-            sample.RemovePropertyWatch(() => sample.ValueProperty, actionForValue);
-            sample.ValueProperty = newValue;
-            sample.ReferenceProperty = newReference;
-
-            // assert
-            Assert.AreEqual(0, counterForValue);
-            Assert.AreEqual(1, counterForReference);
-        }
-
-        [TestMethod]
-        public void RemovePropertyWatch_for_property_expression_must_succeed()
-        {
-            // arrange
-            const int parameterNameCount = 1;
-            Sample sample = new Sample();
-            int[] propertyChangedCounts = new int[parameterNameCount];
-            Action<PropertyChangedEventArgs> action = p => propertyChangedCounts[ExtractFirstNumberInPropertyName(p.PropertyName) - 1]++;
-
-            // act
-            sample.SetPropertyWatch
-            (
-                () => sample.TestProperty1,
-                action
-            );
-            sample.RemovePropertyWatch
-            (
-                () => sample.TestProperty1,
-                action
-            );
-
-            ChangeTestProperty(sample, parameterNameCount);
-
-            // assert
-            Assert.IsTrue(propertyChangedCounts.All(p => p == 0));
-        }
-
-        #endregion
 
 
         #region Serialization Test Related

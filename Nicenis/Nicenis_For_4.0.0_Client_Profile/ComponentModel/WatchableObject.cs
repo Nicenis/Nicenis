@@ -21,61 +21,6 @@ using System.Runtime.Serialization;
 
 namespace Nicenis.ComponentModel
 {
-    #region PropertyWatch
-
-    /// <summary>
-    /// Represents an event handler for property changed events.
-    /// </summary>
-    public class PropertyWatch
-    {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance.
-        /// </summary>
-        /// <param name="propertyName">The property name to watch. An empty string represents all properties.</param>
-        /// <param name="action">The event handler that is called when the watched property is changed.</param>
-        public PropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            PropertyName = propertyName;
-            Action = action;
-        }
-
-        #endregion
-
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the value indicating whether the Action is called for any property change.
-        /// </summary>
-        public bool IsAllPropertyWatch { get { return WatchableObject.IsAllPropertyName(PropertyName); } }
-
-        /// <summary>
-        /// Gets the property name to watch.
-        /// An empty string represents all properties.
-        /// It is always not null.
-        /// </summary>
-        public string PropertyName { get; private set; }
-
-        /// <summary>
-        /// Gets the event handler that is called when the watched property is changed.
-        /// It is always not null.
-        /// </summary>
-        public Action<PropertyChangedEventArgs> Action { get; private set; }
-
-        #endregion
-    }
-
-    #endregion
-
-
     /// <summary>
     /// Provides a base implementation for the INotifyPropertyChanged interface.
     /// </summary>
@@ -1265,6 +1210,13 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
         {
+            if (affectedPropertyNames == null)
+                throw new ArgumentNullException("affectedPropertyNames");
+
+            foreach (string affectedPropertyName in affectedPropertyNames)
+                if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
+                    throw new ArgumentException("The parameter affectedPropertyNames can not contain a string that is null or a whitespace string except an empty string.", "affectedPropertyNames");
+
             // If the property is changed
             if (SetProperty(propertyName, value))
             {
@@ -1307,6 +1259,9 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
         {
+            if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
+                throw new ArgumentException("The parameter affectedPropertyName can not be null or a whitespace string except an empty string.", "affectedPropertyName");
+
             // If the property is changed
             if (SetProperty(propertyName, value))
             {
@@ -1445,6 +1400,13 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
         {
+            if (affectedPropertyNames == null)
+                throw new ArgumentNullException("affectedPropertyNames");
+
+            foreach (string affectedPropertyName in affectedPropertyNames)
+                if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
+                    throw new ArgumentException("The parameter affectedPropertyNames can not contain a string that is null or a whitespace string except an empty string.", "affectedPropertyNames");
+
             // If the property is changed
             if (SetProperty(propertyName, ref storage, value))
             {
@@ -1483,6 +1445,9 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
         {
+            if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
+                throw new ArgumentException("The parameter affectedPropertyName can not be null or a whitespace string except an empty string.", "affectedPropertyName");
+
             // If the property is changed
             if (SetProperty(propertyName, ref storage, value))
             {
@@ -1581,248 +1546,6 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        #region Property Watch Related
-
-        #region WatchStorage
-
-        Storage<List<Action<PropertyChangedEventArgs>>> _watchStorage;
-
-        /// <summary>
-        /// The property watch storage.
-        /// The storage key is a property name, and the storage value is a watch action list.
-        /// </summary>
-        private Storage<List<Action<PropertyChangedEventArgs>>> WatchStorage
-        {
-            get { return _watchStorage ?? (_watchStorage = new Storage<List<Action<PropertyChangedEventArgs>>>()); }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Enumerates property watches for the specified properties.
-        /// </summary>
-        /// <param name="propertyNames">The property names.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(IEnumerable<string> propertyNames)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
-
-            foreach (string propertyName in propertyNames)
-                foreach (PropertyWatch propertyWatch in EnumeratePropertyWatch(propertyName))
-                    yield return propertyWatch;
-        }
-
-        /// <summary>
-        /// Enumerates property watches for the specified properties.
-        /// </summary>
-        /// <param name="propertyNames">The property names.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch(params string[] propertyNames)
-        {
-            return EnumeratePropertyWatch((IEnumerable<string>)propertyNames);
-        }
-
-        /// <summary>
-        /// Enumerates property watches for the specified property.
-        /// </summary>
-        /// <param name="propertyName">The property name.</param>
-        /// <returns>The property watches.</returns>
-        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch(string propertyName)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            if (_watchStorage != null)
-            {
-                // If there is the action list, enumerates PropertyWatchs.
-                KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
-                if (keyValue != null)
-                    return keyValue.Value.Select(p => new PropertyWatch(propertyName, p));
-            }
-
-            return Enumerable.Empty<PropertyWatch>();
-        }
-
-        /// <summary>
-        /// Enumerates all property watches of this instance.
-        /// </summary>
-        /// <returns>The property watches.</returns>
-        protected virtual IEnumerable<PropertyWatch> EnumeratePropertyWatch()
-        {
-            if (_watchStorage == null)
-                yield break;
-
-            foreach (KeyValue<List<Action<PropertyChangedEventArgs>>> pair in _watchStorage)
-                foreach (Action<PropertyChangedEventArgs> watchAction in pair.Value)
-                    yield return new PropertyWatch(pair.Key, watchAction);
-        }
-
-        /// <summary>
-        /// Enumerates property watches for the specified property expression that is used to extract the property name.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <returns>The property watches.</returns>
-        protected IEnumerable<PropertyWatch> EnumeratePropertyWatch<T>(Expression<Func<T>> propertyExpression)
-        {
-            return EnumeratePropertyWatch(ToPropertyName(propertyExpression));
-        }
-
-
-        /// <summary>
-        /// Sets an action that is called when one of the specified properties is changed.
-        /// If the action is already set for each property names, it does nothing.
-        /// </summary>
-        /// <param name="propertyNames">The property names to watch.</param>
-        /// <param name="action">The action that is called when one of the properties is changed.</param>
-        /// <returns>The number of actions that are newly set.</returns>
-        protected int SetPropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            int counter = 0;
-            foreach (string propertyName in propertyNames)
-            {
-                // If the watch action is added, increases the counter.
-                if (SetPropertyWatch(propertyName, action))
-                    counter++;
-            }
-
-            return counter;
-        }
-
-        /// <summary>
-        /// Sets an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action is called when any property is changed.
-        /// If the action is already set for the property name, it does nothing.
-        /// </summary>
-        /// <param name="propertyName">The property name to watch.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected virtual bool SetPropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            // If the watch action list does not exist
-            KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = null;
-            if (_watchStorage == null || (keyValue = _watchStorage.Find(propertyName)) == null)
-            {
-                // Initializes a new one.
-                keyValue = new KeyValue<List<Action<PropertyChangedEventArgs>>>(propertyName, new List<Action<PropertyChangedEventArgs>>());
-                WatchStorage.Add(keyValue);
-            }
-            else
-            {
-                // If the action already exists
-                if (keyValue.Value.Contains(action))
-                    return false;
-            }
-
-            // Adds the action.
-            keyValue.Value.Add(action);
-            return true;
-        }
-
-        /// <summary>
-        /// Sets an action that is called when any property is changed.
-        /// If the action is already set, it does nothing.
-        /// </summary>
-        /// <param name="action">The action that is called when any property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected bool SetPropertyWatch(Action<PropertyChangedEventArgs> action)
-        {
-            return SetPropertyWatch(AllPropertyName, action);
-        }
-
-        /// <summary>
-        /// Sets an action that is called when the property specified by the property expression is changed.
-        /// If the action is already set, it does nothing.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is newly set; otherwise false.</returns>
-        protected bool SetPropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-        {
-            return SetPropertyWatch(ToPropertyName(propertyExpression), action);
-        }
-
-
-        /// <summary>
-        /// Removes an action that is called when one of the specified properties is changed.
-        /// If the action is already removed for each property names, it does nothing.
-        /// </summary>
-        /// <param name="propertyNames">The property names not to watch.</param>
-        /// <param name="action">The action that is called when one of the properties is changed.</param>
-        /// <returns>The number of actions that are removed.</returns>
-        protected int RemovePropertyWatch(IEnumerable<string> propertyNames, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyNames == null)
-                throw new ArgumentNullException("propertyNames");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            int counter = 0;
-            foreach (string propertyName in propertyNames)
-            {
-                // If the action is removed, increases the counter.
-                if (RemovePropertyWatch(propertyName, action))
-                    counter++;
-            }
-
-            return counter;
-        }
-
-        /// <summary>
-        /// Removes an action that is called when the specified property is changed.
-        /// If the property name is the AllPropertyName, the action that is called when any property is changed is removed.
-        /// If the action is already removed, it does nothing.
-        /// </summary>
-        /// <param name="propertyName">The property name not to watch.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is removed; otherwise false.</returns>
-        protected virtual bool RemovePropertyWatch(string propertyName, Action<PropertyChangedEventArgs> action)
-        {
-            if (propertyName != "" && string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("The parameter propertyName can not be null or a whitespace string except an empty string.", "propertyName");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            if (_watchStorage != null)
-            {
-                // If there is the action list, removes the action from it.
-                KeyValue<List<Action<PropertyChangedEventArgs>>> keyValue = _watchStorage.Find(propertyName);
-                if (keyValue != null)
-                    return keyValue.Value.Remove(action);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Removes an action that is called when the property specified by the property expression is changed.
-        /// If the action is already removed, it does nothing.
-        /// </summary>
-        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
-        /// <param name="action">The action that is called when the property is changed.</param>
-        /// <returns>True if the action is removed; otherwise false.</returns>
-        protected bool RemovePropertyWatch<T>(Expression<Func<T>> propertyExpression, Action<PropertyChangedEventArgs> action)
-        {
-            return RemovePropertyWatch(ToPropertyName(propertyExpression), action);
-        }
-
-        #endregion
-
-
         #region INotifyPropertyChanged Implementation Related
 
         /// <summary>
@@ -1838,18 +1561,8 @@ namespace Nicenis.ComponentModel
         {
             // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
-            PropertyChangedEventArgs e = new PropertyChangedEventArgs(propertyName);
             if (propertyChanged != null)
-                propertyChanged(this, e);
-
-            // If all properties are changed, calls all watch actions.
-            IEnumerable<PropertyWatch> propertyWatches = IsAllPropertyName(propertyName)
-                                                       ? EnumeratePropertyWatch()
-                                                       : EnumeratePropertyWatch(propertyName).Concat(EnumeratePropertyWatch(AllPropertyName));
-
-            // Calls the watch actions.
-            foreach (PropertyWatch propertyWatch in propertyWatches)
-                propertyWatch.Action(e);
+                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
