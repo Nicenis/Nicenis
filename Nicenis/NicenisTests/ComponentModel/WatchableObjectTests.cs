@@ -33,269 +33,6 @@ namespace NicenisTests.ComponentModel
         {
             #region Converted Methods From Protected To Public
 
-            #region ToPropertyName Related
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                    Expression<Func<T19>> propertyExpression19, Expression<Func<T20>> propertyExpression20)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19, propertyExpression20
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18,
-                    Expression<Func<T19>> propertyExpression19)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18, propertyExpression19
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17, Expression<Func<T18>> propertyExpression18)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17, propertyExpression18
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16, Expression<Func<T17>> propertyExpression17)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16, propertyExpression17
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15,
-                    Expression<Func<T16>> propertyExpression16)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15,
-                    propertyExpression16
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14, Expression<Func<T15>> propertyExpression15)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14, propertyExpression15
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13, Expression<Func<T14>> propertyExpression14)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13, propertyExpression14
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12,
-                    Expression<Func<T13>> propertyExpression13)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12, propertyExpression13
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                    Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
-                    Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
-                    Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
-                    Expression<Func<T10>> propertyExpression10, Expression<Func<T11>> propertyExpression11, Expression<Func<T12>> propertyExpression12)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11, propertyExpression12
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
-                    Expression<Func<T11>> propertyExpression11)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10,
-                    propertyExpression11
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9, propertyExpression10
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                    Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8, propertyExpression9
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
-                    Expression<Func<T8>> propertyExpression8)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7, propertyExpression8
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6, propertyExpression7
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5,
-                    propertyExpression6
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
-                    Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
-                    Expression<Func<T5>> propertyExpression5)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4, propertyExpression5
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                    Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3, propertyExpression4
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
-                    Expression<Func<T3>> propertyExpression3)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2, propertyExpression3
-                );
-            }
-
-            public new static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
-            {
-                return WatchableObject.ToPropertyName
-                (
-                    propertyExpression, propertyExpression2
-                );
-            }
-
-            public new static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
-            {
-                return WatchableObject.ToPropertyName(propertyExpression);
-            }
-
-            #endregion
-
             #region GetProperty Related
 
             public new T GetProperty<T>(string propertyName, Func<T> initializer)
@@ -308,16 +45,6 @@ namespace NicenisTests.ComponentModel
                 return base.GetProperty<T>(propertyName);
             }
 
-            public new T GetProperty<T>(Expression<Func<T>> propertyExpression, Func<T> initializer)
-            {
-                return base.GetProperty(propertyExpression, initializer);
-            }
-
-            public new T GetProperty<T>(Expression<Func<T>> propertyExpression)
-            {
-                return base.GetProperty<T>(propertyExpression);
-            }
-
             #endregion
 
             #region SetProperty Related
@@ -325,11 +52,6 @@ namespace NicenisTests.ComponentModel
             public new bool SetPropertyOnly<T>(string propertyName, T value)
             {
                 return base.SetPropertyOnly(propertyName, value);
-            }
-
-            public new bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value)
-            {
-                return base.SetPropertyOnly(propertyExpression, value);
             }
 
             public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
@@ -350,26 +72,6 @@ namespace NicenisTests.ComponentModel
             public new bool SetProperty<T>(string propertyName, T value)
             {
                 return base.SetProperty(propertyName, value);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, IEnumerable<string> affectedPropertyNames)
-            {
-                return base.SetProperty(propertyExpression, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, params string[] affectedPropertyNames)
-            {
-                return base.SetProperty(propertyExpression, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, string affectedPropertyName)
-            {
-                return base.SetProperty(propertyExpression, value, affectedPropertyName);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value)
-            {
-                return base.SetProperty(propertyExpression, value);
             }
 
             #endregion
@@ -434,26 +136,6 @@ namespace NicenisTests.ComponentModel
                 return base.SetProperty(propertyName, ref storage, value);
             }
 
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
-            {
-                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, params string[] affectedPropertyNames)
-            {
-                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, string affectedPropertyName)
-            {
-                return base.SetProperty(propertyExpression, ref storage, value, affectedPropertyName);
-            }
-
-            public new bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value)
-            {
-                return base.SetProperty(propertyExpression, ref storage, value);
-            }
-
             #endregion
 
 #if !NICENIS_4C
@@ -498,10 +180,20 @@ namespace NicenisTests.ComponentModel
                 set { SetProperty(() => ValueProperty, value); }
             }
 
+            public string GetValuePropertyName()
+            {
+                return ToPropertyName(() => ValueProperty);
+            }
+
             public string ReferenceProperty
             {
                 get { return GetProperty(() => ReferenceProperty); }
                 set { SetProperty(() => ReferenceProperty, value); }
+            }
+
+            public string GetReferencePropertyName()
+            {
+                return ToPropertyName(() => ReferenceProperty);
             }
 
             private int PrivateValueProperty
@@ -514,6 +206,11 @@ namespace NicenisTests.ComponentModel
             {
                 get { return PrivateValueProperty; }
                 set { PrivateValueProperty = value; }
+            }
+
+            public string GetPrivateValuePropertyName()
+            {
+                return ToPropertyName(() => PrivateValueProperty);
             }
 
 #if !NICENIS_4C
@@ -553,10 +250,20 @@ namespace NicenisTests.ComponentModel
                 set { SetProperty(() => TestProperty1, value); }
             }
 
+            public string GetTestProperty1Name()
+            {
+                return ToPropertyName(() => TestProperty1);
+            }
+
             public TestPropertyType2 TestProperty2
             {
                 get { return GetProperty(() => TestProperty2); }
                 set { SetProperty(() => TestProperty2, value); }
+            }
+
+            public string GetTestProperty2Name()
+            {
+                return ToPropertyName(() => TestProperty2);
             }
 
             #endregion
@@ -636,6 +343,39 @@ namespace NicenisTests.ComponentModel
             };
 
             return int.Parse(numberString);
+        }
+
+        #endregion
+
+
+        #region ToPropertyName Test Related
+
+        [TestMethod]
+        public void ToPropertyName_must_return_public_property_name()
+        {
+            // arrange
+            const string expectedPropertyName = "ValueProperty";
+            Sample sample = new Sample();
+
+            // act
+            string propertyName = sample.GetValuePropertyName();
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_return_private_property_name()
+        {
+            // arrange
+            const string expectedPropertyName = "PrivateValueProperty";
+            Sample sample = new Sample();
+
+            // act
+            string propertyName = sample.GetPrivateValuePropertyName();
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         #endregion
@@ -816,7 +556,7 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            int property = sample.GetProperty(() => sample.ValueProperty);
+            int property = sample.GetProperty<int>(sample.GetValuePropertyName());
 
             // assert
             Assert.AreEqual(default(int), property);
@@ -843,7 +583,7 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            int property = sample.GetProperty(() => sample.ValueProperty, () => initializedValue);
+            int property = sample.GetProperty(sample.GetValuePropertyName(), () => initializedValue);
 
             // assert
             Assert.AreEqual(initializedValue, property);
@@ -864,8 +604,8 @@ namespace NicenisTests.ComponentModel
             };
 
             // act
-            sample.GetProperty(() => sample.ValueProperty, initializer);
-            sample.GetProperty(() => sample.ValueProperty, initializer);
+            sample.GetProperty(sample.GetValuePropertyName(), initializer);
+            sample.GetProperty(sample.GetValuePropertyName(), initializer);
 
             // assert
             Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
@@ -882,8 +622,8 @@ namespace NicenisTests.ComponentModel
             int initializerCallCount = 0;
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, setValue);
-            sample.GetProperty(() => sample.ValueProperty, () =>
+            sample.SetProperty(sample.GetValuePropertyName(), setValue);
+            sample.GetProperty(sample.GetValuePropertyName(), () =>
             {
                 initializerCallCount++;
                 return initializedValue;
@@ -1048,7 +788,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = null;
             Exception exception = null;
             Sample sample = new Sample();
@@ -1056,7 +795,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1072,12 +811,11 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
             // arrange
-            string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[0];
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
 
             // assert
             Assert.IsTrue(true);
@@ -1087,7 +825,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
             Exception exception = null;
             Sample sample = new Sample();
@@ -1095,7 +832,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1111,12 +848,11 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
         {
             // arrange
-            string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, 10, affectedPropertyNames);
+            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
 
             // assert
             Assert.IsTrue(true);
@@ -1126,7 +862,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
         {
             // arrange
-            string propertyName = "ValueProperty";
             IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
             Exception exception = null;
             Sample sample = new Sample();
@@ -1134,7 +869,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1222,7 +957,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             string affectedPropertyName = null;
             Exception exception = null;
             Sample sample = new Sample();
@@ -1230,7 +964,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, 10, affectedPropertyName);
+                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
             }
             catch (Exception e)
             {
@@ -1246,12 +980,11 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
         {
             // arrange
-            string propertyName = "ValueProperty";
             string affectedPropertyName = "";
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, 10, affectedPropertyName);
+            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
 
             // assert
             Assert.IsTrue(true);
@@ -1261,7 +994,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
         {
             // arrange
-            string propertyName = "ValueProperty";
             string affectedPropertyName = " ";
             Exception exception = null;
             Sample sample = new Sample();
@@ -1269,7 +1001,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, 10, affectedPropertyName);
+                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
             }
             catch (Exception e)
             {
@@ -1364,8 +1096,8 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
-            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
+            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
 
             // assert
             Assert.AreEqual(propertyValue, testValue);
@@ -1382,8 +1114,8 @@ namespace NicenisTests.ComponentModel
             sample.PropertyChanged += (_, __) => propertyChangedCount++;
 
             // act
-            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
-            sample.SetPropertyOnly(() => sample.ValueProperty, testValue);
+            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
+            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
 
             // assert
             Assert.AreEqual(0, propertyChangedCount);
@@ -1397,8 +1129,8 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, testValue);
-            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
+            sample.SetProperty(sample.GetValuePropertyName(), testValue);
+            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
 
             // assert
             Assert.AreEqual(propertyValue, testValue);
@@ -1412,8 +1144,8 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(() => sample.ReferenceProperty, testReference);
-            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+            sample.SetProperty(sample.GetReferencePropertyName(), testReference);
+            string propertyReference = sample.GetProperty<string>(sample.GetReferencePropertyName());
 
             // assert
             Assert.AreEqual(propertyReference, testReference);
@@ -1429,11 +1161,11 @@ namespace NicenisTests.ComponentModel
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, testValue);
-            sample.SetProperty(() => sample.ReferenceProperty, testReference);
+            sample.SetProperty(sample.GetValuePropertyName(), testValue);
+            sample.SetProperty(sample.GetReferencePropertyName(), testReference);
 
-            int propertyValue = sample.GetProperty(() => sample.ValueProperty);
-            string propertyReference = sample.GetProperty(() => sample.ReferenceProperty);
+            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
+            string propertyReference = sample.GetProperty<string>(sample.GetReferencePropertyName());
 
             // assert
             Assert.AreEqual(testValue, propertyValue);
@@ -1450,16 +1182,18 @@ namespace NicenisTests.ComponentModel
             int valuePropertyChangedCount = 0;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == propertyName)
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, testValue);
+            sample.SetProperty(propertyName, testValue);
 
             // assert
             Assert.AreEqual(1, propertyChangedCount);
@@ -1476,16 +1210,18 @@ namespace NicenisTests.ComponentModel
             int valuePropertyChangedCount = 0;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == propertyName)
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, testValue);
+            sample.SetProperty(propertyName, testValue);
 
             // assert
             Assert.AreEqual(0, propertyChangedCount);
@@ -1501,12 +1237,16 @@ namespace NicenisTests.ComponentModel
             const int affectedPropertyCount = changedPropertyCount - 1;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+            string affectedPropertyName1 = sample.GetTestProperty1Name();
+            string affectedPropertyName2 = sample.GetTestProperty2Name();
+
             int propertyChangedCount = 0;
             int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != propertyName)
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
@@ -1515,7 +1255,7 @@ namespace NicenisTests.ComponentModel
             // act
             sample.SetProperty
             (
-                () => sample.ValueProperty, testValue, Sample.ToPropertyName(() => sample.TestProperty1, () => sample.TestProperty2)
+                propertyName, testValue, affectedPropertyName1, affectedPropertyName2
             );
 
             // assert
@@ -1532,22 +1272,22 @@ namespace NicenisTests.ComponentModel
             const int affectedPropertyCount = changedPropertyCount - 1;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+            string affectedPropertyName = sample.GetTestProperty1Name();
+
             int propertyChangedCount = 0;
             int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != propertyName)
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty
-            (
-                () => sample.ValueProperty, testValue, Sample.ToPropertyName(() => sample.TestProperty1)
-            );
+            sample.SetProperty(propertyName, testValue, affectedPropertyName);
 
             // assert
             Assert.AreEqual(propertyChangedCount, changedPropertyCount);
@@ -1651,7 +1391,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = null;
             Exception exception = null;
@@ -1660,7 +1399,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1676,13 +1415,12 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[0];
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
 
             // assert
             Assert.IsTrue(true);
@@ -1692,7 +1430,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
             Exception exception = null;
@@ -1701,7 +1438,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1717,13 +1454,12 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
 
             // assert
             Assert.IsTrue(true);
@@ -1733,7 +1469,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
             Exception exception = null;
@@ -1742,7 +1477,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyNames);
+                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
             }
             catch (Exception e)
             {
@@ -1833,7 +1568,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             string affectedPropertyName = null;
             Exception exception = null;
@@ -1842,7 +1576,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
             }
             catch (Exception e)
             {
@@ -1858,13 +1592,12 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             string affectedPropertyName = "";
             Sample sample = new Sample();
 
             // act
-            sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
 
             // assert
             Assert.IsTrue(true);
@@ -1874,7 +1607,6 @@ namespace NicenisTests.ComponentModel
         public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
         {
             // arrange
-            string propertyName = "ValueProperty";
             int storage = 0;
             string affectedPropertyName = " ";
             Exception exception = null;
@@ -1883,7 +1615,7 @@ namespace NicenisTests.ComponentModel
             // act
             try
             {
-                sample.SetProperty(propertyName, ref storage, 10, affectedPropertyName);
+                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
             }
             catch (Exception e)
             {
@@ -1997,7 +1729,7 @@ namespace NicenisTests.ComponentModel
             int valueStorage = 0;
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+            sample.SetProperty(sample.GetValuePropertyName(), ref valueStorage, testValue);
 
             // assert
             Assert.AreEqual(valueStorage, testValue);
@@ -2012,7 +1744,7 @@ namespace NicenisTests.ComponentModel
             string referenceStorage = null;
 
             // act
-            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+            sample.SetProperty(sample.GetReferencePropertyName(), ref referenceStorage, testReference);
 
             // assert
             Assert.AreEqual(referenceStorage, testReference);
@@ -2030,8 +1762,8 @@ namespace NicenisTests.ComponentModel
             string referenceStorage = null;
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
-            sample.SetProperty(() => sample.ReferenceProperty, ref referenceStorage, testReference);
+            sample.SetProperty(sample.GetValuePropertyName(), ref valueStorage, testValue);
+            sample.SetProperty(sample.GetReferencePropertyName(), ref referenceStorage, testReference);
 
             // assert
             Assert.AreEqual(testValue, valueStorage);
@@ -2048,17 +1780,19 @@ namespace NicenisTests.ComponentModel
             int valuePropertyChangedCount = 0;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+
             int valueStorage = 0;
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == propertyName)
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+            sample.SetProperty(propertyName, ref valueStorage, testValue);
 
             // assert
             Assert.AreEqual(1, propertyChangedCount);
@@ -2075,17 +1809,19 @@ namespace NicenisTests.ComponentModel
             int valuePropertyChangedCount = 0;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+
             int valueStorage = 0;
             sample.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName == propertyName)
                     valuePropertyChangedCount++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty(() => sample.ValueProperty, ref valueStorage, testValue);
+            sample.SetProperty(propertyName, ref valueStorage, testValue);
 
             // assert
             Assert.AreEqual(0, propertyChangedCount);
@@ -2101,23 +1837,24 @@ namespace NicenisTests.ComponentModel
             const int affectedPropertyCount = changedPropertyCount - 1;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+            string affectedPropertyName1 = sample.GetTestProperty1Name();
+            string affectedPropertyName2 = sample.GetTestProperty2Name();
+
             int valueStorage = 0;
             int propertyChangedCount = 0;
             int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != propertyName)
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty
-            (
-                () => sample.ValueProperty, ref valueStorage, testValue, Sample.ToPropertyName(() => sample.TestProperty1, () => sample.TestProperty2)
-            );
+            sample.SetProperty(propertyName, ref valueStorage, testValue, affectedPropertyName1, affectedPropertyName2);
 
             // assert
             Assert.AreEqual(propertyChangedCount, changedPropertyCount);
@@ -2133,23 +1870,23 @@ namespace NicenisTests.ComponentModel
             const int affectedPropertyCount = changedPropertyCount - 1;
 
             Sample sample = new Sample();
+            string propertyName = sample.GetValuePropertyName();
+            string affectedPropertyName = sample.GetTestProperty1Name();
+
             int valueStorage = 0;
             int propertyChangedCount = 0;
             int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
             sample.PropertyChanged += (_, e) =>
             {
                 // If it is not an affected property
-                if (e.PropertyName != Sample.ToPropertyName(() => sample.ValueProperty))
+                if (e.PropertyName != propertyName)
                     affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
 
                 propertyChangedCount++;
             };
 
             // act
-            sample.SetProperty
-            (
-                () => sample.ValueProperty, ref valueStorage, testValue, Sample.ToPropertyName(() => sample.TestProperty1)
-            );
+            sample.SetProperty(propertyName, ref valueStorage, testValue, affectedPropertyName);
 
             // assert
             Assert.AreEqual(propertyChangedCount, changedPropertyCount);
