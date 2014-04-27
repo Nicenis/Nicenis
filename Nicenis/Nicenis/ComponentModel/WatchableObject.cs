@@ -1308,6 +1308,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
+#if !NICENIS_4C
 
         #region GetCallerProperty/SetCallerProperty Related
 
@@ -1398,6 +1399,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
+#endif
 
         #region SetProperty with Local Storage Related
 
@@ -1577,6 +1579,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
+#if !NICENIS_4C
 
         #region SetCallerProperty with Local Storage Related
 
@@ -1613,6 +1616,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
+#endif
 
         #region INotifyPropertyChanged Implementation Related
 
@@ -1621,11 +1625,20 @@ namespace Nicenis.ComponentModel
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+
+#if !NICENIS_4C
         /// <summary>
         /// Raises a PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+#else
+        /// <summary>
+        /// Raises a PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
+        protected virtual void OnPropertyChanged(string propertyName)
+#endif
         {
             // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
