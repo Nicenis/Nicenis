@@ -105,8 +105,10 @@ namespace Nicenis.ComponentModel
             if (_propertyNameCaches == null)
                 return null;
 
-            foreach (PropertyNameCache propertyNameCache in _propertyNameCaches)
+            for (int i = 0; i < _propertyNameCaches.Count; i++)
             {
+                PropertyNameCache propertyNameCache = _propertyNameCaches[i];
+
                 if (propertyNameCache.MetadataToken == metadataToken)
                     return propertyNameCache;
             }
@@ -1108,8 +1110,10 @@ namespace Nicenis.ComponentModel
             if (_propertyValueStorage == null)
                 return null;
 
-            foreach (PropertyValue propertyValue in _propertyValueStorage)
+            for (int i = 0; i < _propertyValueStorage.Count; i++)
             {
+                PropertyValue propertyValue = _propertyValueStorage[i];
+
                 if (propertyValue.Name.Length != propertyName.Length)
                     continue;
 
