@@ -92,7 +92,8 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        List<PropertyNameCache> _propertyNameCaches;
+        PropertyNameCache[] _propertyNameCaches;
+        int _propertyNameCacheCount = 0;
 
         /// <summary>
         /// Finds a property name cache associated with the specified property getter method metadata token.
@@ -105,7 +106,7 @@ namespace Nicenis.ComponentModel
             if (_propertyNameCaches == null)
                 return null;
 
-            for (int i = 0; i < _propertyNameCaches.Count; i++)
+            for (int i = 0; i < _propertyNameCacheCount; i++)
             {
                 PropertyNameCache propertyNameCache = _propertyNameCaches[i];
 
@@ -126,11 +127,21 @@ namespace Nicenis.ComponentModel
             Debug.Assert(propertyNameCache != null);
 
             if (_propertyNameCaches == null)
-                _propertyNameCaches = new List<PropertyNameCache>();
+                _propertyNameCaches = new PropertyNameCache[2];
 
-            Debug.Assert(_propertyNameCaches.Any(p => p.MetadataToken == propertyNameCache.MetadataToken) == false);
-            Debug.Assert(_propertyNameCaches.Any(p => p.PropertyName == propertyNameCache.PropertyName) == false);
-            _propertyNameCaches.Add(propertyNameCache);
+            Debug.Assert(_propertyNameCaches.Take(_propertyNameCacheCount).Any(p => p.MetadataToken == propertyNameCache.MetadataToken) == false);
+            Debug.Assert(_propertyNameCaches.Take(_propertyNameCacheCount).Any(p => p.PropertyName == propertyNameCache.PropertyName) == false);
+
+            // If the array is full, expands the array.
+            if (_propertyNameCacheCount == _propertyNameCaches.Length)
+            {
+                PropertyNameCache[] newArray = new PropertyNameCache[_propertyNameCacheCount * 2];
+                Array.Copy(_propertyNameCaches, newArray, _propertyNameCacheCount);
+                _propertyNameCaches = newArray;
+            }
+
+            // Saves the value.
+            _propertyNameCaches[_propertyNameCacheCount++] = propertyNameCache;
         }
 
         #endregion
@@ -1095,7 +1106,8 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
-        List<PropertyValue> _propertyValueStorage;
+        PropertyValue[] _propertyValues;
+        int _propertyValueCount = 0;
 
         /// <summary>
         /// Finds a property value associated with the specified property name.
@@ -1107,12 +1119,12 @@ namespace Nicenis.ComponentModel
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
 
-            if (_propertyValueStorage == null)
+            if (_propertyValues == null)
                 return null;
 
-            for (int i = 0; i < _propertyValueStorage.Count; i++)
+            for (int i = 0; i < _propertyValueCount; i++)
             {
-                PropertyValue propertyValue = _propertyValueStorage[i];
+                PropertyValue propertyValue = _propertyValues[i];
 
                 if (propertyValue.Name.Length != propertyName.Length)
                     continue;
@@ -1133,11 +1145,21 @@ namespace Nicenis.ComponentModel
         {
             Debug.Assert(propertyValue != null);
 
-            if (_propertyValueStorage == null)
-                _propertyValueStorage = new List<PropertyValue>();
+            if (_propertyValues == null)
+                _propertyValues = new PropertyValue[2];
 
-            Debug.Assert(_propertyValueStorage.Any(p => p.Name == propertyValue.Name) == false);
-            _propertyValueStorage.Add(propertyValue);
+            Debug.Assert(_propertyValues.Take(_propertyValueCount).Any(p => p.Name == propertyValue.Name) == false);
+
+            // If the array is full, expands the array.
+            if (_propertyValueCount == _propertyValues.Length)
+            {
+                PropertyValue[] newArray = new PropertyValue[_propertyValueCount * 2];
+                Array.Copy(_propertyValues, newArray, _propertyValueCount);
+                _propertyValues = newArray;
+            }
+
+            // Saves the value.
+            _propertyValues[_propertyValueCount++] = propertyValue;
         }
 
         #endregion
