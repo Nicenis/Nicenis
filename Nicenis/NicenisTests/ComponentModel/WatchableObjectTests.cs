@@ -267,6 +267,30 @@ namespace NicenisTests.ComponentModel
             }
 
             #endregion
+
+            #region VirtualValueProperty
+
+            public virtual int VirtualValueProperty
+            {
+                get { return GetProperty(() => VirtualValueProperty); }
+                set { SetProperty(() => VirtualValueProperty, value); }
+            }
+
+            public string GetVirtualValuePropertyName()
+            {
+                return ToPropertyName(() => VirtualValueProperty);
+            }
+
+            #endregion
+        }
+
+        class InheritedSample : Sample
+        {
+            public override int VirtualValueProperty
+            {
+                get { return GetProperty(() => VirtualValueProperty); }
+                set { SetProperty(() => VirtualValueProperty, value); }
+            }
         }
 
         [DataContract]
@@ -373,6 +397,34 @@ namespace NicenisTests.ComponentModel
 
             // act
             string propertyName = sample.GetPrivateValuePropertyName();
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_return_virtual_property_name()
+        {
+            // arrange
+            const string expectedPropertyName = "VirtualValueProperty";
+            Sample sample = new Sample();
+
+            // act
+            string propertyName = sample.GetVirtualValuePropertyName();
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_return_overridden_property_name()
+        {
+            // arrange
+            const string expectedPropertyName = "VirtualValueProperty";
+            InheritedSample inheritedSample = new InheritedSample();
+
+            // act
+            string propertyName = inheritedSample.GetVirtualValuePropertyName();
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);

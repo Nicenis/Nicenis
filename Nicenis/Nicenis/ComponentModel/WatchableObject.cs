@@ -1011,6 +1011,10 @@ namespace Nicenis.ComponentModel
             // Gets the CIL byte array.
             byte[] ilBytes = propertyExpression.Method.GetMethodBody().GetILAsByteArray();
 
+#if !DEBUG
+            // Gets the metadata token of the property getter staring after 0x0228.
+            int metadataToken = BitConverter.ToInt32(ilBytes, 2);
+#else
             // Finds the Call or Callvirt opcode index in the CIL byte array.
             int callOpcodeIndex = -1;
             for (int i = 0; i < ilBytes.Length; i++)
@@ -1033,6 +1037,7 @@ namespace Nicenis.ComponentModel
 
             // Gets the metadata token of the property getter.
             int metadataToken = BitConverter.ToInt32(ilBytes, callOpcodeIndex + 1);
+#endif
 
             // Finds the property name cache.
             PropertyNameCache propertyNameCache = null;
