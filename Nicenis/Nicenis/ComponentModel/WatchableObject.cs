@@ -67,7 +67,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         private class OpCodeInfo
         {
-            #region Constructors
+        #region Constructors
 
             /// <summary>
             /// Initializes a new instance.
@@ -129,10 +129,10 @@ namespace Nicenis.ComponentModel
                 TotalSize = OpCodeSize + OperandSize;
             }
 
-            #endregion
+        #endregion
 
 
-            #region Properties
+        #region Properties
 
             /// <summary>
             /// The OpCode.
@@ -155,7 +155,7 @@ namespace Nicenis.ComponentModel
             /// </summary>
             public int TotalSize { get; private set; }
 
-            #endregion
+        #endregion
         }
 
         /// <summary>
@@ -214,6 +214,16 @@ namespace Nicenis.ComponentModel
         /// </summary>
         private class PropertyNameCache
         {
+            #region UnsetValue
+
+            /// <summary>
+            /// Represents that the property name is not set yet.
+            /// </summary>
+            public static string UnsetValue = null;
+
+            #endregion
+
+
             #region Constructors
 
             /// <summary>
@@ -229,6 +239,16 @@ namespace Nicenis.ComponentModel
                 PropertyName = propertyName;
             }
 
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            /// <param name="metadataToken">The property getter metadata token.</param>
+            public PropertyNameCache(int metadataToken)
+            {
+                MetadataToken = metadataToken;
+                PropertyName = UnsetValue;
+            }
+
             #endregion
 
             #region Properties
@@ -240,8 +260,9 @@ namespace Nicenis.ComponentModel
 
             /// <summary>
             /// The property name.
+            /// If it is the UnsetValue, this means that this property is not set yet.
             /// </summary>
-            public string PropertyName { get; private set; }
+            public string PropertyName { get; set; }
 
             #endregion
         }
@@ -254,51 +275,134 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Finds a property name cache associated with the specified property getter method metadata token.
-        /// If it does not exist, null is returned.
+        /// If it does not exist, a new added property name cache is returned with the UnsetValue property name.
         /// </summary>
         /// <param name="metadataToken">The property getter method metadata token.</param>
         /// <returns>The property name cache if it exists; otherwise null.</returns>
-        private PropertyNameCache FindFromCache(int metadataToken)
+        private PropertyNameCache GetFromCache(int metadataToken)
         {
-            if (_propertyNameCaches == null)
-                return null;
-
-            for (int i = 0; i < _propertyNameCacheCount; i++)
+            // Starts binary search...
+            int insertIndex = -1;
+            if (_propertyNameCacheCount != 0)
             {
-                PropertyNameCache propertyNameCache = _propertyNameCaches[i];
+                int firstIndex = 0;
+                int lastIndex = _propertyNameCacheCount - 1;
 
-                if (propertyNameCache.MetadataToken == metadataToken)
-                    return propertyNameCache;
+                while (true)
+                {
+                    // Gets the middle item and index.
+                    int middleIndex = (firstIndex + lastIndex) / 2;
+                    PropertyNameCache middleItem = _propertyNameCaches[middleIndex];
+
+                    // Compares the metadata token.
+                    int compareResult = middleItem.MetadataToken - metadataToken;
+
+                    // If it is equal
+                    if (compareResult == 0)
+                        return middleItem;
+
+                    // If there is no item to search
+                    if (firstIndex == lastIndex)
+                    {
+                        // If the middle item is greater that the target item,
+                        // the new item must be placed before the middle item.
+                        if (compareResult > 0)
+                            insertIndex = firstIndex;
+                        else
+                            insertIndex = firstIndex + 1;
+                        break;
+                    }
+
+                    if (compareResult > 0)
+                        lastIndex = middleIndex - 1;
+                    else
+                        firstIndex = middleIndex + 1;
+
+                    // If the last index is less than the first index
+                    if (lastIndex < firstIndex)
+                    {
+                        if (compareResult > 0)
+                        {
+                            // If the middleIndex and firstIndex are the same
+                            // and the lastIndex is moved to the left of the firstIndex,
+                            // the new item must be placed before the middle item.
+                            insertIndex = firstIndex;
+                        }
+                        else
+                        {
+                            // If the middleIndex and lastIndex are the same
+                            // and the firstIndex is moved to the right of the lastIndex,
+                            // the new item must be placed after the middle item.
+                            insertIndex = lastIndex + 1;
+                        }
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                insertIndex = 0;
             }
 
-            return null;
-        }
+            Debug.Assert(insertIndex != -1);
 
-        /// <summary>
-        /// Adds a new property name cache.
-        /// The added property name cache must not be a duplicated one.
-        /// </summary>
-        /// <param name="propertyNameCache">The property name cache to add.</param>
-        private void AddToCache(PropertyNameCache propertyNameCache)
-        {
-            Debug.Assert(propertyNameCache != null);
+            // Creates a new property name cache instance.
+            PropertyNameCache newItem = new PropertyNameCache(metadataToken);
 
+            // Initializes the property name cache array.
             if (_propertyNameCaches == null)
                 _propertyNameCaches = new PropertyNameCache[2];
-
-            Debug.Assert(_propertyNameCaches.Take(_propertyNameCacheCount).Any(p => p.MetadataToken == propertyNameCache.MetadataToken) == false);
-            Debug.Assert(_propertyNameCaches.Take(_propertyNameCacheCount).Any(p => p.PropertyName == propertyNameCache.PropertyName) == false);
 
             // If the array is full, expands the array.
             if (_propertyNameCacheCount == _propertyNameCaches.Length)
             {
+                // Allocates a new array.
                 PropertyNameCache[] newArray = new PropertyNameCache[_propertyNameCacheCount * 2];
-                Array.Copy(_propertyNameCaches, newArray, _propertyNameCacheCount);
+
+                // Copies all item before the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyNameCaches,
+                    destinationArray: newArray,
+                    length: insertIndex
+                );
+
+                // Saves the new item.
+                newArray[insertIndex] = newItem;
+
+                // Copies all item after the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyNameCaches,
+                    sourceIndex: insertIndex,
+                    destinationArray: newArray,
+                    destinationIndex: insertIndex + 1,
+                    length: _propertyNameCacheCount - insertIndex
+                );
+
+                // Resets the property array.
                 _propertyNameCaches = newArray;
             }
+            else
+            {
+                // Shifts all items to insert the new item into the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyNameCaches,
+                    sourceIndex: insertIndex,
+                    destinationArray: _propertyNameCaches,
+                    destinationIndex: insertIndex + 1,
+                    length: _propertyNameCacheCount - insertIndex
+                );
 
-            // Saves the value.
-            _propertyNameCaches[_propertyNameCacheCount++] = propertyNameCache;
+                // Saves the new item.
+                _propertyNameCaches[insertIndex] = newItem;
+            }
+
+            // Increases the count.
+            _propertyNameCacheCount++;
+
+            return newItem;
         }
 
         #endregion
@@ -1201,9 +1305,11 @@ namespace Nicenis.ComponentModel
             int metadataToken = BitConverter.ToInt32(ilBytes, callOpcodeIndex + 1);
 #endif
 
-            // Finds the property name cache.
-            PropertyNameCache propertyNameCache = null;
-            if ((propertyNameCache = FindFromCache(metadataToken)) != null)
+            // Gets the property name cache.
+            PropertyNameCache propertyNameCache = GetFromCache(metadataToken);
+
+            // If there is a property name
+            if (propertyNameCache.PropertyName != PropertyNameCache.UnsetValue)
                 return propertyNameCache.PropertyName;
 
             // Gets the property getter.
@@ -1213,11 +1319,8 @@ namespace Nicenis.ComponentModel
             if (propertyGetter.IsSpecialName == false)
                 throw new InvalidOperationException("Invalid lambda expression. You must use a simple lambda expression that returns a property such as \"() => Property\".");
 
-            // Creates a property name cache.
-            propertyNameCache = new PropertyNameCache(metadataToken, propertyGetter.Name.Substring("get_".Length));
-
-            // Adds the property name to the cache.
-            AddToCache(propertyNameCache);
+            // Sets the property name
+            propertyNameCache.PropertyName = propertyGetter.Name.Substring("get_".Length);
 
             // Returns the property name.
             return propertyNameCache.PropertyName;
@@ -1237,6 +1340,16 @@ namespace Nicenis.ComponentModel
         /// </summary>
         private class PropertyValue
         {
+            #region UnsetValue
+
+            /// <summary>
+            /// Represents that the property value is not set yet.
+            /// </summary>
+            public static object UnsetValue = new object();
+
+            #endregion
+
+
             #region Constructors
 
             /// <summary>
@@ -1252,6 +1365,18 @@ namespace Nicenis.ComponentModel
                 Value = value;
             }
 
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            /// <param name="name">The property name.</param>
+            public PropertyValue(string name)
+            {
+                Debug.Assert(string.IsNullOrWhiteSpace(name) == false);
+
+                Name = name;
+                Value = UnsetValue;
+            }
+
             #endregion
 
 
@@ -1264,6 +1389,7 @@ namespace Nicenis.ComponentModel
 
             /// <summary>
             /// The property value.
+            /// If it is the UnsetValue, this means that this property is not set yet.
             /// </summary>
             public object Value { get; set; }
 
@@ -1278,55 +1404,136 @@ namespace Nicenis.ComponentModel
 
         /// <summary>
         /// Finds a property value associated with the specified property name.
-        /// If it does not exist, null is returned.
+        /// If it does not exist, a new added property is returned with the UnsetValue value.
         /// </summary>
         /// <param name="propertyName">The property name to find.</param>
-        /// <returns>The property value if it exists; otherwise null.</returns>
-        private PropertyValue FindFromStorage(string propertyName)
+        /// <returns>The property value.</returns>
+        private PropertyValue GetFromStorage(string propertyName)
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
 
-            if (_propertyValues == null)
-                return null;
-
-            for (int i = 0; i < _propertyValueCount; i++)
+            // Starts binary search...
+            int insertIndex = -1;
+            if (_propertyValueCount != 0)
             {
-                PropertyValue propertyValue = _propertyValues[i];
+                int firstIndex = 0;
+                int lastIndex = _propertyValueCount - 1;
 
-                if (propertyValue.Name.Length != propertyName.Length)
-                    continue;
+                while (true)
+                {
+                    // Gets the middle item and index.
+                    int middleIndex = (firstIndex + lastIndex) / 2;
+                    PropertyValue middleItem = _propertyValues[middleIndex];
 
-                if (propertyValue.Name == propertyName)
-                    return propertyValue;
+                    // Compares the propertyName.
+                    int compareResult = string.Compare(middleItem.Name, propertyName, StringComparison.Ordinal);
+
+                    // If it is equal
+                    if (compareResult == 0)
+                        return middleItem;
+
+                    // If there is no item to search
+                    if (firstIndex == lastIndex)
+                    {
+                        // If the middle item is greater that the target item,
+                        // the new item must be placed before the middle item.
+                        if (compareResult > 0)
+                            insertIndex = firstIndex;
+                        else
+                            insertIndex = firstIndex + 1;
+                        break;
+                    }
+
+                    if (compareResult > 0)
+                        lastIndex = middleIndex - 1;
+                    else
+                        firstIndex = middleIndex + 1;
+
+                    // If the last index is less than the first index
+                    if (lastIndex < firstIndex)
+                    {
+                        if (compareResult > 0)
+                        {
+                            // If the middleIndex and firstIndex are the same
+                            // and the lastIndex is moved to the left of the firstIndex,
+                            // the new item must be placed before the middle item.
+                            insertIndex = firstIndex;
+                        }
+                        else
+                        {
+                            // If the middleIndex and lastIndex are the same
+                            // and the firstIndex is moved to the right of the lastIndex,
+                            // the new item must be placed after the middle item.
+                            insertIndex = lastIndex + 1;
+                        }
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                insertIndex = 0;
             }
 
-            return null;
-        }
+            Debug.Assert(insertIndex != -1);
 
-        /// <summary>
-        /// Adds a new property value.
-        /// The added property name must not be a duplicated property name.
-        /// </summary>
-        /// <param name="propertyValue">The property value to add.</param>
-        private void AddToStorage(PropertyValue propertyValue)
-        {
-            Debug.Assert(propertyValue != null);
+            // Creates a new property value instance.
+            PropertyValue newItem = new PropertyValue(propertyName);
 
+            // Initializes the property value array.
             if (_propertyValues == null)
                 _propertyValues = new PropertyValue[2];
-
-            Debug.Assert(_propertyValues.Take(_propertyValueCount).Any(p => p.Name == propertyValue.Name) == false);
 
             // If the array is full, expands the array.
             if (_propertyValueCount == _propertyValues.Length)
             {
+                // Allocates a new array.
                 PropertyValue[] newArray = new PropertyValue[_propertyValueCount * 2];
-                Array.Copy(_propertyValues, newArray, _propertyValueCount);
+
+                // Copies all item before the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyValues,
+                    destinationArray: newArray,
+                    length: insertIndex
+                );
+
+                // Saves the new item.
+                newArray[insertIndex] = newItem;
+
+                // Copies all item after the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyValues,
+                    sourceIndex: insertIndex,
+                    destinationArray: newArray,
+                    destinationIndex: insertIndex + 1,
+                    length: _propertyValueCount - insertIndex
+                );
+
+                // Resets the property array.
                 _propertyValues = newArray;
             }
+            else
+            {
+                // Shifts all items to insert the new item into the insertion position.
+                Array.Copy
+                (
+                    sourceArray: _propertyValues,
+                    sourceIndex: insertIndex,
+                    destinationArray: _propertyValues,
+                    destinationIndex: insertIndex + 1,
+                    length: _propertyValueCount - insertIndex
+                );
 
-            // Saves the value.
-            _propertyValues[_propertyValueCount++] = propertyValue;
+                // Saves the new item.
+                _propertyValues[insertIndex] = newItem;
+            }
+
+            // Increases the count.
+            _propertyValueCount++;
+
+            return newItem;
         }
 
         #endregion
@@ -1350,14 +1557,12 @@ namespace Nicenis.ComponentModel
             if (initializer == null)
                 throw new ArgumentNullException("initializer");
 
-            // If the property does not exist in the storage
-            PropertyValue propertyValue = null;
-            if ((propertyValue = FindFromStorage(propertyName)) == null)
-            {
-                // Initializes a new one.
-                propertyValue = new PropertyValue(propertyName, initializer());
-                AddToStorage(propertyValue);
-            }
+            // Gets the property value
+            PropertyValue propertyValue = GetFromStorage(propertyName);
+
+            // If the property value is not set, initializes it.
+            if (propertyValue.Value == PropertyValue.UnsetValue)
+                propertyValue.Value = initializer();
 
             return (T)propertyValue.Value;
         }
@@ -1423,14 +1628,12 @@ namespace Nicenis.ComponentModel
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
 
-            // If the property does not exist in the storage
-            PropertyValue propertyValue = null;
-            if ((propertyValue = FindFromStorage(propertyName)) == null)
-            {
-                // Initializes a new one.
-                propertyValue = new PropertyValue(propertyName, default(T));
-                AddToStorage(propertyValue);
-            }
+            // Gets the property value.
+            PropertyValue propertyValue = GetFromStorage(propertyName);
+
+            // If the property value is not set, initializes it.
+            if (propertyValue.Value == PropertyValue.UnsetValue)
+                propertyValue.Value = default(T);
 
             // If the values are equal
             if (object.Equals(propertyValue.Value, value))

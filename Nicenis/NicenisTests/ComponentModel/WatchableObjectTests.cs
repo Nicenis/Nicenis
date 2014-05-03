@@ -430,6 +430,34 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
+        [TestMethod]
+        public void ToPropertyName_must_support_multiple_property_names()
+        {
+            // arrange
+            string[] expectedPropertyNames =
+            {
+                "ValueProperty",
+                "PrivateValueProperty",
+                "VirtualValueProperty",
+            };
+            Sample sample = new Sample();
+
+            for (int i = 0; i < 3; i++)
+            {
+                // act
+                string[] propertyNames = 
+                {
+                    sample.GetValuePropertyName(),
+                    sample.GetPrivateValuePropertyName(),
+                    sample.GetVirtualValuePropertyName(),
+                };
+
+                // assert
+                for (int j = 0; j < expectedPropertyNames.Length; j++)
+                    Assert.AreEqual(expectedPropertyNames[j], propertyNames[j]);
+            }
+        }
+
         #endregion
 
 
@@ -1204,24 +1232,88 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_support_multiple_properties()
+        public void SetProperty_must_support_multiple_properties_with_insertion_in_ascending_order()
         {
+            for (int count = 1; count <= 100; count++)
+            {
+                // arrange
+                Sample sample = new Sample();
+
+                // act
+                for (int i = 0; i <= count; i++)
+                    sample.SetProperty("Test" + i, i);
+
+                // assert
+                for (int i = 0; i <= count; i++)
+                {
+                    int value = sample.GetProperty<int>("Test" + i);
+                    Assert.AreEqual(value, i);
+
+                    value = sample.GetProperty<int>("Nonexistence" + i);
+                    Assert.AreEqual(value, default(int));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_multiple_properties_with_insertion_in_decending_order()
+        {
+            for (int count = 1; count <= 100; count++)
+            {
+                // arrange
+                Sample sample = new Sample();
+
+                // act
+                for (int i = count; i >= 0; i--)
+                    sample.SetProperty("Test" + i, i);
+
+                // assert
+                for (int i = count; i >= 0; i--)
+                {
+                    int value = sample.GetProperty<int>("Test" + i);
+                    Assert.AreEqual(value, i);
+
+                    value = sample.GetProperty<int>("Nonexistence" + i);
+                    Assert.AreEqual(value, default(int));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetProperty_must_support_multiple_properties_with_insertion_in_random_order()
+        {
+            int[] numbers = Enumerable.Range(0, 101).ToArray();
+            Random random = new Random();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                int swapIndex = random.Next(0, numbers.Length);
+
+                int temp = numbers[i];
+                numbers[i] = numbers[swapIndex];
+                numbers[swapIndex] = temp;
+            }
+
             // arrange
-            const int testValue = 10;
-            const string testReference = "Test";
+            for (int count = 1; count <= 100; count++)
+            {
+                // arrange
+                Sample sample = new Sample();
 
-            Sample sample = new Sample();
+                // act
+                for (int i = count; i >= 0; i--)
+                    sample.SetProperty("Test" + numbers[i], numbers[i]);
 
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), testValue);
-            sample.SetProperty(sample.GetReferencePropertyName(), testReference);
+                // assert
+                for (int i = count; i >= 0; i--)
+                {
+                    int value = sample.GetProperty<int>("Test" + numbers[i]);
+                    Assert.AreEqual(value, numbers[i]);
 
-            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
-            string propertyReference = sample.GetProperty<string>(sample.GetReferencePropertyName());
-
-            // assert
-            Assert.AreEqual(testValue, propertyValue);
-            Assert.AreEqual(testReference, propertyReference);
+                    value = sample.GetProperty<int>("Nonexistence" + numbers[i]);
+                    Assert.AreEqual(value, default(int));
+                }
+            }
         }
 
         [TestMethod]
