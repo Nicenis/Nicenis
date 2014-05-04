@@ -218,17 +218,17 @@ namespace Nicenis.ComponentModel
         /// </summary>
         private class PropertyNameCache
         {
-        #region UnsetValue
+            #region UnsetValue
 
             /// <summary>
             /// Represents that the property name is not set yet.
             /// </summary>
             public static string UnsetValue = null;
 
-        #endregion
+            #endregion
 
 
-        #region Constructors
+            #region Constructors
 
             /// <summary>
             /// Initializes a new instance.
@@ -253,9 +253,9 @@ namespace Nicenis.ComponentModel
                 PropertyName = UnsetValue;
             }
 
-        #endregion
+            #endregion
 
-        #region Properties
+            #region Properties
 
             /// <summary>
             /// The property getter metadata token.
@@ -268,7 +268,7 @@ namespace Nicenis.ComponentModel
             /// </summary>
             public string PropertyName { get; set; }
 
-        #endregion
+            #endregion
         }
 
         #endregion
@@ -1375,7 +1375,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression20">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1448,7 +1448,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression19">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1518,7 +1518,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression18">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1584,7 +1584,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression17">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1647,7 +1647,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression16">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1707,7 +1707,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression15">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1763,7 +1763,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression14">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1816,7 +1816,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression13">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1866,7 +1866,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression12">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
                 Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3,
                 Expression<Func<T4>> propertyExpression4, Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6,
                 Expression<Func<T7>> propertyExpression7, Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9,
@@ -1912,7 +1912,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression11">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10,
@@ -1955,7 +1955,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
@@ -1994,7 +1994,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
@@ -2030,7 +2030,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
                 Expression<Func<T8>> propertyExpression8)
@@ -2063,7 +2063,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
         {
@@ -2092,7 +2092,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
         {
@@ -2118,7 +2118,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5)
         {
@@ -2141,7 +2141,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
         {
             yield return ToPropertyName(propertyExpression);
@@ -2160,7 +2160,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+        protected IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3)
         {
             yield return ToPropertyName(propertyExpression);
@@ -2176,7 +2176,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
-        protected static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        protected IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
             yield return ToPropertyName(propertyExpression);
             yield return ToPropertyName(propertyExpression2);
@@ -2188,7 +2188,7 @@ namespace Nicenis.ComponentModel
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <returns>The property name extracted.</returns>
-        protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
+        protected string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
             if (propertyExpression == null)
                 throw new ArgumentNullException("propertyExpression");
