@@ -33,7 +33,7 @@
     <DefineConstants>TRACE;NICENIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Nicenis.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Nicenis.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
