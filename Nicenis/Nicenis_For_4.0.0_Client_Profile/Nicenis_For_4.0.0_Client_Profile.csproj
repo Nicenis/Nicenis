@@ -52,6 +52,9 @@
     <Compile Include="..\Nicenis\Collections\StaticArray.cs">
       <Link>Collections\StaticArray.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\IFreezable.cs">
+      <Link>ComponentModel\IFreezable.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\ComponentModel\WatchableObject.cs">
       <Link>ComponentModel\WatchableObject.cs</Link>
     </Compile>
