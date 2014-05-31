@@ -17,11 +17,6 @@ namespace Nicenis.ComponentModel
     public interface IFreezable
     {
         /// <summary>
-        /// Gets a value that indicates whether the object can be made unmodifiable. 
-        /// </summary>
-        bool CanFreeze { get; }
-
-        /// <summary>
         /// Gets a value that indicates whether the object is currently modifiable.
         /// </summary>
         bool IsFrozen { get; }
