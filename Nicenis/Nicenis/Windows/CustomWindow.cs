@@ -9,7 +9,6 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using Nicenis.Diagnostics;
 using Nicenis.Interop;
 using Nicenis.Windows.Input;
 using System;
@@ -589,7 +588,8 @@ namespace Nicenis.Windows
         /// <param name="e">The event arguments.</param>
         protected virtual void OnStateExChanged(CustomWindowStateExChangedEventArgs e)
         {
-            Verify.ParameterIsNotNull(e, "e");
+            if (e == null)
+                throw new ArgumentNullException("e");
 
             if (StateExChanged != null)
                 StateExChanged(this, e);

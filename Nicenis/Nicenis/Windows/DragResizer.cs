@@ -9,7 +9,6 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using Nicenis.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -37,7 +36,9 @@ namespace Nicenis.Windows
         internal DragResizerEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
             : base(routedEvent, source)
         {
-            Verify.ParameterIsNotNull(target, "target");
+            if (target == null)
+                throw new ArgumentNullException("target");
+
             Target = target;
         }
 
