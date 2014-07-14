@@ -14,7 +14,7 @@ namespace Nicenis.ComponentModel
     /// <summary>
     /// Represents an object that can be frozen. If the object is frozen, it is immutable.
     /// </summary>
-    public interface IFreezable
+    internal interface IFreezable
     {
         /// <summary>
         /// Gets a value that indicates whether the object is currently modifiable.
