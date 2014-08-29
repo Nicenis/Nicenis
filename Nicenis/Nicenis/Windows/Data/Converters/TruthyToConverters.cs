@@ -10,10 +10,16 @@
  */
 
 using System;
-using System.Globalization;
+
+#if !NICENIS_RT
 using System.Linq;
 using System.Windows;
+using System.Globalization;
 using System.Windows.Data;
+#else
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml;
+#endif
 
 namespace Nicenis.Windows.Data.Converters
 {
@@ -23,15 +29,25 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Collapsed if the input value is truthy; otherwise, Visibility.Visible.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+#if !NICENIS_RT
     [ValueConversion(typeof(object), typeof(Visibility))]
+#endif
     public class TruthyToCollapsedConverter : IValueConverter
     {
+#if !NICENIS_RT
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object Convert(object value, Type targetType, object parameter, string language)
+#endif
         {
             return Booleany.IsTruthy(value) ? Visibility.Collapsed : Visibility.Visible;
         }
 
+#if !NICENIS_RT
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+#endif
         {
             throw new NotSupportedException();
         }
@@ -42,21 +58,32 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns false if the input value is truthy; otherwise, true.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+#if !NICENIS_RT
     [ValueConversion(typeof(object), typeof(bool))]
+#endif
     public class TruthyToFalseConverter : IValueConverter
     {
+#if !NICENIS_RT
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object Convert(object value, Type targetType, object parameter, string language)
+#endif
         {
             return !Booleany.IsTruthy(value);
         }
 
+#if !NICENIS_RT
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+#endif
         {
             throw new NotSupportedException();
         }
     }
 
 
+#if !NICENIS_RT
     /// <summary>
     /// Returns Visibility.Hidden if the input value is truthy; otherwise, Visibility.Visible.
     /// </summary>
@@ -74,21 +101,32 @@ namespace Nicenis.Windows.Data.Converters
             throw new NotSupportedException();
         }
     }
+#endif
 
 
     /// <summary>
     /// Returns true if the input value is truthy; otherwise, false.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+#if !NICENIS_RT
     [ValueConversion(typeof(object), typeof(bool))]
+#endif
     public class TruthyToTrueConverter : IValueConverter
     {
+#if !NICENIS_RT
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object Convert(object value, Type targetType, object parameter, string language)
+#endif
         {
             return Booleany.IsTruthy(value);
         }
 
+#if !NICENIS_RT
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+#endif
         {
             throw new NotSupportedException();
         }
@@ -99,21 +137,32 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if the input value is truthy; otherwise, Visibility.Collapsed.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+#if !NICENIS_RT
     [ValueConversion(typeof(object), typeof(Visibility))]
+#endif
     public class TruthyToVisibleConverter : IValueConverter
     {
+#if !NICENIS_RT
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object Convert(object value, Type targetType, object parameter, string language)
+#endif
         {
             return Booleany.IsTruthy(value) ? Visibility.Visible : Visibility.Collapsed;
         }
 
+#if !NICENIS_RT
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+#else
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+#endif
         {
             throw new NotSupportedException();
         }
     }
 
 
+#if !NICENIS_RT
     /// <summary>
     /// Returns Visibility.Visible if the input value is truthy; otherwise, Visibility.Hidden.
     /// </summary>
@@ -383,6 +432,7 @@ namespace Nicenis.Windows.Data.Converters
             throw new NotSupportedException();
         }
     }
+#endif
 
 #pragma warning restore 1591    // Restores the warning for missing XML comment.
 }

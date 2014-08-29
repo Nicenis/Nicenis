@@ -58,8 +58,10 @@ namespace Nicenis
             if (value is IEnumerable)
                 return ((IEnumerable)value).Cast<object>().Any();
 
+#if !NICENIS_RT
             if (value is DBNull)
                 return false;
+#endif
 
             if (value is sbyte)
                 return (sbyte)value != 0;
