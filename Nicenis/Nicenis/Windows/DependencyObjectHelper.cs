@@ -12,7 +12,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+
+#if !NICENIS_RT
 using System.Windows.Media;
+#else
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+#endif
 
 namespace Nicenis.Windows
 {
