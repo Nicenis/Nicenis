@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="WeakEventTests.cs" />
     <Compile Include="BooleanyTests.cs" />
     <Compile Include="ComponentModel\WatchableObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
