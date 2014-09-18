@@ -11,19 +11,67 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Nicenis
 {
-    #region WeakEventImplementation
+    #region WeakEventBase
 
     /// <summary>
-    /// Provides most implementation for WeakEvent.
+    /// Provides base implementation for WeakEvent.
     /// </summary>
-    /// <typeparam name="TEventHandler">The event handler type.</typeparam>
-    internal class WeakEventImplementation<TEventHandler> where TEventHandler : class
+    /// <remarks>
+    /// Internal Use Only.
+    /// </remarks>
+    public abstract class WeakEventBase
     {
-        IEnumerable<WeakReference> _weakHandlers = Enumerable.Empty<WeakReference>();
+        #region WeakEventHandlerInfo
+
+        /// <summary>
+        /// Represents event handler information that is weak referenced.
+        /// </summary>
+        class WeakEventHandlerInfo
+        {
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instancel.
+            /// </summary>
+            /// <param name="target">The target instance if the event handler is a instance method; otherwise null.</param>
+            /// <param name="methodInfo">The event handler method info.</param>
+            public WeakEventHandlerInfo(object target, MethodInfo methodInfo)
+            {
+                Debug.Assert(methodInfo != null);
+
+                WeakTarget = new WeakReference(target);
+                MethodInfo = methodInfo;
+            }
+
+            #endregion
+
+
+            #region Public Properties
+
+            /// <summary>
+            /// The target instance that is weak referenced.
+            /// If the event handler is a static method, the target instance is always null.
+            /// </summary>
+            public WeakReference WeakTarget { get; private set; }
+
+            /// <summary>
+            /// The event handler method info.
+            /// </summary>
+            public MethodInfo MethodInfo { get; private set; }
+
+            #endregion
+        }
+
+        #endregion
+
+
+        IEnumerable<WeakEventHandlerInfo> _weakHandlerInfos = Enumerable.Empty<WeakEventHandlerInfo>();
 
 
         #region Constructors
@@ -31,7 +79,7 @@ namespace Nicenis
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public WeakEventImplementation() { }
+        public WeakEventBase() { }
 
         #endregion
 
@@ -39,130 +87,145 @@ namespace Nicenis
         #region Public Methods
 
         /// <summary>
-        /// Adds an event handler.
+        /// Adds a weak event handler info.
         /// </summary>
         /// <remarks>
-        /// If you add a lambda expression that does not access container class's instance member,
-        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// If you add a static method or a lambda expression that does not access container class's instance member,
+        /// it is not automatically removed even if the container class instance is garbage collected.
         /// </remarks>
-        /// <param name="value">The event handler to add.</param>
-        public void Add(TEventHandler value)
+        /// <param name="target">The target instance if the event handler is a instance method; otherwise null.</param>
+        /// <param name="methodInfo">The event handler method info.</param>
+        protected void InternalAdd(object target, MethodInfo methodInfo)
         {
-            if (value == null)
-                throw new ArgumentNullException("value");
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
 
-            var weakHandlers = _weakHandlers;
-            var newWeakHandlers = new WeakReference[weakHandlers.Count() + 1];
+            var weakHandlerInfos = _weakHandlerInfos;
+            var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfos.Count() + 1];
 
-            // Copies existing event handlers.
+            // Copies existing event handler infos.
             int index = 0;
-            foreach (var weakHandler in weakHandlers)
-                newWeakHandlers[index++] = weakHandler;
+            foreach (var weakHandlerInfo in weakHandlerInfos)
+                newWeakHandlerInfos[index++] = weakHandlerInfo;
 
-            // Copies the new event handler.
-            newWeakHandlers[index] = new WeakReference(value);
+            // Copies the new event handler info.
+            newWeakHandlerInfos[index] = new WeakEventHandlerInfo(target, methodInfo);
 
-            // Updatea the weak event handler collection.
-            _weakHandlers = newWeakHandlers;
+            // Updates the weak event handler info collection.
+            _weakHandlerInfos = newWeakHandlerInfos;
         }
 
         /// <summary>
-        /// Removes the event handler.
+        /// Removes a weak event handler info.
         /// </summary>
-        /// <param name="value">The event handler to remove.</param>
-        public void Remove(TEventHandler value)
+        /// <param name="target">The target instance if the event handler is a instance method; otherwise null.</param>
+        /// <param name="methodInfo">The event handler method info.</param>
+        protected void InternalRemove(object target, MethodInfo methodInfo)
         {
-            if (value == null)
-                throw new ArgumentNullException("value");
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
 
-            // Finds the weak event handler to delete.
-            var weakHandlers = _weakHandlers;
-            var weakHandlerToDelete = weakHandlers.FirstOrDefault
+            // Finds the weak event handler info to delete.
+            var weakHandlerInfos = _weakHandlerInfos;
+            var weakHandlerInfoToDelete = weakHandlerInfos.FirstOrDefault
             (
-                weakHandler =>
+                weakHandlerInfo =>
                 {
-                    TEventHandler handler = weakHandler.Target as TEventHandler;
-                    if (handler == null)
-                        return false;
-
-                    return handler.Equals(value);
+                    return weakHandlerInfo.WeakTarget.Target == target
+                        && weakHandlerInfo.MethodInfo == methodInfo;
                 }
             );
 
-            // If there is no weak event handler to delete...
-            if (weakHandlerToDelete == null)
+            // If there is no weak event handler info to delete...
+            if (weakHandlerInfoToDelete == null)
                 return;
 
-            var newWeakHandlers = new WeakReference[weakHandlers.Count() - 1];
+            var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfos.Count() - 1];
             int index = 0;
-            foreach (var weakHandler in weakHandlers)
+            foreach (var weakHandlerInfo in weakHandlerInfos)
             {
-                // Skips the weak event handler to delete.
-                if (weakHandler == weakHandlerToDelete)
+                // Skips the weak event handler info to delete.
+                if (weakHandlerInfo == weakHandlerInfoToDelete)
                     continue;
 
-                newWeakHandlers[index++] = weakHandler;
+                newWeakHandlerInfos[index++] = weakHandlerInfo;
             }
 
-            // Updatea the weak event handler collection.
-            _weakHandlers = newWeakHandlers;
+            // Updates the weak event handler info collection.
+            _weakHandlerInfos = newWeakHandlerInfos;
         }
 
         /// <summary>
-        /// Raises the event.
+        /// Raises an event.
         /// </summary>
-        /// <param name="invoker">The action that calls the event handler.</param>
-        public void Raise(Action<TEventHandler> invoker)
+        /// <param name="sender">The event sender.</param>
+        /// <param name="args">The event arguments.</param>
+        protected void InternalRaise(object sender, object args)
         {
-            if (invoker == null)
-                throw new ArgumentNullException("invoker");
+            if (sender == null)
+                throw new ArgumentNullException("sender");
 
-            var weakHandlers = _weakHandlers;
-            List<WeakReference> weakHandlersToDelete = null; ;
+            if (args == null)
+                throw new ArgumentNullException("args");
 
-            // For each weak handler...
-            foreach (var weakHandler in weakHandlers)
+            var weakHandlerInfos = _weakHandlerInfos;
+            List<WeakEventHandlerInfo> weakHandlerInfosToDelete = null; ;
+
+            // For each weak handler info...
+            foreach (var weakHandlerInfo in weakHandlerInfos)
             {
-                TEventHandler handler = weakHandler.Target as TEventHandler;
-                if (handler == null)
+                // If the event handler is a static method...
+                if (weakHandlerInfo.MethodInfo.IsStatic)
                 {
-                    if (weakHandlersToDelete == null)
-                        weakHandlersToDelete = new List<WeakReference>();
-
-                    // Collects the garbage collected event handler.
-                    weakHandlersToDelete.Add(weakHandler);
-                    continue;
+                    // Calls the event handler.
+                    weakHandlerInfo.MethodInfo.Invoke(null, new object[] { sender, args });
                 }
+                else
+                {
+                    // Gets the strong reference.
+                    object target = weakHandlerInfo.WeakTarget.Target;
 
-                // Invokes the event handler.
-                invoker(handler);
+                    // If it is garbage collected..
+                    if (target == null)
+                    {
+                        if (weakHandlerInfosToDelete == null)
+                            weakHandlerInfosToDelete = new List<WeakEventHandlerInfo>();
+
+                        // Collects the garbage collected event handler info.
+                        weakHandlerInfosToDelete.Add(weakHandlerInfo);
+                        continue;
+                    }
+
+                    // Calls the event handler.
+                    weakHandlerInfo.MethodInfo.Invoke(target, new object[] { sender, args });
+                }
             }
 
-            // If there is no event handler garbage collected
-            if (weakHandlersToDelete == null)
+            // If no event handler info is garbage collected..
+            if (weakHandlerInfosToDelete == null)
                 return;
 
-            // If all event handlers are garbage collected
-            int weakHandlerCount = weakHandlers.Count();
-            if (weakHandlersToDelete.Count == weakHandlerCount)
+            // If all event handlers are garbage collected..
+            int weakHandlerInfoCount = weakHandlerInfos.Count();
+            if (weakHandlerInfosToDelete.Count == weakHandlerInfoCount)
             {
-                _weakHandlers = Enumerable.Empty<WeakReference>();
+                _weakHandlerInfos = Enumerable.Empty<WeakEventHandlerInfo>();
                 return;
             }
 
-            var newWeakHandlers = new WeakReference[weakHandlerCount - weakHandlersToDelete.Count];
+            var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfoCount - weakHandlerInfosToDelete.Count];
             int index = 0;
-            foreach (var weakHandler in weakHandlers)
+            foreach (var weakHandlerInfo in weakHandlerInfos)
             {
-                // Skips the event handler garbage collected
-                if (weakHandlersToDelete.Contains(weakHandler))
+                // Skips the event handler info garbage collected
+                if (weakHandlerInfosToDelete.Contains(weakHandlerInfo))
                     continue;
 
-                newWeakHandlers[index++] = weakHandler;
+                newWeakHandlerInfos[index++] = weakHandlerInfo;
             }
 
-            // Updatea the weak event handler collection.
-            _weakHandlers = newWeakHandlers;
+            // Updates the weak event handler info collection.
+            _weakHandlerInfos = newWeakHandlerInfos;
         }
 
         #endregion
@@ -173,11 +236,8 @@ namespace Nicenis
     /// <summary>
     /// Provides storage for event handlers that garbage collector can collect.
     /// </summary>
-    public class WeakEvent
+    public class WeakEvent : WeakEventBase
     {
-        WeakEventImplementation<EventHandler> _implementation = new WeakEventImplementation<EventHandler>();
-
-
         #region Constructors
 
         /// <summary>
@@ -194,13 +254,20 @@ namespace Nicenis
         /// Adds an event handler.
         /// </summary>
         /// <remarks>
-        /// If you add a lambda expression that does not access container class's instance member,
-        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// If you add a static method or a lambda expression that does not access container class's instance member,
+        /// it is not automatically removed even if the container class instance is garbage collected.
         /// </remarks>
         /// <param name="value">The event handler to add.</param>
         public void Add(EventHandler value)
         {
-            _implementation.Add(value);
+            if (value == null)
+                throw new ArgumentNullException("value");
+
+#if !NICENIS_RT
+            InternalAdd(value.Target, value.Method);
+#else
+            InternalAdd(value.Target, value.GetMethodInfo());
+#endif
         }
 
         /// <summary>
@@ -209,19 +276,23 @@ namespace Nicenis
         /// <param name="value">The event handler to remove.</param>
         public void Remove(EventHandler value)
         {
-            _implementation.Remove(value);
+            if (value == null)
+                throw new ArgumentNullException("value");
+
+#if !NICENIS_RT
+            InternalRemove(value.Target, value.Method);
+#else
+            InternalRemove(value.Target, value.GetMethodInfo());
+#endif
         }
 
         /// <summary>
         /// Raises an event.
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The event sender.</param>
         public void Raise(object sender)
         {
-            if (sender == null)
-                throw new ArgumentNullException("sender");
-
-            _implementation.Raise(handler => handler(sender, EventArgs.Empty));
+            InternalRaise(sender, EventArgs.Empty);
         }
 
         #endregion
@@ -231,16 +302,13 @@ namespace Nicenis
     /// Provides storage for event handlers that garbage collector can collect.
     /// </summary>
     /// <typeparam name="TEventArgs">The event argument type.</typeparam>
-    public class WeakEvent<TEventArgs>
+    public class WeakEvent<TEventArgs> : WeakEventBase
 #if !NICENIS_4C
         where TEventArgs : class
 #else
         where TEventArgs : EventArgs
 #endif
     {
-        WeakEventImplementation<EventHandler<TEventArgs>> _implementation = new WeakEventImplementation<EventHandler<TEventArgs>>();
-
-
         #region Constructors
 
         /// <summary>
@@ -257,13 +325,20 @@ namespace Nicenis
         /// Adds an event handler.
         /// </summary>
         /// <remarks>
-        /// If you add a lambda expression that does not access container class's instance member,
-        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// If you add a static method or a lambda expression that does not access container class's instance member,
+        /// it is not automatically removed even if the container class instance is garbage collected.
         /// </remarks>
         /// <param name="value">The event handler to add.</param>
         public void Add(EventHandler<TEventArgs> value)
         {
-            _implementation.Add(value);
+            if (value == null)
+                throw new ArgumentNullException("value");
+
+#if !NICENIS_RT
+            InternalAdd(value.Target, value.Method);
+#else
+            InternalAdd(value.Target, value.GetMethodInfo());
+#endif
         }
 
         /// <summary>
@@ -272,23 +347,24 @@ namespace Nicenis
         /// <param name="value">The event handler to remove.</param>
         public void Remove(EventHandler<TEventArgs> value)
         {
-            _implementation.Remove(value);
+            if (value == null)
+                throw new ArgumentNullException("value");
+
+#if !NICENIS_RT
+            InternalRemove(value.Target, value.Method);
+#else
+            InternalRemove(value.Target, value.GetMethodInfo());
+#endif
         }
 
         /// <summary>
         /// Raises an event.
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         public void Raise(object sender, TEventArgs e)
         {
-            if (sender == null)
-                throw new ArgumentNullException("sender");
-
-            if (e == null)
-                throw new ArgumentNullException("e");
-
-            _implementation.Raise(handler => handler(sender, e));
+            InternalRaise(sender, e);
         }
 
         #endregion

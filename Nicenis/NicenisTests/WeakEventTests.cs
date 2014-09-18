@@ -389,6 +389,26 @@ namespace NicenisTests
         }
 
         [TestMethod]
+        public void WeakEvent_Must_Not_Call_EventHandler_Removed_All()
+        {
+            // arrange
+            WeakEvent weakEvent = new WeakEvent();
+            _raiseCount = 0;
+            _staticRaiseCount = 0;
+            weakEvent.Add(EventHandler_Increase_RaiseCount);
+            weakEvent.Add(EventHandler_Increase_StaticRaiseCount);
+            weakEvent.Remove(EventHandler_Increase_RaiseCount);
+            weakEvent.Remove(EventHandler_Increase_StaticRaiseCount);
+
+            // act
+            weakEvent.Raise(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 0);
+            Assert.IsTrue(_staticRaiseCount == 0);
+        }
+
+        [TestMethod]
         public void WeakEvent_Must_Not_Call_Instance_Method_EventHandler_Removed_By_Garbage_Collector()
         {
             // arrange
@@ -407,7 +427,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEvent_Must_Not_Call_Static_Method_EventHandler_Removed_By_Garbage_Collector()
+        public void WeakEvent_Does_Not_Support_Removing_Static_Method_EventHandler_By_Garbage_Collector()
         {
             // arrange
             WeakEvent weakEvent = new WeakEvent();
@@ -421,7 +441,7 @@ namespace NicenisTests
             weakEvent.Raise(this);
 
             // assert
-            Assert.IsTrue(_staticRaiseCount == 0);
+            Assert.IsTrue(_staticRaiseCount == 1);
         }
 
         [TestMethod]
@@ -443,7 +463,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEvent_Does_Not_Support_Removing_Static_Lambda_EventHandler_Removed_By_Garbage_Collector()
+        public void WeakEvent_Does_Not_Support_Removing_Static_Lambda_EventHandler_By_Garbage_Collector()
         {
             // arrange
             WeakEvent weakEvent = new WeakEvent();
