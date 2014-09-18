@@ -41,6 +41,10 @@ namespace Nicenis
         /// <summary>
         /// Adds an event handler.
         /// </summary>
+        /// <remarks>
+        /// If you add a lambda expression that does not access container class's instance member,
+        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// </remarks>
         /// <param name="value">The event handler to add.</param>
         public void Add(TEventHandler value)
         {
@@ -189,6 +193,10 @@ namespace Nicenis
         /// <summary>
         /// Adds an event handler.
         /// </summary>
+        /// <remarks>
+        /// If you add a lambda expression that does not access container class's instance member,
+        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// </remarks>
         /// <param name="value">The event handler to add.</param>
         public void Add(EventHandler value)
         {
@@ -248,6 +256,10 @@ namespace Nicenis
         /// <summary>
         /// Adds an event handler.
         /// </summary>
+        /// <remarks>
+        /// If you add a lambda expression that does not access container class's instance member,
+        /// the lambda expression is not automatically removed even if the container class instance is garbage collected.
+        /// </remarks>
         /// <param name="value">The event handler to add.</param>
         public void Add(EventHandler<TEventArgs> value)
         {
