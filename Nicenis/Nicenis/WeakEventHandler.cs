@@ -17,15 +17,15 @@ using System.Reflection;
 
 namespace Nicenis
 {
-    #region WeakEventBase
+    #region WeakEventHandlerBase
 
     /// <summary>
-    /// Provides base implementation for WeakEvent.
+    /// Provides base implementation for WeakEventHandler.
     /// </summary>
     /// <remarks>
     /// Internal Use Only.
     /// </remarks>
-    public abstract class WeakEventBase
+    public abstract class WeakEventHandlerBase
     {
         #region WeakEventHandlerInfo
 
@@ -79,7 +79,7 @@ namespace Nicenis
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public WeakEventBase() { }
+        public WeakEventHandlerBase() { }
 
         #endregion
 
@@ -236,14 +236,14 @@ namespace Nicenis
     /// <summary>
     /// Provides storage for event handlers that garbage collector can collect.
     /// </summary>
-    public class WeakEvent : WeakEventBase
+    public class WeakEventHandler : WeakEventHandlerBase
     {
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public WeakEvent() { }
+        public WeakEventHandler() { }
 
         #endregion
 
@@ -302,7 +302,7 @@ namespace Nicenis
     /// Provides storage for event handlers that garbage collector can collect.
     /// </summary>
     /// <typeparam name="TEventArgs">The event argument type.</typeparam>
-    public class WeakEvent<TEventArgs> : WeakEventBase
+    public class WeakEventHandler<TEventArgs> : WeakEventHandlerBase
 #if !NICENIS_4C
         where TEventArgs : class
 #else
@@ -314,7 +314,7 @@ namespace Nicenis
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public WeakEvent() { }
+        public WeakEventHandler() { }
 
         #endregion
 

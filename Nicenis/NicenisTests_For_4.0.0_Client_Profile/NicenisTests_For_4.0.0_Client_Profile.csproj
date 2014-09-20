@@ -61,8 +61,8 @@
     <Compile Include="..\NicenisTests\ComponentModel\WatchableObjectTests.cs">
       <Link>ComponentModel\WatchableObjectTests.cs</Link>
     </Compile>
-    <Compile Include="..\NicenisTests\WeakEventTests.cs">
-      <Link>WeakEventTests.cs</Link>
+    <Compile Include="..\NicenisTests\WeakEventHandlerTests.cs">
+      <Link>WeakEventHandlerTests.cs</Link>
     </Compile>
     <Compile Include="..\NicenisTests\Windows\Data\Converters\FalsyToConvertersTests.cs">
       <Link>Windows\Data\Converters\FalsyToConvertersTests.cs</Link>

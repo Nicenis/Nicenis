@@ -70,8 +70,8 @@
     <Compile Include="..\Nicenis\Security\Cryptography\StringHasher.cs">
       <Link>Security\Cryptography\StringHasher.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\WeakEvent.cs">
-      <Link>WeakEvent.cs</Link>
+    <Compile Include="..\Nicenis\WeakEventHandler.cs">
+      <Link>WeakEventHandler.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Windows\BorderResizeMode.cs">
       <Link>Windows\BorderResizeMode.cs</Link>
