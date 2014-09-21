@@ -144,10 +144,10 @@ namespace NicenisTests
             // arrange
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
-            weakEventHandler.Add((_, __) => _raiseCount++);
+            weakEventHandler += (_, __) => _raiseCount++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -159,10 +159,10 @@ namespace NicenisTests
             // arrange
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
-            weakEventHandler.Add((_, __) => _staticRaiseCount++);
+            weakEventHandler += (_, __) => _staticRaiseCount++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -174,10 +174,10 @@ namespace NicenisTests
             // arrange
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount);
+            weakEventHandler += EventHandler_Increase_RaiseCount;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -189,10 +189,10 @@ namespace NicenisTests
             // arrange
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount);
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -205,11 +205,11 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
             _raiseCount2 = 0;
-            weakEventHandler.Add((_, __) => _raiseCount++);
-            weakEventHandler.Add((_, __) => _raiseCount2++);
+            weakEventHandler += (_, __) => _raiseCount++;
+            weakEventHandler += (_, __) => _raiseCount2++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -223,11 +223,11 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
             _staticRaiseCount2 = 0;
-            weakEventHandler.Add((_, __) => _staticRaiseCount++);
-            weakEventHandler.Add((_, __) => _staticRaiseCount2++);
+            weakEventHandler += (_, __) => _staticRaiseCount++;
+            weakEventHandler += (_, __) => _staticRaiseCount2++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -241,11 +241,11 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
             _raiseCount2 = 0;
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount);
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount2);
+            weakEventHandler += EventHandler_Increase_RaiseCount;
+            weakEventHandler += EventHandler_Increase_RaiseCount2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -259,11 +259,11 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
             _staticRaiseCount2 = 0;
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount);
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount2);
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount;
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -277,12 +277,12 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
             _raiseCount2 = 0;
-            weakEventHandler.Add((_, __) => _raiseCount++);
-            weakEventHandler.Add((_, __) => _raiseCount2++);
-            weakEventHandler.Remove((_, __) => _raiseCount2++);
+            weakEventHandler += (_, __) => _raiseCount++;
+            weakEventHandler += (_, __) => _raiseCount2++;
+            weakEventHandler -= (_, __) => _raiseCount2++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -296,12 +296,12 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
             _staticRaiseCount2 = 0;
-            weakEventHandler.Add((_, __) => _staticRaiseCount++);
-            weakEventHandler.Add((_, __) => _staticRaiseCount2++);
-            weakEventHandler.Remove((_, __) => _staticRaiseCount2++);
+            weakEventHandler += (_, __) => _staticRaiseCount++;
+            weakEventHandler += (_, __) => _staticRaiseCount2++;
+            weakEventHandler -= (_, __) => _staticRaiseCount2++;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -317,12 +317,12 @@ namespace NicenisTests
             _raiseCount2 = 0;
             EventHandler eventHandler = (_, __) => _raiseCount++;
             EventHandler eventHandler2 = (_, __) => _raiseCount2++;
-            weakEventHandler.Add(eventHandler);
-            weakEventHandler.Add(eventHandler2);
-            weakEventHandler.Remove(eventHandler2);
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler2;
+            weakEventHandler -= eventHandler2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -338,12 +338,12 @@ namespace NicenisTests
             _staticRaiseCount2 = 0;
             EventHandler eventHandler = (_, __) => _staticRaiseCount++;
             EventHandler eventHandler2 = (_, __) => _staticRaiseCount2++;
-            weakEventHandler.Add(eventHandler);
-            weakEventHandler.Add(eventHandler2);
-            weakEventHandler.Remove(eventHandler2);
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler2;
+            weakEventHandler -= eventHandler2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -357,12 +357,12 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
             _raiseCount2 = 0;
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount);
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount2);
-            weakEventHandler.Remove(EventHandler_Increase_RaiseCount2);
+            weakEventHandler += EventHandler_Increase_RaiseCount;
+            weakEventHandler += EventHandler_Increase_RaiseCount2;
+            weakEventHandler -= EventHandler_Increase_RaiseCount2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -376,12 +376,12 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _staticRaiseCount = 0;
             _staticRaiseCount2 = 0;
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount);
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount2);
-            weakEventHandler.Remove(EventHandler_Increase_StaticRaiseCount2);
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount;
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount2;
+            weakEventHandler -= EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -395,13 +395,13 @@ namespace NicenisTests
             WeakEventHandler weakEventHandler = new WeakEventHandler();
             _raiseCount = 0;
             _staticRaiseCount = 0;
-            weakEventHandler.Add(EventHandler_Increase_RaiseCount);
-            weakEventHandler.Add(EventHandler_Increase_StaticRaiseCount);
-            weakEventHandler.Remove(EventHandler_Increase_RaiseCount);
-            weakEventHandler.Remove(EventHandler_Increase_StaticRaiseCount);
+            weakEventHandler += EventHandler_Increase_RaiseCount;
+            weakEventHandler += EventHandler_Increase_StaticRaiseCount;
+            weakEventHandler -= EventHandler_Increase_RaiseCount;
+            weakEventHandler -= EventHandler_Increase_StaticRaiseCount;
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 0);
@@ -420,7 +420,7 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 0);
@@ -438,7 +438,7 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -456,7 +456,7 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 0);
@@ -474,10 +474,180 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            weakEventHandler.Raise(this);
+            weakEventHandler.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Support_Addition_Binary_Operator()
+        {
+            // arrange
+            _raiseCount = 0;
+            _raiseCount2 = 0;
+            _staticRaiseCount = 0;
+            _staticRaiseCount2 = 0;
+            WeakEventHandler weakEventHandler1 = new WeakEventHandler();
+            weakEventHandler1 += (_, __) => _raiseCount++;
+            weakEventHandler1 += (_, __) => _raiseCount2++;
+
+            WeakEventHandler weakEventHandler2 = new WeakEventHandler();
+            weakEventHandler2 += (_, __) => _staticRaiseCount++;
+            weakEventHandler2 += (_, __) => _staticRaiseCount2++;
+
+            WeakEventHandler weakEventHandler3 = weakEventHandler1 + weakEventHandler2;
+
+            // act
+            weakEventHandler3.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 1);
+            Assert.IsTrue(_raiseCount2 == 1);
+            Assert.IsTrue(_staticRaiseCount == 1);
+            Assert.IsTrue(_staticRaiseCount2 == 1);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Support_Adding_WeakEventHandler()
+        {
+            // arrange
+            _raiseCount = 0;
+            _raiseCount2 = 0;
+            _staticRaiseCount = 0;
+            _staticRaiseCount2 = 0;
+            WeakEventHandler weakEventHandler = new WeakEventHandler();
+            weakEventHandler += (_, __) => _raiseCount++;
+            weakEventHandler += (_, __) => _raiseCount2++;
+
+            WeakEventHandler weakEventHandlerToAdd = new WeakEventHandler();
+            weakEventHandlerToAdd += (_, __) => _staticRaiseCount++;
+            weakEventHandlerToAdd += (_, __) => _staticRaiseCount2++;
+
+            weakEventHandler.Add(weakEventHandlerToAdd);
+
+            // act
+            weakEventHandler.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 1);
+            Assert.IsTrue(_raiseCount2 == 1);
+            Assert.IsTrue(_staticRaiseCount == 1);
+            Assert.IsTrue(_staticRaiseCount2 == 1);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Support_Subtraction_Binary_Operator()
+        {
+            // arrange
+            _raiseCount = 0;
+            _raiseCount2 = 0;
+            _staticRaiseCount = 0;
+            _staticRaiseCount2 = 0;
+            EventHandler eventHandler1 = (_, __) => _raiseCount++;
+            EventHandler eventHandler2 = (_, __) => _raiseCount2++;
+            EventHandler eventHandler3 = (_, __) => _staticRaiseCount++;
+            EventHandler eventHandler4 = (_, __) => _staticRaiseCount2++;
+
+            WeakEventHandler weakEventHandler1 = new WeakEventHandler();
+            weakEventHandler1 += eventHandler1;
+            weakEventHandler1 += eventHandler2;
+            weakEventHandler1 += eventHandler3;
+            weakEventHandler1 += eventHandler4;
+
+            WeakEventHandler weakEventHandler2 = new WeakEventHandler();
+            weakEventHandler2 += eventHandler2;
+            weakEventHandler2 += eventHandler4;
+
+            WeakEventHandler weakEventHandler3 = weakEventHandler1 - weakEventHandler2;
+
+            // act
+            weakEventHandler3.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 1);
+            Assert.IsTrue(_raiseCount2 == 0);
+            Assert.IsTrue(_staticRaiseCount == 1);
+            Assert.IsTrue(_staticRaiseCount2 == 0);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Support_Removing_WeakEventHandler()
+        {
+            // arrange
+            _raiseCount = 0;
+            _raiseCount2 = 0;
+            _staticRaiseCount = 0;
+            _staticRaiseCount2 = 0;
+            EventHandler eventHandler1 = (_, __) => _raiseCount++;
+            EventHandler eventHandler2 = (_, __) => _raiseCount2++;
+            EventHandler eventHandler3 = (_, __) => _staticRaiseCount++;
+            EventHandler eventHandler4 = (_, __) => _staticRaiseCount2++;
+
+            WeakEventHandler weakEventHandler = new WeakEventHandler();
+            weakEventHandler += eventHandler1;
+            weakEventHandler += eventHandler2;
+            weakEventHandler += eventHandler3;
+            weakEventHandler += eventHandler4;
+
+            WeakEventHandler weakEventHandlerToRemove = new WeakEventHandler();
+            weakEventHandlerToRemove += eventHandler2;
+            weakEventHandlerToRemove += eventHandler4;
+
+            weakEventHandler.Remove(weakEventHandlerToRemove);
+
+            // act
+            weakEventHandler.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 1);
+            Assert.IsTrue(_raiseCount2 == 0);
+            Assert.IsTrue(_staticRaiseCount == 1);
+            Assert.IsTrue(_staticRaiseCount2 == 0);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Must_Remove_One_Handler_Per_One_Minus_Operator()
+        {
+            // arrange
+            _raiseCount = 0;
+            EventHandler eventHandler = (_, __) => _raiseCount++;
+            WeakEventHandler weakEventHandler = new WeakEventHandler();
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler;
+            weakEventHandler -= eventHandler;
+
+            // act
+            weakEventHandler.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 2);
+        }
+
+        [TestMethod]
+        public void WeakEventHandler_Must_Remove_Exact_Number_Of_Sepcified_Event_Handlers()
+        {
+            // arrange
+            _raiseCount = 0;
+            EventHandler eventHandler = (_, __) => _raiseCount++;
+            WeakEventHandler weakEventHandler = new WeakEventHandler();
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler;
+
+            WeakEventHandler weakEventHandlerForRemove = new WeakEventHandler();
+            weakEventHandlerForRemove += eventHandler;
+            weakEventHandlerForRemove += eventHandler;
+
+            weakEventHandler.Remove(weakEventHandlerForRemove);
+
+            // act
+            weakEventHandler.Invoke(this);
+
+            // assert
+            Assert.IsTrue(_raiseCount == 2);
         }
     }
 }
