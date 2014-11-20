@@ -10,7 +10,13 @@
  */
 
 using System;
+
+#if !NICENIS_RT
 using System.Windows.Threading;
+#else
+using Windows.UI.Xaml;
+using Dispatcher = Windows.UI.Core.CoreDispatcher;
+#endif
 
 namespace Nicenis.Windows.Threading
 {
@@ -19,14 +25,19 @@ namespace Nicenis.Windows.Threading
     /// </summary>
     public class DelayInvoker
     {
-        static readonly TimeSpan DefaultDelayTime = new TimeSpan(0, 0, 0, 1);
+#if !NICENIS_RT
         const DispatcherPriority DefaultDispatcherPriority = DispatcherPriority.Normal;
+#endif
+
+        static readonly TimeSpan DefaultDelayTime = new TimeSpan(0, 0, 0, 1);
 
         DispatcherTimer _dispatcherTimer;
         Action _action;
 
 
         #region Constructors
+
+#if !NICENIS_RT
 
         /// <summary>
         /// Initializes a new instance of the DelayInvoker class.
@@ -129,6 +140,56 @@ namespace Nicenis.Windows.Threading
         /// </remarks>
         public DelayInvoker() : this(Dispatcher.CurrentDispatcher) { }
 
+#else
+        /// <summary>
+        /// Initializes a new instance of the DelayInvoker class.
+        /// </summary>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public DelayInvoker(Action action, TimeSpan delayTime)
+        {
+            _action = action;
+
+            // Creates a timer.
+            _dispatcherTimer = new DispatcherTimer();
+            _dispatcherTimer.Interval = delayTime;
+            _dispatcherTimer.Tick += (_, e) =>
+            {
+                _dispatcherTimer.Stop();
+
+                if (_action != null)
+                    _action();
+            };
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the DelayInvoker class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor uses default values: 1 second delay time.
+        /// </remarks>
+        /// <param name="action">The action to execute with delay. Null is allowed.</param>
+        public DelayInvoker(Action action) : this(action, DefaultDelayTime) { }
+
+        /// <summary>
+        /// Initializes a new instance of the DelayInvoker class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor uses default values: a null action.
+        /// </remarks>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public DelayInvoker(TimeSpan delayTime) : this(null, delayTime) { }
+
+        /// <summary>
+        /// Initializes a new instance of the DelayInvoker class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor uses default values: a null action, 1 second delay time.
+        /// </remarks>
+        public DelayInvoker() : this(null, DefaultDelayTime) { }
+
+#endif
+
         #endregion
 
 
@@ -208,7 +269,13 @@ namespace Nicenis.Windows.Threading
         public bool IsEnabled
         {
             get { return _dispatcherTimer.IsEnabled; }
-            set { _dispatcherTimer.IsEnabled = value; }
+            set
+            {
+                if (value)
+                    _dispatcherTimer.Start();
+                else
+                    _dispatcherTimer.Stop();
+            }
         }
 
         /// <summary>
