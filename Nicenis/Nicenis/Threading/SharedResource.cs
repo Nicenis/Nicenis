@@ -88,7 +88,7 @@ namespace Nicenis.Threading
         /// Initializes the running tasks array.
         /// This method must be called in a lock (_taskQueue) block.
         /// </summary>
-        /// <returns>True if the running tasks array has empty slots or unknown; otherwise false.</returns>
+        /// <returns>True if the running tasks array has empty slots or unknown; otherwise false if it has no empty slot.</returns>
         private bool InitializeRunningTasks()
         {
             // If the running tasks is not initialized..
