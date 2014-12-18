@@ -603,6 +603,195 @@ namespace Nicenis.Threading
             return EnqueueTask(queuedTask);
         }
 
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, object, T> func, object state, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(s => { try { return func(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, cancellationToken, creationOptions);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, object, T> func, object state, TaskCreationOptions creationOptions)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(s => { try { return func(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, creationOptions);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, object, T> func, object state, CancellationToken cancellationToken)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(s => { try { return func(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, cancellationToken);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, object, T> func, object state)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(s => { try { return func(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, T> func, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(() => { try { return func(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, cancellationToken, creationOptions);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, T> func, TaskCreationOptions creationOptions)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(() => { try { return func(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, creationOptions);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, T> func, CancellationToken cancellationToken)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(() => { try { return func(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, cancellationToken);
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="func">The delegate that represents the code to execute with the resource.</param>
+        /// <returns>The task instance.</returns>
+        public Task<T> UseAsync<T>(Func<ISharedResourceUserInfo<TResource>, T> func)
+        {
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task<T>(() => { try { return func(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } });
+
+            // Enqueues the task.
+            return (Task<T>)EnqueueTask(queuedTask);
+        }
+
         #endregion
     }
 }

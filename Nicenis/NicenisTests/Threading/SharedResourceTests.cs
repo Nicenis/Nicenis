@@ -181,6 +181,47 @@ namespace NicenisTests.Threading
         }
 
         [TestMethod]
+        public void One_MaxConcurrentUserCount_Allows_One_Func_Concurrently()
+        {
+            // arrange
+            TestResource testResource = new TestResource();
+            SharedResource<TestResource> sharedResource = new SharedResource<TestResource>
+            (
+                resource: testResource,
+                maxConcurrentUserCount: 1,
+                isMaxConcurrentUserCountReadOnly: true
+            );
+
+            const int actionCount = 100;
+            Task<int>[] tasks = new Task<int>[actionCount];
+            int[] startCounters = new int[actionCount];
+            int[] endCounters = new int[actionCount];
+
+            // act
+            for (int i = 0; i < actionCount; i++)
+            {
+                int index = i;
+                tasks[index] = sharedResource.UseAsync(info =>
+                {
+                    startCounters[index] = info.Resource.IncreaseCounter();
+                    SpinRandomly();
+                    endCounters[index] = info.Resource.DecreaseCounter();
+                    return index;
+                });
+            }
+
+            Task.WaitAll(tasks);
+
+            // assert
+            Assert.IsTrue(testResource.Counter == 0);
+            Assert.IsTrue(startCounters.All(p => p == 1));
+            Assert.IsTrue(endCounters.All(p => p == 0));
+
+            for (int i = 0; i < actionCount; i++)
+                Assert.IsTrue(tasks[i].Result == i);
+        }
+
+        [TestMethod]
         public void Three_MaxConcurrentUserCount_Allows_Three_Actions_Concurrently()
         {
             // arrange
