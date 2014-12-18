@@ -18,6 +18,64 @@ using System.Threading.Tasks;
 
 namespace Nicenis.Threading
 {
+    #region ISharedResourceUserInfo Related
+
+    /// <summary>
+    /// Provides shared resource user information.
+    /// </summary>
+    /// <typeparam name="TResource">The resource type.</typeparam>
+    public interface ISharedResourceUserInfo<TResource>
+    {
+        /// <summary>
+        /// The shared resource.
+        /// </summary>
+        TResource Resource { get; }
+
+        /// <summary>
+        /// The index in tasks that use the resource concurrently.
+        /// </summary>
+        int UserIndex { get; }
+    }
+
+    /// <summary>
+    /// Provides shared resource user information.
+    /// </summary>
+    /// <typeparam name="TResource">The resource type.</typeparam>
+    internal class SharedResourceUserInfo<TResource> : ISharedResourceUserInfo<TResource>
+    {
+        #region Consturctors
+
+        /// <summary>
+        /// Initializes a new instance.
+        /// </summary>
+        /// <param name="resource">The shared resource.</param>
+        /// <param name="userIndex">The index in tasks that use the resource concurrently.</param>
+        public SharedResourceUserInfo(TResource resource, int userIndex)
+        {
+            Resource = resource;
+            UserIndex = userIndex;
+        }
+
+        #endregion
+
+
+        #region Public Properties
+
+        /// <summary>
+        /// The shared resource.
+        /// </summary>
+        public TResource Resource { get; private set; }
+
+        /// <summary>
+        /// The index in tasks that use the resource concurrently.
+        /// </summary>
+        public int UserIndex { get; private set; }
+
+        #endregion
+    }
+
+    #endregion
+
     /// <summary>
     /// Manages accessing a shared resource.
     /// </summary>
@@ -27,6 +85,41 @@ namespace Nicenis.Threading
     /// <typeparam name="TResource">The shared resource type.</typeparam>
     public class SharedResource<TResource>
     {
+        #region QueuedTask
+
+        /// <summary>
+        /// Represents a task that is queued.
+        /// </summary>
+        private class QueuedTask
+        {
+            #region Constructors
+
+            /// <summary>
+            /// Initializes a new instance.
+            /// </summary>
+            public QueuedTask() { }
+
+            #endregion
+
+
+            #region Public Properties
+
+            /// <summary>
+            /// The task that runs codes.
+            /// </summary>
+            public Task Task { get; set; }
+
+            /// <summary>
+            /// The index in tasks that use the resource concurrently.
+            /// </summary>
+            public int UserIndex { get; set; }
+
+            #endregion
+        }
+
+        #endregion
+
+
         #region Fields
 
         /// <summary>
@@ -38,7 +131,7 @@ namespace Nicenis.Threading
         /// The task queue.
         /// This field must be used within a lock (_taskQueue) block.
         /// </summary>
-        Queue<Task> _taskQueue = new Queue<Task>();
+        Queue<QueuedTask> _taskQueue = new Queue<QueuedTask>();
 
         /// <summary>
         /// The running tasks.
@@ -200,22 +293,24 @@ namespace Nicenis.Threading
             {
                 if (_runningTasks[i] != null)
                     continue;
-                
+
                 while (_taskQueue.Count > 0)
                 {
-                    // Gets a queued task.
-                    Task task = _taskQueue.Dequeue();
+                    // Gets a queued task and sets the user index.
+                    QueuedTask queuedTask = _taskQueue.Dequeue();
+                    queuedTask.UserIndex = i;
+
                     try
                     {
                         // Starts the queued task.
-                        task.Start();
-                        _runningTasks[i] = task;
+                        queuedTask.Task.Start();
+                        _runningTasks[i] = queuedTask.Task;
                         _userCount++;
                     }
                     catch (Exception e)
                     {
                         // If it is canceled, skips it.
-                        if (task.IsCanceled)
+                        if (queuedTask.Task.IsCanceled)
                             continue;
 
                         throw new InvalidOperationException("There is a queued task that is already started.", e);
@@ -282,86 +377,50 @@ namespace Nicenis.Threading
         #region UseAsync Related
 
         /// <summary>
-        /// Enqueues the task and tries to start it.
+        /// Enqueues a task and tries to start it.
         /// </summary>
-        /// <param name="task">The task to enqueue.</param>
-        /// <returns>The task passed by the parameter.</returns>
-        private Task EnqueueTask(Task task)
+        /// <param name="queuedTask">The queued task to enqueue.</param>
+        /// <returns>The task of the queued task passed by parameter.</returns>
+        private Task EnqueueTask(QueuedTask queuedTask)
         {
-            Debug.Assert(task != null);
+            Debug.Assert(queuedTask != null);
 
             // Starts the task.
             lock (_taskQueue)
             {
-                _taskQueue.Enqueue(task);
+                _taskQueue.Enqueue(queuedTask);
                 RemoveEndedTasks();
                 StartQueuedTasks();
             }
 
-            return task;
+            return queuedTask.Task;
         }
 
         /// <summary>
-        /// Ends the task.
+        /// Ends a task.
         /// </summary>
-        /// <param name="endingTask">The task that is about to end.</param>
-        private void EndTask(Task endingTask)
+        /// <param name="endingQueuedTask">The queued task that is about to end.</param>
+        private void EndTask(QueuedTask endingQueuedTask)
         {
-            Debug.Assert(endingTask != null);
+            Debug.Assert(endingQueuedTask != null);
 
             // Removes the ending task.
             lock (_taskQueue)
             {
-                RemoveEndedTasks(endingTask);
+                RemoveEndedTasks(endingQueuedTask.Task);
                 StartQueuedTasks();
             }
         }
 
         /// <summary>
-        /// Uses the resource asynchronously.
+        /// Creates a shared resource user info.
         /// </summary>
-        /// <remarks>
-        /// The returned task must not be started by user code.
-        /// </remarks>
-        /// <param name="action">The delegate that represents the code to execute with the resource.</param>
-        /// <param name="state">An object representing data to be used by the action.</param>
-        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
-        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
-        /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<object, TResource> action, object state, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
+        /// <param name="queuedTask">The queued task.</param>
+        /// <returns>The created instance.</returns>
+        private ISharedResourceUserInfo<TResource> CreateUserInfo(QueuedTask queuedTask)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            // Creates a task.
-            Task task = null;
-            task = new Task(s => { try { action(s, _resource); } finally { EndTask(task); } }, state, cancellationToken, creationOptions);
-
-            // Enqueues the task.
-            return EnqueueTask(task);
-        }
-
-        /// <summary>
-        /// Uses the resource asynchronously.
-        /// </summary>
-        /// <remarks>
-        /// The returned task must not be started by user code.
-        /// </remarks>
-        /// <param name="action">The delegate that represents the code to execute with the resource.</param>
-        /// <param name="state">An object representing data to be used by the action.</param>
-        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
-        /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<object, TResource> action, object state, TaskCreationOptions creationOptions)
-        {
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            // Creates a task.
-            Task task = null;
-            task = new Task(s => { try { action(s, _resource); } finally { EndTask(task); } }, state, creationOptions);
-
-            // Enqueues the task.
-            return EnqueueTask(task);
+            Debug.Assert(queuedTask != null);
+            return new SharedResourceUserInfo<TResource>(_resource, queuedTask.UserIndex);
         }
 
         /// <summary>
@@ -373,18 +432,65 @@ namespace Nicenis.Threading
         /// <param name="action">The delegate that represents the code to execute with the resource.</param>
         /// <param name="state">An object representing data to be used by the action.</param>
         /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<object, TResource> action, object state, CancellationToken cancellationToken)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>, object> action, object state, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(s => { try { action(s, _resource); } finally { EndTask(task); } }, state, cancellationToken);
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(s => { try { action(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, cancellationToken, creationOptions);
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <param name="action">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
+        /// <returns>The task instance.</returns>
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>, object> action, object state, TaskCreationOptions creationOptions)
+        {
+            if (action == null)
+                throw new ArgumentNullException("action");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(s => { try { action(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, creationOptions);
+
+            // Enqueues the task.
+            return EnqueueTask(queuedTask);
+        }
+
+        /// <summary>
+        /// Uses the resource asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// The returned task must not be started by user code.
+        /// </remarks>
+        /// <param name="action">The delegate that represents the code to execute with the resource.</param>
+        /// <param name="state">An object representing data to be used by the action.</param>
+        /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
+        /// <returns>The task instance.</returns>
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>, object> action, object state, CancellationToken cancellationToken)
+        {
+            if (action == null)
+                throw new ArgumentNullException("action");
+
+            // Creates a task.
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(s => { try { action(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state, cancellationToken);
+
+            // Enqueues the task.
+            return EnqueueTask(queuedTask);
         }
 
         /// <summary>
@@ -396,17 +502,17 @@ namespace Nicenis.Threading
         /// <param name="action">The delegate that represents the code to execute with the resource.</param>
         /// <param name="state">An object representing data to be used by the action.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<object, TResource> action, object state)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>, object> action, object state)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(s => { try { action(s, _resource); } finally { EndTask(task); } }, state);
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(s => { try { action(CreateUserInfo(queuedTask), s); } finally { EndTask(queuedTask); } }, state);
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
         }
 
         /// <summary>
@@ -419,17 +525,17 @@ namespace Nicenis.Threading
         /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
         /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<TResource> action, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>> action, CancellationToken cancellationToken, TaskCreationOptions creationOptions)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(() => { try { action(_resource); } finally { EndTask(task); } }, cancellationToken, creationOptions);
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(() => { try { action(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, cancellationToken, creationOptions);
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
         }
 
         /// <summary>
@@ -441,17 +547,17 @@ namespace Nicenis.Threading
         /// <param name="action">The delegate that represents the code to execute with the resource.</param>
         /// <param name="creationOptions">The TaskCreationOptions used to customize the task’s behavior.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<TResource> action, TaskCreationOptions creationOptions)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>> action, TaskCreationOptions creationOptions)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(() => { try { action(_resource); } finally { EndTask(task); } }, creationOptions);
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(() => { try { action(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, creationOptions);
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
         }
 
         /// <summary>
@@ -463,17 +569,17 @@ namespace Nicenis.Threading
         /// <param name="action">The delegate that represents the code to execute with the resource.</param>
         /// <param name="cancellationToken">The CancellationToken() that that the new task will observe.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<TResource> action, CancellationToken cancellationToken)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>> action, CancellationToken cancellationToken)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(() => { try { action(_resource); } finally { EndTask(task); } }, cancellationToken);
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(() => { try { action(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } }, cancellationToken);
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
         }
 
         /// <summary>
@@ -484,17 +590,17 @@ namespace Nicenis.Threading
         /// </remarks>
         /// <param name="action">The delegate that represents the code to execute with the resource.</param>
         /// <returns>The task instance.</returns>
-        public Task UseAsync(Action<TResource> action)
+        public Task UseAsync(Action<ISharedResourceUserInfo<TResource>> action)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
 
             // Creates a task.
-            Task task = null;
-            task = new Task(() => { try { action(_resource); } finally { EndTask(task); } });
+            QueuedTask queuedTask = new QueuedTask();
+            queuedTask.Task = new Task(() => { try { action(CreateUserInfo(queuedTask)); } finally { EndTask(queuedTask); } });
 
             // Enqueues the task.
-            return EnqueueTask(task);
+            return EnqueueTask(queuedTask);
         }
 
         #endregion

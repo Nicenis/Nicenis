@@ -53,21 +53,6 @@ namespace NicenisTests.Threading
 
         #endregion
 
-        static int _workerThreads;
-        static int _completionPortThreads;
-
-        [ClassInitialize]
-        public static void ClassInit(TestContext context)
-        {
-            ThreadPool.GetMaxThreads(out _workerThreads, out _completionPortThreads);
-            ThreadPool.SetMaxThreads(10, 10);
-        }
-
-        [ClassCleanup]
-        public static void ClassCleanup()
-        {
-            ThreadPool.SetMaxThreads(_workerThreads, _completionPortThreads);
-        }
 
         [TestMethod]
         public void MaxConcurrentUserCount_Can_Not_Be_Set_When_IsMaxConcurrentUserCountReadOnly_Is_True()
@@ -179,11 +164,11 @@ namespace NicenisTests.Threading
             for (int i = 0; i < actionCount; i++)
             {
                 int index = i;
-                tasks[index] = sharedResource.UseAsync(resource =>
+                tasks[index] = sharedResource.UseAsync(info =>
                 {
-                    startCounters[index] = resource.IncreaseCounter();
+                    startCounters[index] = info.Resource.IncreaseCounter();
                     SpinRandomly();
-                    endCounters[index] = resource.DecreaseCounter();
+                    endCounters[index] = info.Resource.DecreaseCounter();
                 });
             }
 
@@ -216,11 +201,11 @@ namespace NicenisTests.Threading
             for (int i = 0; i < actionCount; i++)
             {
                 int index = i;
-                tasks[index] = sharedResource.UseAsync(resource =>
+                tasks[index] = sharedResource.UseAsync(info =>
                 {
-                    startCounters[index] = resource.IncreaseCounter();
+                    startCounters[index] = info.Resource.IncreaseCounter();
                     SpinRandomly();
-                    endCounters[index] = resource.DecreaseCounter();
+                    endCounters[index] = info.Resource.DecreaseCounter();
                 });
             }
 
@@ -249,6 +234,7 @@ namespace NicenisTests.Threading
             const int segmentCount = 1000;
             const int actionCount = maxMaxConcurrentUserCount * repeatCount * segmentCount;
             Task[] tasks = new Task[actionCount];
+            int[] userIndexes = new int[actionCount];
             int[] startCounters = new int[actionCount];
             int[] endCounters = new int[actionCount];
             int[] userCounts = new int[actionCount];
@@ -260,18 +246,20 @@ namespace NicenisTests.Threading
                 for (int concurrentUserCountIndex = 0; concurrentUserCountIndex < maxMaxConcurrentUserCount; concurrentUserCountIndex++)
                 {
                     sharedResource.MaxConcurrentUserCount = repeatIndex % 2 == 0
-                                                            ? concurrentUserCountIndex + 1
-                                                            : maxMaxConcurrentUserCount - concurrentUserCountIndex;
+                                                          ? concurrentUserCountIndex + 1
+                                                          : maxMaxConcurrentUserCount - concurrentUserCountIndex;
 
                     for (int i = 0; i < segmentCount; i++)
                     {
                         int index = actionIndex++;
-                        tasks[index] = sharedResource.UseAsync(resource =>
+                        tasks[index] = sharedResource.UseAsync(info =>
                         {
-                            startCounters[index] = resource.IncreaseCounter();
+                            userIndexes[index] = info.UserIndex;
+                            startCounters[index] = info.Resource.IncreaseCounter();
                             SpinRandomly();
-                            endCounters[index] = resource.DecreaseCounter();
-                        });
+                            endCounters[index] = info.Resource.DecreaseCounter();
+                        },
+                        TaskCreationOptions.LongRunning);
                         userCounts[index] = sharedResource.UserCount;
                     }
 
@@ -283,6 +271,7 @@ namespace NicenisTests.Threading
             // assert
             actionIndex = 0;
             Assert.IsTrue(testResource.Counter == 0);
+            Assert.IsTrue(userIndexes.All(p => p >= 0 && p < maxMaxConcurrentUserCount));
             for (int repeatIndex = 0; repeatIndex < repeatCount; repeatIndex++)
             {
                 for (int concurrentUserCountIndex = 0; concurrentUserCountIndex < maxMaxConcurrentUserCount; concurrentUserCountIndex++)
@@ -316,14 +305,14 @@ namespace NicenisTests.Threading
             );
 
             // act
-            Task thrownTask = sharedResource.UseAsync(resource =>
+            Task thrownTask = sharedResource.UseAsync(info =>
             {
                 SpinRandomly();
                 throw new InvalidOperationException(exceptionMessage);
             });
 
             string readTestResource = null;
-            Task normalTask = sharedResource.UseAsync(resource =>
+            Task normalTask = sharedResource.UseAsync(info =>
             {
                 SpinRandomly();
                 readTestResource = testResource;
@@ -359,14 +348,14 @@ namespace NicenisTests.Threading
 
             // act
             bool isCanceledTaskRun = false;
-            Task canceledTask = sharedResource.UseAsync(resource =>
+            Task canceledTask = sharedResource.UseAsync(info =>
             {
                 SpinRandomly();
                 isCanceledTaskRun = true;
             }, cancellationTokenSource.Token);
 
             string readTestResource = null;
-            Task normalTask = sharedResource.UseAsync(resource =>
+            Task normalTask = sharedResource.UseAsync(info =>
             {
                 SpinRandomly();
                 readTestResource = testResource;
@@ -378,6 +367,7 @@ namespace NicenisTests.Threading
 
             normalTask.Wait();
 
+            // assert
             Assert.IsFalse(isCanceledTaskRun);
             Assert.IsTrue(cachedException is AggregateException);
             Assert.IsTrue(((AggregateException)cachedException).InnerExceptions.Count == 1);
