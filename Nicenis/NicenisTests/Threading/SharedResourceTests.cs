@@ -12,6 +12,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nicenis.Threading;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace NicenisTests.Threading
     {
         #region Helpers
 
-        public class TestResource
+        public class TestResource : IDisposable
         {
             int _counter = 0;
 
@@ -34,9 +35,34 @@ namespace NicenisTests.Threading
                 return Interlocked.Increment(ref _counter);
             }
 
+            public int IncreaseCounterNoThreadSafe()
+            {
+                return _counter += 1;
+            }
+
             public int DecreaseCounter()
             {
                 return Interlocked.Decrement(ref _counter);
+            }
+
+            public int DecreaseCounterNoThreadSafe()
+            {
+                return _counter -= 1;
+            }
+
+
+            ManualResetEvent _isDisposedEvent = new ManualResetEvent(false);
+
+            public bool IsDisposed { get { return _isDisposedEvent.WaitOne(0); } }
+
+            public void Dispose()
+            {
+                _isDisposedEvent.Set();
+            }
+
+            public void WaitUntilDisposedFor5Minutes()
+            {
+                _isDisposedEvent.WaitOne(millisecondsTimeout: 1000 * 60 * 5);
             }
         }
 
@@ -414,6 +440,129 @@ namespace NicenisTests.Threading
             Assert.IsTrue(((AggregateException)cachedException).InnerExceptions.Count == 1);
             Assert.IsTrue(((AggregateException)cachedException).InnerExceptions.First() is OperationCanceledException);
             Assert.IsTrue(readTestResource == testResource);
+        }
+
+        [TestMethod]
+        public void Dispose_Disposes_Resource()
+        {
+            // arrange
+            TestResource testResource = new TestResource();
+            SharedResource<TestResource> sharedResource = new SharedResource<TestResource>
+            (
+                resource: testResource,
+                maxConcurrentUserCount: 1,
+                isMaxConcurrentUserCountReadOnly: true
+            );
+
+            // act
+            Task task = sharedResource.UseAsync(p => p.Resource.IncreaseCounterNoThreadSafe());
+            sharedResource.Dispose();
+            testResource.WaitUntilDisposedFor5Minutes();
+
+            // assert
+            Assert.IsTrue(testResource.IsDisposed);
+            Assert.IsTrue(testResource.Counter == 1);
+        }
+
+        [TestMethod]
+        public void Dispose_Wait_Running_Or_Queued_Tasks()
+        {
+            // arrange
+            TestResource testResource = new TestResource();
+            SharedResource<TestResource> sharedResource = new SharedResource<TestResource>
+            (
+                resource: testResource,
+                maxConcurrentUserCount: 1,
+                isMaxConcurrentUserCountReadOnly: true
+            );
+
+            // act
+            const int taskCount = 1000;
+            Task[] tasks = new Task[taskCount];
+
+            for (int i = 0; i < tasks.Length; i++)
+                tasks[i] = sharedResource.UseAsync(p => p.Resource.IncreaseCounterNoThreadSafe());
+
+            sharedResource.Dispose();
+            testResource.WaitUntilDisposedFor5Minutes();
+
+            // assert
+            Assert.IsTrue(testResource.IsDisposed);
+            Assert.IsTrue(testResource.Counter == taskCount);
+        }
+
+        [TestMethod]
+        public void Dispose_Ignores_Running_Or_Queued_Tasks_That_Canceled_Or_Faulted()
+        {
+            // arrange
+            TestResource testResource = new TestResource();
+            SharedResource<TestResource> sharedResource = new SharedResource<TestResource>
+            (
+                resource: testResource,
+                maxConcurrentUserCount: 1,
+                isMaxConcurrentUserCountReadOnly: true
+            );
+
+            // act
+            const int taskCount = 1000;
+            Task[] tasks = new Task[taskCount];
+            int normalTaskCount = 0;
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                int switchFactor = i % 3;
+                if (switchFactor != 0 && switchFactor != 1)
+                    normalTaskCount++;
+
+                CancellationTokenSource tokenSource = new CancellationTokenSource();
+                tasks[i] = sharedResource.UseAsync(p =>
+                {
+                    switch (switchFactor)
+                    {
+                        case 0:
+                            throw new InvalidOperationException("Test Exception");
+
+                        case 1:
+                            tokenSource.Cancel();
+                            tokenSource.Token.ThrowIfCancellationRequested();
+                            break;
+
+                        default:
+                            p.Resource.IncreaseCounterNoThreadSafe();
+                            break;
+                    }
+                },
+                tokenSource.Token);
+            }
+
+            sharedResource.Dispose();
+            testResource.WaitUntilDisposedFor5Minutes();
+
+            // assert
+            Assert.IsTrue(testResource.IsDisposed);
+            Assert.IsTrue(testResource.Counter == normalTaskCount);
+        }
+
+        [TestMethod]
+        public void Disposed_Resource_Throws_Exception_When_Try_To_Use()
+        {
+            // arrange
+            SharedResource<TestResource> sharedResource = new SharedResource<TestResource>
+            (
+                resource: new TestResource(),
+                maxConcurrentUserCount: 1,
+                isMaxConcurrentUserCountReadOnly: true
+            );
+
+            // act
+            sharedResource.Dispose();
+            Exception cachedException = null;
+            try { sharedResource.UseAsync(i => i.Resource.IncreaseCounter()); }
+            catch (Exception e) { cachedException = e; }
+
+            // assert
+            Assert.IsNotNull(cachedException);
+            Assert.IsTrue(cachedException.Message == "This shared resource is already disposed.");
         }
     }
 }
