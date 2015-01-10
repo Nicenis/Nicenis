@@ -25,7 +25,7 @@ namespace Nicenis.ComponentModel
     /// Provides a base implementation for the INotifyPropertyChanged interface.
     /// </summary>
     [DataContract]
-    public class WatchableObject : INotifyPropertyChanged
+    public class PropertyObservableObject : INotifyPropertyChanged
     {
         #region Constants
 
@@ -42,7 +42,7 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// The static constructor.
         /// </summary>
-        static WatchableObject()
+        static PropertyObservableObject()
         {
 
 #if !NICENIS_RT
@@ -56,7 +56,7 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public WatchableObject() { }
+        public PropertyObservableObject() { }
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         private class OpCodeInfo
         {
-            #region Constructors
+        #region Constructors
 
             /// <summary>
             /// Initializes a new instance.
@@ -134,10 +134,10 @@ namespace Nicenis.ComponentModel
                 TotalSize = OpCodeSize + OperandSize;
             }
 
-            #endregion
+        #endregion
 
 
-            #region Properties
+        #region Properties
 
             /// <summary>
             /// The OpCode.
@@ -160,7 +160,7 @@ namespace Nicenis.ComponentModel
             /// </summary>
             public int TotalSize { get; private set; }
 
-            #endregion
+        #endregion
         }
 
         /// <summary>
@@ -3564,4 +3564,26 @@ namespace Nicenis.ComponentModel
 
         #endregion
     }
+
+
+    #region WatchableObject
+
+    /// <summary>
+    /// Provides a base implementation for the INotifyPropertyChanged interface.
+    /// This class is deprecated. Instead, use the PropertyObservableObject class.
+    /// </summary>
+    [Obsolete("Instead, use the PropertyObservableObject.")]
+    public class WatchableObject : PropertyObservableObject
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance.
+        /// </summary>
+        public WatchableObject() { }
+
+        #endregion
+    }
+
+    #endregion
 }

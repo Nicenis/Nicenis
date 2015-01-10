@@ -58,7 +58,7 @@
     <Compile Include="Threading\SharedResourceTests.cs" />
     <Compile Include="WeakEventHandlerTests.cs" />
     <Compile Include="BooleanyTests.cs" />
-    <Compile Include="ComponentModel\WatchableObjectTests.cs" />
+    <Compile Include="ComponentModel\PropertyObservableObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Windows\Data\Converters\TruthyToConvertersTests.cs" />
     <Compile Include="Windows\Data\Converters\FalsyToConvertersTests.cs" />

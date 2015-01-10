@@ -55,8 +55,8 @@
     <Compile Include="..\Nicenis\ComponentModel\IFreezable.cs">
       <Link>ComponentModel\IFreezable.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\WatchableObject.cs">
-      <Link>ComponentModel\WatchableObject.cs</Link>
+    <Compile Include="..\Nicenis\ComponentModel\PropertyObservableObject.cs">
+      <Link>ComponentModel\PropertyObservableObject.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Disposable.cs">
       <Link>Disposable.cs</Link>
