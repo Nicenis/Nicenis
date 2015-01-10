@@ -81,7 +81,7 @@ namespace Nicenis.Threading
     /// </summary>
     /// <remarks>
     /// This class is thread-safe.
-    /// If TResource implements IDisposable, it is disposed when SharedResource<TResource> is disposed.
+    /// If TResource implements IDisposable, it is disposed when SharedResource&lt;TResource&gt; is disposed.
     /// </remarks>
     /// <typeparam name="TResource">The shared resource type.</typeparam>
     public class SharedResource<TResource> : IDisposable
