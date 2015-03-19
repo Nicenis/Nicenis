@@ -13,7 +13,7 @@ namespace WatchableObjectPerformanceTest
     /// <summary>
     /// The sample class that uses auto property storage and property expression.
     /// </summary>
-    class SampleAE100 : PropertyObservableObject, ITestable
+    class SampleAE100 : PropertyObservable, ITestable
     {
         public int TestProperty1
         {

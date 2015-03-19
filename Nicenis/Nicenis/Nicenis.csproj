@@ -55,7 +55,7 @@
     <Compile Include="WeakEventHandler.cs" />
     <Compile Include="Collections\StaticArray.cs" />
     <Compile Include="ComponentModel\IFreezable.cs" />
-    <Compile Include="ComponentModel\PropertyObservableObject.cs" />
+    <Compile Include="ComponentModel\PropertyObservable.cs" />
     <Compile Include="Disposable.cs" />
     <Compile Include="Interop\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

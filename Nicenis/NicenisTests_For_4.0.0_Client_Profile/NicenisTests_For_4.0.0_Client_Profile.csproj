@@ -58,8 +58,8 @@
     <Compile Include="..\NicenisTests\BooleanyTests.cs">
       <Link>BooleanyTests.cs</Link>
     </Compile>
-    <Compile Include="..\NicenisTests\ComponentModel\PropertyObservableObjectTests.cs">
-      <Link>ComponentModel\PropertyObservableObjectTests.cs</Link>
+    <Compile Include="..\NicenisTests\ComponentModel\PropertyObservableTests.cs">
+      <Link>ComponentModel\PropertyObservableTests.cs</Link>
     </Compile>
     <Compile Include="..\NicenisTests\Threading\SharedResourceTests.cs">
       <Link>Threading\SharedResourceTests.cs</Link>

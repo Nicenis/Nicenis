@@ -25,7 +25,7 @@ namespace Nicenis.ComponentModel
     /// Provides a base implementation for the INotifyPropertyChanged interface.
     /// </summary>
     [DataContract]
-    public class PropertyObservableObject : INotifyPropertyChanged
+    public class PropertyObservable : INotifyPropertyChanged
     {
         #region Constants
 
@@ -42,7 +42,7 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// The static constructor.
         /// </summary>
-        static PropertyObservableObject()
+        static PropertyObservable()
         {
 
 #if !NICENIS_RT
@@ -56,7 +56,7 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public PropertyObservableObject() { }
+        public PropertyObservable() { }
 
         #endregion
 
@@ -3570,10 +3570,10 @@ namespace Nicenis.ComponentModel
 
     /// <summary>
     /// Provides a base implementation for the INotifyPropertyChanged interface.
-    /// This class is deprecated. Instead, use the PropertyObservableObject class.
+    /// This class is deprecated. Instead, use the PropertyObservable class.
     /// </summary>
-    [Obsolete("Instead, use the PropertyObservableObject.")]
-    public class WatchableObject : PropertyObservableObject
+    [Obsolete("Instead, use the PropertyObservable.")]
+    public class WatchableObject : PropertyObservable
     {
         #region Constructors
 

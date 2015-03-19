@@ -25,11 +25,11 @@ using System.Xml.Serialization;
 namespace NicenisTests.ComponentModel
 {
     [TestClass]
-    public class PropertyObservableObjectTests : PropertyObservableObject
+    public class PropertyObservableTests : PropertyObservable
     {
         #region Samples
 
-        class Sample : PropertyObservableObject
+        class Sample : PropertyObservable
         {
             #region Converted Methods From Protected To Public
 
@@ -294,7 +294,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [DataContract]
-        public class SerializationSample : PropertyObservableObject
+        public class SerializationSample : PropertyObservable
         {
             [DataMember]
             public int TestValue
