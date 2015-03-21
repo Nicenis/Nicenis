@@ -56,13 +56,7 @@ namespace Nicenis.Windows.Threading
             // Creates a timer.
             _dispatcherTimer = new DispatcherTimer(dispatcherPriority, dispatcher);
             _dispatcherTimer.Interval = delayTime;
-            _dispatcherTimer.Tick += (_, e) =>
-            {
-                _dispatcherTimer.Stop();
-
-                if (_action != null)
-                    _action();
-            };
+            _dispatcherTimer.Tick += DispatcherTimer_Tick;
         }
 
         /// <summary>
@@ -153,13 +147,7 @@ namespace Nicenis.Windows.Threading
             // Creates a timer.
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Interval = delayTime;
-            _dispatcherTimer.Tick += (_, e) =>
-            {
-                _dispatcherTimer.Stop();
-
-                if (_action != null)
-                    _action();
-            };
+            _dispatcherTimer.Tick += DispatcherTimer_Tick;
         }
 
         /// <summary>
@@ -193,6 +181,24 @@ namespace Nicenis.Windows.Threading
         #endregion
 
 
+        #region DispatcherTimer_Tick
+
+#if !NICENIS_RT
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+#else
+        private void DispatcherTimer_Tick(object sender, object e)
+#endif
+        {
+            _dispatcherTimer.Stop();
+
+            Action action = _action;
+            if (action != null)
+                action();
+        }
+
+        #endregion
+
+
         #region Public Methods
 
         /// <summary>
@@ -201,7 +207,7 @@ namespace Nicenis.Windows.Threading
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
         /// <param name="delayTime">Time to wait before executing the action.</param>
-        public void Begin(Action action, TimeSpan delayTime)
+        public void Start(Action action, TimeSpan delayTime)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
@@ -217,7 +223,19 @@ namespace Nicenis.Windows.Threading
         /// Previous waiting is canceled.
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
-        public void Begin(Action action)
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        [Obsolete("Instead, use the Start method.")]
+        public void Begin(Action action, TimeSpan delayTime)
+        {
+            Start(action, delayTime);
+        }
+
+        /// <summary>
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
+        /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        public void Start(Action action)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
@@ -231,8 +249,19 @@ namespace Nicenis.Windows.Threading
         /// Starts a new delay execution.
         /// Previous waiting is canceled.
         /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        [Obsolete("Instead, use the Start method.")]
+        public void Begin(Action action)
+        {
+            Start(action);
+        }
+
+        /// <summary>
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
+        /// </summary>
         /// <param name="delayTime">Time to wait before executing the action.</param>
-        public void Begin(TimeSpan delayTime)
+        public void Start(TimeSpan delayTime)
         {
             _dispatcherTimer.Stop();
             _dispatcherTimer.Interval = delayTime;
@@ -243,10 +272,43 @@ namespace Nicenis.Windows.Threading
         /// Starts a new delay execution.
         /// Previous waiting is canceled.
         /// </summary>
-        public void Begin()
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        [Obsolete("Instead, use the Start method.")]
+        public void Begin(TimeSpan delayTime)
+        {
+            Start(delayTime);
+        }
+
+        /// <summary>
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
+        /// </summary>
+        public void Start()
         {
             _dispatcherTimer.Stop();
             _dispatcherTimer.Start();
+        }
+
+        /// <summary>
+        /// Starts a new delay execution if it is not started.
+        /// </summary>
+        public void StartIfNotStarted()
+        {
+            // If it is already started...
+            if (IsEnabled)
+                return;
+
+            Start();
+        }
+
+        /// <summary>
+        /// Starts a new delay execution.
+        /// Previous waiting is canceled.
+        /// </summary>
+        [Obsolete("Instead, use the Start method.")]
+        public void Begin()
+        {
+            Start();
         }
 
         /// <summary>
