@@ -1,5 +1,4 @@
-﻿// $Id$
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Nicenis Library Tests")]

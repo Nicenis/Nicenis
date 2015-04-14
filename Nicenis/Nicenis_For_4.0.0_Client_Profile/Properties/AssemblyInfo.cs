@@ -1,5 +1,4 @@
-﻿// $Id$
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -8,7 +7,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Nicenis")]
-[assembly: AssemblyCopyright("Copyright © 2014 JO Hyeong-Ryeol. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2015 JO Hyeong-Ryeol. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]

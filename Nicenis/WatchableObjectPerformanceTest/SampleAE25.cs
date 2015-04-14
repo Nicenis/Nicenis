@@ -1,7 +1,6 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
  * Since    2014.04.26
- * Version  $Id$
  * 
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
