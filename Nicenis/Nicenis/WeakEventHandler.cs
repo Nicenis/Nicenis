@@ -598,7 +598,6 @@ namespace Nicenis
 
         #region Public Methods
 
-
         /// <summary>
         /// Adds an event handler.
         /// </summary>
