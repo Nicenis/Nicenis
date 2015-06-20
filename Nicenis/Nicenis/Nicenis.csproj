@@ -52,6 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Reflection\Emit\OpCodeInfo.cs" />
+    <Compile Include="Reflection\Emit\OperandTypeExtensions.cs" />
     <Compile Include="WeakEventHandler.cs" />
     <Compile Include="Collections\StaticArray.cs" />
     <Compile Include="ComponentModel\IFreezable.cs" />

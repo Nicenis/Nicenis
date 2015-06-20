@@ -12,9 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
@@ -39,20 +37,6 @@ namespace Nicenis.ComponentModel
         #region Constructors
 
         /// <summary>
-        /// The static constructor.
-        /// </summary>
-        static PropertyObservable()
-        {
-
-#if !NICENIS_RT
-#if DEBUG
-            // Initializes the OpCode info.
-            InitializeOpCodeInfos();
-#endif
-#endif
-        }
-
-        /// <summary>
         /// Initializes a new instance.
         /// </summary>
         public PropertyObservable() { }
@@ -63,151 +47,6 @@ namespace Nicenis.ComponentModel
         #region ToPropertyName Related
 
 #if !NICENIS_RT
-#if DEBUG
-        #region Get OpCode Total Size Related
-
-        /// <summary>
-        /// Represents a OpCode info that is used to calculate the total byte size of an OpCode.
-        /// </summary>
-        private class OpCodeInfo
-        {
-        #region Constructors
-
-            /// <summary>
-            /// Initializes a new instance.
-            /// </summary>
-            /// <param name="opCode">The OpCode structure.</param>
-            public OpCodeInfo(System.Reflection.Emit.OpCode opCode)
-            {
-                Debug.Assert(opCode != null);
-
-                OpCode = BitConverter.GetBytes(opCode.Value);
-
-                // If it is a 2 byte OpCode, the byte order must be reversed because the Value property is not in little-endian.
-                if (opCode.Size > 1)
-                    OpCode = OpCode.Reverse().ToArray();
-
-                OpCodeSize = opCode.Size;
-
-                switch (opCode.OperandType)
-                {
-                    case System.Reflection.Emit.OperandType.InlineNone:
-#pragma warning disable 0618
-                    case System.Reflection.Emit.OperandType.InlinePhi:
-#pragma warning restore 0618
-                        OperandSize = 0;
-                        break;
-
-                    case System.Reflection.Emit.OperandType.ShortInlineBrTarget:
-                    case System.Reflection.Emit.OperandType.ShortInlineI:
-                    case System.Reflection.Emit.OperandType.ShortInlineVar:
-                        OperandSize = 1;
-                        break;
-
-                    case System.Reflection.Emit.OperandType.InlineVar:
-                        OperandSize = 2;
-                        break;
-
-                    case System.Reflection.Emit.OperandType.InlineBrTarget:
-                    case System.Reflection.Emit.OperandType.InlineField:
-                    case System.Reflection.Emit.OperandType.InlineI:
-                    case System.Reflection.Emit.OperandType.InlineMethod:
-                    case System.Reflection.Emit.OperandType.InlineSig:
-                    case System.Reflection.Emit.OperandType.InlineString:
-                    case System.Reflection.Emit.OperandType.InlineSwitch:
-                    case System.Reflection.Emit.OperandType.InlineTok:
-                    case System.Reflection.Emit.OperandType.InlineType:
-                    case System.Reflection.Emit.OperandType.ShortInlineR:
-                        OperandSize = 4;
-                        break;
-
-                    case System.Reflection.Emit.OperandType.InlineI8:
-                    case System.Reflection.Emit.OperandType.InlineR:
-                        OperandSize = 8;
-                        break;
-
-                    default:
-                        throw new InvalidOperationException(string.Format("An unknown OperandType \"{0}\" is found.", opCode.OperandType));
-                }
-
-                TotalSize = OpCodeSize + OperandSize;
-            }
-
-        #endregion
-
-
-        #region Properties
-
-            /// <summary>
-            /// The OpCode.
-            /// If the OpCode size is 1, the second byte is ignored.
-            /// </summary>
-            public byte[] OpCode { get; private set; }
-
-            /// <summary>
-            /// The OpCode size in byte.
-            /// </summary>
-            public int OpCodeSize { get; private set; }
-
-            /// <summary>
-            /// The Operand size of the OpCode in byte.
-            /// </summary>
-            public int OperandSize { get; private set; }
-
-            /// <summary>
-            /// The OpCode size including all related data in byte.
-            /// </summary>
-            public int TotalSize { get; private set; }
-
-        #endregion
-        }
-
-        /// <summary>
-        /// The readonly OpCode info array.
-        /// This field is initialized in the InitializeOpCodeInfos method.
-        /// </summary>
-        private static OpCodeInfo[] OpCodeInfos;
-
-        /// <summary>
-        /// Initializes the OpCodeInfos field.
-        /// This method must be called in the static constructor.
-        /// </summary>
-        private static void InitializeOpCodeInfos()
-        {
-            var opCodes = from fieldInfo in typeof(System.Reflection.Emit.OpCodes).GetFields(BindingFlags.Public | BindingFlags.Static)
-                          where fieldInfo.FieldType == typeof(System.Reflection.Emit.OpCode)
-                          select (System.Reflection.Emit.OpCode)fieldInfo.GetValue(null);
-
-            OpCodeInfos = opCodes.Select(p => new OpCodeInfo(p)).ToArray();
-        }
-
-        /// <summary>
-        /// Returns the total OpCode size at the startIndex in the ilBytes.
-        /// This size includes all related data size.
-        /// </summary>
-        /// <param name="ilBytes">The IL byte array.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <returns>The OpCode size including all related data in byte.</returns>
-        private static int GetOpCodeTotalSize(byte[] ilBytes, int startIndex)
-        {
-            Debug.Assert(ilBytes != null);
-            Debug.Assert(startIndex >= 0 && startIndex < ilBytes.Length);
-
-            byte firstByte = ilBytes[startIndex];
-
-            // If it is a one byte opcode.
-            if (firstByte < 0xFE)
-                return OpCodeInfos.First(p => p.OpCode[0] == firstByte).TotalSize;
-
-            return OpCodeInfos.First
-            (
-                p => p.OpCode[0] == firstByte && p.OpCode[1] == ilBytes[startIndex + 1]
-            )
-            .TotalSize;
-        }
-
-        #endregion
-#endif
 
         #region Property Name Cache Related
 
@@ -1273,41 +1112,28 @@ namespace Nicenis.ComponentModel
             if (propertyExpression == null)
                 throw new ArgumentNullException("propertyExpression");
 
-#if !DEBUG
-            // Gets the metadata token of the property getter staring after 0x0228.
-            int metadataToken = BitConverter.ToInt32(propertyExpression.Method.GetMethodBody().GetILAsByteArray(), 2);
-#else
             // Gets the CIL byte array.
             byte[] ilBytes = propertyExpression.Method.GetMethodBody().GetILAsByteArray();
 
-            // Finds the Call or Callvirt opcode index in the CIL byte array.
-            int callOpcodeIndex = -1;
-            for (int i = 0; i < ilBytes.Length; i++)
+            // Finds the last Call or Callvirt opcode index in the CIL byte array.
+            int callOpCodeIndex = -1;
+            for (int i = 0; i < ilBytes.Length; i += Nicenis.Reflection.Emit.OpCodeInfo.GetTotalSize(ilBytes, i))
             {
                 switch (ilBytes[i])
                 {
                     case 0x28: // call
                     case 0x6F: // callvirt
-                        callOpcodeIndex = i;
-                        break;
-
-                    default:
-                        // Skips the current OpCode.
-                        i += (GetOpCodeTotalSize(ilBytes, i) - 1);
+                        callOpCodeIndex = i;
                         break;
                 }
-
-                if (callOpcodeIndex != -1)
-                    break;
             }
 
             // If there is no opocde
-            if (callOpcodeIndex == -1)
+            if (callOpCodeIndex == -1)
                 throw new InvalidOperationException("There is no Call or Callvirt opcode. You must use a simple lambda expression that returns a property such as \"() => Property\".");
 
             // Gets the metadata token of the property getter.
-            int metadataToken = BitConverter.ToInt32(ilBytes, callOpcodeIndex + 1);
-#endif
+            int metadataToken = BitConverter.ToInt32(ilBytes, callOpCodeIndex + 1);
 
             // Gets the property name cache.
             PropertyNameCache propertyNameCache = GetFromCache(metadataToken);
@@ -1317,7 +1143,7 @@ namespace Nicenis.ComponentModel
                 return propertyNameCache.PropertyName;
 
             // Gets the property getter.
-            MethodBase propertyGetter = propertyExpression.Method.Module.ResolveMethod(metadataToken);
+            System.Reflection.MethodBase propertyGetter = propertyExpression.Method.Module.ResolveMethod(metadataToken);
 
             // If it is not a property getter.
             if (propertyGetter.IsSpecialName == false)

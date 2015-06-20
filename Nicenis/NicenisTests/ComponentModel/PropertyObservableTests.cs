@@ -240,8 +240,15 @@ namespace NicenisTests.ComponentModel
 
             #region TestProperty1 ~ TestProperty2
 
-            public class TestPropertyType1 { }
-            public class TestPropertyType2 { }
+            public class TestPropertyType1
+            {
+                public string Property1 { get; set; }
+            }
+
+            public class TestPropertyType2
+            {
+                public string Property1 { get; set; }
+            }
 
             public TestPropertyType1 TestProperty1
             {
@@ -279,6 +286,13 @@ namespace NicenisTests.ComponentModel
             {
                 return ToPropertyName(() => VirtualValueProperty);
             }
+
+            #endregion
+
+
+            #region Static Properties
+
+            public static int StaticValueProperty { get; set; }
 
             #endregion
         }
@@ -457,6 +471,42 @@ namespace NicenisTests.ComponentModel
                 for (int j = 0; j < expectedPropertyNames.Length; j++)
                     Assert.AreEqual(expectedPropertyNames[j], propertyNames[j]);
             }
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_support_property_in_other_instance()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            string propertyName = ToPropertyName(() => sample.TestProperty1);
+
+            // assert
+            Assert.AreEqual("TestProperty1", propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_support_nested_property_in_other_instance()
+        {
+            // arrange
+            Sample sample = new Sample();
+
+            // act
+            string propertyName = ToPropertyName(() => sample.TestProperty1.Property1);
+
+            // assert
+            Assert.AreEqual("Property1", propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_support_static_property()
+        {
+            // act
+            string propertyName = ToPropertyName(() => Sample.StaticValueProperty);
+
+            // assert
+            Assert.AreEqual("StaticValueProperty", propertyName);
         }
 
         #endregion
