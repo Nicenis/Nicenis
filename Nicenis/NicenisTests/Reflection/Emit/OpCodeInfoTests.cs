@@ -22,7 +22,7 @@ namespace NicenisTests.Reflection.Emit
     public class OpCodeInfoTests
     {
         [TestMethod]
-        public void GetTotalSize_supports_ldarg()
+        public void GetTotalSize_Supports_ldarg()
         {
             // arrange
             byte[] opCode = new byte[] { 0xFE, 0x09 };
@@ -35,7 +35,7 @@ namespace NicenisTests.Reflection.Emit
         }
 
         [TestMethod]
-        public void GetTotalSize_supports_call()
+        public void GetTotalSize_Supports_call()
         {
             // arrange
             byte[] opCode = new byte[] { 0x28 };

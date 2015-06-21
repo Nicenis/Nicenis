@@ -394,7 +394,7 @@ namespace NicenisTests.ComponentModel
         #region ToPropertyName Test Related
 
         [TestMethod]
-        public void ToPropertyName_must_return_public_property_name()
+        public void ToPropertyName_Must_Return_Public_Property_Name()
         {
             // arrange
             const string expectedPropertyName = "ValueProperty";
@@ -408,7 +408,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_return_private_property_name()
+        public void ToPropertyName_Must_Return_Private_Property_Name()
         {
             // arrange
             const string expectedPropertyName = "PrivateValueProperty";
@@ -422,7 +422,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_return_virtual_property_name()
+        public void ToPropertyName_Must_Return_Virtual_Property_Name()
         {
             // arrange
             const string expectedPropertyName = "VirtualValueProperty";
@@ -436,7 +436,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_return_overridden_property_name()
+        public void ToPropertyName_Must_Return_Overridden_Property_Name()
         {
             // arrange
             const string expectedPropertyName = "VirtualValueProperty";
@@ -450,7 +450,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_multiple_property_names()
+        public void ToPropertyName_Must_Support_Multiple_Property_Names()
         {
             // arrange
             string[] expectedPropertyNames =
@@ -478,7 +478,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_property_in_other_instance()
+        public void ToPropertyName_Must_Support_Property_In_Other_Instance()
         {
             // arrange
             Sample sample = new Sample();
@@ -491,7 +491,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_nested_property_in_other_instance()
+        public void ToPropertyName_Must_Support_nested_Property_In_Other_Instance()
         {
             // arrange
             Sample sample = new Sample();
@@ -504,7 +504,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_private_static_property()
+        public void ToPropertyName_Must_Support_Private_Static_Property()
         {
             // act
             string propertyName = ToPropertyName(() => PrivateStaticValueProperty);
@@ -514,7 +514,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_public_static_property()
+        public void ToPropertyName_Must_Support_Public_Static_Property()
         {
             // act
             string propertyName = ToPropertyName(() => PublicStaticValueProperty);
@@ -524,7 +524,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_static_property_in_other_class()
+        public void ToPropertyName_Must_Support_Static_Property_In_Other_Class()
         {
             // act
             string propertyName = ToPropertyName(() => Sample.StaticValueProperty);
@@ -539,7 +539,7 @@ namespace NicenisTests.ComponentModel
         #region GetProperty Parameter Check Related
 
         [TestMethod]
-        public void GetProperty_must_throw_exception_if_null_property_name_is_passed()
+        public void GetProperty_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -562,7 +562,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_throw_exception_if_empty_property_name_is_passed()
+        public void GetProperty_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -585,7 +585,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void GetProperty_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -608,7 +608,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_with_initializer_must_throw_exception_if_null_property_name_is_passed()
+        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -631,7 +631,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_with_initializer_must_throw_exception_if_empty_property_name_is_passed()
+        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -654,7 +654,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_with_initializer_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -677,7 +677,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_with_initializer_must_throw_exception_if_null_initializer_is_passed()
+        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Null_Initializer_Is_Passed()
         {
             // arrange
             string propertyName = "propertyName";
@@ -705,7 +705,7 @@ namespace NicenisTests.ComponentModel
         #region GetProperty Test Related
 
         [TestMethod]
-        public void GetProperty_must_return_default_value_if_it_is_not_set()
+        public void GetProperty_Must_Return_Default_Value_If_It_Is_Not_Set()
         {
             // arrange
             Sample sample = new Sample();
@@ -718,7 +718,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_return_default_reference_if_it_is_not_set()
+        public void GetProperty_Must_Return_Default_Reference_If_It_Is_Not_Set()
         {
             // arrange
             Sample sample = new Sample();
@@ -731,7 +731,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_return_initialized_value_if_it_is_not_set()
+        public void GetProperty_Must_Return_Initialized_Value_If_It_Is_Not_Set()
         {
             // arrange
             const int initializedValue = 10;
@@ -745,7 +745,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_not_call_initializer_twice()
+        public void GetProperty_Must_Not_Call_Initializer_Twice()
         {
             // arrange
             const int initializedValue = 10;
@@ -767,7 +767,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_must_not_call_initializer_if_it_is_set()
+        public void GetProperty_Must_Not_Call_Initializer_If_It_Is_Set()
         {
             // arrange
             const int setValue = 100;
@@ -794,7 +794,7 @@ namespace NicenisTests.ComponentModel
         #region SetPropertyOnly Parameter Check Related
 
         [TestMethod]
-        public void SetPropertyOnly_must_throw_exception_if_null_property_name_is_passed()
+        public void SetPropertyOnly_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -817,7 +817,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyOnly_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetPropertyOnly_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -840,7 +840,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyOnly_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetPropertyOnly_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -868,7 +868,7 @@ namespace NicenisTests.ComponentModel
         #region SetProperty Parameter Check Related
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -892,7 +892,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -916,7 +916,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -940,7 +940,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Is_Null()
         {
             // arrange
             IEnumerable<string> affectedPropertyNames = null;
@@ -963,7 +963,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
+        public void SetProperty_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Is_Empty()
         {
             // arrange
             IEnumerable<string> affectedPropertyNames = new string[0];
@@ -977,7 +977,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Null()
         {
             // arrange
             IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
@@ -1000,7 +1000,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
+        public void SetProperty_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Contain_Empty_String()
         {
             // arrange
             IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
@@ -1014,7 +1014,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Whitespace_String()
         {
             // arrange
             IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
@@ -1037,7 +1037,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -1061,7 +1061,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -1085,7 +1085,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -1109,7 +1109,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
+        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_Null()
         {
             // arrange
             string affectedPropertyName = null;
@@ -1132,7 +1132,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        public void SetProperty_With_Affected_Property_Name_Must_Not_Throw_Exception_If_Affected_Property_Name_Is_Empty()
         {
             // arrange
             string affectedPropertyName = "";
@@ -1146,7 +1146,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_whitespace()
         {
             // arrange
             string affectedPropertyName = " ";
@@ -1170,7 +1170,7 @@ namespace NicenisTests.ComponentModel
 
 
         [TestMethod]
-        public void SetProperty_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -1193,7 +1193,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -1216,7 +1216,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -1244,7 +1244,7 @@ namespace NicenisTests.ComponentModel
         #region SetProperty Test Related
 
         [TestMethod]
-        public void SetPropertyOnly_must_set_value_properly()
+        public void SetPropertyOnly_Must_Set_Value_Properly()
         {
             // arrange
             const int testValue = 100;
@@ -1259,7 +1259,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyOnly_must_not_raise_PropertyChanged()
+        public void SetPropertyOnly_Must_Not_Raise_PropertyChanged()
         {
             // arrange
             const int testValue = 100;
@@ -1277,7 +1277,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_set_value_properly()
+        public void SetProperty_Must_Set_Value_Properly()
         {
             // arrange
             const int testValue = 100;
@@ -1292,7 +1292,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_set_reference_properly()
+        public void SetProperty_Must_Set_Reference_Properly()
         {
             // arrange
             const string testReference = "Test";
@@ -1307,7 +1307,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_support_multiple_properties_with_insertion_in_ascending_order()
+        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Ascending_Order()
         {
             for (int count = 1; count <= 100; count++)
             {
@@ -1331,7 +1331,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_support_multiple_properties_with_insertion_in_decending_order()
+        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Decending_Order()
         {
             for (int count = 1; count <= 100; count++)
             {
@@ -1355,7 +1355,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_support_multiple_properties_with_insertion_in_random_order()
+        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Random_Order()
         {
             int[] numbers = Enumerable.Range(0, 101).ToArray();
             Random random = new Random();
@@ -1392,7 +1392,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_if_it_is_changed()
+        public void SetProperty_Must_Raise_PropertyChanged_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -1420,7 +1420,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_not_raise_PropertyChanged_if_it_is_not_changed()
+        public void SetProperty_Must_Not_Raise_PropertyChanged_If_It_Is_Not_Changed()
         {
             // arrange
             const int testValue = default(int);
@@ -1448,7 +1448,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
+        public void SetProperty_Must_Raise_PropertyChanged_For_2_Affected_Properties_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -1483,7 +1483,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_raise_PropertyChanged_for_1_affected_properties_if_it_is_changed()
+        public void SetProperty_Must_Raise_PropertyChanged_For_1_Affected_Properties_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -1514,7 +1514,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_must_support_private_property()
+        public void SetProperty_Must_Support_Private_property()
         {
             // arrange
             Sample sample = new Sample();
@@ -1532,7 +1532,7 @@ namespace NicenisTests.ComponentModel
         #region SetProperty with local storage Parameter Check Related
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -1557,7 +1557,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -1582,7 +1582,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -1607,7 +1607,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_is_null()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Is_Null()
         {
             // arrange
             int storage = 0;
@@ -1631,7 +1631,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_is_empty()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Is_Empty()
         {
             // arrange
             int storage = 0;
@@ -1646,7 +1646,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_null()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Null()
         {
             // arrange
             int storage = 0;
@@ -1670,7 +1670,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_not_throw_exception_if_affected_property_names_contain_empty_string()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Contain_Empty_String()
         {
             // arrange
             int storage = 0;
@@ -1685,7 +1685,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_names_must_throw_exception_if_affected_property_names_contain_whitespace_string()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Whitespace_String()
         {
             // arrange
             int storage = 0;
@@ -1709,7 +1709,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -1734,7 +1734,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -1759,7 +1759,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -1784,7 +1784,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_null()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_Null()
         {
             // arrange
             int storage = 0;
@@ -1808,7 +1808,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_not_throw_exception_if_affected_property_name_is_empty()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Not_Throw_Exception_If_Affected_Property_Name_Is_Empty()
         {
             // arrange
             int storage = 0;
@@ -1823,7 +1823,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_with_affected_property_name_must_throw_exception_if_affected_property_name_is_whitespace()
+        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_whitespace()
         {
             // arrange
             int storage = 0;
@@ -1848,7 +1848,7 @@ namespace NicenisTests.ComponentModel
 
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_throw_exception_if_null_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = null;
@@ -1872,7 +1872,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_throw_exception_if_empty_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = "";
@@ -1896,7 +1896,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_throw_exception_if_whitespace_property_name_is_passed()
+        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
         {
             // arrange
             string propertyName = " ";
@@ -1925,7 +1925,7 @@ namespace NicenisTests.ComponentModel
         #region SetProperty with local storage Test Related
 
         [TestMethod]
-        public void SetPropertyOnly_with_local_storage_must_set_value_properly()
+        public void SetPropertyOnly_With_Local_Storage_Must_Set_Value_Properly()
         {
             // arrange
             const int testValue = 100;
@@ -1940,7 +1940,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_set_value_properly()
+        public void SetProperty_With_Local_Storage_Must_Set_Value_Properly()
         {
             // arrange
             const int testValue = 100;
@@ -1955,7 +1955,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_set_reference_properly()
+        public void SetProperty_With_Local_Storage_Must_Set_Reference_Properly()
         {
             // arrange
             const string testReference = "Test";
@@ -1970,7 +1970,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_support_multiple_properties()
+        public void SetProperty_With_Local_Storage_Must_Support_Multiple_Properties()
         {
             // arrange
             const int testValue = 10;
@@ -1990,7 +1990,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_raise_PropertyChanged_if_it_is_changed()
+        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -2019,7 +2019,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_not_raise_PropertyChanged_if_it_is_not_changed()
+        public void SetProperty_With_Local_Storage_Must_Not_Raise_PropertyChanged_If_It_Is_Not_Changed()
         {
             // arrange
             const int testValue = default(int);
@@ -2048,7 +2048,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_2_affected_properties_if_it_is_changed()
+        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_For_2_Affected_Properties_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -2081,7 +2081,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_with_local_storage_must_raise_PropertyChanged_for_1_affected_property_if_it_is_changed()
+        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_For_1_Affected_Property_If_It_Is_Changed()
         {
             // arrange
             const int testValue = 1000;
@@ -2120,7 +2120,7 @@ namespace NicenisTests.ComponentModel
         #region GetCallerProperty/SetCallerProperty Test Related
 
         [TestMethod]
-        public void SetCallerProperty_must_set_value_properly()
+        public void SetCallerProperty_Must_Set_Value_Properly()
         {
             // arrange
             const string testValue = "test value";
@@ -2135,7 +2135,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerProperty_must_raise_property_changed_event()
+        public void SetCallerProperty_Must_Raise_Property_Changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 1;
@@ -2160,7 +2160,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerPropertyOnly_must_not_raise_property_changed_event()
+        public void SetCallerPropertyOnly_Must_Not_Raise_Property_Changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 0;
@@ -2183,7 +2183,7 @@ namespace NicenisTests.ComponentModel
         #region SetCallerProperty with local storage Test Related
 
         [TestMethod]
-        public void SetCallerPropertyWithLocalStorage_must_set_value_properly()
+        public void SetCallerPropertyWithLocalStorage_Must_Set_Value_Properly()
         {
             // arrange
             const string testValue = "test value";
@@ -2198,7 +2198,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerPropertyWithLocalStorage_must_raise_property_changed_event()
+        public void SetCallerPropertyWithLocalStorage_Must_Raise_Property_Changed_event()
         {
             // arrange
             const int expectedPropertyChangedCount = 1;
@@ -2230,7 +2230,7 @@ namespace NicenisTests.ComponentModel
         #region Serialization Test Related
 
         [TestMethod]
-        public void DataContractSerializer_must_be_supported()
+        public void DataContractSerializer_Must_Be_Supported()
         {
             // arrange
             const int testValue = 20;
@@ -2254,7 +2254,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void XmlSerializer_must_be_supported()
+        public void XmlSerializer_Must_Be_Supported()
         {
             // arrange
             const int testValue = 20;
