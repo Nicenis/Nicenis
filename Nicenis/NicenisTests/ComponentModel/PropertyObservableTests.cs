@@ -26,6 +26,10 @@ namespace NicenisTests.ComponentModel
     [TestClass]
     public class PropertyObservableTests : PropertyObservable
     {
+        private static int PrivateStaticValueProperty { get; set; }
+        public static int PublicStaticValueProperty { get; set; }
+
+
         #region Samples
 
         class Sample : PropertyObservable
@@ -500,7 +504,27 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void ToPropertyName_must_support_static_property()
+        public void ToPropertyName_must_support_private_static_property()
+        {
+            // act
+            string propertyName = ToPropertyName(() => PrivateStaticValueProperty);
+
+            // assert
+            Assert.AreEqual("PrivateStaticValueProperty", propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_support_public_static_property()
+        {
+            // act
+            string propertyName = ToPropertyName(() => PublicStaticValueProperty);
+
+            // assert
+            Assert.AreEqual("PublicStaticValueProperty", propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_must_support_static_property_in_other_class()
         {
             // act
             string propertyName = ToPropertyName(() => Sample.StaticValueProperty);
