@@ -61,9 +61,6 @@
     <Compile Include="..\NicenisTests\ComponentModel\PropertyObservableTests.cs">
       <Link>ComponentModel\PropertyObservableTests.cs</Link>
     </Compile>
-    <Compile Include="..\NicenisTests\Reflection\Emit\OpCodeInfoTests.cs">
-      <Link>Reflection\Emit\OpCodeInfoTests.cs</Link>
-    </Compile>
     <Compile Include="..\NicenisTests\Threading\SharedResourceTests.cs">
       <Link>Threading\SharedResourceTests.cs</Link>
     </Compile>

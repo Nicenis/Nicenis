@@ -55,7 +55,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Reflection\Emit\OpCodeInfoTests.cs" />
     <Compile Include="Threading\SharedResourceTests.cs" />
     <Compile Include="WeakEventHandlerTests.cs" />
     <Compile Include="BooleanyTests.cs" />

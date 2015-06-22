@@ -64,12 +64,6 @@
     <Compile Include="..\Nicenis\Interop\Win32.cs">
       <Link>Interop\Win32.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\Reflection\Emit\OpCodeInfo.cs">
-      <Link>Reflection\Emit\OpCodeInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\Reflection\Emit\OperandTypeExtensions.cs">
-      <Link>Reflection\Emit\OperandTypeExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Nicenis\Security\Cryptography\StringEncrypter.cs">
       <Link>Security\Cryptography\StringEncrypter.cs</Link>
     </Compile>
