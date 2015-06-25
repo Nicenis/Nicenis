@@ -1071,7 +1071,7 @@ namespace Nicenis.ComponentModel
 
             // Initializes the property value array.
             if (_propertyValues == null)
-                _propertyValues = new PropertyValue[2];
+                _propertyValues = new PropertyValue[4];
 
             // If the array is full, expands the array.
             if (_propertyValueCount == _propertyValues.Length)
