@@ -2286,7 +2286,7 @@ namespace NicenisTests.ComponentModel
         public void SetPropertyOnly_Calls_Allows_Null_OnChanged_Parameter()
         {
             // act
-            SetPropertyOnly("Property Name", "Property Value", null);
+            SetPropertyOnly("Property Name", "Property Value", (Action<ValueChangedEventArgs<string>>)null);
 
             // assert
             Assert.IsTrue(true);
@@ -2294,6 +2294,257 @@ namespace NicenisTests.ComponentModel
 
         [TestMethod]
         public void SetPropertyOnly_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty("Property Name", () => expectedOldValue);
+
+            // act
+            SetPropertyOnly("Property Name", expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetPropertyOnly_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty(() => TestProperty, () => expectedOldValue);
+
+            // act
+            SetPropertyOnly(() => TestProperty, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty("Property Name", () => expectedOldValue);
+
+            // act
+            SetProperty("Property Name", expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty("Property Name", () => expectedOldValue);
+
+            // act
+            SetProperty("Property Name", expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1", "2");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty("Property Name", () => expectedOldValue);
+
+            // act
+            SetProperty("Property Name", expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetPropert_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty("Property Name", () => expectedOldValue);
+
+            // act
+            SetProperty("Property Name", expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty(() => TestProperty, () => expectedOldValue);
+
+            // act
+            SetProperty(() => TestProperty, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty(() => TestProperty, () => expectedOldValue);
+
+            // act
+            SetProperty(() => TestProperty, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1", "2");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty(() => TestProperty, () => expectedOldValue);
+
+            // act
+            SetProperty(() => TestProperty, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetPropert_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            GetProperty(() => TestProperty, () => expectedOldValue);
+
+            // act
+            SetProperty(() => TestProperty, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+
+        [TestMethod]
+        public void SetPropertyOnly_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2306,7 +2557,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropertyOnly_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetPropertyOnly_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2319,7 +2570,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2332,7 +2583,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2345,7 +2596,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2358,7 +2609,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropert_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetPropert_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2371,7 +2622,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2384,7 +2635,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2397,7 +2648,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2410,7 +2661,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropert_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetPropert_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2429,7 +2680,7 @@ namespace NicenisTests.ComponentModel
         public void SetCallerPropertyOnly_Calls_Allows_Null_OnChanged_Parameter()
         {
             // act
-            SetCallerPropertyOnly("Property Value", onChanged: null);
+            SetCallerPropertyOnly("Property Value", onChanged: (Action<ValueChangedEventArgs<string>>)null);
 
             // assert
             Assert.IsTrue(true);
@@ -2437,6 +2688,79 @@ namespace NicenisTests.ComponentModel
 
         [TestMethod]
         public void SetCallerPropertyOnly_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = null;
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+
+            // act
+            SetCallerPropertyOnly(expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetCallerProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = null;
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+
+            // act
+            SetCallerProperty(expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetCallerProperty_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = null;
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+
+            // act
+            SetCallerProperty(expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+
+        [TestMethod]
+        public void SetCallerPropertyOnly_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2449,7 +2773,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetCallerProperty_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2462,7 +2786,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerProperty_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetCallerProperty_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             int onChangedCount = 0;
@@ -2483,7 +2807,7 @@ namespace NicenisTests.ComponentModel
             string property = null;
 
             // act
-            SetPropertyOnly(ref property, "Property Value", null);
+            SetPropertyOnly(ref property, "Property Value", (Action<ValueChangedEventArgs<string>>)null);
 
             // assert
             Assert.IsTrue(true);
@@ -2491,6 +2815,232 @@ namespace NicenisTests.ComponentModel
 
         [TestMethod]
         public void SetPropertyOnly_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetPropertyOnly(ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty("Property Name", ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty("Property Name", ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1", "2");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty("Property Name", ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetPropert_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty("Property Name", ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1", "2");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, "1");
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetPropert_Local_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+
+        [TestMethod]
+        public void SetPropertyOnly_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2504,7 +3054,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2518,7 +3068,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2532,7 +3082,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2546,7 +3096,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropert_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetPropert_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2560,7 +3110,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2574,7 +3124,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2588,7 +3138,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2602,7 +3152,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetPropert_Local_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetPropert_Local_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2622,6 +3172,57 @@ namespace NicenisTests.ComponentModel
         public void SetCallerProperty_Local_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetCallerProperty(ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            }, new string[] { "1", "2" });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void SetCallerProperty_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            SetCallerProperty(ref property, expectedNewValue, p =>
+            {
+                onChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+
+        [TestMethod]
+        public void SetCallerProperty_Local_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        {
+            // arrange
             string property = null;
             int onChangedCount = 0;
 
@@ -2633,7 +3234,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void SetCallerProperty_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
+        public void SetCallerProperty_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
         {
             // arrange
             string property = null;
@@ -2647,6 +3248,71 @@ namespace NicenisTests.ComponentModel
         }
 
 #endif
+
+        #endregion
+
+
+        #region PropertyValueChanged Test Related
+
+        [TestMethod]
+        public void PropertyValueChanged_Is_Raised_When_SetProperty_Changes_A_Property()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedPropertyName = "Property Name";
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string propertyName = null;
+            string oldValue = null;
+            string newValue = null;
+
+            // act
+            PropertyValueChanged += (_, args) =>
+            {
+                onChangedCount++;
+                propertyName = args.PropertyName;
+                oldValue = (string)args.OldValue;
+                newValue = (string)args.NewValue;
+            };
+            GetProperty(expectedPropertyName, () => expectedOldValue);
+            SetProperty(expectedPropertyName, expectedNewValue);
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedPropertyName, propertyName);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
+
+        [TestMethod]
+        public void PropertyValueChanged_Is_Raised_When_SetProperty_With_Local_Changes_A_Property()
+        {
+            // arrange
+            int onChangedCount = 0;
+            string expectedPropertyName = "Property Name";
+            string expectedOldValue = "Old Value";
+            string expectedNewValue = "Property Value";
+            string propertyName = null;
+            string oldValue = null;
+            string newValue = null;
+            string property = expectedOldValue;
+
+            // act
+            PropertyValueChanged += (_, args) =>
+            {
+                onChangedCount++;
+                propertyName = args.PropertyName;
+                oldValue = (string)args.OldValue;
+                newValue = (string)args.NewValue;
+            };
+            SetProperty(expectedPropertyName, ref property, expectedNewValue);
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+            Assert.AreEqual(expectedPropertyName, propertyName);
+            Assert.AreEqual(expectedOldValue, oldValue);
+            Assert.AreEqual(expectedNewValue, newValue);
+        }
 
         #endregion
     }

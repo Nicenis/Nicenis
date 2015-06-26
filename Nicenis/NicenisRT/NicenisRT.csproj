@@ -50,6 +50,12 @@
     <Compile Include="..\Nicenis\ComponentModel\PropertyObservable.cs">
       <Link>ComponentModel\PropertyObservable.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\PropertyValueChangedEventArgs.cs">
+      <Link>ComponentModel\PropertyValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\ValueChangedEventArgs.cs">
+      <Link>ComponentModel\ValueChangedEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>
     </Compile>
