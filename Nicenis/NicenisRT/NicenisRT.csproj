@@ -53,8 +53,14 @@
     <Compile Include="..\Nicenis\ComponentModel\PropertyValueChangedEventArgs.cs">
       <Link>ComponentModel\PropertyValueChangedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\PropertyValueChangingEventArgs.cs">
+      <Link>ComponentModel\PropertyValueChangingEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\ComponentModel\ValueChangedEventArgs.cs">
       <Link>ComponentModel\ValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\ValueChangingEventArgs.cs">
+      <Link>ComponentModel\ValueChangingEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>

@@ -1,6 +1,6 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
- * Since    2015.06.26
+ * Since    2015.06.27
  * 
  * This file is a part of the Nicenis project.
  * https://nicenis.codeplex.com
@@ -13,9 +13,9 @@ using System;
 namespace Nicenis.ComponentModel
 {
     /// <summary>
-    /// Provides data for a changed value.
+    /// Provides data for a value that is about to change.
     /// </summary>
-    public class ValueChangedEventArgs<T> : EventArgs
+    public class ValueChangingEventArgs<T> : EventArgs
     {
         #region Constructors
 
@@ -24,7 +24,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         /// <param name="oldValue">The value of the property before the change.</param>
         /// <param name="newValue">The value of the property after the change.</param>
-        public ValueChangedEventArgs(T oldValue, T newValue)
+        public ValueChangingEventArgs(T oldValue, T newValue)
         {
             OldValue = oldValue;
             NewValue = newValue;
@@ -41,9 +41,9 @@ namespace Nicenis.ComponentModel
         public T OldValue { get; private set; }
 
         /// <summary>
-        /// Gets the value of the property after the change.
+        /// Gets or sets the value of the property after the change.
         /// </summary>
-        public T NewValue { get; private set; }
+        public T NewValue { get; set; }
 
         #endregion
     }

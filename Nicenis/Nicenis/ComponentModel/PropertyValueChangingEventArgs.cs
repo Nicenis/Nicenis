@@ -1,6 +1,6 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
- * Since    2015.06.26
+ * Since    2015.06.28
  * 
  * This file is a part of the Nicenis project.
  * https://nicenis.codeplex.com
@@ -8,23 +8,25 @@
  * Copyright (C) 2015 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using System;
+using System.ComponentModel;
 
 namespace Nicenis.ComponentModel
 {
     /// <summary>
-    /// Provides data for a changed value.
+    /// Provides data for the PropertyObservable.PropertyValueChanging event.
     /// </summary>
-    public class ValueChangedEventArgs<T> : EventArgs
+    public class PropertyValueChangingEventArgs : PropertyChangedEventArgs
     {
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         /// <param name="oldValue">The value of the property before the change.</param>
         /// <param name="newValue">The value of the property after the change.</param>
-        public ValueChangedEventArgs(T oldValue, T newValue)
+        public PropertyValueChangingEventArgs(string propertyName, object oldValue, object newValue)
+            : base(propertyName)
         {
             OldValue = oldValue;
             NewValue = newValue;
@@ -38,12 +40,12 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Gets the value of the property before the change.
         /// </summary>
-        public T OldValue { get; private set; }
+        public object OldValue { get; private set; }
 
         /// <summary>
         /// Gets the value of the property after the change.
         /// </summary>
-        public T NewValue { get; private set; }
+        public object NewValue { get; set; }
 
         #endregion
     }

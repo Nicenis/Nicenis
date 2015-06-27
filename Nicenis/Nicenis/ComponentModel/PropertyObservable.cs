@@ -1212,8 +1212,9 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetPropertyOnly<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        protected virtual bool SetPropertyOnly<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
@@ -1229,8 +1230,22 @@ namespace Nicenis.ComponentModel
             if (object.Equals(propertyValue.Value, value))
                 return false;
 
-            // Sets the property value.
+            // Gets the old value.
             T oldValue = (T)propertyValue.Value;
+
+            // Calls the changing callback.
+            if (onChanging != null)
+            {
+                var args = new ValueChangingEventArgs<T>(oldValue, value);
+                onChanging(args);
+                value = args.NewValue;
+
+                // If the values are equal
+                if (object.Equals(oldValue, value))
+                    return false;
+            }
+
+            // Sets the property value.
             propertyValue.Value = value;
 
             // Calls the changed callback.
@@ -1251,18 +1266,70 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(string propertyName, T value, Action onChanged)
+        protected bool SetPropertyOnly<T>(string propertyName, T value, Action onChanged, Action onChanging)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
 
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
+
             return SetPropertyOnly
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChangedToCall
+                onChanged: onChangedToCall,
+                onChanging: onChangingToCall
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected virtual bool SetPropertyOnly<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        {
+            return SetPropertyOnly
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetPropertyOnly<T>(string propertyName, T value, Action onChanged)
+        {
+            return SetPropertyOnly
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -1283,7 +1350,56 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
+        {
+            return SetPropertyOnly
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetPropertyOnly<T>(Expression<Func<T>> propertyExpression, T value, Action onChanged, Action onChanging)
+        {
+            return SetPropertyOnly
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
             );
         }
 
@@ -1305,7 +1421,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -1327,7 +1444,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -1348,7 +1466,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -1364,9 +1483,10 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, IEnumerable<string> affectedPropertyNames)
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames)
         {
             if (affectedPropertyNames == null)
                 throw new ArgumentNullException("affectedPropertyNames");
@@ -1376,7 +1496,7 @@ namespace Nicenis.ComponentModel
                     throw new ArgumentException("The parameter affectedPropertyNames can not contain a string that is null or a whitespace string except an empty string.", "affectedPropertyNames");
 
             // If the property is changed
-            if (SetProperty(propertyName, value, onChanged))
+            if (SetProperty(propertyName, value, onChanged, onChanging))
             {
                 // Raises PropertyChanged events for the affected property names.
                 OnPropertyChanged(affectedPropertyNames);
@@ -1397,19 +1517,75 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, IEnumerable<string> affectedPropertyNames)
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
 
             return SetProperty
             (
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChangedToCall,
+                onChanging: onChangingToCall,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -1433,7 +1609,60 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, Action onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
 
@@ -1457,6 +1686,7 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -1481,6 +1711,7 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -1504,6 +1735,7 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -1519,15 +1751,16 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, string affectedPropertyName)
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, string affectedPropertyName)
         {
             if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
                 throw new ArgumentException("The parameter affectedPropertyName can not be null or a whitespace string except an empty string.", "affectedPropertyName");
 
             // If the property is changed
-            if (SetProperty(propertyName, value, onChanged))
+            if (SetProperty(propertyName, value, onChanged, onChanging))
             {
                 // Raises a PropertyChanged event for the affected property name.
                 OnPropertyChanged(affectedPropertyName);
@@ -1548,19 +1781,75 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, string affectedPropertyName)
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, Action onChanging, string affectedPropertyName)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
 
             return SetProperty
             (
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChangedToCall,
+                onChanging: onChangingToCall,
+                affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
+                affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyName: affectedPropertyName
             );
         }
@@ -1584,7 +1873,81 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, a PropertyChanged event are raised for the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
+        {
+            return SetPropertyOnly(propertyName, value, onChanged: p =>
+            {
+                // Calls the changed callback.
+                if (onChanged != null)
+                    onChanged(p);
+
+                // Raises a PropertyValueChanged event.
+                var args = new PropertyValueChangedEventArgs(propertyName, p.OldValue, p.NewValue);
+                OnPropertyValueChanged(args);
+
+                // Raises a PropertyChanged event.
+                OnPropertyChanged(args);
+            },
+            onChanging: p =>
+            {
+                // Calls the changing callback.
+                if (onChanging != null)
+                    onChanging(p);
+
+                // Raises a PropertyValueChanging event.
+                var args = new PropertyValueChangingEventArgs(propertyName, p.OldValue, p.NewValue);
+                OnPropertyValueChanging(args);
+                p.NewValue = (T)args.NewValue;
+            });
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed, a PropertyChanged event are raised for the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, T value, Action onChanged, Action onChanging)
+        {
+            Action<ValueChangedEventArgs<T>> onChangedToCall = null;
+            if (onChanged != null)
+                onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
+
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChangedToCall,
+                onChanging: onChangingToCall
             );
         }
 
@@ -1602,19 +1965,13 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, Action<ValueChangedEventArgs<T>> onChanged)
         {
-            return SetPropertyOnly(propertyName, value, onChanged: p =>
-            {
-                // Calls the changed callback.
-                if (onChanged != null)
-                    onChanged(p);
-
-                // Raises a PropertyValueChanged event.
-                var args = new PropertyValueChangedEventArgs(propertyName, p.OldValue, p.NewValue);
-                OnPropertyValueChanged(args);
-
-                // Raises a PropertyChanged event.
-                OnPropertyChanged(args);
-            });
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
         }
 
         /// <summary>
@@ -1631,15 +1988,12 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, T value, Action onChanged)
         {
-            Action<ValueChangedEventArgs<T>> onChangedToCall = null;
-            if (onChanged != null)
-                onChangedToCall = p => onChanged();
-
             return SetProperty
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChangedToCall
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -1660,10 +2014,63 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
 
         /// <summary>
         /// Sets a value to the property specified by the property expression that is used to extract the property name.
@@ -1685,6 +2092,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -1709,6 +2117,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -1732,7 +2141,60 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action onChanged, Action onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
 
@@ -1756,6 +2218,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -1780,6 +2243,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -1803,7 +2267,60 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action onChanged, Action onChanging, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyName
             );
         }
 
@@ -1827,6 +2344,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyName
             );
         }
@@ -1851,6 +2369,7 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyName
             );
         }
@@ -1874,7 +2393,56 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property expression that is used to extract the property name.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, T value, Action onChanged, Action onChanging)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
             );
         }
 
@@ -1896,7 +2464,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -1918,7 +2487,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -1939,7 +2509,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: ToPropertyName(propertyExpression),
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -1993,6 +2564,56 @@ namespace Nicenis.ComponentModel
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerPropertyOnly<T>(T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetPropertyOnly
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerPropertyOnly<T>(T value, Action onChanged, Action onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetPropertyOnly
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
         /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected bool SetCallerPropertyOnly<T>(T value, Action<ValueChangedEventArgs<T>> onChanged, [CallerMemberName] string propertyName = "")
@@ -2001,7 +2622,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2024,7 +2646,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2046,7 +2669,62 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
             );
         }
 
@@ -2071,6 +2749,7 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2096,6 +2775,7 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2120,7 +2800,58 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name that is obtained by the CallerMemberName attribute in a property setter.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(T value, Action onChanged, Action onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
             );
         }
 
@@ -2143,7 +2874,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2166,7 +2898,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2188,7 +2921,8 @@ namespace Nicenis.ComponentModel
             (
                 propertyName: propertyName,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2206,15 +2940,30 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetPropertyOnly<T>(ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        protected virtual bool SetPropertyOnly<T>(ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
         {
             // If the values are equal
             if (object.Equals(storage, value))
                 return false;
 
-            // Sets the property value.
+            // Gets the old value.
             T oldValue = storage;
+
+            // Calls the changing callback.
+            if (onChanging != null)
+            {
+                var args = new ValueChangingEventArgs<T>(oldValue, value);
+                onChanging(args);
+                value = args.NewValue;
+
+                // If the values are equal
+                if (object.Equals(oldValue, value))
+                    return false;
+            }
+
+            // Sets the property value.
             storage = value;
 
             // Calls the changed callback.
@@ -2232,18 +2981,64 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetPropertyOnly<T>(ref T storage, T value, Action onChanged)
+        protected bool SetPropertyOnly<T>(ref T storage, T value, Action onChanged, Action onChanging)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
 
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
+
             return SetPropertyOnly
             (
                 storage: ref storage,
                 value: value,
-                onChanged: onChangedToCall
+                onChanged: onChangedToCall,
+                onChanging: onChangingToCall
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected virtual bool SetPropertyOnly<T>(ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        {
+            return SetPropertyOnly
+            (
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// This method does not raise a PropertyChanged and PropertyValueChanged event.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetPropertyOnly<T>(ref T storage, T value, Action onChanged)
+        {
+            return SetPropertyOnly
+            (
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2261,7 +3056,8 @@ namespace Nicenis.ComponentModel
             (
                 storage: ref storage,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2274,9 +3070,10 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, IEnumerable<string> affectedPropertyNames)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames)
         {
             if (affectedPropertyNames == null)
                 throw new ArgumentNullException("affectedPropertyNames");
@@ -2286,7 +3083,7 @@ namespace Nicenis.ComponentModel
                     throw new ArgumentException("The parameter affectedPropertyNames can not contain a string that is null or a whitespace string except an empty string.", "affectedPropertyNames");
 
             // If the property is changed
-            if (SetProperty(propertyName, ref storage, value, onChanged))
+            if (SetProperty(propertyName, ref storage, value, onChanged, onChanging))
             {
                 // Raises PropertyChanged events for the affected property names.
                 OnPropertyChanged(affectedPropertyNames);
@@ -2305,13 +3102,18 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyNames">The affected property names.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, IEnumerable<string> affectedPropertyNames)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
 
             return SetProperty
             (
@@ -2319,6 +3121,55 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChangedToCall,
+                onChanging: onChangingToCall,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2341,7 +3192,58 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, Action onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
 
@@ -2364,6 +3266,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -2387,6 +3290,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -2409,6 +3313,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -2422,15 +3327,16 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, string affectedPropertyName)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, string affectedPropertyName)
         {
             if (affectedPropertyName != AllPropertyName && string.IsNullOrWhiteSpace(affectedPropertyName))
                 throw new ArgumentException("The parameter affectedPropertyName can not be null or a whitespace string except an empty string.", "affectedPropertyName");
 
             // If the property is changed
-            if (SetProperty(propertyName, ref storage, value, onChanged))
+            if (SetProperty(propertyName, ref storage, value, onChanged, onChanging))
             {
                 // Raises a PropertyChanged event for the affected property name.
                 OnPropertyChanged(affectedPropertyName);
@@ -2449,13 +3355,18 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <param name="affectedPropertyName">The affected property name.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, string affectedPropertyName)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, Action onChanging, string affectedPropertyName)
         {
             Action<ValueChangedEventArgs<T>> onChangedToCall = null;
             if (onChanged != null)
                 onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
 
             return SetProperty
             (
@@ -2463,6 +3374,55 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChangedToCall,
+                onChanging: onChangingToCall,
+                affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
+                affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name and the affected property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyName: affectedPropertyName
             );
         }
@@ -2485,6 +3445,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyName: affectedPropertyName
             );
         }
@@ -2498,8 +3459,9 @@ namespace Nicenis.ComponentModel
         /// <param name="storage">The storage to store the property value.</param>
         /// <param name="value">The property value.</param>
         /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 throw new ArgumentException("The parameter propertyName can not be null or a whitespace string.", "propertyName");
@@ -2516,7 +3478,71 @@ namespace Nicenis.ComponentModel
 
                 // Raises a PropertyChanged event.
                 OnPropertyChanged(args);
+            },
+            onChanging: p =>
+            {
+                // Calls the changing callback.
+                if (onChanging != null)
+                    onChanging(p);
+
+                // Raises a PropertyValueChanging event.
+                var args = new PropertyValueChangingEventArgs(propertyName, p.OldValue, p.NewValue);
+                OnPropertyValueChanging(args);
+                p.NewValue = (T)args.NewValue;
             });
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged, Action onChanging)
+        {
+            Action<ValueChangedEventArgs<T>> onChangedToCall = null;
+            if (onChanged != null)
+                onChangedToCall = p => onChanged();
+
+            Action<ValueChangingEventArgs<T>> onChangingToCall = null;
+            if (onChanging != null)
+                onChangingToCall = p => onChanging();
+
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChangedToCall,
+                onChanging: onChangingToCall
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged)
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
         }
 
         /// <summary>
@@ -2531,16 +3557,13 @@ namespace Nicenis.ComponentModel
         /// <returns>True if the storage is changed; otherwise false.</returns>
         protected bool SetProperty<T>(string propertyName, ref T storage, T value, Action onChanged)
         {
-            Action<ValueChangedEventArgs<T>> onChangedToCall = null;
-            if (onChanged != null)
-                onChangedToCall = p => onChanged();
-
             return SetProperty
             (
                 propertyName: propertyName,
                 storage: ref storage,
                 value: value,
-                onChanged: onChangedToCall
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2560,7 +3583,58 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 storage: ref storage,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
             );
         }
 
@@ -2583,6 +3657,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2606,6 +3681,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2628,7 +3704,58 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action onChanged, Action onChanging, params string[] affectedPropertyNames)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
 
@@ -2651,6 +3778,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -2674,6 +3802,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
             );
         }
@@ -2696,7 +3825,58 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: (IEnumerable<string>)affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name extracted from the property expression and the affected property name.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyName">The affected property name.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action onChanged, Action onChanging, string affectedPropertyName)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyName: affectedPropertyName
             );
         }
 
@@ -2719,6 +3899,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyName: affectedPropertyName
             );
         }
@@ -2742,6 +3923,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyName: affectedPropertyName
             );
         }
@@ -2764,7 +3946,54 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyName: affectedPropertyName
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name extracted from the property expression.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name extracted from the property expression.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetProperty<T>(Expression<Func<T>> propertyExpression, ref T storage, T value, Action onChanged, Action onChanging)
+        {
+            return SetProperty
+            (
+                propertyName: ToPropertyName(propertyExpression),
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
             );
         }
 
@@ -2785,7 +4014,8 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 storage: ref storage,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2806,7 +4036,8 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 storage: ref storage,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2826,7 +4057,8 @@ namespace Nicenis.ComponentModel
                 propertyName: ToPropertyName(propertyExpression),
                 storage: ref storage,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2835,6 +4067,59 @@ namespace Nicenis.ComponentModel
 #if !NICENIS_4C
 
         #region SetCallerProperty with Local Storage Related
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name obtained by the CallerMemberName attribute and the affected property names.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, PropertyChanged events are raised for the property name obtained by the CallerMemberName attribute and the affected property names.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="affectedPropertyNames">The affected property names.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(ref T storage, T value, Action onChanged, Action onChanging, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging,
+                affectedPropertyNames: affectedPropertyNames
+            );
+        }
 
         /// <summary>
         /// Sets a value to the specified storage.
@@ -2856,6 +4141,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2880,6 +4166,7 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: onChanged,
+                onChanging: (Action)null,
                 affectedPropertyNames: affectedPropertyNames
             );
         }
@@ -2903,7 +4190,56 @@ namespace Nicenis.ComponentModel
                 storage: ref storage,
                 value: value,
                 onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null,
                 affectedPropertyNames: affectedPropertyNames
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name obtained by the CallerMemberName attribute.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(ref T storage, T value, Action<ValueChangedEventArgs<T>> onChanged, Action<ValueChangingEventArgs<T>> onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed, a PropertyChanged event is raised for the property name obtained by the CallerMemberName attribute.
+        /// This method must be used in a property setter.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="propertyName">The property name that is automatically set by the compiler. DO NOT SPECIFY THIS PARAMETER.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected bool SetCallerProperty<T>(ref T storage, T value, Action onChanged, Action onChanging, [CallerMemberName] string propertyName = "")
+        {
+            return SetProperty
+            (
+                propertyName: propertyName,
+                storage: ref storage,
+                value: value,
+                onChanged: onChanged,
+                onChanging: onChanging
             );
         }
 
@@ -2925,7 +4261,8 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 storage: ref storage,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
@@ -2947,7 +4284,8 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 storage: ref storage,
                 value: value,
-                onChanged: onChanged
+                onChanged: onChanged,
+                onChanging: (Action)null
             );
         }
 
@@ -2968,13 +4306,68 @@ namespace Nicenis.ComponentModel
                 propertyName: propertyName,
                 storage: ref storage,
                 value: value,
-                onChanged: (Action<ValueChangedEventArgs<T>>)null
+                onChanged: (Action<ValueChangedEventArgs<T>>)null,
+                onChanging: (Action<ValueChangingEventArgs<T>>)null
             );
         }
 
         #endregion
 
 #endif
+
+
+        #region PropertyValueChanging
+
+        /// <summary>
+        /// Occurs when a property value is changing by the SetProperty methods.
+        /// </summary>
+        public event EventHandler<PropertyValueChangingEventArgs> PropertyValueChanging;
+
+        /// <summary>
+        /// Raises a PropertyValueChanging event.
+        /// </summary>
+        /// <param name="args">The property value changed event arguments.</param>
+        protected virtual void OnPropertyValueChanging(PropertyValueChangingEventArgs args)
+        {
+            // Calls the property value changing event handlers.
+            EventHandler<PropertyValueChangingEventArgs> propertyValueChanging = PropertyValueChanging;
+            if (propertyValueChanging != null)
+                propertyValueChanging(this, args);
+        }
+
+#if !NICENIS_4C
+        /// <summary>
+        /// Raises a PropertyValueChanging event.
+        /// </summary>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
+        protected void OnPropertyValueChanging<T>(T oldValue, T newValue, [CallerMemberName] string propertyName = "")
+#else
+        /// <summary>
+        /// Raises a PropertyChanged event.
+        /// </summary>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
+        protected void OnPropertyValueChanging<T>(T oldValue, T newValue, string propertyName)
+#endif
+        {
+            OnPropertyValueChanging(new PropertyValueChangingEventArgs(propertyName, oldValue, newValue));
+        }
+
+        /// <summary>
+        /// Raises a PropertyValueChanging event.
+        /// </summary>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        protected void OnPropertyValueChanging<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue)
+        {
+            OnPropertyValueChanging(new PropertyValueChangingEventArgs(ToPropertyName(propertyExpression), oldValue, newValue));
+        }
+
+        #endregion
 
 
         #region PropertyValueChanged
@@ -3017,6 +4410,17 @@ namespace Nicenis.ComponentModel
             OnPropertyValueChanged(new PropertyValueChangedEventArgs(propertyName, oldValue, newValue));
         }
 
+        /// <summary>
+        /// Raises a PropertyValueChanged event.
+        /// </summary>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        protected void OnPropertyValueChanged<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue)
+        {
+            OnPropertyValueChanged(new PropertyValueChangedEventArgs(ToPropertyName(propertyExpression), oldValue, newValue));
+        }
+
         #endregion
 
 
@@ -3054,6 +4458,15 @@ namespace Nicenis.ComponentModel
 #endif
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Raises PropertyChanged events.
+        /// </summary>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        protected void OnPropertyChanged<T>(Expression<Func<T>> propertyExpression)
+        {
+            OnPropertyChanged(ToPropertyName(propertyExpression));
         }
 
         /// <summary>
