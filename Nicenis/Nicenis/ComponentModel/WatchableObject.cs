@@ -26,7 +26,6 @@ namespace Nicenis.ComponentModel
     /// This class is deprecated and remains for backward compatibility.
     /// The PropertyObservable class is recommended for new projects.
     /// </summary>
-    [Obsolete("The PropertyObservable class is recommended for new projects.")]
     [DataContract]
     public class WatchableObject : INotifyPropertyChanged
     {
