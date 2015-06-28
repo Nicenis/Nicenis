@@ -573,8 +573,8 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int onChangingCheckValue = 200;
-            const int onChangedCheckValue = 200;
+            const int changingCheckValue = 200;
+            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             string propertyNameInChanging = null;
             string propertyNameInChanged = null;
@@ -584,17 +584,17 @@ namespace NicenisTests.ComponentModel
             PropertyValueChanging += (_, p) =>
             {
                 propertyNameInChanging = p.PropertyName;
-                checkValue = onChangingCheckValue;
+                checkValue = changingCheckValue;
             };
             PropertyValueChanged += (_, p) =>
             {
                 propertyNameInChanged = p.PropertyName;
-                checkValue = onChangedCheckValue;
+                checkValue = changedCheckValue;
             };
             SetProperty(testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(checkValue == changedCheckValue);
             Assert.IsTrue(propertyNameInChanging == testPropertyName);
             Assert.IsTrue(propertyNameInChanged == testPropertyName);
         }
@@ -647,8 +647,8 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int onChangingCheckValue = 200;
-            const int onChangedCheckValue = 200;
+            const int changingCheckValue = 200;
+            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             string propertyNameInChanging = null;
             string propertyNameInChanged = null;
@@ -658,17 +658,17 @@ namespace NicenisTests.ComponentModel
             PropertyValueChanging += (_, p) =>
             {
                 propertyNameInChanging = p.PropertyName;
-                checkValue = onChangingCheckValue;
+                checkValue = changingCheckValue;
             };
             PropertyChanged += (_, p) =>
             {
                 propertyNameInChanged = p.PropertyName;
-                checkValue = onChangedCheckValue;
+                checkValue = changedCheckValue;
             };
             SetProperty(testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(checkValue == changedCheckValue);
             Assert.IsTrue(propertyNameInChanging == testPropertyName);
             Assert.IsTrue(propertyNameInChanged == testPropertyName);
         }
@@ -750,6 +750,26 @@ namespace NicenisTests.ComponentModel
             Assert.IsTrue(propertyNameInChanged == null);
             Assert.IsFalse(related.Any());
         }
+
+
+        [TestMethod]
+        public void SetProperty_Calls_OnChanging_Callback_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int changingCheckValue = 200;
+            const int onChangingCheckValue = 300;
+            const string testPropertyName = "propertyName";
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) => checkValue = changingCheckValue;
+            SetProperty(testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangingCheckValue);
+        }
+
 
 #if !NICENIS_4C
 
@@ -1048,8 +1068,8 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int onChangingCheckValue = 200;
-            const int onChangedCheckValue = 200;
+            const int changingCheckValue = 200;
+            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             int value = 0;
             string propertyNameInChanging = null;
@@ -1060,17 +1080,17 @@ namespace NicenisTests.ComponentModel
             PropertyValueChanging += (_, p) =>
             {
                 propertyNameInChanging = p.PropertyName;
-                checkValue = onChangingCheckValue;
+                checkValue = changingCheckValue;
             };
             PropertyValueChanged += (_, p) =>
             {
                 propertyNameInChanged = p.PropertyName;
-                checkValue = onChangedCheckValue;
+                checkValue = changedCheckValue;
             };
             SetProperty(ref value, testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(checkValue == changedCheckValue);
             Assert.IsTrue(propertyNameInChanging == testPropertyName);
             Assert.IsTrue(propertyNameInChanged == testPropertyName);
         }
@@ -1125,8 +1145,8 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int onChangingCheckValue = 200;
-            const int onChangedCheckValue = 200;
+            const int changingCheckValue = 200;
+            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             int value = 0;
             string propertyNameInChanging = null;
@@ -1137,17 +1157,17 @@ namespace NicenisTests.ComponentModel
             PropertyValueChanging += (_, p) =>
             {
                 propertyNameInChanging = p.PropertyName;
-                checkValue = onChangingCheckValue;
+                checkValue = changingCheckValue;
             };
             PropertyChanged += (_, p) =>
             {
                 propertyNameInChanged = p.PropertyName;
-                checkValue = onChangedCheckValue;
+                checkValue = changedCheckValue;
             };
             SetProperty(ref value, testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(checkValue == changedCheckValue);
             Assert.IsTrue(propertyNameInChanging == testPropertyName);
             Assert.IsTrue(propertyNameInChanged == testPropertyName);
         }
@@ -1232,6 +1252,27 @@ namespace NicenisTests.ComponentModel
             Assert.IsTrue(propertyNameInChanged == null);
             Assert.IsFalse(related.Any());
         }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_OnChanging_Callback_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int changingCheckValue = 200;
+            const int onChangingCheckValue = 300;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) => checkValue = changingCheckValue;
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangingCheckValue);
+        }
+
 
 #if !NICENIS_4C
 

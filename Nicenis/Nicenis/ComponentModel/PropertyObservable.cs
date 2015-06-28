@@ -19,6 +19,85 @@ using System.Runtime.Serialization;
 
 namespace Nicenis.ComponentModel
 {
+    #region Related Types
+
+    /// <summary>
+    /// Provides data for a property value changing callback.
+    /// </summary>
+    public interface IPropertyValueChangingCallbackArgs<T>
+    {
+        /// <summary>
+        /// Gets the value of the property before the change.
+        /// </summary>
+        T OldValue { get; }
+
+        /// <summary>
+        /// Gets or sets the value of the property that is about to change.
+        /// </summary>
+        T NewValue { get; set; }
+    }
+
+    /// <summary>
+    /// Provides data for a property value changed callback.
+    /// </summary>
+    public interface IPropertyValueChangedCallbackArgs<T>
+    {
+        /// <summary>
+        /// Gets the value of the property before the change.
+        /// </summary>
+        T OldValue { get; }
+
+        /// <summary>
+        /// Gets the value of the property after the change.
+        /// </summary>
+        T NewValue { get; }
+    }
+
+    /// <summary>
+    /// Provides data for a property value changing event handler.
+    /// </summary>
+    public interface IPropertyValueChangingEventArgs
+    {
+        /// <summary>
+        /// Gets the name of the property that is changing.
+        /// </summary>
+        string PropertyName { get; }
+
+        /// <summary>
+        /// Gets the value of the property before the change.
+        /// </summary>
+        object OldValue { get; }
+
+        /// <summary>
+        /// Gets or sets the value of the property that is about to change.
+        /// </summary>
+        object NewValue { get; set; }
+    }
+
+    /// <summary>
+    /// Provides data for a property value changed event handler.
+    /// </summary>
+    public interface IPropertyValueChangedEventArgs
+    {
+        /// <summary>
+        /// Gets the name of the property that changed.
+        /// </summary>
+        string PropertyName { get; }
+
+        /// <summary>
+        /// Gets the value of the property before the change.
+        /// </summary>
+        object OldValue { get; }
+
+        /// <summary>
+        /// Gets the value of the property after the change.
+        /// </summary>
+        object NewValue { get; }
+    }
+
+    #endregion
+
+
     /// <summary>
     /// Provides a base implementation for the INotifyPropertyChanged interface.
     /// </summary>
@@ -31,7 +110,7 @@ namespace Nicenis.ComponentModel
         /// The event arguments for property value change related events.
         /// </summary>
         private class PropertyValueChangeEventArgs<T> : PropertyChangedEventArgs,
-                IValueChangingEventArgs<T>, IValueChangedEventArgs<T>, IPropertyValueChangingEventArgs, IPropertyValueChangedEventArgs
+                IPropertyValueChangingCallbackArgs<T>, IPropertyValueChangedCallbackArgs<T>, IPropertyValueChangingEventArgs, IPropertyValueChangedEventArgs
         {
             #region Constructors
 
@@ -674,7 +753,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names. Null is allowed.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(T value, [CallerMemberName] string propertyName = null, Action<IValueChangingEventArgs<T>> onChanging = null, Action<IValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #else
         /// <summary>
         /// Sets a value to the property specified by the property name.
@@ -691,7 +770,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names. Null is allowed.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(T value, string propertyName, Action<IValueChangingEventArgs<T>> onChanging = null, Action<IValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(T value, string propertyName, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
@@ -796,7 +875,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IValueChangingEventArgs<T>> onChanging = null, Action<IValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #else
         /// <summary>
         /// Sets a value to the specified storage.
@@ -811,7 +890,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(ref T storage, T value, string propertyName, Action<IValueChangingEventArgs<T>> onChanging = null, Action<IValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(ref T storage, T value, string propertyName, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);

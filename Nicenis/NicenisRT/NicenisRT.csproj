@@ -47,18 +47,6 @@
     <Compile Include="..\Nicenis\Collections\StaticArray.cs">
       <Link>Collections\StaticArray.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\IPropertyValueChangedEventArgs.cs">
-      <Link>ComponentModel\IPropertyValueChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\IPropertyValueChangingEventArgs.cs">
-      <Link>ComponentModel\IPropertyValueChangingEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\IValueChangedEventArgs.cs">
-      <Link>ComponentModel\IValueChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\IValueChangingEventArgs.cs">
-      <Link>ComponentModel\IValueChangingEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\Nicenis\ComponentModel\PropertyObservable.cs">
       <Link>ComponentModel\PropertyObservable.cs</Link>
     </Compile>
