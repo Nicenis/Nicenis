@@ -12,7 +12,7 @@ namespace WatchableObjectPerformanceTest
     /// <summary>
     /// The sample class that uses local property storage.
     /// </summary>
-    class SampleL50 : PropertyObservable, ITestable
+    class SampleL50 : WatchableObject, ITestable
     {
         int _testProperty1;
 

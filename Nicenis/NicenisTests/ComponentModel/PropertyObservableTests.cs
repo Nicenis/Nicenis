@@ -23,680 +23,178 @@ using System.Xml.Serialization;
 
 namespace NicenisTests.ComponentModel
 {
-    [TestClass]
-    public class PropertyObservableTests : PropertyObservable
+    public class TestClass
     {
-        private static int PrivateStaticValueProperty { get; set; }
-        public static int PublicStaticValueProperty { get; set; }
-
-
-        #region Samples
-
-        class Sample : PropertyObservable
-        {
-            #region Converted Methods From Protected To Public
-
-            #region GetProperty Related
-
-            public new T GetProperty<T>(string propertyName, Func<T> initializer)
-            {
-                return base.GetProperty(propertyName, initializer);
-            }
-
-            public new T GetProperty<T>(string propertyName)
-            {
-                return base.GetProperty<T>(propertyName);
-            }
-
-            #endregion
-
-            #region SetProperty Related
-
-            public new bool SetPropertyOnly<T>(string propertyName, T value)
-            {
-                return base.SetPropertyOnly(propertyName, value);
-            }
-
-            public new bool SetProperty<T>(string propertyName, T value, IEnumerable<string> affectedPropertyNames)
-            {
-                return base.SetProperty(propertyName, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(string propertyName, T value, params string[] affectedPropertyNames)
-            {
-                return base.SetProperty(propertyName, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(string propertyName, T value, string affectedPropertyName)
-            {
-                return base.SetProperty(propertyName, value, affectedPropertyName);
-            }
-
-            public new bool SetProperty<T>(string propertyName, T value)
-            {
-                return base.SetProperty(propertyName, value);
-            }
-
-            #endregion
-
-#if !NICENIS_4C
-
-            #region GetCallerProperty/SetCallerProperty Related
-
-            public new T GetCallerProperty<T>(Func<T> initializer, [CallerMemberName] string propertyName = "")
-            {
-                return base.GetCallerProperty(initializer, propertyName);
-            }
-
-            public new T GetCallerProperty<T>([CallerMemberName] string propertyName = "")
-            {
-                return base.GetCallerProperty<T>(propertyName);
-            }
-
-            public new bool SetCallerPropertyOnly<T>(T value, [CallerMemberName] string propertyName = "")
-            {
-                return base.SetCallerPropertyOnly(value, propertyName);
-            }
-
-            public new bool SetCallerProperty<T>(T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
-            {
-                return base.SetCallerProperty(value, affectedPropertyNames, propertyName);
-            }
-
-            public new bool SetCallerProperty<T>(T value, [CallerMemberName] string propertyName = "")
-            {
-                return base.SetCallerProperty(value, propertyName);
-            }
-
-            #endregion
-
-#endif
-
-            #region SetProperty with Local Storage Related
-
-            public new bool SetPropertyOnly<T>(ref T storage, T value)
-            {
-                return base.SetPropertyOnly(ref storage, value);
-            }
-
-            public new bool SetProperty<T>(string propertyName, ref T storage, T value, IEnumerable<string> affectedPropertyNames)
-            {
-                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(string propertyName, ref T storage, T value, params string[] affectedPropertyNames)
-            {
-                return base.SetProperty(propertyName, ref storage, value, affectedPropertyNames);
-            }
-
-            public new bool SetProperty<T>(string propertyName, ref T storage, T value, string affectedPropertyName)
-            {
-                return base.SetProperty(propertyName, ref storage, value, affectedPropertyName);
-            }
-
-            public new bool SetProperty<T>(string propertyName, ref T storage, T value)
-            {
-                return base.SetProperty(propertyName, ref storage, value);
-            }
-
-            #endregion
-
-#if !NICENIS_4C
-
-            #region SetCallerProperty with Local Storage Related
-
-            public new bool SetCallerProperty<T>(ref T storage, T value, IEnumerable<string> affectedPropertyNames, [CallerMemberName] string propertyName = "")
-            {
-                return base.SetCallerProperty(ref storage, value, affectedPropertyNames, propertyName);
-            }
-
-            public new bool SetCallerProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
-            {
-                return base.SetCallerProperty(ref storage, value, propertyName);
-            }
-
-            #endregion
-
-#endif
-
-            #region OnPropertyChanged Related
-
-            public new void OnPropertyChanged(string propertyName)
-            {
-                base.OnPropertyChanged(propertyName);
-            }
-
-            public new void OnPropertyChanged(IEnumerable<string> propertyNames)
-            {
-                base.OnPropertyChanged(propertyNames);
-            }
-
-            #endregion
-
-            #endregion
-
-            #region ValueProperty & ReferenceProperty Related
-
-            public int ValueProperty
-            {
-                get { return GetProperty(() => ValueProperty); }
-                set { SetProperty(() => ValueProperty, value); }
-            }
-
-            public string GetValuePropertyName()
-            {
-                return ToPropertyName(() => ValueProperty);
-            }
-
-            public string ReferenceProperty
-            {
-                get { return GetProperty(() => ReferenceProperty); }
-                set { SetProperty(() => ReferenceProperty, value); }
-            }
-
-            public string GetReferencePropertyName()
-            {
-                return ToPropertyName(() => ReferenceProperty);
-            }
-
-            private int PrivateValueProperty
-            {
-                get { return GetProperty(() => PrivateValueProperty); }
-                set { SetProperty(() => PrivateValueProperty, value); }
-            }
-
-            public int IndirectPrivateValueProperty
-            {
-                get { return PrivateValueProperty; }
-                set { PrivateValueProperty = value; }
-            }
-
-            public string GetPrivateValuePropertyName()
-            {
-                return ToPropertyName(() => PrivateValueProperty);
-            }
-
-#if !NICENIS_4C
-
-            public string CallerMemberNameProperty
-            {
-                get { return GetCallerProperty<string>(); }
-                set { SetCallerProperty(value); }
-            }
-
-            public string CallerMemberNamePropertyWithoutPropertyChangedEvent
-            {
-                get { return GetCallerProperty<string>(); }
-                set { SetCallerPropertyOnly(value); }
-            }
-
-            string _callerMemberNamePropertyWithLocalStorage;
-
-            public string CallerMemberNamePropertyWithLocalStorage
-            {
-                get { return _callerMemberNamePropertyWithLocalStorage; }
-                set { SetCallerProperty(ref _callerMemberNamePropertyWithLocalStorage, value); }
-            }
-
-#endif
-
-            #endregion
-
-            #region TestProperty1 ~ TestProperty2
-
-            public class TestPropertyType1
-            {
-                public string Property1 { get; set; }
-            }
-
-            public class TestPropertyType2
-            {
-                public string Property1 { get; set; }
-            }
-
-            public TestPropertyType1 TestProperty1
-            {
-                get { return GetProperty(() => TestProperty1); }
-                set { SetProperty(() => TestProperty1, value); }
-            }
-
-            public string GetTestProperty1Name()
-            {
-                return ToPropertyName(() => TestProperty1);
-            }
-
-            public TestPropertyType2 TestProperty2
-            {
-                get { return GetProperty(() => TestProperty2); }
-                set { SetProperty(() => TestProperty2, value); }
-            }
-
-            public string GetTestProperty2Name()
-            {
-                return ToPropertyName(() => TestProperty2);
-            }
-
-            #endregion
-
-            #region VirtualValueProperty
-
-            public virtual int VirtualValueProperty
-            {
-                get { return GetProperty(() => VirtualValueProperty); }
-                set { SetProperty(() => VirtualValueProperty, value); }
-            }
-
-            public string GetVirtualValuePropertyName()
-            {
-                return ToPropertyName(() => VirtualValueProperty);
-            }
-
-            #endregion
-
-
-            #region Static Properties
-
-            public static int StaticValueProperty { get; set; }
-
-            #endregion
-        }
-
-        class InheritedSample : Sample
-        {
-            public override int VirtualValueProperty
-            {
-                get { return GetProperty(() => VirtualValueProperty); }
-                set { SetProperty(() => VirtualValueProperty, value); }
-            }
-        }
-
-        [DataContract]
-        public class SerializationSample : PropertyObservable
-        {
-            [DataMember]
-            public int TestValue
-            {
-                get { return GetProperty(() => TestValue); }
-                set { SetProperty(() => TestValue, value); }
-            }
-
-            [DataMember]
-            public string TestString
-            {
-                get { return GetProperty(() => TestString, () => "Test String"); }
-                set { SetProperty(() => TestString, value); }
-            }
-        }
-
-        public string TestProperty { get; set; }
-
-        #endregion
-
-
-        #region Helpers
-
-        private void SetPropertyByReflection(Sample sample, string propertyName, object value)
-        {
-            Assert.IsNotNull(sample);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(propertyName));
-
-            sample.GetType().InvokeMember
-            (
-                name: propertyName,
-                invokeAttr: BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty,
-                binder: null,
-                target: sample,
-                args: new object[] { value }
-            );
-        }
-
-        private void ChangeTestProperty(Sample sample, int count)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                int no = i + 1;
-
-                SetPropertyByReflection
-                (
-                    sample: sample,
-                    propertyName: "TestProperty" + no,
-                    value: Activator.CreateInstance
-                    (
-                        assemblyName: null,
-                        typeName: "NicenisTests.ComponentModel.WatchableObjectTests+Sample+TestPropertyType" + no
-                    ).Unwrap()
-                );
-            }
-        }
-
-        private static int ExtractFirstNumberInPropertyName(string propertyName)
-        {
-            string numberString = "";
-            foreach (char chr in propertyName)
-            {
-                if (!char.IsDigit(chr))
-                {
-                    if (numberString == "")
-                        continue;
-
-                    break;
-                }
-
-                numberString += chr;
-            };
-
-            return int.Parse(numberString);
-        }
-
-        #endregion
-
-
+        public static string PublicStaticProperty { get; set; }
+        public string PublicProperty { get; set; }
+    }
+
+    public class PropertyObservableTestsBase : PropertyObservable
+    {
+        public virtual string PublicOverridenProperty { get; set; }
+    }
+
+    [TestClass]
+    public class PropertyObservableTests : PropertyObservableTestsBase
+    {
         #region ToPropertyName Test Related
 
+        private string PrivateProperty { get; set; }
+        public string PublicProperty { get; set; }
+        public virtual string PublicVirtualProperty { get; set; }
+        public override string PublicOverridenProperty { get { return base.PublicOverridenProperty; } set { base.PublicOverridenProperty = value; } }
+
         [TestMethod]
-        public void ToPropertyName_Must_Return_Public_Property_Name()
+        public void ToPropertyName_Supports_Private_Property()
         {
             // arrange
-            const string expectedPropertyName = "ValueProperty";
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PrivateProperty";
 
             // act
-            string propertyName = sample.GetValuePropertyName();
+            string propertyName = ToPropertyName(() => PrivateProperty);
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         [TestMethod]
-        public void ToPropertyName_Must_Return_Private_Property_Name()
+        public void ToPropertyName_Supports_Public_Property()
         {
             // arrange
-            const string expectedPropertyName = "PrivateValueProperty";
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PublicProperty";
 
             // act
-            string propertyName = sample.GetPrivateValuePropertyName();
+            string propertyName = ToPropertyName(() => PublicProperty);
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         [TestMethod]
-        public void ToPropertyName_Must_Return_Virtual_Property_Name()
+        public void ToPropertyName_Supports_Public_Virtual_Property()
         {
             // arrange
-            const string expectedPropertyName = "VirtualValueProperty";
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PublicVirtualProperty";
 
             // act
-            string propertyName = sample.GetVirtualValuePropertyName();
+            string propertyName = ToPropertyName(() => PublicVirtualProperty);
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         [TestMethod]
-        public void ToPropertyName_Must_Return_Overridden_Property_Name()
+        public void ToPropertyName_Supports_Public_Overridden_Property()
         {
             // arrange
-            const string expectedPropertyName = "VirtualValueProperty";
-            InheritedSample inheritedSample = new InheritedSample();
+            const string expectedPropertyName = "PublicOverridenProperty";
 
             // act
-            string propertyName = inheritedSample.GetVirtualValuePropertyName();
+            string propertyName = ToPropertyName(() => PublicOverridenProperty);
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         [TestMethod]
-        public void ToPropertyName_Must_Support_Multiple_Property_Names()
+        public void ToPropertyName_Supports_Multiple_Property_Names()
         {
             // arrange
             string[] expectedPropertyNames =
             {
-                "ValueProperty",
-                "PrivateValueProperty",
-                "VirtualValueProperty",
+                "PrivateProperty",
+                "PublicProperty",
+                "PublicVirtualProperty",
+                "PublicOverridenProperty",
             };
-            Sample sample = new Sample();
 
-            for (int i = 0; i < 3; i++)
-            {
-                // act
-                string[] propertyNames = 
-                {
-                    sample.GetValuePropertyName(),
-                    sample.GetPrivateValuePropertyName(),
-                    sample.GetVirtualValuePropertyName(),
-                };
+            // act
+            IEnumerable<string> propertyNames = ToPropertyName
+            (
+                () => PrivateProperty,
+                () => PublicProperty,
+                () => PublicVirtualProperty,
+                () => PublicOverridenProperty
+            );
 
-                // assert
-                for (int j = 0; j < expectedPropertyNames.Length; j++)
-                    Assert.AreEqual(expectedPropertyNames[j], propertyNames[j]);
-            }
+            // assert
+            Assert.IsTrue(Enumerable.SequenceEqual(expectedPropertyNames, propertyNames));
         }
 
         [TestMethod]
-        public void ToPropertyName_Must_Support_Property_In_Other_Instance()
+        public void ToPropertyName_Supports_Property_In_Other_Instance()
         {
             // arrange
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PublicProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
 
             // act
-            string propertyName = ToPropertyName(() => sample.TestProperty1);
+            string propertyName = ToPropertyName(() => sample.PublicProperty);
 
             // assert
-            Assert.AreEqual("TestProperty1", propertyName);
+            Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
+        public TestClass PublicNestedProperty { get; set; }
+
         [TestMethod]
-        public void ToPropertyName_Must_Support_nested_Property_In_Other_Instance()
+        public void ToPropertyName_Supports_Nested_Property_In_Other_Instance()
         {
             // arrange
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PublicProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+            sample.PublicNestedProperty = new TestClass();
 
             // act
-            string propertyName = ToPropertyName(() => sample.TestProperty1.Property1);
+            string propertyName = ToPropertyName(() => sample.PublicNestedProperty.PublicProperty);
 
             // assert
-            Assert.AreEqual("Property1", propertyName);
+            Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
-        [TestMethod]
-        public void ToPropertyName_Must_Support_Private_Static_Property()
-        {
-            // act
-            string propertyName = ToPropertyName(() => PrivateStaticValueProperty);
-
-            // assert
-            Assert.AreEqual("PrivateStaticValueProperty", propertyName);
-        }
+        private static string PrivateStaticProperty { get; set; }
 
         [TestMethod]
-        public void ToPropertyName_Must_Support_Public_Static_Property()
-        {
-            // act
-            string propertyName = ToPropertyName(() => PublicStaticValueProperty);
-
-            // assert
-            Assert.AreEqual("PublicStaticValueProperty", propertyName);
-        }
-
-        [TestMethod]
-        public void ToPropertyName_Must_Support_Static_Property_In_Other_Class()
-        {
-            // act
-            string propertyName = ToPropertyName(() => Sample.StaticValueProperty);
-
-            // assert
-            Assert.AreEqual("StaticValueProperty", propertyName);
-        }
-
-        #endregion
-
-
-        #region GetProperty Parameter Check Related
-
-        [TestMethod]
-        public void GetProperty_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
+        public void ToPropertyName_Supports_Private_Static_Property()
         {
             // arrange
-            string propertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PrivateStaticProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
 
             // act
-            try
-            {
-                sample.GetProperty<string>(propertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            string propertyName = ToPropertyName(() => PrivateStaticProperty);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        public static string PublicStaticProperty { get; set; }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Public_Static_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicStaticProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+
+            // act
+            string propertyName = ToPropertyName(() => PublicStaticProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         [TestMethod]
-        public void GetProperty_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
+        public void ToPropertyName_Supports_Static_Property_In_Other_Class()
         {
             // arrange
-            string propertyName = "";
-            Exception exception = null;
-            Sample sample = new Sample();
+            const string expectedPropertyName = "PublicStaticProperty";
 
             // act
-            try
-            {
-                sample.GetProperty<string>(propertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            string propertyName = ToPropertyName(() => TestClass.PublicStaticProperty);
 
             // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void GetProperty_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.GetProperty<string>(propertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.GetProperty(propertyName, () => "Test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.GetProperty<string>(propertyName, () => "Test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.GetProperty<string>(propertyName, () => "Test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void GetProperty_With_Initializer_Must_Throw_Exception_If_Null_Initializer_Is_Passed()
-        {
-            // arrange
-            string propertyName = "propertyName";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.GetProperty<string>(propertyName, initializer: null);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "initializer");
+            Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
         #endregion
@@ -708,10 +206,10 @@ namespace NicenisTests.ComponentModel
         public void GetProperty_Must_Return_Default_Value_If_It_Is_Not_Set()
         {
             // arrange
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
 
             // act
-            int property = sample.GetProperty<int>(sample.GetValuePropertyName());
+            int property = GetProperty<int>(testPropertyName);
 
             // assert
             Assert.AreEqual(default(int), property);
@@ -721,10 +219,10 @@ namespace NicenisTests.ComponentModel
         public void GetProperty_Must_Return_Default_Reference_If_It_Is_Not_Set()
         {
             // arrange
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
 
             // act
-            string property = sample.ReferenceProperty;
+            string property = GetProperty<string>(testPropertyName);
 
             // assert
             Assert.AreEqual(default(string), property);
@@ -735,10 +233,10 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int initializedValue = 10;
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
 
             // act
-            int property = sample.GetProperty(sample.GetValuePropertyName(), () => initializedValue);
+            int property = GetProperty(testPropertyName, () => initializedValue);
 
             // assert
             Assert.AreEqual(initializedValue, property);
@@ -750,7 +248,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int initializedValue = 10;
             const int expectedInitializerCallCount = 1;
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
             int initializerCallCount = 0;
             Func<int> initializer = () =>
             {
@@ -759,8 +257,8 @@ namespace NicenisTests.ComponentModel
             };
 
             // act
-            sample.GetProperty(sample.GetValuePropertyName(), initializer);
-            sample.GetProperty(sample.GetValuePropertyName(), initializer);
+            GetProperty(testPropertyName, initializer);
+            GetProperty(testPropertyName, initializer);
 
             // assert
             Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
@@ -770,15 +268,15 @@ namespace NicenisTests.ComponentModel
         public void GetProperty_Must_Not_Call_Initializer_If_It_Is_Set()
         {
             // arrange
-            const int setValue = 100;
+            const int testValue = 100;
             const int initializedValue = 10;
             const int expectedInitializerCallCount = 0;
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
             int initializerCallCount = 0;
 
             // act
-            sample.SetProperty(sample.GetValuePropertyName(), setValue);
-            sample.GetProperty(sample.GetValuePropertyName(), () =>
+            SetProperty(testValue, testPropertyName);
+            GetProperty(testPropertyName, () =>
             {
                 initializerCallCount++;
                 return initializedValue;
@@ -788,455 +286,24 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
         }
 
-        #endregion
-
-
-        #region SetPropertyOnly Parameter Check Related
+#if !NICENIS_4C
 
         [TestMethod]
-        public void SetPropertyOnly_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
+        public void GetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
         {
             // arrange
-            string propertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
+            const int testValue = 100;
+            const string testPropertyName = "GetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed";
 
             // act
-            try
-            {
-                sample.SetPropertyOnly(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
+            SetProperty(testValue, testPropertyName);
+            int value = GetProperty<int>();
 
             // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
+            Assert.AreEqual(testValue, value);
         }
 
-        [TestMethod]
-        public void SetPropertyOnly_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyOnly(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetPropertyOnly_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetPropertyOnly(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        #endregion
-
-
-        #region SetProperty Parameter Check Related
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Is_Null()
-        {
-            // arrange
-            IEnumerable<string> affectedPropertyNames = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Is_Empty()
-        {
-            // arrange
-            IEnumerable<string> affectedPropertyNames = new string[0];
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Null()
-        {
-            // arrange
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Contain_Empty_String()
-        {
-            // arrange
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Whitespace_String()
-        {
-            // arrange
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_Null()
-        {
-            // arrange
-            string affectedPropertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Not_Throw_Exception_If_Affected_Property_Name_Is_Empty()
-        {
-            // arrange
-            string affectedPropertyName = "";
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_whitespace()
-        {
-            // arrange
-            string affectedPropertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), 10, affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyName");
-        }
-
-
-        [TestMethod]
-        public void SetProperty_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
+#endif
 
         #endregion
 
@@ -1244,990 +311,971 @@ namespace NicenisTests.ComponentModel
         #region SetProperty Test Related
 
         [TestMethod]
-        public void SetPropertyOnly_Must_Set_Value_Properly()
+        public void SetProperty_Support_Set_A_Value()
         {
             // arrange
             const int testValue = 100;
-            Sample sample = new Sample();
+            const string testPropertyName = "propertyName";
 
             // act
-            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
-            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
+            SetProperty(testValue, testPropertyName);
+            int value = GetProperty<int>(testPropertyName);
 
             // assert
-            Assert.AreEqual(propertyValue, testValue);
+            Assert.AreEqual(value, testValue);
         }
 
         [TestMethod]
-        public void SetPropertyOnly_Must_Not_Raise_PropertyChanged()
+        public void SetProperty_Calls_OnChanging_Callback_If_A_Value_Is_Changed()
         {
             // arrange
             const int testValue = 100;
-
-            Sample sample = new Sample();
-            int propertyChangedCount = 0;
-            sample.PropertyChanged += (_, __) => propertyChangedCount++;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int onChangingCount = 0;
+            int oldValue = -1, newValue = -1;
+            int oldValue2 = -1, newValue2 = -1;
 
             // act
-            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
-            sample.SetPropertyOnly(sample.GetValuePropertyName(), testValue);
+            SetProperty(testValue, testPropertyName, onChanging: p =>
+            {
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+                onChangingCount++;
+            });
+            SetProperty(testValue2, testPropertyName, onChanging: p =>
+            {
+                oldValue2 = p.OldValue;
+                newValue2 = p.NewValue;
+                onChangingCount++;
+            });
 
             // assert
-            Assert.AreEqual(0, propertyChangedCount);
+            Assert.IsTrue(onChangingCount == 2);
+            Assert.IsTrue(oldValue == 0);
+            Assert.IsTrue(newValue == testValue);
+            Assert.IsTrue(oldValue2 == testValue);
+            Assert.IsTrue(newValue2 == testValue2);
         }
 
         [TestMethod]
-        public void SetProperty_Must_Set_Value_Properly()
+        public void SetProperty_OnChanging_Callback_Can_Override_NewValue()
         {
             // arrange
             const int testValue = 100;
-            Sample sample = new Sample();
+            const int overridenTestValue = 200;
+            const string testPropertyName = "propertyName";
 
             // act
-            sample.SetProperty(sample.GetValuePropertyName(), testValue);
-            int propertyValue = sample.GetProperty<int>(sample.GetValuePropertyName());
+            SetProperty(testValue, testPropertyName, onChanging: p => p.NewValue = overridenTestValue);
+            int value = GetProperty<int>(testPropertyName);
 
             // assert
-            Assert.AreEqual(propertyValue, testValue);
+            Assert.IsTrue(value == overridenTestValue);
         }
 
         [TestMethod]
-        public void SetProperty_Must_Set_Reference_Properly()
-        {
-            // arrange
-            const string testReference = "Test";
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetReferencePropertyName(), testReference);
-            string propertyReference = sample.GetProperty<string>(sample.GetReferencePropertyName());
-
-            // assert
-            Assert.AreEqual(propertyReference, testReference);
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Ascending_Order()
-        {
-            for (int count = 1; count <= 100; count++)
-            {
-                // arrange
-                Sample sample = new Sample();
-
-                // act
-                for (int i = 0; i <= count; i++)
-                    sample.SetProperty("Test" + i, i);
-
-                // assert
-                for (int i = 0; i <= count; i++)
-                {
-                    int value = sample.GetProperty<int>("Test" + i);
-                    Assert.AreEqual(value, i);
-
-                    value = sample.GetProperty<int>("Nonexistence" + i);
-                    Assert.AreEqual(value, default(int));
-                }
-            }
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Decending_Order()
-        {
-            for (int count = 1; count <= 100; count++)
-            {
-                // arrange
-                Sample sample = new Sample();
-
-                // act
-                for (int i = count; i >= 0; i--)
-                    sample.SetProperty("Test" + i, i);
-
-                // assert
-                for (int i = count; i >= 0; i--)
-                {
-                    int value = sample.GetProperty<int>("Test" + i);
-                    Assert.AreEqual(value, i);
-
-                    value = sample.GetProperty<int>("Nonexistence" + i);
-                    Assert.AreEqual(value, default(int));
-                }
-            }
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Support_Multiple_Properties_With_Insertion_In_Random_Order()
-        {
-            int[] numbers = Enumerable.Range(0, 101).ToArray();
-            Random random = new Random();
-
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                int swapIndex = random.Next(0, numbers.Length);
-
-                int temp = numbers[i];
-                numbers[i] = numbers[swapIndex];
-                numbers[swapIndex] = temp;
-            }
-
-            // arrange
-            for (int count = 1; count <= 100; count++)
-            {
-                // arrange
-                Sample sample = new Sample();
-
-                // act
-                for (int i = count; i >= 0; i--)
-                    sample.SetProperty("Test" + numbers[i], numbers[i]);
-
-                // assert
-                for (int i = count; i >= 0; i--)
-                {
-                    int value = sample.GetProperty<int>("Test" + numbers[i]);
-                    Assert.AreEqual(value, numbers[i]);
-
-                    value = sample.GetProperty<int>("Nonexistence" + numbers[i]);
-                    Assert.AreEqual(value, default(int));
-                }
-            }
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Raise_PropertyChanged_If_It_Is_Changed()
-        {
-            // arrange
-            const int testValue = 1000;
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-
-            sample.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == propertyName)
-                    valuePropertyChangedCount++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.SetProperty(propertyName, testValue);
-
-            // assert
-            Assert.AreEqual(1, propertyChangedCount);
-            Assert.AreEqual(1, valuePropertyChangedCount);
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Not_Raise_PropertyChanged_If_It_Is_Not_Changed()
-        {
-            // arrange
-            const int testValue = default(int);
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-
-            sample.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == propertyName)
-                    valuePropertyChangedCount++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.SetProperty(propertyName, testValue);
-
-            // assert
-            Assert.AreEqual(0, propertyChangedCount);
-            Assert.AreEqual(0, valuePropertyChangedCount);
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Raise_PropertyChanged_For_2_Affected_Properties_If_It_Is_Changed()
-        {
-            // arrange
-            const int testValue = 1000;
-            const int changedPropertyCount = 3;
-            const int affectedPropertyCount = changedPropertyCount - 1;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-            string affectedPropertyName1 = sample.GetTestProperty1Name();
-            string affectedPropertyName2 = sample.GetTestProperty2Name();
-
-            int propertyChangedCount = 0;
-            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
-            sample.PropertyChanged += (_, e) =>
-            {
-                // If it is not an affected property
-                if (e.PropertyName != propertyName)
-                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.SetProperty
-            (
-                propertyName, testValue, affectedPropertyName1, affectedPropertyName2
-            );
-
-            // assert
-            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
-            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Raise_PropertyChanged_For_1_Affected_Properties_If_It_Is_Changed()
-        {
-            // arrange
-            const int testValue = 1000;
-            const int changedPropertyCount = 2;
-            const int affectedPropertyCount = changedPropertyCount - 1;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-            string affectedPropertyName = sample.GetTestProperty1Name();
-
-            int propertyChangedCount = 0;
-            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
-            sample.PropertyChanged += (_, e) =>
-            {
-                // If it is not an affected property
-                if (e.PropertyName != propertyName)
-                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
-
-                propertyChangedCount++;
-            };
-
-            // act
-            sample.SetProperty(propertyName, testValue, affectedPropertyName);
-
-            // assert
-            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
-            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
-        }
-
-        [TestMethod]
-        public void SetProperty_Must_Support_Private_property()
-        {
-            // arrange
-            Sample sample = new Sample();
-
-            // act
-            sample.IndirectPrivateValueProperty = 10;
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        #endregion
-
-
-        #region SetProperty with local storage Parameter Check Related
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            string storage = null;
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            string storage = null;
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            string storage = null;
-            IEnumerable<string> affectedPropertyNames = new string[] { "affected" };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Is_Null()
-        {
-            // arrange
-            int storage = 0;
-            IEnumerable<string> affectedPropertyNames = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Is_Empty()
-        {
-            // arrange
-            int storage = 0;
-            IEnumerable<string> affectedPropertyNames = new string[0];
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Null()
-        {
-            // arrange
-            int storage = 0;
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", null };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Not_Throw_Exception_If_Affected_Property_Names_Contain_Empty_String()
-        {
-            // arrange
-            int storage = 0;
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", "" };
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Names_Must_Throw_Exception_If_Affected_Property_Names_Contain_Whitespace_String()
-        {
-            // arrange
-            int storage = 0;
-            IEnumerable<string> affectedPropertyNames = new string[] { "test", " " };
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyNames);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyNames");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            string storage = null;
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            string storage = null;
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            string storage = null;
-            string affectedPropertyName = "affected";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test", affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_Null()
-        {
-            // arrange
-            int storage = 0;
-            string affectedPropertyName = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Not_Throw_Exception_If_Affected_Property_Name_Is_Empty()
-        {
-            // arrange
-            int storage = 0;
-            string affectedPropertyName = "";
-            Sample sample = new Sample();
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_With_Affected_Property_Name_Must_Throw_Exception_If_Affected_Property_Name_Is_whitespace()
-        {
-            // arrange
-            int storage = 0;
-            string affectedPropertyName = " ";
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(sample.GetValuePropertyName(), ref storage, 10, affectedPropertyName);
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "affectedPropertyName");
-        }
-
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Null_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = null;
-            string storage = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException || exception is ArgumentNullException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Empty_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = "";
-            string storage = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Throw_Exception_If_Whitespace_Property_Name_Is_Passed()
-        {
-            // arrange
-            string propertyName = " ";
-            string storage = null;
-            Exception exception = null;
-            Sample sample = new Sample();
-
-            // act
-            try
-            {
-                sample.SetProperty(propertyName, ref storage, "test");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            // assert
-            Assert.IsTrue(exception is ArgumentException);
-            StringAssert.Contains(exception.Message, "propertyName");
-        }
-
-        #endregion
-
-
-        #region SetProperty with local storage Test Related
-
-        [TestMethod]
-        public void SetPropertyOnly_With_Local_Storage_Must_Set_Value_Properly()
+        public void SetProperty_Does_Not_Call_OnChanging_Callback_If_A_Value_Is_Not_Changed()
         {
             // arrange
             const int testValue = 100;
-            Sample sample = new Sample();
-            int valueStorage = 0;
+            const string testPropertyName = "propertyName";
+            int onChangingCount = 0;
 
             // act
-            sample.SetPropertyOnly(ref valueStorage, testValue);
+            SetProperty(testValue, testPropertyName, onChanging: p => onChangingCount++);
+            SetProperty(testValue, testPropertyName, onChanging: p => onChangingCount++);
 
             // assert
-            Assert.AreEqual(valueStorage, testValue);
+            Assert.IsTrue(onChangingCount == 1);
         }
 
         [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Set_Value_Properly()
+        public void SetProperty_Calls_OnChanged_Callback_If_A_Value_Is_Changed()
         {
             // arrange
             const int testValue = 100;
-            Sample sample = new Sample();
-            int valueStorage = 0;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int onChangedCount = 0;
+            int oldValue = -1, newValue = -1;
+            int oldValue2 = -1, newValue2 = -1;
 
             // act
-            sample.SetProperty(sample.GetValuePropertyName(), ref valueStorage, testValue);
-
-            // assert
-            Assert.AreEqual(valueStorage, testValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Set_Reference_Properly()
-        {
-            // arrange
-            const string testReference = "Test";
-            Sample sample = new Sample();
-            string referenceStorage = null;
-
-            // act
-            sample.SetProperty(sample.GetReferencePropertyName(), ref referenceStorage, testReference);
-
-            // assert
-            Assert.AreEqual(referenceStorage, testReference);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Support_Multiple_Properties()
-        {
-            // arrange
-            const int testValue = 10;
-            const string testReference = "Test";
-
-            Sample sample = new Sample();
-            int valueStorage = 0;
-            string referenceStorage = null;
-
-            // act
-            sample.SetProperty(sample.GetValuePropertyName(), ref valueStorage, testValue);
-            sample.SetProperty(sample.GetReferencePropertyName(), ref referenceStorage, testReference);
-
-            // assert
-            Assert.AreEqual(testValue, valueStorage);
-            Assert.AreEqual(testReference, referenceStorage);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_If_It_Is_Changed()
-        {
-            // arrange
-            const int testValue = 1000;
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-
-            int valueStorage = 0;
-            sample.PropertyChanged += (_, e) =>
+            SetProperty(testValue, testPropertyName, onChanged: p =>
             {
-                if (e.PropertyName == propertyName)
-                    valuePropertyChangedCount++;
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+                onChangedCount++;
+            });
+            SetProperty(testValue2, testPropertyName, onChanged: p =>
+            {
+                oldValue2 = p.OldValue;
+                newValue2 = p.NewValue;
+                onChangedCount++;
+            });
 
-                propertyChangedCount++;
+            // assert
+            Assert.IsTrue(onChangedCount == 2);
+            Assert.IsTrue(oldValue == 0);
+            Assert.IsTrue(newValue == testValue);
+            Assert.IsTrue(oldValue2 == testValue);
+            Assert.IsTrue(newValue2 == testValue2);
+        }
+
+        [TestMethod]
+        public void SetProperty_Does_Not_Call_OnChanged_Callback_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int onChangedCount = 0;
+
+            // act
+            SetProperty(testValue, testPropertyName, onChanged: p => onChangedCount++);
+            SetProperty(testValue, testPropertyName, onChanged: p => onChangedCount++);
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Calls_OnChanged_Callback_After_OnChanging_Callback()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            int checkValue = 0;
+
+            // act
+            SetProperty(testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue, onChanged: p => checkValue = onChangedCheckValue);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Calls_PropertyValueChanging_EventHandler_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int changingCount = 0;
+            string propertyNameInChanging = null;
+            int oldValue = -1, newValue = -1;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                oldValue = (int)p.OldValue;
+                newValue = (int)p.NewValue;
+                changingCount++;
             };
 
-            // act
-            sample.SetProperty(propertyName, ref valueStorage, testValue);
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue2, testPropertyName);
 
             // assert
-            Assert.AreEqual(1, propertyChangedCount);
-            Assert.AreEqual(1, valuePropertyChangedCount);
+            Assert.IsTrue(changingCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(oldValue == testValue);
+            Assert.IsTrue(newValue == testValue2);
         }
 
         [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Not_Raise_PropertyChanged_If_It_Is_Not_Changed()
+        public void SetProperty_PropertyValueChanging_EventHandler_Can_Override_NewValue()
         {
             // arrange
-            const int testValue = default(int);
-
-            int propertyChangedCount = 0;
-            int valuePropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-
-            int valueStorage = 0;
-            sample.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == propertyName)
-                    valuePropertyChangedCount++;
-
-                propertyChangedCount++;
-            };
+            const int testValue = 100;
+            const int overridenTestValue = 200;
+            const string testPropertyName = "propertyName";
 
             // act
-            sample.SetProperty(propertyName, ref valueStorage, testValue);
+            PropertyValueChanging += (_, p) => p.NewValue = overridenTestValue;
+            SetProperty(testValue, testPropertyName);
+            int value = GetProperty<int>(testPropertyName);
 
             // assert
-            Assert.AreEqual(0, propertyChangedCount);
-            Assert.AreEqual(0, valuePropertyChangedCount);
+            Assert.IsTrue(value == overridenTestValue);
         }
 
         [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_For_2_Affected_Properties_If_It_Is_Changed()
+        public void SetProperty_Does_Not_Call_PropertyValueChanging_EventHandler_If_A_Value_Is_Not_Changed()
         {
             // arrange
-            const int testValue = 1000;
-            const int changedPropertyCount = 3;
-            const int affectedPropertyCount = changedPropertyCount - 1;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-            string affectedPropertyName1 = sample.GetTestProperty1Name();
-            string affectedPropertyName2 = sample.GetTestProperty2Name();
-
-            int valueStorage = 0;
-            int propertyChangedCount = 0;
-            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
-            sample.PropertyChanged += (_, e) =>
-            {
-                // If it is not an affected property
-                if (e.PropertyName != propertyName)
-                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
-
-                propertyChangedCount++;
-            };
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int changingCount = 0;
 
             // act
-            sample.SetProperty(propertyName, ref valueStorage, testValue, affectedPropertyName1, affectedPropertyName2);
+            PropertyValueChanging += (_, p) => changingCount++;
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue, testPropertyName);
 
             // assert
-            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
-            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+            Assert.IsTrue(changingCount == 1);
         }
 
         [TestMethod]
-        public void SetProperty_With_Local_Storage_Must_Raise_PropertyChanged_For_1_Affected_Property_If_It_Is_Changed()
+        public void SetProperty_Calls_PropertyValueChanged_EventHandler_If_A_Value_Is_Changed()
         {
             // arrange
-            const int testValue = 1000;
-            const int changedPropertyCount = 2;
-            const int affectedPropertyCount = changedPropertyCount - 1;
-
-            Sample sample = new Sample();
-            string propertyName = sample.GetValuePropertyName();
-            string affectedPropertyName = sample.GetTestProperty1Name();
-
-            int valueStorage = 0;
-            int propertyChangedCount = 0;
-            int[] affectedPropertyChangedCounts = new int[affectedPropertyCount];
-            sample.PropertyChanged += (_, e) =>
-            {
-                // If it is not an affected property
-                if (e.PropertyName != propertyName)
-                    affectedPropertyChangedCounts[ExtractFirstNumberInPropertyName(e.PropertyName) - 1]++;
-
-                propertyChangedCount++;
-            };
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int changedCount = 0;
+            string propertyNameInChanged = null;
+            int oldValue = -1, newValue = -1;
 
             // act
-            sample.SetProperty(propertyName, ref valueStorage, testValue, affectedPropertyName);
+            PropertyValueChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                oldValue = (int)p.OldValue;
+                newValue = (int)p.NewValue;
+                changedCount++;
+            };
+
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue2, testPropertyName);
 
             // assert
-            Assert.AreEqual(propertyChangedCount, changedPropertyCount);
-            Assert.IsTrue(affectedPropertyChangedCounts.All(p => p == 1));
+            Assert.IsTrue(changedCount == 2);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(oldValue == testValue);
+            Assert.IsTrue(newValue == testValue2);
         }
 
-        #endregion
+        [TestMethod]
+        public void SetProperty_Does_Not_Call_PropertyValueChanged_EventHandler_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int changedCount = 0;
 
+            // act
+            PropertyValueChanged += (_, p) => changedCount++;
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Calls_PropertyValueChanged_EventHandler_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                checkValue = onChangingCheckValue;
+            };
+            PropertyValueChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                checkValue = onChangedCheckValue;
+            };
+            SetProperty(testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Calls_PropertyChanged_EventHandler_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int changedCount = 0;
+            string propertyNameInChanged = null;
+
+            // act
+            PropertyChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                changedCount++;
+            };
+
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue2, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 2);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+        [TestMethod]
+        public void SetProperty_Does_Not_Call_PropertyChanged_EventHandler_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int changedCount = 0;
+
+            // act
+            PropertyChanged += (_, p) => changedCount++;
+            SetProperty(testValue, testPropertyName);
+            SetProperty(testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Calls_PropertyChanged_EventHandler_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                checkValue = onChangingCheckValue;
+            };
+            PropertyChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                checkValue = onChangedCheckValue;
+            };
+            SetProperty(testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Calls_PropertyChanged_EventHandler_For_Related_Property_Names()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            string[] testRelated = new string[]
+            {
+                "RelatedProperty1",
+                "RelatedProperty2",
+                "RelatedProperty3",
+            };
+            List<string> related = new List<string>();
+
+            // act
+            PropertyChanged += (_, p) =>
+            {
+                if (p.PropertyName != testPropertyName)
+                    related.Add(p.PropertyName);
+            };
+            SetProperty(testValue, testPropertyName, related: testRelated);
+
+            // assert
+            Assert.IsTrue(Enumerable.SequenceEqual(testRelated, related));
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Calls_OnChanging_OnChanged_Callback_Even_If_IsHidden_Is_True()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int onChangingCount = 0;
+            int onChangedCount = 0;
+
+            // act
+            SetProperty(testValue, testPropertyName, onChanging: p => onChangingCount++, onChanged: p => onChangedCount++, isHidden: true);
+
+            // assert
+            Assert.IsTrue(onChangingCount == 1);
+            Assert.IsTrue(onChangedCount == 1);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Does_Not_Call_PropertyValueChanging_PropertyValueChanged_PropertyChanged_EventHandler_If_IsHidden_Is_True()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            string[] testRelated = new string[]
+            {
+                "RelatedProperty1",
+                "RelatedProperty2",
+                "RelatedProperty3",
+            };
+            List<string> related = new List<string>();
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+
+            // act
+            PropertyValueChanging += (_, p) => propertyNameInChanging = p.PropertyName;
+            PropertyValueChanged += (_, p) => propertyNameInChanged = p.PropertyName;
+            PropertyChanged += (_, p) =>
+            {
+                if (p.PropertyName != testPropertyName)
+                    related.Add(p.PropertyName);
+            };
+            SetProperty(testValue, testPropertyName, related: testRelated, isHidden: true);
+
+            // assert
+            Assert.IsTrue(propertyNameInChanging == null);
+            Assert.IsTrue(propertyNameInChanged == null);
+            Assert.IsFalse(related.Any());
+        }
 
 #if !NICENIS_4C
 
-        #region GetCallerProperty/SetCallerProperty Test Related
-
         [TestMethod]
-        public void SetCallerProperty_Must_Set_Value_Properly()
+        public void SetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
         {
             // arrange
-            const string testValue = "test value";
-            Sample sample = new Sample();
+            const int testValue = 100;
+            const string testPropertyName = "SetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed";
+            string propertyNameInChanged = null;
 
             // act
-            sample.CallerMemberNameProperty = testValue;
-            string propertyValue = sample.CallerMemberNameProperty;
+            PropertyChanged += (_, p) => propertyNameInChanged = p.PropertyName;
+            SetProperty(testValue);
 
             // assert
-            Assert.AreEqual(propertyValue, testValue);
+            Assert.AreEqual(testPropertyName, propertyNameInChanged);
         }
-
-        [TestMethod]
-        public void SetCallerProperty_Must_Raise_Property_Changed_event()
-        {
-            // arrange
-            const int expectedPropertyChangedCount = 1;
-            const string expectedChangedPropertyName = "CallerMemberNameProperty";
-
-            Sample sample = new Sample();
-            int propertyChangedCount = 0;
-            string changedPropertyName = null;
-
-            sample.PropertyChanged += (_, e) =>
-            {
-                propertyChangedCount++;
-                changedPropertyName = e.PropertyName;
-            };
-
-            // act
-            sample.CallerMemberNameProperty = "test value";
-
-            // assert
-            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
-            Assert.AreEqual(changedPropertyName, expectedChangedPropertyName);
-        }
-
-        [TestMethod]
-        public void SetCallerPropertyOnly_Must_Not_Raise_Property_Changed_event()
-        {
-            // arrange
-            const int expectedPropertyChangedCount = 0;
-
-            Sample sample = new Sample();
-            int propertyChangedCount = 0;
-
-            sample.PropertyChanged += (_, __) => propertyChangedCount++;
-
-            // act
-            sample.CallerMemberNamePropertyWithoutPropertyChangedEvent = "Test Value";
-
-            // assert
-            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
-        }
-
-        #endregion
-
-
-        #region SetCallerProperty with local storage Test Related
-
-        [TestMethod]
-        public void SetCallerPropertyWithLocalStorage_Must_Set_Value_Properly()
-        {
-            // arrange
-            const string testValue = "test value";
-            Sample sample = new Sample();
-
-            // act
-            sample.CallerMemberNamePropertyWithLocalStorage = testValue;
-            string propertyValue = sample.CallerMemberNamePropertyWithLocalStorage;
-
-            // assert
-            Assert.AreEqual(propertyValue, testValue);
-        }
-
-        [TestMethod]
-        public void SetCallerPropertyWithLocalStorage_Must_Raise_Property_Changed_event()
-        {
-            // arrange
-            const int expectedPropertyChangedCount = 1;
-            const string expectedChangedPropertyName = "CallerMemberNamePropertyWithLocalStorage";
-
-            Sample sample = new Sample();
-            int propertyChangedCount = 0;
-            string changedPropertyName = null;
-
-            sample.PropertyChanged += (_, e) =>
-            {
-                propertyChangedCount++;
-                changedPropertyName = e.PropertyName;
-            };
-
-            // act
-            sample.CallerMemberNamePropertyWithLocalStorage = "test value";
-
-            // assert
-            Assert.AreEqual(propertyChangedCount, expectedPropertyChangedCount);
-            Assert.AreEqual(changedPropertyName, expectedChangedPropertyName);
-        }
-
-        #endregion
 
 #endif
 
+        #endregion
+
+
+        #region SetProperty with Local Field Test Related
+
+        [TestMethod]
+        public void SetProperty_Local_Support_Set_A_Value()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.AreEqual(value, testValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_OnChanging_Callback_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int onChangingCount = 0;
+            int oldValue = -1, newValue = -1;
+            int oldValue2 = -1, newValue2 = -1;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p =>
+            {
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+                onChangingCount++;
+            });
+            SetProperty(ref value, testValue2, testPropertyName, onChanging: p =>
+            {
+                oldValue2 = p.OldValue;
+                newValue2 = p.NewValue;
+                onChangingCount++;
+            });
+
+            // assert
+            Assert.IsTrue(onChangingCount == 2);
+            Assert.IsTrue(oldValue == 0);
+            Assert.IsTrue(newValue == testValue);
+            Assert.IsTrue(oldValue2 == testValue);
+            Assert.IsTrue(newValue2 == testValue2);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_OnChanging_Callback_Can_Override_NewValue()
+        {
+            // arrange
+            const int testValue = 100;
+            const int overridenTestValue = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => p.NewValue = overridenTestValue);
+
+            // assert
+            Assert.IsTrue(value == overridenTestValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_OnChanging_Callback_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int onChangingCount = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => onChangingCount++);
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => onChangingCount++);
+
+            // assert
+            Assert.IsTrue(onChangingCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_OnChanged_Callback_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int onChangedCount = 0;
+            int oldValue = -1, newValue = -1;
+            int oldValue2 = -1, newValue2 = -1;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanged: p =>
+            {
+                oldValue = p.OldValue;
+                newValue = p.NewValue;
+                onChangedCount++;
+            });
+            SetProperty(ref value, testValue2, testPropertyName, onChanged: p =>
+            {
+                oldValue2 = p.OldValue;
+                newValue2 = p.NewValue;
+                onChangedCount++;
+            });
+
+            // assert
+            Assert.IsTrue(onChangedCount == 2);
+            Assert.IsTrue(oldValue == 0);
+            Assert.IsTrue(newValue == testValue);
+            Assert.IsTrue(oldValue2 == testValue);
+            Assert.IsTrue(newValue2 == testValue2);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_OnChanged_Callback_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int onChangedCount = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanged: p => onChangedCount++);
+            SetProperty(ref value, testValue, testPropertyName, onChanged: p => onChangedCount++);
+
+            // assert
+            Assert.IsTrue(onChangedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_OnChanged_Callback_After_OnChanging_Callback()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int checkValue = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue, onChanged: p => checkValue = onChangedCheckValue);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyValueChanging_EventHandler_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changingCount = 0;
+            string propertyNameInChanging = null;
+            int oldValue = -1, newValue = -1;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                oldValue = (int)p.OldValue;
+                newValue = (int)p.NewValue;
+                changingCount++;
+            };
+
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue2, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changingCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(oldValue == testValue);
+            Assert.IsTrue(newValue == testValue2);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_PropertyValueChanging_EventHandler_Can_Override_NewValue()
+        {
+            // arrange
+            const int testValue = 100;
+            const int overridenTestValue = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+
+            // act
+            PropertyValueChanging += (_, p) => p.NewValue = overridenTestValue;
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(value == overridenTestValue);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_PropertyValueChanging_EventHandler_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changingCount = 0;
+
+            // act
+            PropertyValueChanging += (_, p) => changingCount++;
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changingCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyValueChanged_EventHandler_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changedCount = 0;
+            string propertyNameInChanged = null;
+            int oldValue = -1, newValue = -1;
+
+            // act
+            PropertyValueChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                oldValue = (int)p.OldValue;
+                newValue = (int)p.NewValue;
+                changedCount++;
+            };
+
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue2, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 2);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(oldValue == testValue);
+            Assert.IsTrue(newValue == testValue2);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_PropertyValueChanged_EventHandler_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changedCount = 0;
+
+            // act
+            PropertyValueChanged += (_, p) => changedCount++;
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyValueChanged_EventHandler_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                checkValue = onChangingCheckValue;
+            };
+            PropertyValueChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                checkValue = onChangedCheckValue;
+            };
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyChanged_EventHandler_If_A_Value_Is_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const int testValue2 = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changedCount = 0;
+            string propertyNameInChanged = null;
+
+            // act
+            PropertyChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                changedCount++;
+            };
+
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue2, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 2);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_PropertyChanged_EventHandler_If_A_Value_Is_Not_Changed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int changedCount = 0;
+
+            // act
+            PropertyChanged += (_, p) => changedCount++;
+            SetProperty(ref value, testValue, testPropertyName);
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(changedCount == 1);
+        }
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyChanged_EventHandler_After_PropertyValueChanging_EventHandler()
+        {
+            // arrange
+            const int testValue = 100;
+            const int onChangingCheckValue = 200;
+            const int onChangedCheckValue = 200;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+            int checkValue = 0;
+
+            // act
+            PropertyValueChanging += (_, p) =>
+            {
+                propertyNameInChanging = p.PropertyName;
+                checkValue = onChangingCheckValue;
+            };
+            PropertyChanged += (_, p) =>
+            {
+                propertyNameInChanged = p.PropertyName;
+                checkValue = onChangedCheckValue;
+            };
+            SetProperty(ref value, testValue, testPropertyName);
+
+            // assert
+            Assert.IsTrue(checkValue == onChangedCheckValue);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_PropertyChanged_EventHandler_For_Related_Property_Names()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            string[] testRelated = new string[]
+            {
+                "RelatedProperty1",
+                "RelatedProperty2",
+                "RelatedProperty3",
+            };
+            List<string> related = new List<string>();
+
+            // act
+            PropertyChanged += (_, p) =>
+            {
+                if (p.PropertyName != testPropertyName)
+                    related.Add(p.PropertyName);
+            };
+            SetProperty(ref value, testValue, testPropertyName, related: testRelated);
+
+            // assert
+            Assert.IsTrue(Enumerable.SequenceEqual(testRelated, related));
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Calls_OnChanging_OnChanged_Callback_Even_If_IsHidden_Is_True()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            int onChangingCount = 0;
+            int onChangedCount = 0;
+
+            // act
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p => onChangingCount++, onChanged: p => onChangedCount++, isHidden: true);
+
+            // assert
+            Assert.IsTrue(onChangingCount == 1);
+            Assert.IsTrue(onChangedCount == 1);
+        }
+
+
+        [TestMethod]
+        public void SetProperty_Local_Does_Not_Call_PropertyValueChanging_PropertyValueChanged_PropertyChanged_EventHandler_If_IsHidden_Is_True()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "propertyName";
+            int value = 0;
+            string[] testRelated = new string[]
+            {
+                "RelatedProperty1",
+                "RelatedProperty2",
+                "RelatedProperty3",
+            };
+            List<string> related = new List<string>();
+            string propertyNameInChanging = null;
+            string propertyNameInChanged = null;
+
+            // act
+            PropertyValueChanging += (_, p) => propertyNameInChanging = p.PropertyName;
+            PropertyValueChanged += (_, p) => propertyNameInChanged = p.PropertyName;
+            PropertyChanged += (_, p) =>
+            {
+                if (p.PropertyName != testPropertyName)
+                    related.Add(p.PropertyName);
+            };
+            SetProperty(ref value, testValue, testPropertyName, related: testRelated, isHidden: true);
+
+            // assert
+            Assert.IsTrue(propertyNameInChanging == null);
+            Assert.IsTrue(propertyNameInChanged == null);
+            Assert.IsFalse(related.Any());
+        }
+
+#if !NICENIS_4C
+
+        [TestMethod]
+        public void SetProperty_Local_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
+        {
+            // arrange
+            const int testValue = 100;
+            const string testPropertyName = "SetProperty_Local_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed";
+            string propertyNameInChanged = null;
+            int value = 0;
+
+            // act
+            PropertyChanged += (_, p) => propertyNameInChanged = p.PropertyName;
+            SetProperty(ref value, testValue);
+
+            // assert
+            Assert.AreEqual(testPropertyName, propertyNameInChanged);
+        }
+
+#endif
+
+        #endregion
+
 
         #region Serialization Test Related
+
+        [DataContract]
+        public class SerializationSample : PropertyObservable
+        {
+            [DataMember]
+            public int TestValue
+            {
+                get { return GetProperty<int>(ToPropertyName(() => TestValue)); }
+                set { SetProperty(value, ToPropertyName(() => TestValue)); }
+            }
+
+            [DataMember]
+            public string TestString
+            {
+                get { return GetProperty(ToPropertyName(() => TestString), initializer: () => "Test String"); }
+                set { SetProperty(value, ToPropertyName(() => TestString)); }
+            }
+        }
 
         [TestMethod]
         public void DataContractSerializer_Must_Be_Supported()
@@ -2275,1043 +1323,6 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(sample.TestValue, deserialized.TestValue);
             Assert.AreEqual(sample.TestString, deserialized.TestString);
-        }
-
-        #endregion
-
-
-        #region onChanged Parameter Test Related
-
-        [TestMethod]
-        public void SetPropertyOnly_Calls_Allows_Null_OnChanged_Parameter()
-        {
-            // act
-            SetPropertyOnly("Property Name", "Property Value", (Action<ValueChangedEventArgs<string>>)null);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetPropertyOnly_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty("Property Name", () => expectedOldValue);
-
-            // act
-            SetPropertyOnly("Property Name", expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetPropertyOnly_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty(() => TestProperty, () => expectedOldValue);
-
-            // act
-            SetPropertyOnly(() => TestProperty, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty("Property Name", () => expectedOldValue);
-
-            // act
-            SetProperty("Property Name", expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty("Property Name", () => expectedOldValue);
-
-            // act
-            SetProperty("Property Name", expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty("Property Name", () => expectedOldValue);
-
-            // act
-            SetProperty("Property Name", expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetPropert_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty("Property Name", () => expectedOldValue);
-
-            // act
-            SetProperty("Property Name", expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty(() => TestProperty, () => expectedOldValue);
-
-            // act
-            SetProperty(() => TestProperty, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty(() => TestProperty, () => expectedOldValue);
-
-            // act
-            SetProperty(() => TestProperty, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty(() => TestProperty, () => expectedOldValue);
-
-            // act
-            SetProperty(() => TestProperty, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetPropert_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            GetProperty(() => TestProperty, () => expectedOldValue);
-
-            // act
-            SetProperty(() => TestProperty, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-
-        [TestMethod]
-        public void SetPropertyOnly_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetPropertyOnly("Property Name", "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetPropertyOnly_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetPropertyOnly(() => TestProperty, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", "Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", "Property Value", () => onChangedCount++, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", "Property Value", () => onChangedCount++, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetPropert_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, "Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, "Property Value", () => onChangedCount++, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, "Property Value", () => onChangedCount++, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetPropert_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-
-#if !NICENIS_4C
-
-        [TestMethod]
-        public void SetCallerPropertyOnly_Calls_Allows_Null_OnChanged_Parameter()
-        {
-            // act
-            SetCallerPropertyOnly("Property Value", onChanged: (Action<ValueChangedEventArgs<string>>)null);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetCallerPropertyOnly_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = null;
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-
-            // act
-            SetCallerPropertyOnly(expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = null;
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-
-            // act
-            SetCallerProperty(expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = null;
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-
-            // act
-            SetCallerProperty(expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-
-        [TestMethod]
-        public void SetCallerPropertyOnly_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetCallerPropertyOnly("Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetCallerProperty("Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-
-            // act
-            SetCallerProperty("Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-#endif
-
-        [TestMethod]
-        public void SetPropertyOnly_Local_Calls_Allows_Null_OnChanged_Parameter()
-        {
-            // arrange
-            string property = null;
-
-            // act
-            SetPropertyOnly(ref property, "Property Value", (Action<ValueChangedEventArgs<string>>)null);
-
-            // assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetPropertyOnly_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetPropertyOnly(ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty("Property Name", ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty("Property Name", ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty("Property Name", ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetPropert_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty("Property Name", ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetPropert_Local_By_Lambda_Property_Name_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetProperty(() => TestProperty, ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-
-        [TestMethod]
-        public void SetPropertyOnly_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetPropertyOnly(ref property, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", ref property, "Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", ref property, "Property Value", () => onChangedCount++, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", ref property, "Property Value", () => onChangedCount++, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetPropert_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty("Property Name", ref property, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, ref property, "Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Param_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, ref property, "Property Value", () => onChangedCount++, "1", "2");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetProperty_Local_By_Lambda_Property_Name_With_Affect_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, ref property, "Property Value", () => onChangedCount++, "1");
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetPropert_Local_By_Lambda_Property_Name_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetProperty(() => TestProperty, ref property, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-
-#if !NICENIS_4C
-
-        [TestMethod]
-        public void SetCallerProperty_Local_With_Affect_Property_Names_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetCallerProperty(ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            }, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_Local_Calls_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            SetCallerProperty(ref property, expectedNewValue, p =>
-            {
-                onChangedCount++;
-                oldValue = p.OldValue;
-                newValue = p.NewValue;
-            });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-
-        [TestMethod]
-        public void SetCallerProperty_Local_With_Affect_Property_Names_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetCallerProperty(ref property, "Property Value", () => onChangedCount++, new string[] { "1", "2" });
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-        [TestMethod]
-        public void SetCallerProperty_Local_Calls_Simple_OnChanged_Parameter_When_Property_Value_Is_Changed()
-        {
-            // arrange
-            string property = null;
-            int onChangedCount = 0;
-
-            // act
-            SetCallerProperty(ref property, "Property Value", () => onChangedCount++);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-        }
-
-#endif
-
-        #endregion
-
-
-        #region PropertyValueChanged Test Related
-
-        [TestMethod]
-        public void PropertyValueChanged_Is_Raised_When_SetProperty_Changes_A_Property()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedPropertyName = "Property Name";
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string propertyName = null;
-            string oldValue = null;
-            string newValue = null;
-
-            // act
-            PropertyValueChanged += (_, args) =>
-            {
-                onChangedCount++;
-                propertyName = args.PropertyName;
-                oldValue = (string)args.OldValue;
-                newValue = (string)args.NewValue;
-            };
-            GetProperty(expectedPropertyName, () => expectedOldValue);
-            SetProperty(expectedPropertyName, expectedNewValue);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedPropertyName, propertyName);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
-        }
-
-        [TestMethod]
-        public void PropertyValueChanged_Is_Raised_When_SetProperty_With_Local_Changes_A_Property()
-        {
-            // arrange
-            int onChangedCount = 0;
-            string expectedPropertyName = "Property Name";
-            string expectedOldValue = "Old Value";
-            string expectedNewValue = "Property Value";
-            string propertyName = null;
-            string oldValue = null;
-            string newValue = null;
-            string property = expectedOldValue;
-
-            // act
-            PropertyValueChanged += (_, args) =>
-            {
-                onChangedCount++;
-                propertyName = args.PropertyName;
-                oldValue = (string)args.OldValue;
-                newValue = (string)args.NewValue;
-            };
-            SetProperty(expectedPropertyName, ref property, expectedNewValue);
-
-            // assert
-            Assert.IsTrue(onChangedCount == 1);
-            Assert.AreEqual(expectedPropertyName, propertyName);
-            Assert.AreEqual(expectedOldValue, oldValue);
-            Assert.AreEqual(expectedNewValue, newValue);
         }
 
         #endregion

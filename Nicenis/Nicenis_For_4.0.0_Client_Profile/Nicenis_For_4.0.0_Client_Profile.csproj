@@ -55,20 +55,23 @@
     <Compile Include="..\Nicenis\ComponentModel\IFreezable.cs">
       <Link>ComponentModel\IFreezable.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\IPropertyValueChangedEventArgs.cs">
+      <Link>ComponentModel\IPropertyValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\IPropertyValueChangingEventArgs.cs">
+      <Link>ComponentModel\IPropertyValueChangingEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\IValueChangedEventArgs.cs">
+      <Link>ComponentModel\IValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ComponentModel\IValueChangingEventArgs.cs">
+      <Link>ComponentModel\IValueChangingEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\ComponentModel\PropertyObservable.cs">
       <Link>ComponentModel\PropertyObservable.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\PropertyValueChangedEventArgs.cs">
-      <Link>ComponentModel\PropertyValueChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\PropertyValueChangingEventArgs.cs">
-      <Link>ComponentModel\PropertyValueChangingEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\ValueChangedEventArgs.cs">
-      <Link>ComponentModel\ValueChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\ValueChangingEventArgs.cs">
-      <Link>ComponentModel\ValueChangingEventArgs.cs</Link>
+    <Compile Include="..\Nicenis\ComponentModel\WatchableObject.cs">
+      <Link>ComponentModel\WatchableObject.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Disposable.cs">
       <Link>Disposable.cs</Link>
