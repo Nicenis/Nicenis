@@ -12,8 +12,10 @@ namespace WatchableObjectPerformanceTest
     /// <summary>
     /// The sample class that uses local property storage.
     /// </summary>
+#pragma warning disable 618
     class SampleL50 : WatchableObject, ITestable
     {
+#pragma warning restore 618
         int _testProperty1;
 
         public int TestProperty1

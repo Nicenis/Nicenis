@@ -321,7 +321,7 @@ namespace Nicenis.Windows
         private static void IsActivatedProperty_PropertyHost_PreviewDragLeave(object sender, RoutedEventArgs e)
         {
             // Delays the leave processing to ignore if a child element is involved.
-            (GetSafeContext((UIElement)sender)).LeaveDelayInvoker.Begin();
+            (GetSafeContext((UIElement)sender)).LeaveDelayInvoker.Start();
         }
 
         private static void IsActivatedProperty_PropertyHost_PreviewDrop(object sender, RoutedEventArgs e)

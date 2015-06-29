@@ -12,8 +12,10 @@ namespace WatchableObjectPerformanceTest
     /// <summary>
     /// The sample class that uses auto property storage and property expression.
     /// </summary>
+#pragma warning disable 618
     class SampleAE50 : WatchableObject, ITestable
     {
+#pragma warning restore 618
         public int TestProperty1
         {
             get { return GetProperty(() => TestProperty1); }

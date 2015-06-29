@@ -402,7 +402,7 @@ namespace Nicenis.Windows
 
 
             // Restarts the timer to raise Hover event.
-            _hoverDelayInvoker.Value.Begin
+            _hoverDelayInvoker.Value.Start
             (
                 () =>
                 {
@@ -417,7 +417,7 @@ namespace Nicenis.Windows
 
                     // If the hover event mode is repeat, restarts the timer.
                     if (getHoverEventMode() == HoverEventMode.Repeat)
-                        _hoverDelayInvoker.Value.Begin(getHoverTime());
+                        _hoverDelayInvoker.Value.Start(getHoverTime());
                 },
                 getHoverTime()
             );
