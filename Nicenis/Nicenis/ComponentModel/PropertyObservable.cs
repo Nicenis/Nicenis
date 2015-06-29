@@ -1083,6 +1083,8 @@ namespace Nicenis.ComponentModel
         /// <param name="args">The property changed event arguments.</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
         {
+            Debug.Assert(args != null);
+
             // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if (propertyChanged != null)
