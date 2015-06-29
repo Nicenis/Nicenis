@@ -990,6 +990,8 @@ namespace Nicenis.ComponentModel
         /// <param name="args">The property value changed event arguments.</param>
         protected virtual void OnPropertyValueChanging(IPropertyValueChangingEventArgs args)
         {
+            Debug.Assert(args != null);
+
             // Calls the property value changing event handlers.
             PropertyValueChangingEventHandler propertyValueChanging = PropertyValueChanging;
             if (propertyValueChanging != null)
@@ -1040,6 +1042,8 @@ namespace Nicenis.ComponentModel
         /// <param name="args">The property value changed event arguments.</param>
         protected virtual void OnPropertyValueChanged(IPropertyValueChangedEventArgs args)
         {
+            Debug.Assert(args != null);
+
             // Calls the property value changed event handlers.
             PropertyValueChangedEventHandler propertyValueChanged = PropertyValueChanged;
             if (propertyValueChanged != null)
