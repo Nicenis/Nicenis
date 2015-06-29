@@ -23,7 +23,9 @@ using System.Xml.Serialization;
 
 namespace NicenisTests.ComponentModel
 {
-    public class TestClass
+    #region Related Types
+
+    public class PropertyObservableSample
     {
         public static string PublicStaticProperty { get; set; }
         public string PublicProperty { get; set; }
@@ -33,6 +35,9 @@ namespace NicenisTests.ComponentModel
     {
         public virtual string PublicOverridenProperty { get; set; }
     }
+
+    #endregion
+
 
     [TestClass]
     public class PropertyObservableTests : PropertyObservableTestsBase
@@ -135,7 +140,7 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
 
-        public TestClass PublicNestedProperty { get; set; }
+        public PropertyObservableSample PublicNestedProperty { get; set; }
 
         [TestMethod]
         public void ToPropertyName_Supports_Nested_Property_In_Other_Instance()
@@ -143,7 +148,7 @@ namespace NicenisTests.ComponentModel
             // arrange
             const string expectedPropertyName = "PublicProperty";
             PropertyObservableTests sample = new PropertyObservableTests();
-            sample.PublicNestedProperty = new TestClass();
+            sample.PublicNestedProperty = new PropertyObservableSample();
 
             // act
             string propertyName = ToPropertyName(() => sample.PublicNestedProperty.PublicProperty);
@@ -191,7 +196,7 @@ namespace NicenisTests.ComponentModel
             const string expectedPropertyName = "PublicStaticProperty";
 
             // act
-            string propertyName = ToPropertyName(() => TestClass.PublicStaticProperty);
+            string propertyName = ToPropertyName(() => PropertyObservableSample.PublicStaticProperty);
 
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
@@ -203,7 +208,7 @@ namespace NicenisTests.ComponentModel
         #region GetProperty Test Related
 
         [TestMethod]
-        public void GetProperty_Must_Return_Default_Value_If_It_Is_Not_Set()
+        public void GetProperty_Returns_Default_Value_If_It_Is_Not_Set()
         {
             // arrange
             const string testPropertyName = "propertyName";
@@ -216,7 +221,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_Must_Return_Default_Reference_If_It_Is_Not_Set()
+        public void GetProperty_Returns_Default_Reference_If_It_Is_Not_Set()
         {
             // arrange
             const string testPropertyName = "propertyName";
@@ -229,7 +234,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_Must_Return_Initialized_Value_If_It_Is_Not_Set()
+        public void GetProperty_Returns_Initialized_Value_If_It_Is_Not_Set()
         {
             // arrange
             const int initializedValue = 10;
@@ -243,7 +248,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_Must_Not_Call_Initializer_Twice()
+        public void GetProperty_Does_Not_Call_Initializer_Twice()
         {
             // arrange
             const int initializedValue = 10;
@@ -265,7 +270,7 @@ namespace NicenisTests.ComponentModel
         }
 
         [TestMethod]
-        public void GetProperty_Must_Not_Call_Initializer_If_It_Is_Set()
+        public void GetProperty_Does_Not_Call_Initializer_If_It_Is_Set()
         {
             // arrange
             const int testValue = 100;
