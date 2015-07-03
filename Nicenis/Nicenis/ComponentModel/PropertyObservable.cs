@@ -27,6 +27,11 @@ namespace Nicenis.ComponentModel
     public interface IPropertyValueChangingCallbackArgs<T>
     {
         /// <summary>
+        /// Gets the name of the property that is changing.
+        /// </summary>
+        string PropertyName { get; }
+
+        /// <summary>
         /// Gets the value of the property before the change.
         /// </summary>
         T OldValue { get; }
@@ -42,6 +47,11 @@ namespace Nicenis.ComponentModel
     /// </summary>
     public interface IPropertyValueChangedCallbackArgs<T>
     {
+        /// <summary>
+        /// Gets the name of the property that changed.
+        /// </summary>
+        string PropertyName { get; }
+
         /// <summary>
         /// Gets the value of the property before the change.
         /// </summary>

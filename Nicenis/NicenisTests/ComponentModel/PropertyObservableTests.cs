@@ -338,18 +338,22 @@ namespace NicenisTests.ComponentModel
             const int testValue2 = 200;
             const string testPropertyName = "propertyName";
             int onChangingCount = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanging2 = null;
             int oldValue = -1, newValue = -1;
             int oldValue2 = -1, newValue2 = -1;
 
             // act
             SetProperty(testValue, testPropertyName, onChanging: p =>
             {
+                propertyNameInChanging = p.PropertyName;
                 oldValue = p.OldValue;
                 newValue = p.NewValue;
                 onChangingCount++;
             });
             SetProperty(testValue2, testPropertyName, onChanging: p =>
             {
+                propertyNameInChanging2 = p.PropertyName;
                 oldValue2 = p.OldValue;
                 newValue2 = p.NewValue;
                 onChangingCount++;
@@ -357,6 +361,8 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(onChangingCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanging2 == testPropertyName);
             Assert.IsTrue(oldValue == 0);
             Assert.IsTrue(newValue == testValue);
             Assert.IsTrue(oldValue2 == testValue);
@@ -403,18 +409,22 @@ namespace NicenisTests.ComponentModel
             const int testValue2 = 200;
             const string testPropertyName = "propertyName";
             int onChangedCount = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanging2 = null;
             int oldValue = -1, newValue = -1;
             int oldValue2 = -1, newValue2 = -1;
 
             // act
             SetProperty(testValue, testPropertyName, onChanged: p =>
             {
+                propertyNameInChanging = p.PropertyName;
                 oldValue = p.OldValue;
                 newValue = p.NewValue;
                 onChangedCount++;
             });
             SetProperty(testValue2, testPropertyName, onChanged: p =>
             {
+                propertyNameInChanging2 = p.PropertyName;
                 oldValue2 = p.OldValue;
                 newValue2 = p.NewValue;
                 onChangedCount++;
@@ -422,6 +432,8 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(onChangedCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanging2 == testPropertyName);
             Assert.IsTrue(oldValue == 0);
             Assert.IsTrue(newValue == testValue);
             Assert.IsTrue(oldValue2 == testValue);
@@ -825,18 +837,22 @@ namespace NicenisTests.ComponentModel
             const string testPropertyName = "propertyName";
             int value = 0;
             int onChangingCount = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanging2 = null;
             int oldValue = -1, newValue = -1;
             int oldValue2 = -1, newValue2 = -1;
 
             // act
             SetProperty(ref value, testValue, testPropertyName, onChanging: p =>
             {
+                propertyNameInChanging = p.PropertyName;
                 oldValue = p.OldValue;
                 newValue = p.NewValue;
                 onChangingCount++;
             });
             SetProperty(ref value, testValue2, testPropertyName, onChanging: p =>
             {
+                propertyNameInChanging2 = p.PropertyName;
                 oldValue2 = p.OldValue;
                 newValue2 = p.NewValue;
                 onChangingCount++;
@@ -844,6 +860,8 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(onChangingCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanging2 == testPropertyName);
             Assert.IsTrue(oldValue == 0);
             Assert.IsTrue(newValue == testValue);
             Assert.IsTrue(oldValue2 == testValue);
@@ -892,18 +910,22 @@ namespace NicenisTests.ComponentModel
             const string testPropertyName = "propertyName";
             int value = 0;
             int onChangedCount = 0;
+            string propertyNameInChanging = null;
+            string propertyNameInChanging2 = null;
             int oldValue = -1, newValue = -1;
             int oldValue2 = -1, newValue2 = -1;
 
             // act
             SetProperty(ref value, testValue, testPropertyName, onChanged: p =>
             {
+                propertyNameInChanging = p.PropertyName;
                 oldValue = p.OldValue;
                 newValue = p.NewValue;
                 onChangedCount++;
             });
             SetProperty(ref value, testValue2, testPropertyName, onChanged: p =>
             {
+                propertyNameInChanging2 = p.PropertyName;
                 oldValue2 = p.OldValue;
                 newValue2 = p.NewValue;
                 onChangedCount++;
@@ -911,6 +933,8 @@ namespace NicenisTests.ComponentModel
 
             // assert
             Assert.IsTrue(onChangedCount == 2);
+            Assert.IsTrue(propertyNameInChanging == testPropertyName);
+            Assert.IsTrue(propertyNameInChanging2 == testPropertyName);
             Assert.IsTrue(oldValue == 0);
             Assert.IsTrue(newValue == testValue);
             Assert.IsTrue(oldValue2 == testValue);
