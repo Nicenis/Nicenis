@@ -705,29 +705,29 @@ namespace Nicenis.ComponentModel
 #if !NICENIS_4C
         /// <summary>
         /// Gets the property value specified by the property name.
-        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
+        /// If it does not exist, the property value is set to the value returned by the getDefault, and the value is returned.
         /// </summary>
         /// <remarks>
         /// This method searches the internal storage for the property value.
         /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
-        /// <param name="initializer">The initializer that returns the initialization value. Null is allowed.</param>
-        /// <returns>The property value if it exists; otherwise the default value or the value returned by the initializer if the initializer is not null.</returns>
-        protected virtual T GetProperty<T>([CallerMemberName] string propertyName = null, Func<T> initializer = null)
+        /// <param name="getDefault">The function that returns the default value. Null is allowed.</param>
+        /// <returns>The property value if it exists; otherwise the default value or the value returned by the getDefault if the getDefault is not null.</returns>
+        protected virtual T GetProperty<T>([CallerMemberName] string propertyName = null, Func<T> getDefault = null)
 #else
         /// <summary>
         /// Gets the property value specified by the property name.
-        /// If it does not exist, the property value is set to the value returned by the initializer, and the value is returned.
+        /// If it does not exist, the property value is set to the value returned by the getDefault, and the value is returned.
         /// </summary>
         /// <remarks>
         /// This method searches the internal storage for the property value.
         /// </remarks>
         /// <typeparam name="T">The property type.</typeparam>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="initializer">The initializer that returns the initialization value. Null is allowed.</param>
-        /// <returns>The property value if it exists; otherwise the default value or the value returned by the initializer if the initializer is not null.</returns>
-        protected virtual T GetProperty<T>(string propertyName, Func<T> initializer = null)
+        /// <param name="getDefault">The function that returns the default value. Null is allowed.</param>
+        /// <returns>The property value if it exists; otherwise the default value or the value returned by the getDefault if the getDefault is not null.</returns>
+        protected virtual T GetProperty<T>(string propertyName, Func<T> getDefault = null)
 #endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
@@ -738,9 +738,9 @@ namespace Nicenis.ComponentModel
             // If the property value is not set, initializes it.
             if (propertyValue.Value == PropertyValue.UnsetValue)
             {
-                T initialized = initializer != null ? initializer() : default(T);
-                propertyValue.Value = initialized;
-                return initialized;
+                T defaultValue = getDefault != null ? getDefault() : default(T);
+                propertyValue.Value = defaultValue;
+                return defaultValue;
             }
 
             return (T)propertyValue.Value;

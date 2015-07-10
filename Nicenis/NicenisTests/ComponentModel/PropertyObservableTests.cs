@@ -1342,7 +1342,7 @@ namespace NicenisTests.ComponentModel
             [DataMember]
             public string TestString
             {
-                get { return GetProperty(ToPropertyName(() => TestString), initializer: () => "Test String"); }
+                get { return GetProperty(ToPropertyName(() => TestString), getDefault: () => "Test String"); }
                 set { SetProperty(value, ToPropertyName(() => TestString)); }
             }
         }
