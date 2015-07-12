@@ -22,9 +22,9 @@ namespace Nicenis.ComponentModel
     #region Related Types
 
     /// <summary>
-    /// Provides data for a property value changing callback.
+    /// Provides data for a property value event handler.
     /// </summary>
-    public interface IPropertyValueChangingCallbackArgs<T>
+    public interface IPropertyValueChangingEventArgs<T>
     {
         /// <summary>
         /// Gets the name of the property that is changing.
@@ -43,9 +43,9 @@ namespace Nicenis.ComponentModel
     }
 
     /// <summary>
-    /// Provides data for a property value changed callback.
+    /// Provides data for a property value event handler.
     /// </summary>
-    public interface IPropertyValueChangedCallbackArgs<T>
+    public interface IPropertyValueChangedEventArgs<T>
     {
         /// <summary>
         /// Gets the name of the property that changed.
@@ -120,7 +120,7 @@ namespace Nicenis.ComponentModel
         /// The event arguments for property value change related events.
         /// </summary>
         private class PropertyValueChangeEventArgs<T> : PropertyChangedEventArgs,
-                IPropertyValueChangingCallbackArgs<T>, IPropertyValueChangedCallbackArgs<T>, IPropertyValueChangingEventArgs, IPropertyValueChangedEventArgs
+                IPropertyValueChangingEventArgs<T>, IPropertyValueChangedEventArgs<T>, IPropertyValueChangingEventArgs, IPropertyValueChangedEventArgs
         {
             #region Constructors
 
@@ -763,7 +763,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names. Null is allowed.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #else
         /// <summary>
         /// Sets a value to the property specified by the property name.
@@ -780,7 +780,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names. Null is allowed.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(T value, string propertyName, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(T value, string propertyName, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
@@ -885,7 +885,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #else
         /// <summary>
         /// Sets a value to the specified storage.
@@ -900,7 +900,7 @@ namespace Nicenis.ComponentModel
         /// <param name="related">The related property names.</param>
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
-        protected virtual bool SetProperty<T>(ref T storage, T value, string propertyName, Action<IPropertyValueChangingCallbackArgs<T>> onChanging = null, Action<IPropertyValueChangedCallbackArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        protected virtual bool SetProperty<T>(ref T storage, T value, string propertyName, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
 #endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
@@ -1038,7 +1038,7 @@ namespace Nicenis.ComponentModel
         /// The event handler delegate for the PropertyValueChanged event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The event arguments.</param>
+        /// <param name="e">The event arguments.</param>
         public delegate void PropertyValueChangedEventHandler(object sender, IPropertyValueChangedEventArgs e);
 
         /// <summary>
