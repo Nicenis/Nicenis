@@ -986,8 +986,8 @@ namespace Nicenis.ComponentModel
         /// The event handler delegate for the PropertyValueChanging event.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The event arguments.</param>
-        public delegate void PropertyValueChangingEventHandler(object sender, IPropertyValueChangingEventArgs args);
+        /// <param name="e">The event arguments.</param>
+        public delegate void PropertyValueChangingEventHandler(object sender, IPropertyValueChangingEventArgs e);
 
         /// <summary>
         /// Occurs when a property value is changing by the SetProperty methods.
@@ -997,15 +997,15 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Raises a PropertyValueChanging event.
         /// </summary>
-        /// <param name="args">The property value changed event arguments.</param>
-        protected virtual void OnPropertyValueChanging(IPropertyValueChangingEventArgs args)
+        /// <param name="e">The property value changed event arguments.</param>
+        protected virtual void OnPropertyValueChanging(IPropertyValueChangingEventArgs e)
         {
-            Debug.Assert(args != null);
+            Debug.Assert(e != null);
 
             // Calls the property value changing event handlers.
             PropertyValueChangingEventHandler propertyValueChanging = PropertyValueChanging;
             if (propertyValueChanging != null)
-                propertyValueChanging(this, args);
+                propertyValueChanging(this, e);
         }
 
 #if !NICENIS_4C
@@ -1039,7 +1039,7 @@ namespace Nicenis.ComponentModel
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The event arguments.</param>
-        public delegate void PropertyValueChangedEventHandler(object sender, IPropertyValueChangedEventArgs args);
+        public delegate void PropertyValueChangedEventHandler(object sender, IPropertyValueChangedEventArgs e);
 
         /// <summary>
         /// Occurs when a property value is changed by the SetProperty methods.
@@ -1049,15 +1049,15 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Raises a PropertyValueChanged event.
         /// </summary>
-        /// <param name="args">The property value changed event arguments.</param>
-        protected virtual void OnPropertyValueChanged(IPropertyValueChangedEventArgs args)
+        /// <param name="e">The property value changed event arguments.</param>
+        protected virtual void OnPropertyValueChanged(IPropertyValueChangedEventArgs e)
         {
-            Debug.Assert(args != null);
+            Debug.Assert(e != null);
 
             // Calls the property value changed event handlers.
             PropertyValueChangedEventHandler propertyValueChanged = PropertyValueChanged;
             if (propertyValueChanged != null)
-                propertyValueChanged(this, args);
+                propertyValueChanged(this, e);
         }
 
 #if !NICENIS_4C
@@ -1094,15 +1094,15 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// Raises a PropertyChanged event.
         /// </summary>
-        /// <param name="args">The property changed event arguments.</param>
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
+        /// <param name="e">The property changed event arguments.</param>
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            Debug.Assert(args != null);
+            Debug.Assert(e != null);
 
             // Calls the property changed event handlers.
             PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if (propertyChanged != null)
-                propertyChanged(this, args);
+                propertyChanged(this, e);
         }
 
 #if !NICENIS_4C
