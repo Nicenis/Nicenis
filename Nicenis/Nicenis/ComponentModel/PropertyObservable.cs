@@ -204,7 +204,7 @@ namespace Nicenis.ComponentModel
         /// <summary>
         /// The property name that represents all properties.
         /// </summary>
-        public const string AllPropertyName = "";
+        private const string AllPropertyName = "";
 
         #endregion
 
