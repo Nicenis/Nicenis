@@ -809,7 +809,7 @@ namespace Nicenis.ComponentModel
             PropertyValueChangeEventArgs<T> args = null;
 
             // Raises a PropertyValueChanging event.
-            if (isHidden == false && PropertyValueChanging != null)
+            if (isHidden == false)
             {
                 args = new PropertyValueChangeEventArgs<T>(propertyName, oldValue, value);
                 OnPropertyValueChanging(args);
@@ -844,23 +844,9 @@ namespace Nicenis.ComponentModel
 
             if (isHidden == false)
             {
-                // Raises a PropertyValueChanged event.
-                if (PropertyValueChanged != null)
-                {
-                    if (args == null)
-                        args = new PropertyValueChangeEventArgs<T>(propertyName, oldValue, value);
-
-                    OnPropertyValueChanged(args);
-                }
-
-                // Raises a PropertyChanged event.
-                if (PropertyChanged != null)
-                {
-                    if (args == null)
-                        OnPropertyChanged(propertyName);
-                    else
-                        OnPropertyChanged(args);
-                }
+                // Raises a PropertyValueChanged and PropertyChanged event.
+                OnPropertyValueChanged(args);
+                OnPropertyChanged(args);
 
                 // Raises PropertyChanged events for the related property names.
                 if (related != null)
@@ -916,7 +902,7 @@ namespace Nicenis.ComponentModel
             PropertyValueChangeEventArgs<T> args = null;
 
             // Raises a PropertyValueChanging event.
-            if (isHidden == false && PropertyValueChanging != null)
+            if (isHidden == false)
             {
                 args = new PropertyValueChangeEventArgs<T>(propertyName, oldValue, value);
                 OnPropertyValueChanging(args);
@@ -951,23 +937,9 @@ namespace Nicenis.ComponentModel
 
             if (isHidden == false)
             {
-                // Raises a PropertyValueChanged event.
-                if (PropertyValueChanged != null)
-                {
-                    if (args == null)
-                        args = new PropertyValueChangeEventArgs<T>(propertyName, oldValue, value);
-
-                    OnPropertyValueChanged(args);
-                }
-
-                // Raises a PropertyChanged event.
-                if (PropertyChanged != null)
-                {
-                    if (args == null)
-                        OnPropertyChanged(propertyName);
-                    else
-                        OnPropertyChanged(args);
-                }
+                // Raises a PropertyValueChanged and PropertyChanged event.
+                OnPropertyValueChanged(args);
+                OnPropertyChanged(args);
 
                 // Raises PropertyChanged events for the related property names.
                 if (related != null)
