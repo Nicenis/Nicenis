@@ -22,7 +22,7 @@ namespace Nicenis.ComponentModel
     #region Related Types
 
     /// <summary>
-    /// Provides data for a property value event handler.
+    /// Provides data for a property value changing event handler.
     /// </summary>
     public interface IPropertyValueChangingEventArgs<T>
     {
@@ -43,7 +43,7 @@ namespace Nicenis.ComponentModel
     }
 
     /// <summary>
-    /// Provides data for a property value event handler.
+    /// Provides data for a property value changed event handler.
     /// </summary>
     public interface IPropertyValueChangedEventArgs<T>
     {
