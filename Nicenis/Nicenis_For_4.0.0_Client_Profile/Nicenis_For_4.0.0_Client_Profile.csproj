@@ -94,8 +94,8 @@
     <Compile Include="..\Nicenis\Windows\Data\Converters\TruthyToConverters.cs">
       <Link>Windows\Data\Converters\TruthyToConverters.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\Windows\DependencyObjectHelper.cs">
-      <Link>Windows\DependencyObjectHelper.cs</Link>
+    <Compile Include="..\Nicenis\Windows\DependencyObjectExtensions.cs">
+      <Link>Windows\DependencyObjectExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Windows\DragInitiator.cs">
       <Link>Windows\DragInitiator.cs</Link>
@@ -139,8 +139,8 @@
     <Compile Include="..\Nicenis\Windows\Threading\DispatcherHelper.cs">
       <Link>Windows\Threading\DispatcherHelper.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\Windows\WindowHelper.cs">
-      <Link>Windows\WindowHelper.cs</Link>
+    <Compile Include="..\Nicenis\Windows\WindowExtensions.cs">
+      <Link>Windows\WindowExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Windows\WindowStateEx.cs">
       <Link>Windows\WindowStateEx.cs</Link>

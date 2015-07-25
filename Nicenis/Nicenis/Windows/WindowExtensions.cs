@@ -16,12 +16,12 @@ using System.Windows.Interop;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// Provides functionalities for Window.
+    /// Provides extension methods for the Window.
     /// </summary>
-    public static class WindowHelper
+    public static class WindowExtensions
     {
         /// <summary>
-        /// Displays the system menu for the specified window.
+        /// Displays a system menu for the specified window.
         /// </summary>
         /// <param name="window">The window to have its system menu displayed.</param>
         /// <param name="locationInScreen">The location of the system menu in screen coordination.</param>

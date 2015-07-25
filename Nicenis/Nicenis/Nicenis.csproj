@@ -77,8 +77,8 @@
     <Compile Include="Windows\HoverImplementation.cs" />
     <Compile Include="Windows\Threading\DispatcherHelper.cs" />
     <Compile Include="Threading\SharedResource.cs" />
-    <Compile Include="Windows\WindowHelper.cs" />
-    <Compile Include="Windows\DependencyObjectHelper.cs">
+    <Compile Include="Windows\WindowExtensions.cs" />
+    <Compile Include="Windows\DependencyObjectExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\DragMover.cs" />

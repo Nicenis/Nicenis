@@ -22,9 +22,9 @@ using Windows.UI.Xaml.Media;
 namespace Nicenis.Windows
 {
     /// <summary>
-    /// Provides utility methods for DepencencyObject.
+    /// Provides extension methods for the DepencencyObject.
     /// </summary>
-    public static class DependencyObjectHelper
+    public static class DependencyObjectExtensions
     {
         /// <summary>
         /// Returns a collection of elements that contains the visual ancestors of the DependencyObject.
