@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     class Program
     {
@@ -30,96 +30,84 @@ namespace WatchableObjectPerformanceTest
             public ITestable Testable { get; private set; }
             public long TotalTicks { get; set; }
 
-            public  void Reset()
+            public void CreateTestable()
             {
                 Testable = _createTestable();
+            }
+
+            public void Reset()
+            {
                 TotalTicks = 0;
             }
         }
 
         static void Main(string[] args)
         {
-            int[] iterationCounts =
-            {
-                1,
-                1,
-                10000,
-            };
-
             TestItem[] testItems = new TestItem[]
             {
                 new TestItem(() => new SampleL6()),
-                new TestItem(() => new SampleLE6()),
                 new TestItem(() => new SampleA6()),
-                new TestItem(() => new SampleAE6()),
 
                 new TestItem(() => new SampleL12()),
-                new TestItem(() => new SampleLE12()),
                 new TestItem(() => new SampleA12()),
-                new TestItem(() => new SampleAE12()),
 
                 new TestItem(() => new SampleL25()),
-                new TestItem(() => new SampleLE25()),
                 new TestItem(() => new SampleA25()),
-                new TestItem(() => new SampleAE25()),
 
                 new TestItem(() => new SampleL50()),
-                new TestItem(() => new SampleLE50()),
                 new TestItem(() => new SampleA50()),
-                new TestItem(() => new SampleAE50()),
 
                 new TestItem(() => new SampleL100()),
-                new TestItem(() => new SampleLE100()),
                 new TestItem(() => new SampleA100()),
-                new TestItem(() => new SampleAE100()),
             };
 
-
+            Stopwatch stopwatch = new Stopwatch();
             Console.WriteLine("Running performance test... Please wait.");
 
-            foreach (int iterationCount in iterationCounts)
+            foreach (int accessCount in (new int[] { 1, 2, 4 }))
             {
                 // Resets the test items.
                 foreach (TestItem testItem in testItems)
                     testItem.Reset();
 
-                // Runs the performance test.
-                Stopwatch stopwatch = new Stopwatch();
-                for (int i = 0; i < iterationCount; i++)
-                {
-                    foreach (TestItem testItem in testItems)
-                    {
-                        stopwatch.Restart();
-                        testItem.Testable.RunTest(i);
-                        stopwatch.Stop();
+                const int loopCountForAverage = 100000;
 
-                        testItem.TotalTicks += stopwatch.ElapsedTicks;
+                int loopCount = 0;
+                while (loopCount++ < loopCountForAverage)
+                {
+                    // Runs the performance test.
+                    for (int i = 0; i < accessCount; i++)
+                    {
+                        foreach (TestItem testItem in testItems)
+                        {
+                            if (i == 0)
+                                testItem.CreateTestable();
+
+                            stopwatch.Restart();
+                            testItem.Testable.RunTest(i);
+                            stopwatch.Stop();
+
+                            testItem.TotalTicks += stopwatch.ElapsedTicks;
+                        }
                     }
                 }
 
                 // Outputs the performance test result.
-                int currentPropertyCount = -1;
                 foreach (TestItem testItem in testItems)
                 {
                     string typeName = testItem.Testable.GetType().Name;
                     int propertyCount = int.Parse(new string(typeName.SkipWhile(p => char.IsNumber(p) == false).ToArray()));
 
-                    if (currentPropertyCount != propertyCount)
-                    {
-                        Console.WriteLine();
-                        currentPropertyCount = propertyCount;
-                        Console.Write("[{0}I {1}P] ", iterationCount, propertyCount);
-                    }
+                    Console.WriteLine();
+                    Console.Write("[{0}P {1}A] ", propertyCount, accessCount);
 
                     Console.Write(new string(typeName.Skip("Sample".Length).TakeWhile(p => char.IsNumber(p) == false).ToArray()) + ": ");
-                    Console.Write((iterationCount == 1 ? testItem.TotalTicks : (testItem.TotalTicks / iterationCount)));
+                    Console.Write(testItem.TotalTicks / (accessCount * loopCountForAverage));
                     Console.Write("  ");
                 }
 
                 Console.WriteLine();
-
-            } // foreach (int iterationCount in iterationCounts)
-
+            }
 
             // Outputs the Frequency.
             Console.WriteLine();

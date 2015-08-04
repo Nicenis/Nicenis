@@ -7,49 +7,47 @@
 
 using Nicenis.ComponentModel;
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     /// <summary>
     /// The sample class that uses auto property storage.
     /// </summary>
-#pragma warning disable 618
-    class SampleA6 : WatchableObject, ITestable
+    class SampleA6 : PropertyObservable, ITestable
     {
-#pragma warning restore 618
         public int TestProperty1
         {
-            get { return GetProperty<int>("TestProperty1"); }
-            set { SetProperty("TestProperty1", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty2
         {
-            get { return GetProperty<int>("TestProperty2"); }
-            set { SetProperty("TestProperty2", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty3
         {
-            get { return GetProperty<int>("TestProperty3"); }
-            set { SetProperty("TestProperty3", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty4
         {
-            get { return GetProperty<int>("TestProperty4"); }
-            set { SetProperty("TestProperty4", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty5
         {
-            get { return GetProperty<int>("TestProperty5"); }
-            set { SetProperty("TestProperty5", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty6
         {
-            get { return GetProperty<int>("TestProperty6"); }
-            set { SetProperty("TestProperty6", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         #region RunTest

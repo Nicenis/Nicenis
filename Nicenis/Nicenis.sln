@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nicenis", "Nicenis\Nicenis.csproj", "{DD0939A8-E685-4803-A170-946E43139A78}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisTests_For_4.0.0_Clie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisTestGui_For_4.0.0_Client_Profile", "NicenisTestGui_For_4.0.0_Client_Profile\NicenisTestGui_For_4.0.0_Client_Profile.csproj", "{E1A9308A-FD94-4733-AFB7-E10CE71B2108}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchableObjectPerformanceTest", "WatchableObjectPerformanceTest\WatchableObjectPerformanceTest.csproj", "{643D3927-CED4-49E3-9C35-B19A7CB64A89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyObservablePerformanceTest", "WatchableObjectPerformanceTest\PropertyObservablePerformanceTest.csproj", "{643D3927-CED4-49E3-9C35-B19A7CB64A89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisRT", "NicenisRT\NicenisRT.csproj", "{A6F2F349-20F7-4090-AFF7-F12F207D16EA}"
 EndProject

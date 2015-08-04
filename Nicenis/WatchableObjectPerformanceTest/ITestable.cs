@@ -5,7 +5,7 @@
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     interface ITestable
     {

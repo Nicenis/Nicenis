@@ -7,21 +7,19 @@
 
 using Nicenis.ComponentModel;
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     /// <summary>
     /// The sample class that uses local property storage.
     /// </summary>
-#pragma warning disable 618
-    class SampleL50 : WatchableObject, ITestable
+    class SampleL50 : PropertyObservable, ITestable
     {
-#pragma warning restore 618
         int _testProperty1;
 
         public int TestProperty1
         {
             get { return _testProperty1; }
-            set { SetProperty("TestProperty1", ref _testProperty1, value); }
+            set { SetProperty(ref _testProperty1, value); }
         }
 
         int _testProperty2;
@@ -29,7 +27,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty2
         {
             get { return _testProperty2; }
-            set { SetProperty("TestProperty2", ref _testProperty2, value); }
+            set { SetProperty(ref _testProperty2, value); }
         }
 
         int _testProperty3;
@@ -37,7 +35,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty3
         {
             get { return _testProperty3; }
-            set { SetProperty("TestProperty3", ref _testProperty3, value); }
+            set { SetProperty(ref _testProperty3, value); }
         }
 
         int _testProperty4;
@@ -45,7 +43,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty4
         {
             get { return _testProperty4; }
-            set { SetProperty("TestProperty4", ref _testProperty4, value); }
+            set { SetProperty(ref _testProperty4, value); }
         }
 
         int _testProperty5;
@@ -53,7 +51,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty5
         {
             get { return _testProperty5; }
-            set { SetProperty("TestProperty5", ref _testProperty5, value); }
+            set { SetProperty(ref _testProperty5, value); }
         }
 
         int _testProperty6;
@@ -61,7 +59,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty6
         {
             get { return _testProperty6; }
-            set { SetProperty("TestProperty6", ref _testProperty6, value); }
+            set { SetProperty(ref _testProperty6, value); }
         }
 
         int _testProperty7;
@@ -69,7 +67,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty7
         {
             get { return _testProperty7; }
-            set { SetProperty("TestProperty7", ref _testProperty7, value); }
+            set { SetProperty(ref _testProperty7, value); }
         }
 
         int _testProperty8;
@@ -77,7 +75,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty8
         {
             get { return _testProperty8; }
-            set { SetProperty("TestProperty8", ref _testProperty8, value); }
+            set { SetProperty(ref _testProperty8, value); }
         }
 
         int _testProperty9;
@@ -85,7 +83,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty9
         {
             get { return _testProperty9; }
-            set { SetProperty("TestProperty9", ref _testProperty9, value); }
+            set { SetProperty(ref _testProperty9, value); }
         }
 
         int _testProperty10;
@@ -93,7 +91,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty10
         {
             get { return _testProperty10; }
-            set { SetProperty("TestProperty10", ref _testProperty10, value); }
+            set { SetProperty(ref _testProperty10, value); }
         }
 
         int _testProperty11;
@@ -101,7 +99,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty11
         {
             get { return _testProperty11; }
-            set { SetProperty("TestProperty11", ref _testProperty11, value); }
+            set { SetProperty(ref _testProperty11, value); }
         }
 
         int _testProperty12;
@@ -109,7 +107,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty12
         {
             get { return _testProperty12; }
-            set { SetProperty("TestProperty12", ref _testProperty12, value); }
+            set { SetProperty(ref _testProperty12, value); }
         }
 
         int _testProperty13;
@@ -117,7 +115,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty13
         {
             get { return _testProperty13; }
-            set { SetProperty("TestProperty13", ref _testProperty13, value); }
+            set { SetProperty(ref _testProperty13, value); }
         }
 
         int _testProperty14;
@@ -125,7 +123,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty14
         {
             get { return _testProperty14; }
-            set { SetProperty("TestProperty14", ref _testProperty14, value); }
+            set { SetProperty(ref _testProperty14, value); }
         }
 
         int _testProperty15;
@@ -133,7 +131,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty15
         {
             get { return _testProperty15; }
-            set { SetProperty("TestProperty15", ref _testProperty15, value); }
+            set { SetProperty(ref _testProperty15, value); }
         }
 
         int _testProperty16;
@@ -141,7 +139,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty16
         {
             get { return _testProperty16; }
-            set { SetProperty("TestProperty16", ref _testProperty16, value); }
+            set { SetProperty(ref _testProperty16, value); }
         }
 
         int _testProperty17;
@@ -149,7 +147,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty17
         {
             get { return _testProperty17; }
-            set { SetProperty("TestProperty17", ref _testProperty17, value); }
+            set { SetProperty(ref _testProperty17, value); }
         }
 
         int _testProperty18;
@@ -157,7 +155,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty18
         {
             get { return _testProperty18; }
-            set { SetProperty("TestProperty18", ref _testProperty18, value); }
+            set { SetProperty(ref _testProperty18, value); }
         }
 
         int _testProperty19;
@@ -165,7 +163,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty19
         {
             get { return _testProperty19; }
-            set { SetProperty("TestProperty19", ref _testProperty19, value); }
+            set { SetProperty(ref _testProperty19, value); }
         }
 
         int _testProperty20;
@@ -173,7 +171,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty20
         {
             get { return _testProperty20; }
-            set { SetProperty("TestProperty20", ref _testProperty20, value); }
+            set { SetProperty(ref _testProperty20, value); }
         }
 
         int _testProperty21;
@@ -181,7 +179,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty21
         {
             get { return _testProperty21; }
-            set { SetProperty("TestProperty21", ref _testProperty21, value); }
+            set { SetProperty(ref _testProperty21, value); }
         }
 
         int _testProperty22;
@@ -189,7 +187,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty22
         {
             get { return _testProperty22; }
-            set { SetProperty("TestProperty22", ref _testProperty22, value); }
+            set { SetProperty(ref _testProperty22, value); }
         }
 
         int _testProperty23;
@@ -197,7 +195,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty23
         {
             get { return _testProperty23; }
-            set { SetProperty("TestProperty23", ref _testProperty23, value); }
+            set { SetProperty(ref _testProperty23, value); }
         }
 
         int _testProperty24;
@@ -205,7 +203,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty24
         {
             get { return _testProperty24; }
-            set { SetProperty("TestProperty24", ref _testProperty24, value); }
+            set { SetProperty(ref _testProperty24, value); }
         }
 
         int _testProperty25;
@@ -213,7 +211,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty25
         {
             get { return _testProperty25; }
-            set { SetProperty("TestProperty25", ref _testProperty25, value); }
+            set { SetProperty(ref _testProperty25, value); }
         }
 
         int _testProperty26;
@@ -221,7 +219,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty26
         {
             get { return _testProperty26; }
-            set { SetProperty("TestProperty26", ref _testProperty26, value); }
+            set { SetProperty(ref _testProperty26, value); }
         }
 
         int _testProperty27;
@@ -229,7 +227,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty27
         {
             get { return _testProperty27; }
-            set { SetProperty("TestProperty27", ref _testProperty27, value); }
+            set { SetProperty(ref _testProperty27, value); }
         }
 
         int _testProperty28;
@@ -237,7 +235,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty28
         {
             get { return _testProperty28; }
-            set { SetProperty("TestProperty28", ref _testProperty28, value); }
+            set { SetProperty(ref _testProperty28, value); }
         }
 
         int _testProperty29;
@@ -245,7 +243,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty29
         {
             get { return _testProperty29; }
-            set { SetProperty("TestProperty29", ref _testProperty29, value); }
+            set { SetProperty(ref _testProperty29, value); }
         }
 
         int _testProperty30;
@@ -253,7 +251,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty30
         {
             get { return _testProperty30; }
-            set { SetProperty("TestProperty30", ref _testProperty30, value); }
+            set { SetProperty(ref _testProperty30, value); }
         }
 
         int _testProperty31;
@@ -261,7 +259,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty31
         {
             get { return _testProperty31; }
-            set { SetProperty("TestProperty31", ref _testProperty31, value); }
+            set { SetProperty(ref _testProperty31, value); }
         }
 
         int _testProperty32;
@@ -269,7 +267,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty32
         {
             get { return _testProperty32; }
-            set { SetProperty("TestProperty32", ref _testProperty32, value); }
+            set { SetProperty(ref _testProperty32, value); }
         }
 
         int _testProperty33;
@@ -277,7 +275,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty33
         {
             get { return _testProperty33; }
-            set { SetProperty("TestProperty33", ref _testProperty33, value); }
+            set { SetProperty(ref _testProperty33, value); }
         }
 
         int _testProperty34;
@@ -285,7 +283,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty34
         {
             get { return _testProperty34; }
-            set { SetProperty("TestProperty34", ref _testProperty34, value); }
+            set { SetProperty(ref _testProperty34, value); }
         }
 
         int _testProperty35;
@@ -293,7 +291,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty35
         {
             get { return _testProperty35; }
-            set { SetProperty("TestProperty35", ref _testProperty35, value); }
+            set { SetProperty(ref _testProperty35, value); }
         }
 
         int _testProperty36;
@@ -301,7 +299,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty36
         {
             get { return _testProperty36; }
-            set { SetProperty("TestProperty36", ref _testProperty36, value); }
+            set { SetProperty(ref _testProperty36, value); }
         }
 
         int _testProperty37;
@@ -309,7 +307,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty37
         {
             get { return _testProperty37; }
-            set { SetProperty("TestProperty37", ref _testProperty37, value); }
+            set { SetProperty(ref _testProperty37, value); }
         }
 
         int _testProperty38;
@@ -317,7 +315,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty38
         {
             get { return _testProperty38; }
-            set { SetProperty("TestProperty38", ref _testProperty38, value); }
+            set { SetProperty(ref _testProperty38, value); }
         }
 
         int _testProperty39;
@@ -325,7 +323,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty39
         {
             get { return _testProperty39; }
-            set { SetProperty("TestProperty39", ref _testProperty39, value); }
+            set { SetProperty(ref _testProperty39, value); }
         }
 
         int _testProperty40;
@@ -333,7 +331,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty40
         {
             get { return _testProperty40; }
-            set { SetProperty("TestProperty40", ref _testProperty40, value); }
+            set { SetProperty(ref _testProperty40, value); }
         }
 
         int _testProperty41;
@@ -341,7 +339,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty41
         {
             get { return _testProperty41; }
-            set { SetProperty("TestProperty41", ref _testProperty41, value); }
+            set { SetProperty(ref _testProperty41, value); }
         }
 
         int _testProperty42;
@@ -349,7 +347,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty42
         {
             get { return _testProperty42; }
-            set { SetProperty("TestProperty42", ref _testProperty42, value); }
+            set { SetProperty(ref _testProperty42, value); }
         }
 
         int _testProperty43;
@@ -357,7 +355,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty43
         {
             get { return _testProperty43; }
-            set { SetProperty("TestProperty43", ref _testProperty43, value); }
+            set { SetProperty(ref _testProperty43, value); }
         }
 
         int _testProperty44;
@@ -365,7 +363,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty44
         {
             get { return _testProperty44; }
-            set { SetProperty("TestProperty44", ref _testProperty44, value); }
+            set { SetProperty(ref _testProperty44, value); }
         }
 
         int _testProperty45;
@@ -373,7 +371,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty45
         {
             get { return _testProperty45; }
-            set { SetProperty("TestProperty45", ref _testProperty45, value); }
+            set { SetProperty(ref _testProperty45, value); }
         }
 
         int _testProperty46;
@@ -381,7 +379,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty46
         {
             get { return _testProperty46; }
-            set { SetProperty("TestProperty46", ref _testProperty46, value); }
+            set { SetProperty(ref _testProperty46, value); }
         }
 
         int _testProperty47;
@@ -389,7 +387,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty47
         {
             get { return _testProperty47; }
-            set { SetProperty("TestProperty47", ref _testProperty47, value); }
+            set { SetProperty(ref _testProperty47, value); }
         }
 
         int _testProperty48;
@@ -397,7 +395,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty48
         {
             get { return _testProperty48; }
-            set { SetProperty("TestProperty48", ref _testProperty48, value); }
+            set { SetProperty(ref _testProperty48, value); }
         }
 
         int _testProperty49;
@@ -405,7 +403,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty49
         {
             get { return _testProperty49; }
-            set { SetProperty("TestProperty49", ref _testProperty49, value); }
+            set { SetProperty(ref _testProperty49, value); }
         }
 
         int _testProperty50;
@@ -413,7 +411,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty50
         {
             get { return _testProperty50; }
-            set { SetProperty("TestProperty50", ref _testProperty50, value); }
+            set { SetProperty(ref _testProperty50, value); }
         }
 
         #region RunTest

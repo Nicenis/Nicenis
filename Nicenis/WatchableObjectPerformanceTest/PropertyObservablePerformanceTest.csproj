@@ -7,8 +7,8 @@
     <ProjectGuid>{643D3927-CED4-49E3-9C35-B19A7CB64A89}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WatchableObjectPerformanceTest</RootNamespace>
-    <AssemblyName>WatchableObjectPerformanceTest</AssemblyName>
+    <RootNamespace>PropertyObservablePerformanceTest</RootNamespace>
+    <AssemblyName>PropertyObservablePerformanceTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,21 +48,11 @@
     <Compile Include="SampleA12.cs" />
     <Compile Include="SampleA25.cs" />
     <Compile Include="SampleA50.cs" />
-    <Compile Include="SampleAE6.cs" />
-    <Compile Include="SampleAE12.cs" />
-    <Compile Include="SampleAE25.cs" />
-    <Compile Include="SampleAE50.cs" />
-    <Compile Include="SampleAE100.cs" />
     <Compile Include="SampleA100.cs" />
     <Compile Include="SampleL6.cs" />
     <Compile Include="SampleL12.cs" />
     <Compile Include="SampleL25.cs" />
     <Compile Include="SampleL50.cs" />
-    <Compile Include="SampleLE6.cs" />
-    <Compile Include="SampleLE12.cs" />
-    <Compile Include="SampleLE25.cs" />
-    <Compile Include="SampleLE50.cs" />
-    <Compile Include="SampleLE100.cs" />
     <Compile Include="SampleL100.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

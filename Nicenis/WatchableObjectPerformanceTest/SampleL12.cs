@@ -7,21 +7,19 @@
 
 using Nicenis.ComponentModel;
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     /// <summary>
     /// The sample class that uses local property storage.
     /// </summary>
-#pragma warning disable 618
-    class SampleL12 : WatchableObject, ITestable
+    class SampleL12 : PropertyObservable, ITestable
     {
-#pragma warning restore 618
         int _testProperty1;
 
         public int TestProperty1
         {
             get { return _testProperty1; }
-            set { SetProperty("TestProperty1", ref _testProperty1, value); }
+            set { SetProperty(ref _testProperty1, value); }
         }
 
         int _testProperty2;
@@ -29,7 +27,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty2
         {
             get { return _testProperty2; }
-            set { SetProperty("TestProperty2", ref _testProperty2, value); }
+            set { SetProperty(ref _testProperty2, value); }
         }
 
         int _testProperty3;
@@ -37,7 +35,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty3
         {
             get { return _testProperty3; }
-            set { SetProperty("TestProperty3", ref _testProperty3, value); }
+            set { SetProperty(ref _testProperty3, value); }
         }
 
         int _testProperty4;
@@ -45,7 +43,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty4
         {
             get { return _testProperty4; }
-            set { SetProperty("TestProperty4", ref _testProperty4, value); }
+            set { SetProperty(ref _testProperty4, value); }
         }
 
         int _testProperty5;
@@ -53,7 +51,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty5
         {
             get { return _testProperty5; }
-            set { SetProperty("TestProperty5", ref _testProperty5, value); }
+            set { SetProperty(ref _testProperty5, value); }
         }
 
         int _testProperty6;
@@ -61,7 +59,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty6
         {
             get { return _testProperty6; }
-            set { SetProperty("TestProperty6", ref _testProperty6, value); }
+            set { SetProperty(ref _testProperty6, value); }
         }
 
         int _testProperty7;
@@ -69,7 +67,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty7
         {
             get { return _testProperty7; }
-            set { SetProperty("TestProperty7", ref _testProperty7, value); }
+            set { SetProperty(ref _testProperty7, value); }
         }
 
         int _testProperty8;
@@ -77,7 +75,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty8
         {
             get { return _testProperty8; }
-            set { SetProperty("TestProperty8", ref _testProperty8, value); }
+            set { SetProperty(ref _testProperty8, value); }
         }
 
         int _testProperty9;
@@ -85,7 +83,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty9
         {
             get { return _testProperty9; }
-            set { SetProperty("TestProperty9", ref _testProperty9, value); }
+            set { SetProperty(ref _testProperty9, value); }
         }
 
         int _testProperty10;
@@ -93,7 +91,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty10
         {
             get { return _testProperty10; }
-            set { SetProperty("TestProperty10", ref _testProperty10, value); }
+            set { SetProperty(ref _testProperty10, value); }
         }
 
         int _testProperty11;
@@ -101,7 +99,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty11
         {
             get { return _testProperty11; }
-            set { SetProperty("TestProperty11", ref _testProperty11, value); }
+            set { SetProperty(ref _testProperty11, value); }
         }
 
         int _testProperty12;
@@ -109,7 +107,7 @@ namespace WatchableObjectPerformanceTest
         public int TestProperty12
         {
             get { return _testProperty12; }
-            set { SetProperty("TestProperty12", ref _testProperty12, value); }
+            set { SetProperty(ref _testProperty12, value); }
         }
 
         #region RunTest

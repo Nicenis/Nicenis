@@ -7,613 +7,611 @@
 
 using Nicenis.ComponentModel;
 
-namespace WatchableObjectPerformanceTest
+namespace PropertyObservablePerformanceTest
 {
     /// <summary>
     /// The sample class that uses auto property storage.
     /// </summary>
-#pragma warning disable 618
-    class SampleA100 : WatchableObject, ITestable
+    class SampleA100 : PropertyObservable, ITestable
     {
-#pragma warning restore 618
         public int TestProperty1
         {
-            get { return GetProperty<int>("TestProperty1"); }
-            set { SetProperty("TestProperty1", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty2
         {
-            get { return GetProperty<int>("TestProperty2"); }
-            set { SetProperty("TestProperty2", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty3
         {
-            get { return GetProperty<int>("TestProperty3"); }
-            set { SetProperty("TestProperty3", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty4
         {
-            get { return GetProperty<int>("TestProperty4"); }
-            set { SetProperty("TestProperty4", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty5
         {
-            get { return GetProperty<int>("TestProperty5"); }
-            set { SetProperty("TestProperty5", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty6
         {
-            get { return GetProperty<int>("TestProperty6"); }
-            set { SetProperty("TestProperty6", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty7
         {
-            get { return GetProperty<int>("TestProperty7"); }
-            set { SetProperty("TestProperty7", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty8
         {
-            get { return GetProperty<int>("TestProperty8"); }
-            set { SetProperty("TestProperty8", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty9
         {
-            get { return GetProperty<int>("TestProperty9"); }
-            set { SetProperty("TestProperty9", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty10
         {
-            get { return GetProperty<int>("TestProperty10"); }
-            set { SetProperty("TestProperty10", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty11
         {
-            get { return GetProperty<int>("TestProperty11"); }
-            set { SetProperty("TestProperty11", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty12
         {
-            get { return GetProperty<int>("TestProperty12"); }
-            set { SetProperty("TestProperty12", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty13
         {
-            get { return GetProperty<int>("TestProperty13"); }
-            set { SetProperty("TestProperty13", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty14
         {
-            get { return GetProperty<int>("TestProperty14"); }
-            set { SetProperty("TestProperty14", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty15
         {
-            get { return GetProperty<int>("TestProperty15"); }
-            set { SetProperty("TestProperty15", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty16
         {
-            get { return GetProperty<int>("TestProperty16"); }
-            set { SetProperty("TestProperty16", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty17
         {
-            get { return GetProperty<int>("TestProperty17"); }
-            set { SetProperty("TestProperty17", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty18
         {
-            get { return GetProperty<int>("TestProperty18"); }
-            set { SetProperty("TestProperty18", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty19
         {
-            get { return GetProperty<int>("TestProperty19"); }
-            set { SetProperty("TestProperty19", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty20
         {
-            get { return GetProperty<int>("TestProperty20"); }
-            set { SetProperty("TestProperty20", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty21
         {
-            get { return GetProperty<int>("TestProperty21"); }
-            set { SetProperty("TestProperty21", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty22
         {
-            get { return GetProperty<int>("TestProperty22"); }
-            set { SetProperty("TestProperty22", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty23
         {
-            get { return GetProperty<int>("TestProperty23"); }
-            set { SetProperty("TestProperty23", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty24
         {
-            get { return GetProperty<int>("TestProperty24"); }
-            set { SetProperty("TestProperty24", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty25
         {
-            get { return GetProperty<int>("TestProperty25"); }
-            set { SetProperty("TestProperty25", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty26
         {
-            get { return GetProperty<int>("TestProperty26"); }
-            set { SetProperty("TestProperty26", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty27
         {
-            get { return GetProperty<int>("TestProperty27"); }
-            set { SetProperty("TestProperty27", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty28
         {
-            get { return GetProperty<int>("TestProperty28"); }
-            set { SetProperty("TestProperty28", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty29
         {
-            get { return GetProperty<int>("TestProperty29"); }
-            set { SetProperty("TestProperty29", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty30
         {
-            get { return GetProperty<int>("TestProperty30"); }
-            set { SetProperty("TestProperty30", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty31
         {
-            get { return GetProperty<int>("TestProperty31"); }
-            set { SetProperty("TestProperty31", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty32
         {
-            get { return GetProperty<int>("TestProperty32"); }
-            set { SetProperty("TestProperty32", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty33
         {
-            get { return GetProperty<int>("TestProperty33"); }
-            set { SetProperty("TestProperty33", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty34
         {
-            get { return GetProperty<int>("TestProperty34"); }
-            set { SetProperty("TestProperty34", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty35
         {
-            get { return GetProperty<int>("TestProperty35"); }
-            set { SetProperty("TestProperty35", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty36
         {
-            get { return GetProperty<int>("TestProperty36"); }
-            set { SetProperty("TestProperty36", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty37
         {
-            get { return GetProperty<int>("TestProperty37"); }
-            set { SetProperty("TestProperty37", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty38
         {
-            get { return GetProperty<int>("TestProperty38"); }
-            set { SetProperty("TestProperty38", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty39
         {
-            get { return GetProperty<int>("TestProperty39"); }
-            set { SetProperty("TestProperty39", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty40
         {
-            get { return GetProperty<int>("TestProperty40"); }
-            set { SetProperty("TestProperty40", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty41
         {
-            get { return GetProperty<int>("TestProperty41"); }
-            set { SetProperty("TestProperty41", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty42
         {
-            get { return GetProperty<int>("TestProperty42"); }
-            set { SetProperty("TestProperty42", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty43
         {
-            get { return GetProperty<int>("TestProperty43"); }
-            set { SetProperty("TestProperty43", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty44
         {
-            get { return GetProperty<int>("TestProperty44"); }
-            set { SetProperty("TestProperty44", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty45
         {
-            get { return GetProperty<int>("TestProperty45"); }
-            set { SetProperty("TestProperty45", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty46
         {
-            get { return GetProperty<int>("TestProperty46"); }
-            set { SetProperty("TestProperty46", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty47
         {
-            get { return GetProperty<int>("TestProperty47"); }
-            set { SetProperty("TestProperty47", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty48
         {
-            get { return GetProperty<int>("TestProperty48"); }
-            set { SetProperty("TestProperty48", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty49
         {
-            get { return GetProperty<int>("TestProperty49"); }
-            set { SetProperty("TestProperty49", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty50
         {
-            get { return GetProperty<int>("TestProperty50"); }
-            set { SetProperty("TestProperty50", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty51
         {
-            get { return GetProperty<int>("TestProperty51"); }
-            set { SetProperty("TestProperty51", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty52
         {
-            get { return GetProperty<int>("TestProperty52"); }
-            set { SetProperty("TestProperty52", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty53
         {
-            get { return GetProperty<int>("TestProperty53"); }
-            set { SetProperty("TestProperty53", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty54
         {
-            get { return GetProperty<int>("TestProperty54"); }
-            set { SetProperty("TestProperty54", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty55
         {
-            get { return GetProperty<int>("TestProperty55"); }
-            set { SetProperty("TestProperty55", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty56
         {
-            get { return GetProperty<int>("TestProperty56"); }
-            set { SetProperty("TestProperty56", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty57
         {
-            get { return GetProperty<int>("TestProperty57"); }
-            set { SetProperty("TestProperty57", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty58
         {
-            get { return GetProperty<int>("TestProperty58"); }
-            set { SetProperty("TestProperty58", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty59
         {
-            get { return GetProperty<int>("TestProperty59"); }
-            set { SetProperty("TestProperty59", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty60
         {
-            get { return GetProperty<int>("TestProperty60"); }
-            set { SetProperty("TestProperty60", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty61
         {
-            get { return GetProperty<int>("TestProperty61"); }
-            set { SetProperty("TestProperty61", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty62
         {
-            get { return GetProperty<int>("TestProperty62"); }
-            set { SetProperty("TestProperty62", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty63
         {
-            get { return GetProperty<int>("TestProperty63"); }
-            set { SetProperty("TestProperty63", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty64
         {
-            get { return GetProperty<int>("TestProperty64"); }
-            set { SetProperty("TestProperty64", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty65
         {
-            get { return GetProperty<int>("TestProperty65"); }
-            set { SetProperty("TestProperty65", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty66
         {
-            get { return GetProperty<int>("TestProperty66"); }
-            set { SetProperty("TestProperty66", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty67
         {
-            get { return GetProperty<int>("TestProperty67"); }
-            set { SetProperty("TestProperty67", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty68
         {
-            get { return GetProperty<int>("TestProperty68"); }
-            set { SetProperty("TestProperty68", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty69
         {
-            get { return GetProperty<int>("TestProperty69"); }
-            set { SetProperty("TestProperty69", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty70
         {
-            get { return GetProperty<int>("TestProperty70"); }
-            set { SetProperty("TestProperty70", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty71
         {
-            get { return GetProperty<int>("TestProperty71"); }
-            set { SetProperty("TestProperty71", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty72
         {
-            get { return GetProperty<int>("TestProperty72"); }
-            set { SetProperty("TestProperty72", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty73
         {
-            get { return GetProperty<int>("TestProperty73"); }
-            set { SetProperty("TestProperty73", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty74
         {
-            get { return GetProperty<int>("TestProperty74"); }
-            set { SetProperty("TestProperty74", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty75
         {
-            get { return GetProperty<int>("TestProperty75"); }
-            set { SetProperty("TestProperty75", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty76
         {
-            get { return GetProperty<int>("TestProperty76"); }
-            set { SetProperty("TestProperty76", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty77
         {
-            get { return GetProperty<int>("TestProperty77"); }
-            set { SetProperty("TestProperty77", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty78
         {
-            get { return GetProperty<int>("TestProperty78"); }
-            set { SetProperty("TestProperty78", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty79
         {
-            get { return GetProperty<int>("TestProperty79"); }
-            set { SetProperty("TestProperty79", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty80
         {
-            get { return GetProperty<int>("TestProperty80"); }
-            set { SetProperty("TestProperty80", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty81
         {
-            get { return GetProperty<int>("TestProperty81"); }
-            set { SetProperty("TestProperty81", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty82
         {
-            get { return GetProperty<int>("TestProperty82"); }
-            set { SetProperty("TestProperty82", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty83
         {
-            get { return GetProperty<int>("TestProperty83"); }
-            set { SetProperty("TestProperty83", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty84
         {
-            get { return GetProperty<int>("TestProperty84"); }
-            set { SetProperty("TestProperty84", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty85
         {
-            get { return GetProperty<int>("TestProperty85"); }
-            set { SetProperty("TestProperty85", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty86
         {
-            get { return GetProperty<int>("TestProperty86"); }
-            set { SetProperty("TestProperty86", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty87
         {
-            get { return GetProperty<int>("TestProperty87"); }
-            set { SetProperty("TestProperty87", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty88
         {
-            get { return GetProperty<int>("TestProperty88"); }
-            set { SetProperty("TestProperty88", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty89
         {
-            get { return GetProperty<int>("TestProperty89"); }
-            set { SetProperty("TestProperty89", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty90
         {
-            get { return GetProperty<int>("TestProperty90"); }
-            set { SetProperty("TestProperty90", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty91
         {
-            get { return GetProperty<int>("TestProperty91"); }
-            set { SetProperty("TestProperty91", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty92
         {
-            get { return GetProperty<int>("TestProperty92"); }
-            set { SetProperty("TestProperty92", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty93
         {
-            get { return GetProperty<int>("TestProperty93"); }
-            set { SetProperty("TestProperty93", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty94
         {
-            get { return GetProperty<int>("TestProperty94"); }
-            set { SetProperty("TestProperty94", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty95
         {
-            get { return GetProperty<int>("TestProperty95"); }
-            set { SetProperty("TestProperty95", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty96
         {
-            get { return GetProperty<int>("TestProperty96"); }
-            set { SetProperty("TestProperty96", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty97
         {
-            get { return GetProperty<int>("TestProperty97"); }
-            set { SetProperty("TestProperty97", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty98
         {
-            get { return GetProperty<int>("TestProperty98"); }
-            set { SetProperty("TestProperty98", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty99
         {
-            get { return GetProperty<int>("TestProperty99"); }
-            set { SetProperty("TestProperty99", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         public int TestProperty100
         {
-            get { return GetProperty<int>("TestProperty100"); }
-            set { SetProperty("TestProperty100", value); }
+            get { return GetProperty<int>(); }
+            set { SetProperty(value); }
         }
 
         #region RunTest
