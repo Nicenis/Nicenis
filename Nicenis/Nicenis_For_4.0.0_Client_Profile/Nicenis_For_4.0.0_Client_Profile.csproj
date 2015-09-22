@@ -76,6 +76,9 @@
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\ViewModel\ViewModelBase.cs">
+      <Link>ViewModel\ViewModelBase.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\WeakEventHandler.cs">
       <Link>WeakEventHandler.cs</Link>
     </Compile>
