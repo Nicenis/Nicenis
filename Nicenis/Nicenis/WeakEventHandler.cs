@@ -47,12 +47,12 @@ namespace Nicenis
         /// The target instance that is weak referenced.
         /// If the event handler is a static method, the target instance is always null.
         /// </summary>
-        public WeakReference WeakTarget { get; private set; }
+        public WeakReference WeakTarget { get; }
 
         /// <summary>
         /// The event handler method info.
         /// </summary>
-        public MethodInfo MethodInfo { get; private set; }
+        public MethodInfo MethodInfo { get; }
 
         #endregion
 
@@ -88,10 +88,10 @@ namespace Nicenis
         public static IEnumerable<WeakEventHandlerInfo> Add(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, object target, MethodInfo methodInfo)
         {
             if (weakHandlerInfos == null)
-                throw new ArgumentNullException("weakHandlerInfos");
+                throw new ArgumentNullException(nameof(weakHandlerInfos));
 
             if (methodInfo == null)
-                throw new ArgumentNullException("methodInfo");
+                throw new ArgumentNullException(nameof(methodInfo));
 
             var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfos.Count() + 1];
 
@@ -116,10 +116,10 @@ namespace Nicenis
         public static IEnumerable<WeakEventHandlerInfo> Add(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, IEnumerable<WeakEventHandlerInfo> weakHandlerInfosToAdd)
         {
             if (weakHandlerInfos == null)
-                throw new ArgumentNullException("weakHandlerInfos");
+                throw new ArgumentNullException(nameof(weakHandlerInfos));
 
             if (weakHandlerInfosToAdd == null)
-                throw new ArgumentNullException("weakHandlerInfosToAdd");
+                throw new ArgumentNullException(nameof(weakHandlerInfosToAdd));
 
             return weakHandlerInfos.Concat(weakHandlerInfosToAdd).ToArray();
         }
@@ -134,10 +134,10 @@ namespace Nicenis
         public static IEnumerable<WeakEventHandlerInfo> Remove(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, object target, MethodInfo methodInfo)
         {
             if (weakHandlerInfos == null)
-                throw new ArgumentNullException("weakHandlerInfos");
+                throw new ArgumentNullException(nameof(weakHandlerInfos));
 
             if (methodInfo == null)
-                throw new ArgumentNullException("methodInfo");
+                throw new ArgumentNullException(nameof(methodInfo));
 
             // Finds the weak event handler info to delete.
             var weakHandlerInfoToDelete = weakHandlerInfos.FirstOrDefault
@@ -177,10 +177,10 @@ namespace Nicenis
         public static IEnumerable<WeakEventHandlerInfo> Remove(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, IEnumerable<WeakEventHandlerInfo> weakHandlerInfosToRemove)
         {
             if (weakHandlerInfos == null)
-                throw new ArgumentNullException("weakHandlerInfos");
+                throw new ArgumentNullException(nameof(weakHandlerInfos));
 
             if (weakHandlerInfosToRemove == null)
-                throw new ArgumentNullException("weakHandlerInfosToRemove");
+                throw new ArgumentNullException(nameof(weakHandlerInfosToRemove));
 
             if (weakHandlerInfos.Any() == false || weakHandlerInfosToRemove.Any() == false)
                 return weakHandlerInfos;
@@ -220,13 +220,13 @@ namespace Nicenis
         public static IEnumerable<WeakEventHandlerInfo> Invoke(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, object sender, object args)
         {
             if (weakHandlerInfos == null)
-                throw new ArgumentNullException("weakHandlerInfos");
+                throw new ArgumentNullException(nameof(weakHandlerInfos));
 
             if (sender == null)
-                throw new ArgumentNullException("sender");
+                throw new ArgumentNullException(nameof(sender));
 
             if (args == null)
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
 
             List<WeakEventHandlerInfo> weakHandlerInfosToDelete = null; ;
 
@@ -330,10 +330,10 @@ namespace Nicenis
         public static WeakEventHandler operator +(WeakEventHandler weakEventHandler, EventHandler value)
         {
             if (weakEventHandler == null)
-                throw new ArgumentNullException("weakEventHandler");
+                throw new ArgumentNullException(nameof(weakEventHandler));
 
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
@@ -351,10 +351,10 @@ namespace Nicenis
         public static WeakEventHandler operator +(WeakEventHandler left, WeakEventHandler right)
         {
             if (left == null)
-                throw new ArgumentNullException("left");
+                throw new ArgumentNullException(nameof(left));
 
             if (right == null)
-                throw new ArgumentNullException("right");
+                throw new ArgumentNullException(nameof(right));
 
             return new WeakEventHandler(left._weakHandlerInfos.Add(right._weakHandlerInfos));
         }
@@ -368,10 +368,10 @@ namespace Nicenis
         public static WeakEventHandler operator -(WeakEventHandler weakEventHandler, EventHandler value)
         {
             if (weakEventHandler == null)
-                throw new ArgumentNullException("weakEventHandler");
+                throw new ArgumentNullException(nameof(weakEventHandler));
 
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
@@ -389,10 +389,10 @@ namespace Nicenis
         public static WeakEventHandler operator -(WeakEventHandler left, WeakEventHandler right)
         {
             if (left == null)
-                throw new ArgumentNullException("left");
+                throw new ArgumentNullException(nameof(left));
 
             if (right == null)
-                throw new ArgumentNullException("right");
+                throw new ArgumentNullException(nameof(right));
 
             return new WeakEventHandler(left._weakHandlerInfos.Remove(right._weakHandlerInfos));
         }
@@ -413,7 +413,7 @@ namespace Nicenis
         public void Add(EventHandler value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
@@ -433,7 +433,7 @@ namespace Nicenis
         public void Add(WeakEventHandler value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             _weakHandlerInfos = _weakHandlerInfos.Add(value._weakHandlerInfos);
         }
@@ -445,7 +445,7 @@ namespace Nicenis
         public void Remove(EventHandler value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
@@ -461,7 +461,7 @@ namespace Nicenis
         public void Remove(WeakEventHandler value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             _weakHandlerInfos = _weakHandlerInfos.Remove(value._weakHandlerInfos);
         }
@@ -526,10 +526,10 @@ namespace Nicenis
         public static WeakEventHandler<TEventArgs> operator +(WeakEventHandler<TEventArgs> weakEventHandler, EventHandler<TEventArgs> value)
         {
             if (weakEventHandler == null)
-                throw new ArgumentNullException("weakEventHandler");
+                throw new ArgumentNullException(nameof(weakEventHandler));
 
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
@@ -547,10 +547,10 @@ namespace Nicenis
         public static WeakEventHandler<TEventArgs> operator +(WeakEventHandler<TEventArgs> left, WeakEventHandler<TEventArgs> right)
         {
             if (left == null)
-                throw new ArgumentNullException("left");
+                throw new ArgumentNullException(nameof(left));
 
             if (right == null)
-                throw new ArgumentNullException("right");
+                throw new ArgumentNullException(nameof(right));
 
             return new WeakEventHandler<TEventArgs>(left._weakHandlerInfos.Add(right._weakHandlerInfos));
         }
@@ -564,10 +564,10 @@ namespace Nicenis
         public static WeakEventHandler<TEventArgs> operator -(WeakEventHandler<TEventArgs> weakEventHandler, EventHandler<TEventArgs> value)
         {
             if (weakEventHandler == null)
-                throw new ArgumentNullException("weakEventHandler");
+                throw new ArgumentNullException(nameof(weakEventHandler));
 
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
@@ -585,10 +585,10 @@ namespace Nicenis
         public static WeakEventHandler<TEventArgs> operator -(WeakEventHandler<TEventArgs> left, WeakEventHandler<TEventArgs> right)
         {
             if (left == null)
-                throw new ArgumentNullException("left");
+                throw new ArgumentNullException(nameof(left));
 
             if (right == null)
-                throw new ArgumentNullException("right");
+                throw new ArgumentNullException(nameof(right));
 
             return new WeakEventHandler<TEventArgs>(left._weakHandlerInfos.Remove(right._weakHandlerInfos));
         }
@@ -609,7 +609,7 @@ namespace Nicenis
         public void Add(EventHandler<TEventArgs> value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
@@ -629,7 +629,7 @@ namespace Nicenis
         public void Add(WeakEventHandler<TEventArgs> value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             _weakHandlerInfos = _weakHandlerInfos.Add(value._weakHandlerInfos);
         }
@@ -641,7 +641,7 @@ namespace Nicenis
         public void Remove(EventHandler<TEventArgs> value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
 #if !NICENIS_RT
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
@@ -657,7 +657,7 @@ namespace Nicenis
         public void Remove(WeakEventHandler<TEventArgs> value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             _weakHandlerInfos = _weakHandlerInfos.Remove(value._weakHandlerInfos);
         }
