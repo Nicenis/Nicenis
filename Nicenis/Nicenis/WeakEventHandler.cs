@@ -308,7 +308,11 @@ namespace Nicenis
                 if (weakHandlerInfo.MethodInfo.IsStatic)
                 {
                     // Collects as a delegate.
+#if !NICENIS_RT
+                    eventHandler += (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), weakHandlerInfo.MethodInfo);
+#else
                     eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(null, new object[] { s, e });
+#endif
                 }
                 else
                 {
@@ -327,7 +331,11 @@ namespace Nicenis
                     }
 
                     // Collects as a delegate.
+#if !NICENIS_RT
+                    eventHandler += (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), target, weakHandlerInfo.MethodInfo);
+#else
                     eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(target, new object[] { s, e });
+#endif
                 }
             }
 
@@ -380,7 +388,11 @@ namespace Nicenis
                 if (weakHandlerInfo.MethodInfo.IsStatic)
                 {
                     // Collects as a delegate.
+#if !NICENIS_RT
+                    eventHandler += (EventHandler<TEventArgs>)Delegate.CreateDelegate(typeof(EventHandler<TEventArgs>), weakHandlerInfo.MethodInfo);
+#else
                     eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(null, new object[] { s, e });
+#endif
                 }
                 else
                 {
@@ -399,7 +411,11 @@ namespace Nicenis
                     }
 
                     // Collects as a delegate.
+#if !NICENIS_RT
+                    eventHandler += (EventHandler<TEventArgs>)Delegate.CreateDelegate(typeof(EventHandler<TEventArgs>), target, weakHandlerInfo.MethodInfo);
+#else
                     eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(target, new object[] { s, e });
+#endif
                 }
             }
 
