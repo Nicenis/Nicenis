@@ -17,7 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Nicenis.ViewModel
+namespace Nicenis.ViewModels
 {
     /// <summary>
     /// Provides base implementation for view models.

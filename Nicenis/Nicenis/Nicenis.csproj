@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentModel\WatchableObject.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="WeakEventHandler.cs" />
     <Compile Include="Collections\StaticArray.cs" />
     <Compile Include="ComponentModel\IFreezable.cs" />
