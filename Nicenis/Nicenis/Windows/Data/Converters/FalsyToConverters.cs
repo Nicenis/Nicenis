@@ -166,8 +166,27 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if the input value is falsy; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The FalsyToVisibleHConverter class is recommended for new projects.")]
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class FalsyToVisibleOtherwiseHiddenConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Booleany.IsFalsy(value) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if the input value is falsy; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    [ValueConversion(typeof(object), typeof(Visibility))]
+    public class FalsyToVisibleHConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -290,7 +309,28 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if all input values are falsy; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The AllFalsyToVisibleHConverter class is recommended for new projects.")]
     public class AllFalsyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null)
+                throw new ArgumentNullException("values");
+
+            return values.All(p => Booleany.IsFalsy(p)) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if all input values are falsy; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    public class AllFalsyToVisibleHConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -416,7 +456,28 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if there is a falsy value in the input; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The AnyFalsyToVisibleHConverter class is recommended for new projects.")]
     public class AnyFalsyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null)
+                throw new ArgumentNullException("values");
+
+            return values.Any(p => Booleany.IsFalsy(p)) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if there is a falsy value in the input; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    public class AnyFalsyToVisibleHConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

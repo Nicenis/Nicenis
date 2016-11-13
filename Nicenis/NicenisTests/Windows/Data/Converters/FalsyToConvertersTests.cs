@@ -178,14 +178,14 @@ namespace NicenisTests.Windows.Data.Converters
     }
 
     [TestClass]
-    public class FalsyToVisibleOtherwiseHiddenConverterTests
+    public class FalsyToVisibleHConverterTests
     {
         [TestMethod]
         public void Convert_Check_Booleany_Truthy()
         {
             // arrange
             bool value = true;
-            IValueConverter converter = new FalsyToVisibleOtherwiseHiddenConverter();
+            IValueConverter converter = new FalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(value, typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -199,7 +199,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool value = false;
-            IValueConverter converter = new FalsyToVisibleOtherwiseHiddenConverter();
+            IValueConverter converter = new FalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(value, typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -510,14 +510,14 @@ namespace NicenisTests.Windows.Data.Converters
     }
 
     [TestClass]
-    public class AllFalsyToVisibleOtherwiseHiddenConverterTests
+    public class AllFalsyToVisibleHConverterTests
     {
         [TestMethod]
         public void Convert_Check_Booleany_Array_Empty()
         {
             // arrange
             bool[] values = new bool[0];
-            IMultiValueConverter converter = new AllFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AllFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -531,7 +531,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { true, true };
-            IMultiValueConverter converter = new AllFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AllFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -545,7 +545,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { false, false };
-            IMultiValueConverter converter = new AllFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AllFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -559,7 +559,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { true, false };
-            IMultiValueConverter converter = new AllFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AllFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -870,14 +870,14 @@ namespace NicenisTests.Windows.Data.Converters
     }
 
     [TestClass]
-    public class AnyFalsyToVisibleOtherwiseHiddenConverterTests
+    public class AnyFalsyToVisibleHConverterTests
     {
         [TestMethod]
         public void Convert_Check_Booleany_Array_Empty()
         {
             // arrange
             bool[] values = new bool[0];
-            IMultiValueConverter converter = new AnyFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AnyFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -891,7 +891,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { true, true };
-            IMultiValueConverter converter = new AnyFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AnyFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -905,7 +905,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { false, false };
-            IMultiValueConverter converter = new AnyFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AnyFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);
@@ -919,7 +919,7 @@ namespace NicenisTests.Windows.Data.Converters
         {
             // arrange
             bool[] values = new bool[] { true, false };
-            IMultiValueConverter converter = new AnyFalsyToVisibleOtherwiseHiddenConverter();
+            IMultiValueConverter converter = new AnyFalsyToVisibleHConverter();
 
             // act
             Visibility result = (Visibility)converter.Convert(values.Cast<object>().ToArray(), typeof(Visibility), null, Thread.CurrentThread.CurrentUICulture);

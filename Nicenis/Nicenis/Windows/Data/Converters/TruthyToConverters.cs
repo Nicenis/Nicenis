@@ -166,8 +166,27 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if the input value is truthy; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The TruthyToVisibleHConverter class is recommended for new projects.")]
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class TruthyToVisibleOtherwiseHiddenConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Booleany.IsTruthy(value) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if the input value is truthy; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    [ValueConversion(typeof(object), typeof(Visibility))]
+    public class TruthyToVisibleHConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -290,7 +309,28 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if all input values are truthy; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The AllTruthyToVisibleHConverter class is recommended for new projects.")]
     public class AllTruthyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null)
+                throw new ArgumentNullException("values");
+
+            return values.All(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if all input values are truthy; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    public class AllTruthyToVisibleHConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -416,7 +456,28 @@ namespace Nicenis.Windows.Data.Converters
     /// Returns Visibility.Visible if there is a truthy value in the input; otherwise, Visibility.Hidden.
     /// </summary>
     /// <seealso cref="Booleany.IsTruthy"/>
+    [Obsolete("The AnyTruthyToVisibleHConverter class is recommended for new projects.")]
     public class AnyTruthyToVisibleOtherwiseHiddenConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null)
+                throw new ArgumentNullException("values");
+
+            return values.Any(p => Booleany.IsTruthy(p)) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    /// <summary>
+    /// Returns Visibility.Visible if there is a truthy value in the input; otherwise, Visibility.Hidden.
+    /// </summary>
+    /// <seealso cref="Booleany.IsTruthy"/>
+    public class AnyTruthyToVisibleHConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
