@@ -66,7 +66,7 @@ namespace Nicenis
 
         public override bool Equals(object obj)
         {
-            WeakEventHandlerInfo info = obj as WeakEventHandlerInfo;
+            var info = obj as WeakEventHandlerInfo;
 
             return info != null
                 && info.WeakTarget.Target == WeakTarget.Target
@@ -289,177 +289,17 @@ namespace Nicenis
         #endregion
 
         /// <summary>
-        /// Gets event handlers from weak event handlers.
-        /// </summary>
-        /// <param name="weakHandlerInfos">The target weak event handler info collection.</param>
-        /// <returns>A result without garbage collected referneces.</returns>
-        public static ToEventHandlerResult ToEventHandler(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos)
-        {
-            if (weakHandlerInfos == null)
-                throw new ArgumentNullException(nameof(weakHandlerInfos));
-
-            List<WeakEventHandlerInfo> weakHandlerInfosToDelete = null;
-            EventHandler eventHandler = null;
-
-            // For each weak handler info...
-            foreach (var weakHandlerInfo in weakHandlerInfos)
-            {
-                // If the event handler is a static method...
-                if (weakHandlerInfo.MethodInfo.IsStatic)
-                {
-                    // Collects as a delegate.
-#if !NICENIS_RT
-                    eventHandler += (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), weakHandlerInfo.MethodInfo);
-#else
-                    eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(null, new object[] { s, e });
-#endif
-                }
-                else
-                {
-                    // Gets the strong reference.
-                    object target = weakHandlerInfo.WeakTarget.Target;
-
-                    // If it is garbage collected..
-                    if (target == null)
-                    {
-                        if (weakHandlerInfosToDelete == null)
-                            weakHandlerInfosToDelete = new List<WeakEventHandlerInfo>();
-
-                        // Collects the garbage collected event handler info.
-                        weakHandlerInfosToDelete.Add(weakHandlerInfo);
-                        continue;
-                    }
-
-                    // Collects as a delegate.
-#if !NICENIS_RT
-                    eventHandler += (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), target, weakHandlerInfo.MethodInfo);
-#else
-                    eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(target, new object[] { s, e });
-#endif
-                }
-            }
-
-            // If no event handler info is garbage collected..
-            if (weakHandlerInfosToDelete == null)
-                return new ToEventHandlerResult(weakHandlerInfos, eventHandler);
-
-            // If all event handlers are garbage collected..
-            int weakHandlerInfoCount = weakHandlerInfos.Count();
-            if (weakHandlerInfosToDelete.Count == weakHandlerInfoCount)
-                return new ToEventHandlerResult(Enumerable.Empty<WeakEventHandlerInfo>(), eventHandler);
-
-            var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfoCount - weakHandlerInfosToDelete.Count];
-            int index = 0;
-            foreach (var weakHandlerInfo in weakHandlerInfos)
-            {
-                // Skips the event handler info garbage collected
-                if (weakHandlerInfosToDelete.Contains(weakHandlerInfo))
-                    continue;
-
-                newWeakHandlerInfos[index++] = weakHandlerInfo;
-            }
-
-            // Returns the weak event handler info collection.
-            return new ToEventHandlerResult(newWeakHandlerInfos, eventHandler);
-        }
-
-        /// <summary>
-        /// Gets event handlers from weak event handlers.
-        /// </summary>
-        /// <param name="weakHandlerInfos">The target weak event handler info collection.</param>
-        /// <returns>A result without garbage collected referneces.</returns>
-        public static ToEventHandlerResult<TEventArgs> ToEventHandler<TEventArgs>(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos)
-#if !NICENIS_4C
-        where TEventArgs : class
-#else
-        where TEventArgs : EventArgs
-#endif
-        {
-            if (weakHandlerInfos == null)
-                throw new ArgumentNullException(nameof(weakHandlerInfos));
-
-            List<WeakEventHandlerInfo> weakHandlerInfosToDelete = null;
-            EventHandler<TEventArgs> eventHandler = null;
-
-            // For each weak handler info...
-            foreach (var weakHandlerInfo in weakHandlerInfos)
-            {
-                // If the event handler is a static method...
-                if (weakHandlerInfo.MethodInfo.IsStatic)
-                {
-                    // Collects as a delegate.
-#if !NICENIS_RT
-                    eventHandler += (EventHandler<TEventArgs>)Delegate.CreateDelegate(typeof(EventHandler<TEventArgs>), weakHandlerInfo.MethodInfo);
-#else
-                    eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(null, new object[] { s, e });
-#endif
-                }
-                else
-                {
-                    // Gets the strong reference.
-                    object target = weakHandlerInfo.WeakTarget.Target;
-
-                    // If it is garbage collected..
-                    if (target == null)
-                    {
-                        if (weakHandlerInfosToDelete == null)
-                            weakHandlerInfosToDelete = new List<WeakEventHandlerInfo>();
-
-                        // Collects the garbage collected event handler info.
-                        weakHandlerInfosToDelete.Add(weakHandlerInfo);
-                        continue;
-                    }
-
-                    // Collects as a delegate.
-#if !NICENIS_RT
-                    eventHandler += (EventHandler<TEventArgs>)Delegate.CreateDelegate(typeof(EventHandler<TEventArgs>), target, weakHandlerInfo.MethodInfo);
-#else
-                    eventHandler += (s, e) => weakHandlerInfo.MethodInfo.Invoke(target, new object[] { s, e });
-#endif
-                }
-            }
-
-            // If no event handler info is garbage collected..
-            if (weakHandlerInfosToDelete == null)
-                return new ToEventHandlerResult<TEventArgs>(weakHandlerInfos, eventHandler);
-
-            // If all event handlers are garbage collected..
-            int weakHandlerInfoCount = weakHandlerInfos.Count();
-            if (weakHandlerInfosToDelete.Count == weakHandlerInfoCount)
-                return new ToEventHandlerResult<TEventArgs>(Enumerable.Empty<WeakEventHandlerInfo>(), eventHandler);
-
-            var newWeakHandlerInfos = new WeakEventHandlerInfo[weakHandlerInfoCount - weakHandlerInfosToDelete.Count];
-            int index = 0;
-            foreach (var weakHandlerInfo in weakHandlerInfos)
-            {
-                // Skips the event handler info garbage collected
-                if (weakHandlerInfosToDelete.Contains(weakHandlerInfo))
-                    continue;
-
-                newWeakHandlerInfos[index++] = weakHandlerInfo;
-            }
-
-            // Returns the weak event handler info collection.
-            return new ToEventHandlerResult<TEventArgs>(newWeakHandlerInfos, eventHandler);
-        }
-
-        /// <summary>
-        /// Invokes event handlers.
+        /// Cleans up event handlers that the target objects are garbage collected.
         /// </summary>
         /// <param name="weakHandlerInfos">The target weak event handler info collection.</param>
         /// <param name="sender">The event sender.</param>
         /// <param name="args">The event arguments.</param>
+        /// <param name="invokeHandler">If this parameter is true, alive event handlers are invoked.</param>
         /// <returns>A new weak event handler info collection if garbage collected event handler infos are removed; otherwise the target weak event handler info collection.</returns>
-        public static IEnumerable<WeakEventHandlerInfo> Invoke(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, object sender, object args)
+        public static IEnumerable<WeakEventHandlerInfo> Cleanup(this IEnumerable<WeakEventHandlerInfo> weakHandlerInfos, object sender, object args, bool invokeHandler)
         {
             if (weakHandlerInfos == null)
                 throw new ArgumentNullException(nameof(weakHandlerInfos));
-
-            if (sender == null)
-                throw new ArgumentNullException(nameof(sender));
-
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
 
             List<WeakEventHandlerInfo> weakHandlerInfosToDelete = null;
 
@@ -470,7 +310,8 @@ namespace Nicenis
                 if (weakHandlerInfo.MethodInfo.IsStatic)
                 {
                     // Calls the event handler.
-                    weakHandlerInfo.MethodInfo.Invoke(null, new object[] { sender, args });
+                    if (invokeHandler)
+                        weakHandlerInfo.MethodInfo.Invoke(null, new object[] { sender, args });
                 }
                 else
                 {
@@ -489,7 +330,8 @@ namespace Nicenis
                     }
 
                     // Calls the event handler.
-                    weakHandlerInfo.MethodInfo.Invoke(target, new object[] { sender, args });
+                    if (invokeHandler)
+                        weakHandlerInfo.MethodInfo.Invoke(target, new object[] { sender, args });
                 }
             }
 
@@ -700,22 +542,21 @@ namespace Nicenis
         }
 
         /// <summary>
-        /// Gets event handlers that are strongly referenced.
-        /// </summary>
-        public EventHandler ToEventHandler()
-        {
-            var result = _weakHandlerInfos.ToEventHandler();
-            _weakHandlerInfos = result.WeakEventHandlerInfos;
-            return result.EventHandler;
-        }
-
-        /// <summary>
         /// Invokes event handlers.
         /// </summary>
         /// <param name="sender">The event sender.</param>
         public void Invoke(object sender)
         {
-            _weakHandlerInfos = _weakHandlerInfos.Invoke(sender, EventArgs.Empty);
+            _weakHandlerInfos = _weakHandlerInfos.Cleanup(sender, EventArgs.Empty, invokeHandler: true);
+        }
+
+        /// <summary>
+        /// Gets a cloned instance.
+        /// </summary>
+        public WeakEventHandler Clone()
+        {
+            _weakHandlerInfos = _weakHandlerInfos.Cleanup(null, EventArgs.Empty, invokeHandler: false);
+            return new WeakEventHandler(_weakHandlerInfos.ToArray());
         }
 
         #endregion
@@ -906,23 +747,22 @@ namespace Nicenis
         }
 
         /// <summary>
-        /// Gets event handlers that are strongly referenced.
-        /// </summary>
-        public EventHandler<TEventArgs> ToEventHandler()
-        {
-            var result = _weakHandlerInfos.ToEventHandler<TEventArgs>();
-            _weakHandlerInfos = result.WeakEventHandlerInfos;
-            return result.EventHandler;
-        }
-
-        /// <summary>
         /// Invokes event handlers.
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         public void Invoke(object sender, TEventArgs e)
         {
-            _weakHandlerInfos = _weakHandlerInfos.Invoke(sender, e);
+            _weakHandlerInfos = _weakHandlerInfos.Cleanup(sender, e, invokeHandler: true);
+        }
+
+        /// <summary>
+        /// Gets a cloned instance.
+        /// </summary>
+        public WeakEventHandler<TEventArgs> Clone()
+        {
+            _weakHandlerInfos = _weakHandlerInfos.Cleanup(null, EventArgs.Empty, invokeHandler: false);
+            return new WeakEventHandler<TEventArgs>(_weakHandlerInfos.ToArray());
         }
 
         #endregion

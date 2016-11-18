@@ -266,7 +266,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_One_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_One_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -274,15 +274,15 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _raiseCount++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_One_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_One_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -290,8 +290,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _raiseCount++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -314,7 +314,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_One_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_One_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -322,15 +322,15 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _staticRaiseCount++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_One_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_One_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -338,8 +338,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _staticRaiseCount++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -362,7 +362,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_One_Instance_Method()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_One_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -370,15 +370,15 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_RaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_One_Instance_Method()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_One_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -386,8 +386,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_RaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -410,7 +410,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_One_Static_Method()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_One_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -418,15 +418,15 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_StaticRaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_One_Static_Method()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_One_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -434,8 +434,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_StaticRaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -461,7 +461,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_Two_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_Two_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -471,8 +471,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _raiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -480,7 +480,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_Two_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_Two_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -490,8 +490,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _raiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -518,7 +518,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_Two_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_Two_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -528,8 +528,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _staticRaiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -537,7 +537,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_Two_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_Two_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -547,8 +547,8 @@ namespace NicenisTests
             weakEventHandler += (_, __) => _staticRaiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -575,7 +575,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_Two_Instance_Method()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_Two_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -585,8 +585,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_RaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -594,7 +594,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_Two_Instance_Method()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_Two_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -604,8 +604,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_RaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -632,7 +632,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Call_EventHandler_Added_By_Two_Static_Method()
+        public void Cloned_WeakEventHandler_Must_Call_EventHandler_Added_By_Two_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -642,8 +642,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -651,7 +651,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Call_EventHandler_Added_By_Two_Static_Method()
+        public void Cloned_WeakEventHandlerT_Must_Call_EventHandler_Added_By_Two_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -661,8 +661,8 @@ namespace NicenisTests
             weakEventHandler += EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -690,7 +690,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Does_Not_Support_Removing_EventHandler_By_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandler_Does_Not_Support_Removing_EventHandler_By_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -701,8 +701,8 @@ namespace NicenisTests
             weakEventHandler -= (_, __) => _raiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -710,7 +710,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Does_Not_Support_Removing_EventHandler_By_Inline_Instance_Lambda()
+        public void Cloned_WeakEventHandlerT_Does_Not_Support_Removing_EventHandler_By_Inline_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -721,8 +721,8 @@ namespace NicenisTests
             weakEventHandler -= (_, __) => _raiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -750,7 +750,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Does_Not_Support_Removing_EventHandler_By_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandler_Does_Not_Support_Removing_EventHandler_By_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -761,8 +761,8 @@ namespace NicenisTests
             weakEventHandler -= (_, __) => _staticRaiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -770,7 +770,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Does_Not_Support_Removing_EventHandler_By_Inline_Static_Lambda()
+        public void Cloned_WeakEventHandlerT_Does_Not_Support_Removing_EventHandler_By_Inline_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -781,8 +781,8 @@ namespace NicenisTests
             weakEventHandler -= (_, __) => _staticRaiseCount2++;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -812,7 +812,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_EventHandler_Removed_By_Instance_Lambda()
+        public void Cloned_Cloned_WeakEventHandler_Must_Not_Call_EventHandler_Removed_By_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -825,8 +825,8 @@ namespace NicenisTests
             weakEventHandler -= eventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -834,7 +834,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Instance_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Instance_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -847,8 +847,8 @@ namespace NicenisTests
             weakEventHandler -= eventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -878,7 +878,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_EventHandler_Removed_By_Static_Lambda()
+        public void Cloned_WeakEventHandler_Must_Not_Call_EventHandler_Removed_By_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -891,8 +891,8 @@ namespace NicenisTests
             weakEventHandler -= eventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -900,7 +900,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Static_Lambda()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Static_Lambda()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -913,8 +913,8 @@ namespace NicenisTests
             weakEventHandler -= eventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -942,7 +942,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_EventHandler_Removed_By_Instance_Method()
+        public void Cloned_WeakEventHandler_Must_Not_Call_EventHandler_Removed_By_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -953,8 +953,8 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_RaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -962,7 +962,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Instance_Method()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Instance_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -973,8 +973,8 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_RaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1002,7 +1002,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_EventHandler_Removed_By_Static_Method()
+        public void Cloned_WeakEventHandler_Must_Not_Call_EventHandler_Removed_By_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1013,8 +1013,8 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -1022,7 +1022,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Static_Method()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_EventHandler_Removed_By_Static_Method()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1033,8 +1033,8 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_StaticRaiseCount2;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_staticRaiseCount == 1);
@@ -1063,7 +1063,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_EventHandler_Removed_All()
+        public void Cloned_WeakEventHandler_Must_Not_Call_EventHandler_Removed_All()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1075,17 +1075,16 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_StaticRaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_raiseCount == 0);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_EventHandler_Removed_All()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_EventHandler_Removed_All()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1097,11 +1096,10 @@ namespace NicenisTests
             weakEventHandler -= EventHandler_Increase_StaticRaiseCount;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_raiseCount == 0);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
@@ -1126,7 +1124,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_Instance_Method_EventHandler_Removed_By_Garbage_Collector()
+        public void Cloned_WeakEventHandler_Must_Not_Call_Instance_Method_EventHandler_Removed_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1137,16 +1135,15 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_Instance_Method_EventHandler_Removed_By_Garbage_Collector()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_Instance_Method_EventHandler_Removed_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1157,11 +1154,10 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
 
@@ -1185,7 +1181,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Does_Not_Support_Removing_Static_Method_EventHandler_By_Garbage_Collector()
+        public void Cloned_WeakEventHandler_Does_Not_Support_Removing_Static_Method_EventHandler_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1196,16 +1192,15 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
-            Assert.IsTrue(eventHandlerToCall != null);
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Does_Not_Support_Removing_Static_Method_EventHandler_By_Garbage_Collector()
+        public void Cloned_WeakEventHandlerT_Does_Not_Support_Removing_Static_Method_EventHandler_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1216,11 +1211,10 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
-            Assert.IsTrue(eventHandlerToCall != null);
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
@@ -1244,7 +1238,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Not_Call_Instance_Lambda_EventHandler_Removed_By_Garbage_Collector()
+        public void Cloned_WeakEventHandler_Must_Not_Call_Instance_Lambda_EventHandler_Removed_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1255,16 +1249,15 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Not_Call_Instance_Lambda_EventHandler_Removed_By_Garbage_Collector()
+        public void Cloned_WeakEventHandlerT_Must_Not_Call_Instance_Lambda_EventHandler_Removed_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1275,11 +1268,10 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
-            Assert.IsTrue(eventHandlerToCall == null);
             Assert.IsTrue(_staticRaiseCount == 0);
         }
 
@@ -1303,7 +1295,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Does_Not_Support_Removing_Static_Lambda_EventHandler_By_Garbage_Collector()
+        public void Cloned_WeakEventHandler_Does_Not_Support_Removing_Static_Lambda_EventHandler_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler();
@@ -1314,16 +1306,15 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
-            Assert.IsTrue(eventHandlerToCall != null);
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Does_Not_Support_Removing_Static_Lambda_EventHandler_By_Garbage_Collector()
+        public void Cloned_WeakEventHandlerT_Does_Not_Support_Removing_Static_Lambda_EventHandler_By_Garbage_Collector()
         {
             // arrange
             var weakEventHandler = new WeakEventHandler<TestEventArgs>();
@@ -1334,11 +1325,10 @@ namespace NicenisTests
             GC.Collect();
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
-            Assert.IsTrue(eventHandlerToCall != null);
             Assert.IsTrue(_staticRaiseCount == 1);
         }
 
@@ -1372,7 +1362,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Support_Addition_Binary_Operator()
+        public void Cloned_WeakEventHandler_Support_Addition_Binary_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1390,8 +1380,8 @@ namespace NicenisTests
             var weakEventHandler3 = weakEventHandler1 + weakEventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler3.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler3.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1401,7 +1391,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Support_Addition_Binary_Operator()
+        public void Cloned_WeakEventHandlerT_Support_Addition_Binary_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1419,8 +1409,8 @@ namespace NicenisTests
             var weakEventHandler3 = weakEventHandler1 + weakEventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler3.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler3.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1459,7 +1449,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Support_Adding_WeakEventHandler()
+        public void Cloned_WeakEventHandler_Support_Adding_WeakEventHandler()
         {
             // arrange
             _raiseCount = 0;
@@ -1477,8 +1467,8 @@ namespace NicenisTests
             weakEventHandler.Add(weakEventHandlerToAdd);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1488,7 +1478,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Support_Adding_WeakEventHandler()
+        public void Cloned_WeakEventHandlerT_Support_Adding_WeakEventHandler()
         {
             // arrange
             _raiseCount = 0;
@@ -1506,8 +1496,8 @@ namespace NicenisTests
             weakEventHandler.Add(weakEventHandlerToAdd);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1553,7 +1543,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Support_Subtraction_Binary_Operator()
+        public void Cloned_WeakEventHandler_Support_Subtraction_Binary_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1578,8 +1568,8 @@ namespace NicenisTests
             var weakEventHandler3 = weakEventHandler1 - weakEventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler3.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler3.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1589,7 +1579,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Support_Subtraction_Binary_Operator()
+        public void Cloned_WeakEventHandlerT_Support_Subtraction_Binary_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1614,8 +1604,8 @@ namespace NicenisTests
             var weakEventHandler3 = weakEventHandler1 - weakEventHandler2;
 
             // act
-            var eventHandlerToCall = weakEventHandler3.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler3.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1661,7 +1651,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Support_Removing_WeakEventHandler()
+        public void Cloned_WeakEventHandler_Support_Removing_WeakEventHandler()
         {
             // arrange
             _raiseCount = 0;
@@ -1686,8 +1676,8 @@ namespace NicenisTests
             weakEventHandler.Remove(weakEventHandlerToRemove);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1697,7 +1687,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Support_Removing_WeakEventHandler()
+        public void Cloned_WeakEventHandlerT_Support_Removing_WeakEventHandler()
         {
             // arrange
             _raiseCount = 0;
@@ -1722,8 +1712,8 @@ namespace NicenisTests
             weakEventHandler.Remove(weakEventHandlerToRemove);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 1);
@@ -1753,7 +1743,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Remove_One_Handler_Per_One_Minus_Operator()
+        public void Cloned_WeakEventHandler_Must_Remove_One_Handler_Per_One_Minus_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1765,15 +1755,15 @@ namespace NicenisTests
             weakEventHandler -= eventHandler;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 2);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Remove_One_Handler_Per_One_Minus_Operator()
+        public void Cloned_WeakEventHandlerT_Must_Remove_One_Handler_Per_One_Minus_Operator()
         {
             // arrange
             _raiseCount = 0;
@@ -1785,8 +1775,8 @@ namespace NicenisTests
             weakEventHandler -= eventHandler;
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 2);
@@ -1819,7 +1809,7 @@ namespace NicenisTests
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandler_Must_Remove_Exact_Number_Of_Sepcified_Event_Handlers()
+        public void Cloned_WeakEventHandler_Must_Remove_Exact_Number_Of_Sepcified_Event_Handlers()
         {
             // arrange
             _raiseCount = 0;
@@ -1837,15 +1827,15 @@ namespace NicenisTests
             weakEventHandler.Remove(weakEventHandlerForRemove);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, EventArgs.Empty);
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this);
 
             // assert
             Assert.IsTrue(_raiseCount == 2);
         }
 
         [TestMethod]
-        public void WeakEventHandler_ToEventHandlerT_Must_Remove_Exact_Number_Of_Sepcified_Event_Handlers()
+        public void Cloned_WeakEventHandlerT_Must_Remove_Exact_Number_Of_Sepcified_Event_Handlers()
         {
             // arrange
             _raiseCount = 0;
@@ -1863,8 +1853,8 @@ namespace NicenisTests
             weakEventHandler.Remove(weakEventHandlerForRemove);
 
             // act
-            var eventHandlerToCall = weakEventHandler.ToEventHandler();
-            eventHandlerToCall?.Invoke(this, new TestEventArgs(1));
+            var cloned = weakEventHandler.Clone();
+            cloned.Invoke(this, new TestEventArgs(1));
 
             // assert
             Assert.IsTrue(_raiseCount == 2);
