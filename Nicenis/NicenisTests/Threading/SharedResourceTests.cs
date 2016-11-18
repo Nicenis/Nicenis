@@ -8,7 +8,11 @@
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
+#if !NICENIS_RT && !NICENIS_UWP
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#else
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 using Nicenis.Threading;
 using System;
 using System.Collections.Generic;
@@ -352,7 +356,7 @@ namespace NicenisTests.Threading
                     int[] segmentUserCounts = userCounts.Skip(actionIndex - segmentCount).Take(segmentCount).ToArray();
                     Assert.IsTrue(segmentStartCounters.All(p => p >= 1 && p <= maxConcurrentUserCount));
                     Assert.IsTrue(segmentEndCounters.All(p => p >= 0 && p <= maxConcurrentUserCount - 1));
-                    Assert.IsTrue(segmentUserCounts.All(p => p >= 1 && p <= maxMaxConcurrentUserCount));
+                    Assert.IsTrue(segmentUserCounts.All(p => p >= 0 && p <= maxMaxConcurrentUserCount));
                 }
             }
         }

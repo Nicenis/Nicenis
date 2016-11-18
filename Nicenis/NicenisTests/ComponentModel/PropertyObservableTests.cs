@@ -8,7 +8,11 @@
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */
 
+#if !NICENIS_RT && !NICENIS_UWP
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#else
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 using Nicenis.ComponentModel;
 using System;
 using System.Collections.Generic;

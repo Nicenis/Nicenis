@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisRT", "NicenisRT\Nice
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWP", "NicenisUWP\NicenisUWP.csproj", "{2EAB2640-ADA6-41A2-A730-63C31121BDCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWPTests", "NicenisUWPTests\NicenisUWPTests.csproj", "{A1404254-2FE0-4F43-9752-7FE1ACF464FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +179,26 @@ Global
 		{2EAB2640-ADA6-41A2-A730-63C31121BDCD}.Release|x64.Build.0 = Release|x64
 		{2EAB2640-ADA6-41A2-A730-63C31121BDCD}.Release|x86.ActiveCfg = Release|x86
 		{2EAB2640-ADA6-41A2-A730-63C31121BDCD}.Release|x86.Build.0 = Release|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|ARM.Build.0 = Debug|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|ARM.Deploy.0 = Debug|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x64.ActiveCfg = Debug|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x64.Build.0 = Debug|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x64.Deploy.0 = Debug|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x86.ActiveCfg = Debug|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x86.Build.0 = Debug|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Debug|x86.Deploy.0 = Debug|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|Any CPU.ActiveCfg = Release|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|ARM.ActiveCfg = Release|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|ARM.Build.0 = Release|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|ARM.Deploy.0 = Release|ARM
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x64.ActiveCfg = Release|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x64.Build.0 = Release|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x64.Deploy.0 = Release|x64
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.ActiveCfg = Release|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.Build.0 = Release|x86
+		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
