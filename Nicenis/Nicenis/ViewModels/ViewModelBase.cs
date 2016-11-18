@@ -24,7 +24,7 @@ namespace Nicenis.ViewModels
     /// </summary>
     public class ViewModelBase : PropertyObservable
     {
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
         /// <summary>
         /// Gets the related dispatcher.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Nicenis.ViewModels
         {
             get
             {
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
                 return Application.Current.Dispatcher;
 #else
                 return Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher;

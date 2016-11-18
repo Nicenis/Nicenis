@@ -410,7 +410,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
 #else
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.GetMethodInfo()));
@@ -448,7 +448,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
 #else
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.GetMethodInfo()));
@@ -490,7 +490,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
 #else
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.GetMethodInfo());
@@ -522,7 +522,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
 #else
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.GetMethodInfo());
@@ -615,7 +615,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
 #else
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.GetMethodInfo()));
@@ -653,7 +653,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
 #else
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.GetMethodInfo()));
@@ -695,7 +695,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
 #else
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.GetMethodInfo());
@@ -727,7 +727,7 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_RT
+#if !NICENIS_RT && !NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
 #else
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.GetMethodInfo());
