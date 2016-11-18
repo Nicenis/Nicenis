@@ -7,8 +7,8 @@
     <ProjectGuid>{2EAB2640-ADA6-41A2-A730-63C31121BDCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NicenisUWP</RootNamespace>
-    <AssemblyName>NicenisUWP</AssemblyName>
+    <RootNamespace>Nicenis</RootNamespace>
+    <AssemblyName>Nicenis</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
