@@ -17,9 +17,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-#if NICENIS_RT
-using RtWindow = Windows.UI.Xaml.Window;
-using RtDispatcher = Windows.UI.Core.CoreDispatcher;
+#if NICENIS_RT || NICENIS_UWP
+using TheWindow = Windows.UI.Xaml.Window;
+using TheDispatcher = Windows.UI.Core.CoreDispatcher;
 #endif
 
 namespace Nicenis.ViewModels
@@ -29,38 +29,28 @@ namespace Nicenis.ViewModels
     /// </summary>
     public class ViewModelBase : PropertyObservable
     {
-#if NICENIS_RT
+#if NICENIS_RT || NICENIS_UWP
         /// <summary>
         /// Gets the related dispatcher.
         /// </summary>
         /// <remarks>
-        /// If this property is not overriden, the CoreApplication.MainView.CoreWindow.Dispatcher is returned.
+        /// If this property is not overridden, the Windows.UI.Xaml.Window.Current.Dispatcher is returned.
         /// </remarks>
-        public virtual RtDispatcher Dispatcher
-#elif NICENIS_UWP
-        /// <summary>
-        /// Gets the related dispatcher.
-        /// </summary>
-        /// <remarks>
-        /// If this property is not overriden, the CoreApplication.MainView.CoreWindow.Dispatcher is returned.
-        /// </remarks>
-        public virtual Windows.UI.Core.CoreDispatcher Dispatcher
+        public virtual TheDispatcher Dispatcher
 #else
         /// <summary>
         /// Gets the related dispatcher.
         /// </summary>
         /// <remarks>
-        /// If this property is not overriden, the Application.Current.Dispatcher is returned.
+        /// If this property is not overridden, the Application.Current.Dispatcher is returned.
         /// </remarks>
         public virtual System.Windows.Threading.Dispatcher Dispatcher
 #endif
         {
             get
             {
-#if NICENIS_RT
-                return RtWindow.Current.Dispatcher;
-#elif NICENIS_UWP
-                return Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
+#if NICENIS_RT || NICENIS_UWP
+                return TheWindow.Current.Dispatcher;
 #else
                 return Application.Current.Dispatcher;
 #endif
