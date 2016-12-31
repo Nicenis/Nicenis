@@ -12,10 +12,12 @@ using System;
 using System.Diagnostics;
 
 #if NICENIS_RT || NICENIS_UWP
+using Windows.Foundation;
 using TheWindow = Windows.UI.Xaml.Window;
 using TheDispatcherTimer = Windows.UI.Xaml.DispatcherTimer;
 using TheDispatcherPriority = Windows.UI.Core.CoreDispatcherPriority;
 #else
+using System.Windows.Threading;
 using TheDispatcher = System.Windows.Threading.Dispatcher;
 using TheDispatcherTimer = System.Windows.Threading.DispatcherTimer;
 using TheDispatcherPriority = System.Windows.Threading.DispatcherPriority;
@@ -259,7 +261,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
         /// This method must be called in the thread that the dispatcher is associated with.
@@ -278,7 +280,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
         /// This method must be called in the thread that the dispatcher is associated with.
@@ -295,7 +297,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
         /// This method must be called in the thread that the dispatcher is associated with.
@@ -310,7 +312,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
         /// This method must be called in the thread that the dispatcher is associated with.
@@ -326,9 +328,39 @@ namespace Nicenis.Windows.Threading
 
         #region Public Methods
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public IAsyncAction StartAsync(Action action, TimeSpan delayTime)
+#else
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public DispatcherOperation StartAsync(Action action, TimeSpan delayTime)
+#endif
+        {
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action, delayTime));
+#else
+            return _dispatcher.InvokeAsync(() => StartImpl(action, delayTime), _delegatePriority);
+#endif
+        }
+#endif
+
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
         /// <param name="delayTime">Time to wait before executing the action.</param>
@@ -353,7 +385,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
         /// <param name="delayTime">Time to wait before executing the action.</param>
@@ -363,9 +395,37 @@ namespace Nicenis.Windows.Threading
             Start(action, delayTime);
         }
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        public IAsyncAction StartAsync(Action action)
+#else
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="action">The action to execute with delay.</param>
+        public DispatcherOperation StartAsync(Action action)
+#endif
+        {
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action));
+#else
+            return _dispatcher.InvokeAsync(() => StartImpl(action), _delegatePriority);
+#endif
+        }
+#endif
+
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
         public void Start(Action action)
@@ -389,7 +449,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="action">The action to execute with delay.</param>
         [Obsolete("Instead, use the Start method.")]
@@ -398,9 +458,34 @@ namespace Nicenis.Windows.Threading
             Start(action);
         }
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public IAsyncAction StartAsync(TimeSpan delayTime)
+#else
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        /// <param name="delayTime">Time to wait before executing the action.</param>
+        public DispatcherOperation StartAsync(TimeSpan delayTime)
+#endif
+        {
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(delayTime));
+#else
+            return _dispatcher.InvokeAsync(() => StartImpl(delayTime), _delegatePriority);
+#endif
+        }
+#endif
+
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="delayTime">Time to wait before executing the action.</param>
         public void Start(TimeSpan delayTime)
@@ -421,7 +506,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         /// <param name="delayTime">Time to wait before executing the action.</param>
         [Obsolete("Instead, use the Start method.")]
@@ -430,9 +515,32 @@ namespace Nicenis.Windows.Threading
             Start(delayTime);
         }
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        public IAsyncAction StartAsync()
+#else
+        /// <summary>
+        /// Starts a new delay execution asynchronously.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        public DispatcherOperation StartAsync()
+#endif
+        {
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl());
+#else
+            return _dispatcher.InvokeAsync(() => StartImpl(), _delegatePriority);
+#endif
+        }
+#endif
+
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         public void Start()
         {
@@ -452,7 +560,7 @@ namespace Nicenis.Windows.Threading
 
         /// <summary>
         /// Starts a new delay execution.
-        /// Previous waiting is canceled.
+        /// The previous waiting can be canceled.
         /// </summary>
         [Obsolete("Instead, use the Start method.")]
         public void Begin()
@@ -460,8 +568,41 @@ namespace Nicenis.Windows.Threading
             Start();
         }
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
+        /// <summary>
+        /// Starts a new delay execution asynchronously if it is not started.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        public IAsyncAction StartIfNotStartedAsync()
+#else
+        /// <summary>
+        /// Starts a new delay execution asynchronously if it is not started.
+        /// The previous waiting can be canceled.
+        /// </summary>
+        public DispatcherOperation StartIfNotStartedAsync()
+#endif
+        {
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () =>
+            {
+                if (IsEnabled == false)
+                    StartImpl();
+            });
+#else
+            return _dispatcher.InvokeAsync(() =>
+            {
+                if (IsEnabled == false)
+                    StartImpl();
+            }
+            , _delegatePriority);
+#endif
+        }
+#endif
+
         /// <summary>
         /// Starts a new delay execution if it is not started.
+        /// The previous waiting can be canceled.
         /// </summary>
         public void StartIfNotStarted()
         {
@@ -497,9 +638,32 @@ namespace Nicenis.Windows.Threading
             }
         }
 
+#if !NICENIS_4C
+#if NICENIS_RT || NICENIS_UWP
         /// <summary>
-        /// Cancels the waiting.
-        /// The action is not executed after this method is called.
+        /// Cancels waiting asynchronously if exists.
+        /// The action may not be not executed after this method is called.
+        /// </summary>
+        public IAsyncAction CancelAsync()
+#else
+        /// <summary>
+        /// Cancels waiting asynchronously if exists.
+        /// The action may not be not executed after this method is called.
+        /// </summary>
+        public DispatcherOperation CancelAsync()
+#endif
+        {
+#if NICENIS_RT || NICENIS_UWP
+            return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => _dispatcherTimer.Stop());
+#else
+            return _dispatcher.InvokeAsync(() => _dispatcherTimer.Stop(), _delegatePriority);
+#endif
+        }
+#endif
+
+        /// <summary>
+        /// Cancels waiting if exists.
+        /// The action may not executed after this method is called.
         /// </summary>
         public void Cancel()
         {
