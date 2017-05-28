@@ -17,7 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
 using TheWindow = Windows.UI.Xaml.Window;
 using TheDispatcher = Windows.UI.Core.CoreDispatcher;
 #endif
@@ -29,7 +29,7 @@ namespace Nicenis.ViewModels
     /// </summary>
     public class ViewModelBase : PropertyObservable
     {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Gets the related dispatcher.
         /// </summary>
@@ -49,7 +49,7 @@ namespace Nicenis.ViewModels
         {
             get
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 return TheWindow.Current.Dispatcher;
 #else
                 return Application.Current.Dispatcher;

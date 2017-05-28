@@ -33,55 +33,50 @@ namespace Nicenis
             if (value == null)
                 return false;
 
-            if (value is string)
-                return (string)value != "";
+            if (value is string stringValue)
+                return stringValue != "";
 
-            if (value is bool)
-                return (bool)value;
+            if (value is bool boolValue)
+                return boolValue;
 
-            if (value is int)
-                return (int)value != 0;
+            if (value is int intValue)
+                return intValue != 0;
 
-            if (value is double)
-            {
-                double doubleValue = (double)value;
+            if (value is double doubleValue)
                 return doubleValue != 0d && !double.IsNaN(doubleValue);
-            }
 
-            if (value is long)
-                return (long)value != 0L;
+            if (value is long longValue)
+                return longValue != 0L;
 
-            if (value is ICollection)
-                return ((ICollection)value).Count != 0;
+            if (value is ICollection collectionValue)
+                return collectionValue.Count != 0;
 
-            if (value is IEnumerable)
-                return ((IEnumerable)value).Cast<object>().Any();
+            if (value is IEnumerable enumerableValue)
+                return enumerableValue.Cast<object>().Any();
 
-#if !NICENIS_RT
             if (value is DBNull)
                 return false;
-#endif
 
             if (value is sbyte)
                 return (sbyte)value != 0;
 
-            if (value is byte)
-                return (byte)value != 0;
+            if (value is byte byteValue)
+                return byteValue != 0;
 
-            if (value is short)
-                return (short)value != 0;
+            if (value is short shortValue)
+                return shortValue != 0;
 
-            if (value is ushort)
-                return (ushort)value != 0;
+            if (value is ushort ushortValue)
+                return ushortValue != 0;
 
-            if (value is uint)
-                return (uint)value != 0;
+            if (value is uint uintValue)
+                return uintValue != 0;
 
-            if (value is float)
-                return (float)value != 0f;
+            if (value is float floatValue)
+                return floatValue != 0f;
 
-            if (value is decimal)
-                return (decimal)value != 0m;
+            if (value is decimal decimalValue)
+                return decimalValue != 0m;
 
             return true;
         }

@@ -11,7 +11,7 @@
 using System;
 using System.Diagnostics;
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
 using Windows.Foundation;
 using TheWindow = Windows.UI.Xaml.Window;
 using TheDispatcherTimer = Windows.UI.Xaml.DispatcherTimer;
@@ -23,7 +23,7 @@ using TheDispatcherTimer = System.Windows.Threading.DispatcherTimer;
 using TheDispatcherPriority = System.Windows.Threading.DispatcherPriority;
 #endif
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
 namespace Nicenis.Windows.UI.Core
 #else
 namespace Nicenis.Windows.Threading
@@ -37,7 +37,7 @@ namespace Nicenis.Windows.Threading
     /// </remarks>
     public class DelayInvoker
     {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         const TheDispatcherPriority DefaultDelegatePriority = TheDispatcherPriority.Normal;
 #else
         const TheDispatcherPriority DefaultDispatcherPriority = TheDispatcherPriority.Normal;
@@ -53,7 +53,7 @@ namespace Nicenis.Windows.Threading
 
         #region Constructors
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Initializes a new instance of the DelayInvoker class.
         /// </summary>
@@ -231,7 +231,7 @@ namespace Nicenis.Windows.Threading
 
         #region DispatcherTimer_Tick
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         private void DispatcherTimer_Tick(object sender, object e)
 #else
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -252,7 +252,7 @@ namespace Nicenis.Windows.Threading
         /// <returns>True if it is in the thread that the dispatcher is associated with; otherwise false.</returns>
         private bool IsInDispatcherThread()
         {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.HasThreadAccess;
 #else
             return _dispatcher.CheckAccess();
@@ -329,7 +329,7 @@ namespace Nicenis.Windows.Threading
         #region Public Methods
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
         /// The previous waiting can be canceled.
@@ -350,7 +350,7 @@ namespace Nicenis.Windows.Threading
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action, delayTime));
 #else
             return _dispatcher.InvokeAsync(() => StartImpl(action, delayTime), _delegatePriority);
@@ -375,7 +375,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action, delayTime)).GetResults();
 #else
                 _dispatcher.Invoke(() => StartImpl(action, delayTime), _delegatePriority);
@@ -396,7 +396,7 @@ namespace Nicenis.Windows.Threading
         }
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
         /// The previous waiting can be canceled.
@@ -415,7 +415,7 @@ namespace Nicenis.Windows.Threading
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action));
 #else
             return _dispatcher.InvokeAsync(() => StartImpl(action), _delegatePriority);
@@ -439,7 +439,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(action)).GetResults();
 #else
                 _dispatcher.Invoke(() => StartImpl(action), _delegatePriority);
@@ -459,7 +459,7 @@ namespace Nicenis.Windows.Threading
         }
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
         /// The previous waiting can be canceled.
@@ -475,7 +475,7 @@ namespace Nicenis.Windows.Threading
         public DispatcherOperation StartAsync(TimeSpan delayTime)
 #endif
         {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(delayTime));
 #else
             return _dispatcher.InvokeAsync(() => StartImpl(delayTime), _delegatePriority);
@@ -496,7 +496,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl(delayTime)).GetResults();
 #else
                 _dispatcher.Invoke(() => StartImpl(delayTime), _delegatePriority);
@@ -516,7 +516,7 @@ namespace Nicenis.Windows.Threading
         }
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
         /// The previous waiting can be canceled.
@@ -530,7 +530,7 @@ namespace Nicenis.Windows.Threading
         public DispatcherOperation StartAsync()
 #endif
         {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => StartImpl());
 #else
             return _dispatcher.InvokeAsync(() => StartImpl(), _delegatePriority);
@@ -550,7 +550,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, StartImpl).GetResults();
 #else
                 _dispatcher.Invoke(StartImpl, _delegatePriority);
@@ -569,7 +569,7 @@ namespace Nicenis.Windows.Threading
         }
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously if it is not started.
         /// The previous waiting can be canceled.
@@ -583,7 +583,7 @@ namespace Nicenis.Windows.Threading
         public DispatcherOperation StartIfNotStartedAsync()
 #endif
         {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () =>
             {
                 if (IsEnabled == false)
@@ -613,7 +613,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync
                 (
                     _delegatePriority,
@@ -639,7 +639,7 @@ namespace Nicenis.Windows.Threading
         }
 
 #if !NICENIS_4C
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
         /// <summary>
         /// Cancels waiting asynchronously if exists.
         /// The action may not be not executed after this method is called.
@@ -653,7 +653,7 @@ namespace Nicenis.Windows.Threading
         public DispatcherOperation CancelAsync()
 #endif
         {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
             return TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => _dispatcherTimer.Stop());
 #else
             return _dispatcher.InvokeAsync(() => _dispatcherTimer.Stop(), _delegatePriority);
@@ -673,7 +673,7 @@ namespace Nicenis.Windows.Threading
             }
             else
             {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                 TheWindow.Current.Dispatcher.RunAsync(_delegatePriority, () => _dispatcherTimer.Stop()).GetResults();
 #else
                 _dispatcher.Invoke(() => _dispatcherTimer.Stop(), _delegatePriority);
@@ -703,7 +703,7 @@ namespace Nicenis.Windows.Threading
                 }
                 else
                 {
-#if NICENIS_RT || NICENIS_UWP
+#if NICENIS_UWP
                     TheWindow.Current.Dispatcher.RunAsync
                     (
                         _delegatePriority,

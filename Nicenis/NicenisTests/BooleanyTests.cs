@@ -8,7 +8,7 @@
  * Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.
  */
 
-#if !NICENIS_RT && !NICENIS_UWP
+#if !NICENIS_UWP
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
