@@ -48,6 +48,8 @@ namespace NicenisTests.ComponentModel
     {
         #region ToPropertyName Test Related
 
+#pragma warning disable 0618    // Disables the warning for obsolete.
+
         private string PrivateProperty { get; set; }
         public string PublicProperty { get; set; }
         public virtual string PublicVirtualProperty { get; set; }
@@ -205,6 +207,8 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(expectedPropertyName, propertyName);
         }
+
+#pragma warning restore 0618    // Restores the warning for obsolete
 
         #endregion
 
@@ -1339,15 +1343,15 @@ namespace NicenisTests.ComponentModel
             [DataMember]
             public int TestValue
             {
-                get { return GetProperty<int>(ToPropertyName(() => TestValue)); }
-                set { SetProperty(value, ToPropertyName(() => TestValue)); }
+                get { return GetProperty<int>(nameof(TestValue)); }
+                set { SetProperty(value, nameof(TestValue)); }
             }
 
             [DataMember]
             public string TestString
             {
-                get { return GetProperty(ToPropertyName(() => TestString), getDefault: () => "Test String"); }
-                set { SetProperty(value, ToPropertyName(() => TestString)); }
+                get { return GetProperty(nameof(TestString), getDefault: () => "Test String"); }
+                set { SetProperty(value, nameof(TestString)); }
             }
         }
 

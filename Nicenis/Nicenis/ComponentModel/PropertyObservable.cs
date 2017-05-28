@@ -245,6 +245,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -284,6 +285,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -320,6 +322,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
@@ -353,6 +356,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
@@ -382,6 +386,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
@@ -408,6 +413,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
                 Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
                 Expression<Func<T5>> propertyExpression5)
@@ -431,6 +437,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
         {
@@ -450,6 +457,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
                 Expression<Func<T3>> propertyExpression3)
         {
@@ -466,6 +474,7 @@ namespace Nicenis.ComponentModel
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
         /// <returns>The property names extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
         {
             yield return ToPropertyName(propertyExpression);
@@ -478,6 +487,7 @@ namespace Nicenis.ComponentModel
         /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
         /// <param name="propertyExpression">The lambda expression that returns the property.</param>
         /// <returns>The property name extracted.</returns>
+        [Obsolete("The nameof operator should be used for performance.")]
         protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
             if (propertyExpression == null)
