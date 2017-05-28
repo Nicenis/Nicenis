@@ -58,9 +58,6 @@
     <Compile Include="..\Nicenis\ComponentModel\PropertyObservable.cs">
       <Link>ComponentModel\PropertyObservable.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ComponentModel\WatchableObject.cs">
-      <Link>ComponentModel\WatchableObject.cs</Link>
-    </Compile>
     <Compile Include="..\Nicenis\Disposable.cs">
       <Link>Disposable.cs</Link>
     </Compile>
