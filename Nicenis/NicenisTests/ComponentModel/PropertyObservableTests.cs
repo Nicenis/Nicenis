@@ -46,6 +46,169 @@ namespace NicenisTests.ComponentModel
     [TestClass]
     public class PropertyObservableTests : PropertyObservableTestsBase
     {
+        #region ToPropertyName Test Related
+
+        private string PrivateProperty { get; set; }
+        public string PublicProperty { get; set; }
+        public virtual string PublicVirtualProperty { get; set; }
+        public override string PublicOverridenProperty { get { return base.PublicOverridenProperty; } set { base.PublicOverridenProperty = value; } }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Private_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PrivateProperty";
+
+            // act
+            string propertyName = ToPropertyName(() => PrivateProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Public_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicProperty";
+
+            // act
+            string propertyName = ToPropertyName(() => PublicProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Public_Virtual_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicVirtualProperty";
+
+            // act
+            string propertyName = ToPropertyName(() => PublicVirtualProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Public_Overridden_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicOverridenProperty";
+
+            // act
+            string propertyName = ToPropertyName(() => PublicOverridenProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Multiple_Property_Names()
+        {
+            // arrange
+            string[] expectedPropertyNames =
+            {
+                "PrivateProperty",
+                "PublicProperty",
+                "PublicVirtualProperty",
+                "PublicOverridenProperty",
+            };
+
+            // act
+            IEnumerable<string> propertyNames = ToPropertyName
+            (
+                () => PrivateProperty,
+                () => PublicProperty,
+                () => PublicVirtualProperty,
+                () => PublicOverridenProperty
+            );
+
+            // assert
+            Assert.IsTrue(Enumerable.SequenceEqual(expectedPropertyNames, propertyNames));
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Property_In_Other_Instance()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+
+            // act
+            string propertyName = ToPropertyName(() => sample.PublicProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        public PropertyObservableSample PublicNestedProperty { get; set; }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Nested_Property_In_Other_Instance()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+            sample.PublicNestedProperty = new PropertyObservableSample();
+
+            // act
+            string propertyName = ToPropertyName(() => sample.PublicNestedProperty.PublicProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        private static string PrivateStaticProperty { get; set; }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Private_Static_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PrivateStaticProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+
+            // act
+            string propertyName = ToPropertyName(() => PrivateStaticProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        public static string PublicStaticProperty { get; set; }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Public_Static_Property()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicStaticProperty";
+            PropertyObservableTests sample = new PropertyObservableTests();
+
+            // act
+            string propertyName = ToPropertyName(() => PublicStaticProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        [TestMethod]
+        public void ToPropertyName_Supports_Static_Property_In_Other_Class()
+        {
+            // arrange
+            const string expectedPropertyName = "PublicStaticProperty";
+
+            // act
+            string propertyName = ToPropertyName(() => PropertyObservableSample.PublicStaticProperty);
+
+            // assert
+            Assert.AreEqual(expectedPropertyName, propertyName);
+        }
+
+        #endregion
+
+
         #region GetProperty Test Related
 
         [TestMethod]
@@ -1176,15 +1339,15 @@ namespace NicenisTests.ComponentModel
             [DataMember]
             public int TestValue
             {
-                get { return GetProperty<int>(nameof(TestValue)); }
-                set { SetProperty(value, nameof(TestValue)); }
+                get { return GetProperty<int>(ToPropertyName(() => TestValue)); }
+                set { SetProperty(value, ToPropertyName(() => TestValue)); }
             }
 
             [DataMember]
             public string TestString
             {
-                get { return GetProperty(nameof(TestString), getDefault: () => "Test String"); }
-                set { SetProperty(value, nameof(TestString)); }
+                get { return GetProperty(ToPropertyName(() => TestString), getDefault: () => "Test String"); }
+                set { SetProperty(value, ToPropertyName(() => TestString)); }
             }
         }
 

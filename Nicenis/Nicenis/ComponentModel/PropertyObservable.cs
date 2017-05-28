@@ -219,6 +219,280 @@ namespace Nicenis.ComponentModel
         #endregion
 
 
+        #region ToPropertyName Related
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T10">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression10">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9, Expression<Func<T10>> propertyExpression10)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+            yield return ToPropertyName(propertyExpression6);
+            yield return ToPropertyName(propertyExpression7);
+            yield return ToPropertyName(propertyExpression8);
+            yield return ToPropertyName(propertyExpression9);
+            yield return ToPropertyName(propertyExpression10);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T9">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression9">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8, Expression<Func<T9>> propertyExpression9)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+            yield return ToPropertyName(propertyExpression6);
+            yield return ToPropertyName(propertyExpression7);
+            yield return ToPropertyName(propertyExpression8);
+            yield return ToPropertyName(propertyExpression9);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T8">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression8">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7,
+                Expression<Func<T8>> propertyExpression8)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+            yield return ToPropertyName(propertyExpression6);
+            yield return ToPropertyName(propertyExpression7);
+            yield return ToPropertyName(propertyExpression8);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T7">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression7">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6, T7>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6, Expression<Func<T7>> propertyExpression7)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+            yield return ToPropertyName(propertyExpression6);
+            yield return ToPropertyName(propertyExpression7);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T6">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression6">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5, T6>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5, Expression<Func<T6>> propertyExpression6)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+            yield return ToPropertyName(propertyExpression6);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T5">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression5">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4, T5>(Expression<Func<T>> propertyExpression,
+                Expression<Func<T2>> propertyExpression2, Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4,
+                Expression<Func<T5>> propertyExpression5)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+            yield return ToPropertyName(propertyExpression5);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T4">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression4">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3, T4>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                Expression<Func<T3>> propertyExpression3, Expression<Func<T4>> propertyExpression4)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+            yield return ToPropertyName(propertyExpression4);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T3">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression3">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2, T3>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2,
+                Expression<Func<T3>> propertyExpression3)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+            yield return ToPropertyName(propertyExpression3);
+        }
+
+        /// <summary>
+        /// Enumerates property names extracted from the lambda expressions that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <typeparam name="T2">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <param name="propertyExpression2">The lambda expression that returns the property.</param>
+        /// <returns>The property names extracted.</returns>
+        protected static IEnumerable<string> ToPropertyName<T, T2>(Expression<Func<T>> propertyExpression, Expression<Func<T2>> propertyExpression2)
+        {
+            yield return ToPropertyName(propertyExpression);
+            yield return ToPropertyName(propertyExpression2);
+        }
+
+        /// <summary>
+        /// Returns the property name extracted from the lambda expression that return a property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property returned from the lambda expression.</typeparam>
+        /// <param name="propertyExpression">The lambda expression that returns the property.</param>
+        /// <returns>The property name extracted.</returns>
+        protected static string ToPropertyName<T>(Expression<Func<T>> propertyExpression)
+        {
+            if (propertyExpression == null)
+                throw new ArgumentNullException("propertyExpression");
+
+            var memberExpression = propertyExpression.Body as MemberExpression;
+            if (memberExpression == null)
+                throw new ArgumentException("The Body of the propertyExpression must be a member access expression.");
+
+            return memberExpression.Member.Name;
+        }
+
+        #endregion
+
+
         #region GetProperty/SetProperty Related
 
         #region Property Value Storage Related
