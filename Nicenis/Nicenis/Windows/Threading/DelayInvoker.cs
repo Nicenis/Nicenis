@@ -328,7 +328,6 @@ namespace Nicenis.Windows.Threading
 
         #region Public Methods
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
@@ -356,7 +355,6 @@ namespace Nicenis.Windows.Threading
             return _dispatcher.InvokeAsync(() => StartImpl(action, delayTime), _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Starts a new delay execution.
@@ -395,7 +393,6 @@ namespace Nicenis.Windows.Threading
             Start(action, delayTime);
         }
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
@@ -421,7 +418,6 @@ namespace Nicenis.Windows.Threading
             return _dispatcher.InvokeAsync(() => StartImpl(action), _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Starts a new delay execution.
@@ -458,7 +454,6 @@ namespace Nicenis.Windows.Threading
             Start(action);
         }
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
@@ -481,7 +476,6 @@ namespace Nicenis.Windows.Threading
             return _dispatcher.InvokeAsync(() => StartImpl(delayTime), _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Starts a new delay execution.
@@ -515,7 +509,6 @@ namespace Nicenis.Windows.Threading
             Start(delayTime);
         }
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously.
@@ -536,7 +529,6 @@ namespace Nicenis.Windows.Threading
             return _dispatcher.InvokeAsync(() => StartImpl(), _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Starts a new delay execution.
@@ -568,7 +560,6 @@ namespace Nicenis.Windows.Threading
             Start();
         }
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Starts a new delay execution asynchronously if it is not started.
@@ -598,7 +589,6 @@ namespace Nicenis.Windows.Threading
             , _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Starts a new delay execution if it is not started.
@@ -638,7 +628,6 @@ namespace Nicenis.Windows.Threading
             }
         }
 
-#if !NICENIS_4C
 #if NICENIS_UWP
         /// <summary>
         /// Cancels waiting asynchronously if exists.
@@ -659,7 +648,6 @@ namespace Nicenis.Windows.Threading
             return _dispatcher.InvokeAsync(() => _dispatcherTimer.Stop(), _delegatePriority);
 #endif
         }
-#endif
 
         /// <summary>
         /// Cancels waiting if exists.

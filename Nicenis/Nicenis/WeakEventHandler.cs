@@ -251,11 +251,7 @@ namespace Nicenis
         /// </summary>
         /// <typeparam name="TEventArgs"></typeparam>
         public class ToEventHandlerResult<TEventArgs>
-#if !NICENIS_4C
-        where TEventArgs : class
-#else
-        where TEventArgs : EventArgs
-#endif
+            where TEventArgs : class
         {
             #region Constructors
 
@@ -567,11 +563,7 @@ namespace Nicenis
     /// </summary>
     /// <typeparam name="TEventArgs">The event argument type.</typeparam>
     public class WeakEventHandler<TEventArgs>
-#if !NICENIS_4C
         where TEventArgs : class
-#else
-        where TEventArgs : EventArgs
-#endif
     {
         IEnumerable<WeakEventHandlerInfo> _weakHandlerInfos;
 

@@ -299,8 +299,6 @@ namespace NicenisTests.ComponentModel
             Assert.AreEqual(initializerCallCount, expectedInitializerCallCount);
         }
 
-#if !NICENIS_4C
-
         [TestMethod]
         public void GetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
         {
@@ -315,8 +313,6 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(testValue, value);
         }
-
-#endif
 
         #endregion
 
@@ -796,8 +792,6 @@ namespace NicenisTests.ComponentModel
         }
 
 
-#if !NICENIS_4C
-
         [TestMethod]
         public void SetProperty_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
         {
@@ -813,8 +807,6 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(testPropertyName, propertyNameInChanged);
         }
-
-#endif
 
         #endregion
 
@@ -1311,8 +1303,6 @@ namespace NicenisTests.ComponentModel
         }
 
 
-#if !NICENIS_4C
-
         [TestMethod]
         public void SetProperty_Local_Uses_CallerMemberName_If_PropertyName_Is_Not_Passed()
         {
@@ -1329,8 +1319,6 @@ namespace NicenisTests.ComponentModel
             // assert
             Assert.AreEqual(testPropertyName, propertyNameInChanged);
         }
-
-#endif
 
         #endregion
 

@@ -159,11 +159,7 @@ namespace NicenisTests
         }
 
         class WeakEventHandlerTest<TEventArgs>
-#if !NICENIS_4C
-        where TEventArgs : class
-#else
-        where TEventArgs : EventArgs
-#endif
+            where TEventArgs : class
         {
             WeakEventHandler<TEventArgs> _weakEventHandler;
             int _value = 0;
