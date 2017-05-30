@@ -9,17 +9,13 @@
  */
 
 using Nicenis.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 #if NICENIS_UWP
-using TheWindow = Windows.UI.Xaml.Window;
-using TheDispatcher = Windows.UI.Core.CoreDispatcher;
+using DispatcherType = Windows.UI.Core.CoreDispatcher;
+using MainDispatcherHolder = Windows.UI.Xaml.Window;
+#else
+using DispatcherType = System.Windows.Threading.Dispatcher;
+using MainDispatcherHolder = System.Windows.Application;
 #endif
 
 namespace Nicenis.ViewModels
@@ -29,32 +25,12 @@ namespace Nicenis.ViewModels
     /// </summary>
     public class ViewModelBase : PropertyObservable
     {
-#if NICENIS_UWP
         /// <summary>
         /// Gets the related dispatcher.
         /// </summary>
         /// <remarks>
-        /// If this property is not overridden, the Windows.UI.Xaml.Window.Current.Dispatcher is returned.
+        /// If this property is not overridden, the main UI thread's dispatcher is returned.
         /// </remarks>
-        public virtual TheDispatcher Dispatcher
-#else
-        /// <summary>
-        /// Gets the related dispatcher.
-        /// </summary>
-        /// <remarks>
-        /// If this property is not overridden, the Application.Current.Dispatcher is returned.
-        /// </remarks>
-        public virtual System.Windows.Threading.Dispatcher Dispatcher
-#endif
-        {
-            get
-            {
-#if NICENIS_UWP
-                return TheWindow.Current.Dispatcher;
-#else
-                return Application.Current.Dispatcher;
-#endif
-            }
-        }
+        public virtual DispatcherType Dispatcher => MainDispatcherHolder.Current.Dispatcher;
     }
 }
