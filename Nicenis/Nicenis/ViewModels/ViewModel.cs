@@ -23,7 +23,7 @@ namespace Nicenis.ViewModels
     /// <summary>
     /// Provides base implementation for view models.
     /// </summary>
-    public class ViewModelBase : PropertyObservable
+    public class ViewModel : PropertyObservable
     {
         /// <summary>
         /// Gets the related dispatcher.
