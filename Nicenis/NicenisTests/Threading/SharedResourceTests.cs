@@ -3,7 +3,7 @@
  * Since    2014.12.17
  *
  * This file is a part of the Nicenis project.
- * https://nicenis.codeplex.com
+ * https://github.com/nicenis/nicenis
  * 
  * Copyright (C) 2014 JO Hyeong-Ryeol. All rights reserved.
  */

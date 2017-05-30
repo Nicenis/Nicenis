@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Nicenis Library WatchableObject Performance Test")]
-[assembly: AssemblyDescription("https://nicenis.codeplex.com")]
+[assembly: AssemblyDescription("https://github.com/nicenis/nicenis")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Nicenis")]

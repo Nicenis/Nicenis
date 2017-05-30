@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("Nicenis Library")]
-[assembly: AssemblyDescription("https://nicenis.codeplex.com")]
+[assembly: AssemblyDescription("https://github.com/nicenis/nicenis")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Nicenis")]
