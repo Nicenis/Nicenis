@@ -249,7 +249,7 @@ namespace Nicenis.Windows.Threading
         /// <summary>
         /// Checks whether the current thread is the thread that the dispatcher is associated with.
         /// </summary>
-        /// <returns>True if it is in the thread that the dispatcher is associated with; otherwise false.</returns>
+        /// <returns>True if it is on the thread that the Dispatcher is associated with; otherwise false.</returns>
         private bool IsInDispatcherThread()
         {
 #if NICENIS_UWP
@@ -264,7 +264,7 @@ namespace Nicenis.Windows.Threading
         /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
-        /// This method must be called in the thread that the dispatcher is associated with.
+        /// This method must be called on the thread that the Dispatcher is associated with.
         /// </remarks>
         /// <param name="action">The action to execute with delay.</param>
         /// <param name="delayTime">Time to wait before executing the action.</param>
@@ -283,7 +283,7 @@ namespace Nicenis.Windows.Threading
         /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
-        /// This method must be called in the thread that the dispatcher is associated with.
+        /// This method must be called on the thread that the Dispatcher is associated with.
         /// </remarks>
         /// <param name="action">The action to execute with delay.</param>
         private void StartImpl(Action action)
@@ -300,7 +300,7 @@ namespace Nicenis.Windows.Threading
         /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
-        /// This method must be called in the thread that the dispatcher is associated with.
+        /// This method must be called on the thread that the Dispatcher is associated with.
         /// </remarks>
         /// <param name="delayTime">Time to wait before executing the action.</param>
         private void StartImpl(TimeSpan delayTime)
@@ -315,7 +315,7 @@ namespace Nicenis.Windows.Threading
         /// The previous waiting is canceled.
         /// </summary>
         /// <remarks>
-        /// This method must be called in the thread that the dispatcher is associated with.
+        /// This method must be called on the thread that the Dispatcher is associated with.
         /// </remarks>
         private void StartImpl()
         {
