@@ -122,8 +122,14 @@
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ViewModels\ViewModel.cs">
-      <Link>ViewModels\ViewModel.cs</Link>
+    <Compile Include="..\Nicenis\ViewModels\CoordinatorViewModelBase.cs">
+      <Link>ViewModels\CoordinatorViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ViewModels\DispatcherViewModelBase.cs">
+      <Link>ViewModels\DispatcherViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ViewModels\ViewModelBase.cs">
+      <Link>ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\WeakEventHandler.cs">
       <Link>WeakEventHandler.cs</Link>
@@ -134,6 +140,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\NicenisUWP.rd.xml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

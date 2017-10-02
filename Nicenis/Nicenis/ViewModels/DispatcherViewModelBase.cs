@@ -1,14 +1,12 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
- * Since    2015.08.26
+ * Since    2017.10.02
  * 
  * This file is a part of the Nicenis project.
  * https://github.com/nicenis/nicenis
  * 
- * Copyright (C) 2015 JO Hyeong-Ryeol. All rights reserved.
+ * Copyright (C) 2017 JO Hyeong-Ryeol. All rights reserved.
  */
-
-using Nicenis.ComponentModel;
 
 #if NICENIS_UWP
 using DispatcherType = Windows.UI.Core.CoreDispatcher;
@@ -21,9 +19,9 @@ using MainDispatcherHolder = System.Windows.Application;
 namespace Nicenis.ViewModels
 {
     /// <summary>
-    /// Provides base implementation for view models.
+    /// Provides base implementation with a dispatcher for view models.
     /// </summary>
-    public class ViewModel : PropertyObservable
+    public abstract class DispatcherViewModelBase : ViewModelBase
     {
         /// <summary>
         /// Gets the related dispatcher.
