@@ -10,7 +10,7 @@
 
 using Nicenis.ComponentModel;
 
-namespace Nicenis.ViewModels
+namespace Nicenis.Windows.ViewModels
 {
     /// <summary>
     /// Provides base implementation for view models.

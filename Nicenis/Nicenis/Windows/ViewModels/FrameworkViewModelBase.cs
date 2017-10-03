@@ -22,7 +22,7 @@ using TheDispatcherOperation = System.Windows.Threading.DispatcherOperation;
 using TheDispatcherPriority = System.Windows.Threading.DispatcherPriority;
 #endif
 
-namespace Nicenis.ViewModels
+namespace Nicenis.Windows.ViewModels
 {
     /// <summary>
     /// Provides base framework implementation for view models.

@@ -16,7 +16,7 @@ using DispatcherType = System.Windows.Threading.Dispatcher;
 using MainDispatcherHolder = System.Windows.Application;
 #endif
 
-namespace Nicenis.ViewModels
+namespace Nicenis.Windows.ViewModels
 {
     /// <summary>
     /// Provides base implementation with a dispatcher for view models.

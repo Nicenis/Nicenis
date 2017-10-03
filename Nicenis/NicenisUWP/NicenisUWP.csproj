@@ -122,20 +122,20 @@
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ViewModels\DispatcherViewModelBase.cs">
-      <Link>ViewModels\DispatcherViewModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ViewModels\FrameworkViewModelBase.cs">
-      <Link>ViewModels\FrameworkViewModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Nicenis\ViewModels\ViewModelBase.cs">
-      <Link>ViewModels\ViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="..\Nicenis\WeakEventHandler.cs">
       <Link>WeakEventHandler.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\Windows\Threading\DelayInvoker.cs">
       <Link>Windows\UI\Core\DelayInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\Windows\ViewModels\DispatcherViewModelBase.cs">
+      <Link>Windows\ViewModels\DispatcherViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\Windows\ViewModels\FrameworkViewModelBase.cs">
+      <Link>Windows\ViewModels\FrameworkViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\Windows\ViewModels\ViewModelBase.cs">
+      <Link>Windows\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\NicenisUWP.rd.xml" />
