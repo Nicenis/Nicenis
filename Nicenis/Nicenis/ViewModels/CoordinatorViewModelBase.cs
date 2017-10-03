@@ -169,37 +169,5 @@ namespace Nicenis.ViewModels
 #endif
             _invokeAction = null;
         }
-
-        /// <summary>
-        /// Posts a PropertyChanged event after cancelling previous posts.
-        /// This method must be called on the thread that the Dispatcher is associated with.
-        /// </summary>
-        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
-        protected void PostPropertyChangedAfterCancel([CallerMemberName] string propertyName = null)
-        {
-            CancelPostPropertyChanged();
-            PostPropertyChanged(propertyName);
-        }
-
-        /// <summary>
-        /// Posts PropertyChanged events after cancelling previous posts.
-        /// This method must be called on the thread that the Dispatcher is associated with.
-        /// </summary>
-        /// <param name="propertyNames">The property names that changed.</param>
-        protected void PostPropertyChangedAfterCancel(IEnumerable<string> propertyNames)
-        {
-            CancelPostPropertyChanged();
-            PostPropertyChanged(propertyNames);
-        }
-
-        /// <summary>
-        /// Posts PropertyChanged events after cancelling previous posts.
-        /// This method must be called on the thread that the Dispatcher is associated with.
-        /// </summary>
-        /// <param name="propertyNames">The property names that changed.</param>
-        protected void PostPropertyChangedAfterCancel(params string[] propertyNames)
-        {
-            PostPropertyChangedAfterCancel((IEnumerable<string>)propertyNames);
-        }
     }
 }
