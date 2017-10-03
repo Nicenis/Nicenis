@@ -24,9 +24,9 @@ using TheDispatcherPriority = System.Windows.Threading.DispatcherPriority;
 namespace Nicenis.ViewModels
 {
     /// <summary>
-    /// Provides base implementation with coordination related codes for view models.
+    /// Provides base framework implementation for view models.
     /// </summary>
-    public abstract class CoordinatorViewModelBase : DispatcherViewModelBase
+    public abstract class FrameworkViewModelBase : DispatcherViewModelBase
     {
         #region Helpers
 

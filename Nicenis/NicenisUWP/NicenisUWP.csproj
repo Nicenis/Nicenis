@@ -122,11 +122,11 @@
     <Compile Include="..\Nicenis\Threading\SharedResource.cs">
       <Link>Threading\SharedResource.cs</Link>
     </Compile>
-    <Compile Include="..\Nicenis\ViewModels\CoordinatorViewModelBase.cs">
-      <Link>ViewModels\CoordinatorViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="..\Nicenis\ViewModels\DispatcherViewModelBase.cs">
       <Link>ViewModels\DispatcherViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Nicenis\ViewModels\FrameworkViewModelBase.cs">
+      <Link>ViewModels\FrameworkViewModelBase.cs</Link>
     </Compile>
     <Compile Include="..\Nicenis\ViewModels\ViewModelBase.cs">
       <Link>ViewModels\ViewModelBase.cs</Link>
