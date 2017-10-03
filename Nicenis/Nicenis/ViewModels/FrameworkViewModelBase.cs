@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 #if NICENIS_UWP
@@ -125,6 +126,9 @@ namespace Nicenis.ViewModels
         protected void PostPropertyChanged(IEnumerable<string> propertyNames)
         {
             Debug.Assert(propertyNames != null);
+
+            if (propertyNames.Any() == false)
+                return;
 
             if (_postedPropertyNames == null)
             {
