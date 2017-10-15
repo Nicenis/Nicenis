@@ -1,0 +1,23 @@
+﻿<!--
+    Author  JO Hyeong-Ryeol
+    Since   2017.10.15
+
+    This file is a part of the Nicenis project.
+    https://github.com/nicenis/nicenis
+
+    Copyright (C) 2017 JO Hyeong-Ryeol. All rights reserved.
+-->
+
+<Window
+    x:Class="NicenisGuiTests.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:NicenisGuiTests"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="600" Width="800"
+    Loaded="Window_Loaded"
+    >
+    <TextBox x:Name="logTextBox" IsReadOnly="True" AcceptsReturn="True" />
+</Window>

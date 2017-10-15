@@ -1879,7 +1879,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -3629,7 +3629,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -5336,7 +5336,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -7095,7 +7095,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -8802,7 +8802,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -10561,7 +10561,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }
@@ -12268,7 +12268,7 @@
       },
       "NicenisUWP/1.0.0": {
         "type": "project",
-        "framework": "UAP,Version=v10.0.10586",
+        "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
         }

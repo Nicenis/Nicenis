@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nicenis", "Nicenis\Nicenis.csproj", "{DD0939A8-E685-4803-A170-946E43139A78}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWP", "NicenisUWP\NicenisUWP.csproj", "{2EAB2640-ADA6-41A2-A730-63C31121BDCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWPTests", "NicenisUWPTests\NicenisUWPTests.csproj", "{A1404254-2FE0-4F43-9752-7FE1ACF464FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUwpGuiTests", "NicenisUwpGuiTests\NicenisUwpGuiTests.csproj", "{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisGuiTests", "NicenisGuiTests\NicenisGuiTests.csproj", "{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,8 +131,47 @@ Global
 		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.ActiveCfg = Release|x86
 		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.Build.0 = Release|x86
 		{A1404254-2FE0-4F43-9752-7FE1ACF464FC}.Release|x86.Deploy.0 = Release|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|ARM.Build.0 = Debug|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|ARM.Deploy.0 = Debug|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x64.ActiveCfg = Debug|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x64.Build.0 = Debug|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x64.Deploy.0 = Debug|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x86.ActiveCfg = Debug|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x86.Build.0 = Debug|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Debug|x86.Deploy.0 = Debug|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|Any CPU.ActiveCfg = Release|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|ARM.ActiveCfg = Release|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|ARM.Build.0 = Release|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|ARM.Deploy.0 = Release|ARM
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x64.ActiveCfg = Release|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x64.Build.0 = Release|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x64.Deploy.0 = Release|x64
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x86.ActiveCfg = Release|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x86.Build.0 = Release|x86
+		{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}.Release|x86.Deploy.0 = Release|x86
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|x64.Build.0 = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Debug|x86.Build.0 = Debug|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|ARM.Build.0 = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x64.ActiveCfg = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x64.Build.0 = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x86.ActiveCfg = Release|Any CPU
+		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C590A40-E281-437C-A8EC-F9DDC02AE431}
 	EndGlobalSection
 EndGlobal
