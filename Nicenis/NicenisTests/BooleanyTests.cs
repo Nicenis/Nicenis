@@ -8,10 +8,10 @@
  * Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.
  */
 
-#if !NICENIS_UWP
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-#else
+#if NICENIS_UWP
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 using Nicenis;
 using System;
