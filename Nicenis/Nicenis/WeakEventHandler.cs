@@ -406,10 +406,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
-#else
+#if NICENIS_UWP
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.GetMethodInfo()));
+#else
+            return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
 #endif
         }
 
@@ -444,10 +444,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
-#else
+#if NICENIS_UWP
             return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.GetMethodInfo()));
+#else
+            return new WeakEventHandler(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
 #endif
         }
 
@@ -486,10 +486,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
-#else
+#if NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.GetMethodInfo());
+#else
+            _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
 #endif
         }
 
@@ -518,10 +518,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
-#else
+#if NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.GetMethodInfo());
+#else
+            _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
 #endif
         }
 
@@ -607,10 +607,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
-#else
+#if NICENIS_UWP
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.GetMethodInfo()));
+#else
+            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));            
 #endif
         }
 
@@ -645,10 +645,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
-#else
+#if NICENIS_UWP
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.GetMethodInfo()));
+#else
+            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Remove(value.Target, value.Method));
 #endif
         }
 
@@ -687,10 +687,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
-#else
+#if NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.GetMethodInfo());
+#else
+            _weakHandlerInfos = _weakHandlerInfos.Add(value.Target, value.Method);
 #endif
         }
 
@@ -719,10 +719,10 @@ namespace Nicenis
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-#if !NICENIS_UWP
-            _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
-#else
+#if NICENIS_UWP
             _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.GetMethodInfo());
+#else
+            _weakHandlerInfos = _weakHandlerInfos.Remove(value.Target, value.Method);
 #endif
         }
 
