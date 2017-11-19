@@ -135,15 +135,15 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NicenisUWP\NicenisUWP.csproj">
-      <Project>{2eab2640-ada6-41a2-a730-63c31121bdcd}</Project>
-      <Name>NicenisUWP</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.UnitTestFramework">
       <HintPath>C:\Program Files (x86)\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\MSTestFramework.Universal\15.0\References\CommonConfiguration\neutral\Microsoft.VisualStudio.TestPlatform.UnitTestFramework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NicenisUWP\NicenisUwp.csproj">
+      <Project>{2eab2640-ada6-41a2-a730-63c31121bdcd}</Project>
+      <Name>NicenisUwp</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

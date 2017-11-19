@@ -19,5 +19,5 @@
     Title="MainWindow" Height="600" Width="800"
     Loaded="Window_Loaded"
     >
-    <TextBox x:Name="logTextBox" IsReadOnly="True" AcceptsReturn="True" />
+    <TextBox x:Name="logTextBox" IsReadOnly="True" AcceptsReturn="True" Margin="10" />
 </Window>

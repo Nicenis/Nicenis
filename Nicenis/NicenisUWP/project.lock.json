@@ -15614,9 +15614,9 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUWP.csproj",
-      "projectName": "NicenisUWP",
-      "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUWP.csproj",
+      "projectUniqueName": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUwp.csproj",
+      "projectName": "NicenisUwp",
+      "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUwp.csproj",
       "projectJsonPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\project.json",
       "packagesPath": "C:\\Users\\hyeon\\.nuget\\packages\\",
       "outputPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\obj\\",

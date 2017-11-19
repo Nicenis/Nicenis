@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 
-#if !NICENIS_UWP
-using System.Windows.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-#else
+#if NICENIS_UWP
 using Windows.UI.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+using System.Windows.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
 namespace NicenisGuiTests
@@ -36,7 +36,7 @@ namespace NicenisGuiTests
         {
             /// <summary>
             /// Appends a log message asynchronously.
-            /// This method is thread-safe.
+            /// This method must be thread-safe.
             /// </summary>
             /// <param name="log">A log message to append.</param>
             void AppendLogAsync(string log);
@@ -58,7 +58,7 @@ namespace NicenisGuiTests
 
             public static void IsTrue(bool value, [CallerMemberName] string name = null)
             {
-                AppendLog(string.Format("{0} - {1}", name, value ? "success" : "fail"));
+                AppendLog(string.Format("{0}: {1}", name, value ? "success" : "fail"));
             }
         }
 
@@ -102,6 +102,16 @@ namespace NicenisGuiTests
                             break;
                     }
                 }
+
+                public void PostPropertyChangedExplicitly(params string[] propertyNames)
+                {
+                    PostPropertyChanged(propertyNames);
+                }
+
+                public void CancelPropertyChangedExplicitly()
+                {
+                    CancelPostPropertyChanged();
+                }
             }
 
             #endregion
@@ -128,16 +138,46 @@ namespace NicenisGuiTests
             }
 
             [TestMethod]
-            public void PostPropertyChanged_Raise_PropertyChanged_Event_Asynchronously()
+            public async void PostPropertyChanged_Raise_PropertyChanged_Event_Asynchronously()
             {
                 // arrange
                 var viewModel = new TestViewModel();
 
                 // act
                 viewModel.IntValue1 = 1;
+                await Task.Delay(1000);
 
                 // assert
-                InvokeAsyncWithDispatcher(() => Helper.IsTrue(viewModel.IntValue1ChangeCount == 1));
+                Helper.IsTrue(viewModel.IntValue1ChangeCount == 1);
+            }
+
+            [TestMethod]
+            public async void PostPropertyChanged_Must_Not_Raise_Duplicated_PropertyChanged_Event()
+            {
+                // arrange
+                var viewModel = new TestViewModel();
+
+                // act
+                viewModel.PostPropertyChangedExplicitly(nameof(TestViewModel.IntValue1), nameof(TestViewModel.IntValue1));
+                await Task.Delay(1000);
+
+                // assert
+                Helper.IsTrue(viewModel.IntValue1ChangeCount == 1);
+            }
+
+            [TestMethod]
+            public async void PostPropertyChanged_Must_Cancel_PropertyChanged_Event_If_Requested()
+            {
+                // arrange
+                var viewModel = new TestViewModel();
+
+                // act
+                viewModel.IntValue1 = 1;
+                viewModel.CancelPropertyChangedExplicitly();
+                await Task.Delay(1000);
+
+                // assert
+                Helper.IsTrue(viewModel.IntValue1ChangeCount == 0);
             }
         }
 
@@ -153,15 +193,15 @@ namespace NicenisGuiTests
 
         public async Task RunAsync()
         {
-            var testClasses = GetType().GetNestedTypes(BindingFlags.NonPublic)
+            var testClasseTypes = GetType().GetNestedTypes(BindingFlags.NonPublic)
                                        .Where(p => p.GetTypeInfo().GetCustomAttributes(typeof(TestClassAttribute), inherit: true).Any())
                                        .ToArray();
 
-            foreach (var testClass in testClasses)
+            foreach (var testClass in testClasseTypes)
             {
                 var testInstance = Activator.CreateInstance(testClass);
-                var testMethods = testClass.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                                           .Where(p => p.GetCustomAttributes(typeof(TestMethodAttribute), inherit: true).Any())
+                var testMethods = testClass.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                                           .Where(p => p.CustomAttributes.Any(p2 => p2.AttributeType == typeof(TestMethodAttribute)))
                                            .ToArray();
 
                 foreach (var testMethod in testMethods)

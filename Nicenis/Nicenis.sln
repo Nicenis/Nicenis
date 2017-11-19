@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nicenis", "Nicenis\Nicenis.csproj", "{DD0939A8-E685-4803-A170-946E43139A78}"
 EndProject
@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisTests", "NicenisTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyObservablePerformanceTest", "WatchableObjectPerformanceTest\PropertyObservablePerformanceTest.csproj", "{643D3927-CED4-49E3-9C35-B19A7CB64A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWP", "NicenisUWP\NicenisUWP.csproj", "{2EAB2640-ADA6-41A2-A730-63C31121BDCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUwp", "NicenisUWP\NicenisUwp.csproj", "{2EAB2640-ADA6-41A2-A730-63C31121BDCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUWPTests", "NicenisUWPTests\NicenisUWPTests.csproj", "{A1404254-2FE0-4F43-9752-7FE1ACF464FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUwpTests", "NicenisUWPTests\NicenisUwpTests.csproj", "{A1404254-2FE0-4F43-9752-7FE1ACF464FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUwpGuiTests", "NicenisUwpGuiTests\NicenisUwpGuiTests.csproj", "{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}"
 EndProject

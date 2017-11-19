@@ -1877,7 +1877,7 @@
           }
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -3627,7 +3627,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -5334,7 +5334,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -7093,7 +7093,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -8800,7 +8800,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -10559,7 +10559,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -12266,7 +12266,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "NicenisUWP/1.0.0": {
+      "NicenisUwp/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10240",
         "dependencies": {
@@ -15651,10 +15651,10 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "NicenisUWP/1.0.0": {
+    "NicenisUwp/1.0.0": {
       "type": "project",
       "path": "../NicenisUWP/project.json",
-      "msbuildProject": "../NicenisUWP/NicenisUWP.csproj"
+      "msbuildProject": "../NicenisUWP/NicenisUwp.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -15668,9 +15668,9 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\NicenisUWPTests.csproj",
-      "projectName": "NicenisUWPTests",
-      "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\NicenisUWPTests.csproj",
+      "projectUniqueName": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\NicenisUwpTests.csproj",
+      "projectName": "NicenisUwpTests",
+      "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\NicenisUwpTests.csproj",
       "projectJsonPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\project.json",
       "packagesPath": "C:\\Users\\hyeon\\.nuget\\packages\\",
       "outputPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWPTests\\obj\\",
@@ -15686,8 +15686,8 @@
       "frameworks": {
         "uap10.0.10586": {
           "projectReferences": {
-            "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUWP.csproj": {
-              "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUWP.csproj"
+            "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUwp.csproj": {
+              "projectPath": "D:\\Private Works\\Nicenis\\Nicenis\\NicenisUWP\\NicenisUwp.csproj"
             }
           }
         }

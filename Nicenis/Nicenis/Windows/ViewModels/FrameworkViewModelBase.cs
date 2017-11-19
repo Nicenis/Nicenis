@@ -32,28 +32,25 @@ namespace Nicenis.Windows.ViewModels
         #region Helpers
 
         /// <summary>
-        /// The posted property names to notify change.
-        /// This property must be accessed on the thread that the Dispatcher is associated with.
+        /// The posted property names to notify changes.
+        /// This field must be accessed on the thread that the Dispatcher is associated with.
         /// </summary>
         List<string> _postedPropertyNames;
 
         /// <summary>
-        /// The action that raises events for the posted property names.
-        /// This property must be accessed on the thread that the Dispatcher is associated with.
+        /// The action that raises changed events for the posted property names.
+        /// This field must be accessed on the thread that the Dispatcher is associated with.
         /// </summary>
         TheDispatcherOperation _invokeAction;
 
         /// <summary>
-        /// Raises events for the posted property names.
+        /// Raises changed events for the posted property names.
         /// This method must be called on the thread that the Dispatcher is associated with.
         /// </summary>
         private void RaiseEventsForPostedPropertyNames()
         {
             Debug.Assert(_invokeAction != null);
 
-#if NICENIS_UWP
-            _invokeAction.Close();
-#endif
             _invokeAction = null;
 
             if (_postedPropertyNames == null)
@@ -66,7 +63,7 @@ namespace Nicenis.Windows.ViewModels
         }
 
         /// <summary>
-        /// Posts an action that raises events for the posted property names if required.
+        /// Posts an action that raises changed events for the posted property names if required.
         /// This method must be called on the thread that the Dispatcher is associated with.
         /// </summary>
         private void PostActionIfRequired()
@@ -106,8 +103,10 @@ namespace Nicenis.Windows.ViewModels
         {
             if (_postedPropertyNames == null)
             {
-                _postedPropertyNames = new List<string>();
-                _postedPropertyNames.Add(propertyName);
+                _postedPropertyNames = new List<string>
+                {
+                    propertyName
+                };
             }
             else
             {
@@ -131,17 +130,12 @@ namespace Nicenis.Windows.ViewModels
                 return;
 
             if (_postedPropertyNames == null)
-            {
                 _postedPropertyNames = new List<string>();
-                _postedPropertyNames.AddRange(propertyNames);
-            }
-            else
+
+            foreach (string propertyName in propertyNames)
             {
-                foreach (string propertyName in propertyNames)
-                {
-                    if (_postedPropertyNames.Contains(propertyName) == false)
-                        _postedPropertyNames.Add(propertyName);
-                }
+                if (_postedPropertyNames.Contains(propertyName) == false)
+                    _postedPropertyNames.Add(propertyName);
             }
 
             PostActionIfRequired();
