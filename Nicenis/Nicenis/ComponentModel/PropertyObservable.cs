@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Nicenis.ComponentModel
 {
     /// <summary>
-    /// Provides a base implementation for the INotifyPropertyChanged interface.
+    /// Provides a base implementation for the INotifyPropertyChanged interface with a property value storage.
     /// </summary>
     [DataContract]
     public class PropertyObservable : PropertyObservableCore
