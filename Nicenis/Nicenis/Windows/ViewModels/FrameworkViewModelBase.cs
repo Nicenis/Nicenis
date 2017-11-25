@@ -8,6 +8,8 @@
  * Copyright (C) 2017 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -89,6 +91,8 @@ namespace Nicenis.Windows.ViewModels
         #endregion
 
 
+        #region PostPropertyChanged Related
+
         /// <summary>
         /// The dispatcher priority to use to post.
         /// </summary>
@@ -167,5 +171,121 @@ namespace Nicenis.Windows.ViewModels
 #endif
             _invokeAction = null;
         }
+
+        #endregion
+
+
+        #region SetPropertyP Related
+
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed and the isHidden parameter is false, PropertyChanged events are posted for the property name and the related property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="propertyName">The property name. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="related">The related property names. Null is allowed.</param>
+        /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged event and posting PropertyChanged events.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected virtual bool SetPropertyP<T>(T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        {
+            return SetProperty
+            (
+                value: value,
+                propertyName: propertyName,
+                onChanging: p =>
+                {
+                    Debug.Assert(p is IPropertyValueChangingEventArgs);
+
+                    // Raises a PropertyValueChanging event.
+                    if (isHidden == false)
+                        OnPropertyValueChanging((IPropertyValueChangingEventArgs)p);
+
+                    // Calls the changing callback.
+                    onChanging?.Invoke(p);
+                },
+                onChanged: p =>
+                {
+                    // Calls the changed callback.
+                    onChanged?.Invoke(p);
+
+                    if (isHidden == false)
+                    {
+                        Debug.Assert(p is IPropertyValueChangedEventArgs);
+
+                        // Raises a PropertyValueChanged event.
+                        OnPropertyValueChanged((IPropertyValueChangedEventArgs)p);
+
+                        // Posts PropertyChanged events.
+                        PostPropertyChanged(p.PropertyName);
+                        if (related != null)
+                            PostPropertyChanged(related);
+                    }
+                },
+                related: related,
+                isHidden: true
+            );
+        }
+
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed and the isHidden parameter is false, PropertyChanged events are posted for the property name and the related property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="propertyName">The property name. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="related">The related property names.</param>
+        /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged event and posting PropertyChanged events.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected virtual bool SetPropertyP<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+        {
+            return SetProperty
+            (
+                storage: ref storage,
+                value: value,
+                propertyName: propertyName,
+                onChanging: p =>
+                {
+                    Debug.Assert(p is IPropertyValueChangingEventArgs);
+
+                    // Raises a PropertyValueChanging event.
+                    if (isHidden == false)
+                        OnPropertyValueChanging((IPropertyValueChangingEventArgs)p);
+
+                    // Calls the changing callback.
+                    onChanging?.Invoke(p);
+                },
+                onChanged: p =>
+                {
+                    // Calls the changed callback.
+                    onChanged?.Invoke(p);
+
+                    if (isHidden == false)
+                    {
+                        Debug.Assert(p is IPropertyValueChangedEventArgs);
+
+                        // Raises a PropertyValueChanged event.
+                        OnPropertyValueChanged((IPropertyValueChangedEventArgs)p);
+
+                        // Posts PropertyChanged events.
+                        PostPropertyChanged(p.PropertyName);
+                        if (related != null)
+                            PostPropertyChanged(related);
+                    }
+                },
+                related: related,
+                isHidden: true
+            );
+        }
+
+        #endregion
     }
 }
