@@ -14,9 +14,9 @@ using System.Windows.Threading;
 namespace Nicenis.Windows.Threading
 {
     /// <summary>
-    /// Provides utility methods for Dispatcher.
+    /// Provides extension methods for Dispatcher.
     /// </summary>
-    public static class DispatcherHelper
+    public static class DispatcherExtensions
     {
         #region BeginInvoke Related
 
