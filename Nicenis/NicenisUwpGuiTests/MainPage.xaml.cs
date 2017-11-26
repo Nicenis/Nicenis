@@ -36,7 +36,7 @@ namespace NicenisUwpGuiTests
         public MainPage()
         {
             this.InitializeComponent();
-            MainViewModel.Helper.SetLogWriter(this);
+            MainViewModel.Assert.SetLogWriter(this);
             DataContext = new MainViewModel();
         }
 

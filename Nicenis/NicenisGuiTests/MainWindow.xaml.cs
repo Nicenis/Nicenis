@@ -33,7 +33,7 @@ namespace NicenisGuiTests
         public MainWindow()
         {
             InitializeComponent();
-            MainViewModel.Helper.SetLogWriter(this);
+            MainViewModel.Assert.SetLogWriter(this);
             DataContext = new MainViewModel();
         }
 
