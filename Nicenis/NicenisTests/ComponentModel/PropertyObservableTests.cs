@@ -300,15 +300,15 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int testValue = 100;
             const string testPropertyName = "propertyName";
-            double? onChangingTicks = null;
-            double? onChangedTicks = null;
+            double? changingTicks = null;
+            double? changedTicks = null;
 
             // act
             SetProperty(testValue, testPropertyName, onChanging: p =>
             {
                 if (p.PropertyName == testPropertyName)
                 {
-                    onChangingTicks = DateTime.Now.Ticks;
+                    changingTicks = DateTime.Now.Ticks;
                     Thread.Sleep(10);
                 }
             },
@@ -316,15 +316,15 @@ namespace NicenisTests.ComponentModel
             {
                 if (p.PropertyName == testPropertyName)
                 {
-                    onChangedTicks = DateTime.Now.Ticks;
+                    changedTicks = DateTime.Now.Ticks;
                     Thread.Sleep(10);
                 }
             });
 
             // assert
-            Assert.IsTrue(onChangingTicks != null);
-            Assert.IsTrue(onChangedTicks != null);
-            Assert.IsTrue(onChangingTicks < onChangedTicks);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -444,30 +444,33 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
-            string propertyNameInChanging = null;
-            string propertyNameInChanged = null;
-            int checkValue = 0;
+            double? changingTicks = null;
+            double? changedTicks = null;
 
             // act
             PropertyValueChanging += (_, p) =>
             {
-                propertyNameInChanging = p.PropertyName;
-                checkValue = changingCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             PropertyValueChanged += (_, p) =>
             {
-                propertyNameInChanged = p.PropertyName;
-                checkValue = changedCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changedTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             SetProperty(testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == changedCheckValue);
-            Assert.IsTrue(propertyNameInChanging == testPropertyName);
-            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -518,30 +521,33 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
-            string propertyNameInChanging = null;
-            string propertyNameInChanged = null;
-            int checkValue = 0;
+            double? changingTicks = null;
+            double? changedTicks = null;
 
             // act
             PropertyValueChanging += (_, p) =>
             {
-                propertyNameInChanging = p.PropertyName;
-                checkValue = changingCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             PropertyChanged += (_, p) =>
             {
-                propertyNameInChanged = p.PropertyName;
-                checkValue = changedCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changedTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             SetProperty(testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == changedCheckValue);
-            Assert.IsTrue(propertyNameInChanging == testPropertyName);
-            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -628,17 +634,32 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int onChangingCheckValue = 300;
             const string testPropertyName = "propertyName";
-            int checkValue = 0;
+            double? changingTicks = null;
+            double? onChangingTicks = null;
 
             // act
-            PropertyValueChanging += (_, p) => checkValue = changingCheckValue;
-            SetProperty(testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue);
+            PropertyValueChanging += (_, p) =>
+            {
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
+            };
+            SetProperty(testValue, testPropertyName, onChanging: p =>
+            {
+                if (p.PropertyName == testPropertyName)
+                {
+                    onChangingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
+            });
 
             // assert
-            Assert.IsTrue(checkValue == onChangingCheckValue);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(onChangingTicks != null);
+            Assert.IsTrue(changingTicks < onChangingTicks);
         }
 
 
@@ -814,8 +835,8 @@ namespace NicenisTests.ComponentModel
             // arrange
             const int testValue = 100;
             const string testPropertyName = "propertyName";
-            double? onChangingTicks = null;
-            double? onChangedTicks = null;
+            double? changingTicks = null;
+            double? changedTicks = null;
             int value = 0;
 
             // act
@@ -823,7 +844,7 @@ namespace NicenisTests.ComponentModel
             {
                 if (p.PropertyName == testPropertyName)
                 {
-                    onChangingTicks = DateTime.Now.Ticks;
+                    changingTicks = DateTime.Now.Ticks;
                     Thread.Sleep(10);
                 }
             },
@@ -831,15 +852,15 @@ namespace NicenisTests.ComponentModel
             {
                 if (p.PropertyName == testPropertyName)
                 {
-                    onChangedTicks = DateTime.Now.Ticks;
+                    changedTicks = DateTime.Now.Ticks;
                     Thread.Sleep(10);
                 }
             });
 
             // assert
-            Assert.IsTrue(onChangingTicks != null);
-            Assert.IsTrue(onChangedTicks != null);
-            Assert.IsTrue(onChangingTicks < onChangedTicks);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -963,31 +984,34 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             int value = 0;
-            string propertyNameInChanging = null;
-            string propertyNameInChanged = null;
-            int checkValue = 0;
+            double? changingTicks = null;
+            double? changedTicks = null;
 
             // act
             PropertyValueChanging += (_, p) =>
             {
-                propertyNameInChanging = p.PropertyName;
-                checkValue = changingCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             PropertyValueChanged += (_, p) =>
             {
-                propertyNameInChanged = p.PropertyName;
-                checkValue = changedCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changedTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             SetProperty(ref value, testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == changedCheckValue);
-            Assert.IsTrue(propertyNameInChanging == testPropertyName);
-            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -1040,31 +1064,34 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int changedCheckValue = 300;
             const string testPropertyName = "propertyName";
             int value = 0;
-            string propertyNameInChanging = null;
-            string propertyNameInChanged = null;
-            int checkValue = 0;
+            double? changingTicks = null;
+            double? changedTicks = null;
 
             // act
             PropertyValueChanging += (_, p) =>
             {
-                propertyNameInChanging = p.PropertyName;
-                checkValue = changingCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             PropertyChanged += (_, p) =>
             {
-                propertyNameInChanged = p.PropertyName;
-                checkValue = changedCheckValue;
+                if (p.PropertyName == testPropertyName)
+                {
+                    changedTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
             };
             SetProperty(ref value, testValue, testPropertyName);
 
             // assert
-            Assert.IsTrue(checkValue == changedCheckValue);
-            Assert.IsTrue(propertyNameInChanging == testPropertyName);
-            Assert.IsTrue(propertyNameInChanged == testPropertyName);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(changedTicks != null);
+            Assert.IsTrue(changingTicks < changedTicks);
         }
 
 
@@ -1154,18 +1181,33 @@ namespace NicenisTests.ComponentModel
         {
             // arrange
             const int testValue = 100;
-            const int changingCheckValue = 200;
-            const int onChangingCheckValue = 300;
             const string testPropertyName = "propertyName";
+            double? changingTicks = null;
+            double? onChangingTicks = null;
             int value = 0;
-            int checkValue = 0;
 
             // act
-            PropertyValueChanging += (_, p) => checkValue = changingCheckValue;
-            SetProperty(ref value, testValue, testPropertyName, onChanging: p => checkValue = onChangingCheckValue);
+            PropertyValueChanging += (_, p) =>
+            {
+                if (p.PropertyName == testPropertyName)
+                {
+                    changingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
+            };
+            SetProperty(ref value, testValue, testPropertyName, onChanging: p =>
+            {
+                if (p.PropertyName == testPropertyName)
+                {
+                    onChangingTicks = DateTime.Now.Ticks;
+                    Thread.Sleep(10);
+                }
+            });
 
             // assert
-            Assert.IsTrue(checkValue == onChangingCheckValue);
+            Assert.IsTrue(changingTicks != null);
+            Assert.IsTrue(onChangingTicks != null);
+            Assert.IsTrue(changingTicks < onChangingTicks);
         }
 
 
