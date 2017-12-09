@@ -14,6 +14,6 @@ using System.Windows;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: ComVisible(false)]
 [assembly: Guid("0f181606-ad59-4b08-b80c-be53b781c9e6")]
-[assembly: AssemblyVersion("1.2.2")]
+[assembly: AssemblyVersion("1.3.0")]
 
 [assembly: InternalsVisibleToAttribute("NicenisTests")]
