@@ -1,0 +1,1 @@
+nuget.exe pack Nicenis.csproj -Prop Configuration=Release
