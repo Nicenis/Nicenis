@@ -12,6 +12,6 @@
     <description>Nicenis is a small library especially for the Windows Presentation Foundation.</description>
     <releaseNotes>The first Nuget package.</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>wpf mvvm</tags>
+    <tags>WPF MVVM</tags>
   </metadata>
 </package>
