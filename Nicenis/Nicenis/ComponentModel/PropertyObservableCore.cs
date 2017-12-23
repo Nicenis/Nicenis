@@ -4,6 +4,7 @@
  * 
  * This file is a part of the Nicenis project.
  * https://github.com/nicenis/nicenis
+ * Originated from PropertyObservable.cs.
  * 
  * Copyright (C) 2017 JO Hyeong-Ryeol. All rights reserved.
  */
