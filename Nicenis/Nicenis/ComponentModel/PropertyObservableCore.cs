@@ -408,6 +408,15 @@ namespace Nicenis.ComponentModel
         }
 
         /// <summary>
+        /// Raises a PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
+        protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
         /// Raises PropertyChanged events.
         /// </summary>
         /// <param name="propertyNames">The property names that changed.</param>
