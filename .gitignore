@@ -153,3 +153,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /Nicenis/.vs
+/Nicenis/NicenisUWP/project.lock.json
+/Nicenis/NicenisUWPTests/project.lock.json
