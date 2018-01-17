@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentModel\PropertyObservableCore.cs" />
+    <Compile Include="Windows\Controls\VoidToggleButton.cs" />
     <Compile Include="Windows\ViewModels\FrameworkViewModelBase.cs" />
     <Compile Include="Windows\ViewModels\DispatcherViewModelBase.cs" />
     <Compile Include="Windows\ViewModels\ViewModelBase.cs" />
