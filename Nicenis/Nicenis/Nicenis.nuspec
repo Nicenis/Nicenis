@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Nicenis</id>
-    <version>1.3.1-beta</version>
+    <version>1.3.2-beta</version>
     <title>Nicenis Library</title>
     <authors>Nicenis</authors>
     <owners>Nicenis</owners>
@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/nicenis/nicenis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nicenis is a small library especially for the Windows Presentation Foundation.</description>
-    <releaseNotes>A minor update for compatibility.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <releaseNotes>The VoidButton is modified to contain a border with a transparent background. The VoidToggleButton is added.</releaseNotes>
+    <copyright>Copyright © 2018</copyright>
     <tags>WPF MVVM</tags>
   </metadata>
 </package>
