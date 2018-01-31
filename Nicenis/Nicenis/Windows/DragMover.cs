@@ -36,10 +36,7 @@ namespace Nicenis.Windows
         internal DragMoverEventArgsBase(RoutedEvent routedEvent, object source, FrameworkElement target)
             : base(routedEvent, source)
         {
-            if (target == null)
-                throw new ArgumentNullException("target");
-
-            Target = target;
+            Target = target ?? throw new ArgumentNullException("target");
         }
 
         #endregion
@@ -230,12 +227,10 @@ namespace Nicenis.Windows
         {
             DragMover dragMover = (DragMover)d;
 
-            FrameworkElement oldTarget = e.OldValue as FrameworkElement;
-            if (oldTarget != null)
+            if (e.OldValue is FrameworkElement oldTarget)
                 oldTarget.Loaded -= dragMover.TargetProperty_Target_Loaded;
 
-            FrameworkElement newTarget = e.NewValue as FrameworkElement;
-            if (newTarget != null)
+            if (e.NewValue is FrameworkElement newTarget)
             {
                 newTarget.Loaded -= dragMover.TargetProperty_Target_Loaded;
                 newTarget.Loaded += dragMover.TargetProperty_Target_Loaded;
@@ -445,8 +440,7 @@ namespace Nicenis.Windows
             // Gets the Target's left and top.
             double targetLeft, targetTop;
 
-            Window window = Target as Window;
-            if (window != null)
+            if (Target is Window window)
             {
                 targetLeft = window.Left;
                 targetTop = window.Top;

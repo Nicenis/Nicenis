@@ -142,9 +142,6 @@ namespace Nicenis.Windows
             if (window == null)
                 throw new ArgumentNullException("window");
 
-            bool isNewLeft, isNewTop;
-            double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
-
             bool isResized = CalculateHorizontalResize
             (
                 window.Left,
@@ -153,9 +150,9 @@ namespace Nicenis.Windows
                 window.MaxWidth,
                 resizeMode,
                 deltaX,
-                out isNewLeft,
-                out newLeftOrRight,
-                out newWidth
+                out bool isNewLeft,
+                out double newLeftOrRight,
+                out double newWidth
             );
 
             isResized = CalculateVerticalResize
@@ -166,9 +163,9 @@ namespace Nicenis.Windows
                 window.MaxHeight,
                 resizeMode,
                 deltaY,
-                out isNewTop,
-                out newTopOrBottom,
-                out newHeight
+                out bool isNewTop,
+                out double newTopOrBottom,
+                out double newHeight
             ) || isResized;
 
             if (isResized)
@@ -198,9 +195,6 @@ namespace Nicenis.Windows
             if (element == null)
                 throw new ArgumentNullException("element");
 
-            bool isNewLeft, isNewTop;
-            double newLeftOrRight, newTopOrBottom, newWidth, newHeight;
-
             bool isResized = CalculateHorizontalResize
             (
                 Canvas.GetLeft(element),
@@ -209,9 +203,9 @@ namespace Nicenis.Windows
                 element.MaxWidth,
                 resizeMode,
                 deltaX,
-                out isNewLeft,
-                out newLeftOrRight,
-                out newWidth
+                out bool isNewLeft,
+                out double newLeftOrRight,
+                out double newWidth
             );
 
             isResized = CalculateVerticalResize
@@ -222,9 +216,9 @@ namespace Nicenis.Windows
                 element.MaxHeight,
                 resizeMode,
                 deltaY,
-                out isNewTop,
-                out newTopOrBottom,
-                out newHeight
+                out bool isNewTop,
+                out double newTopOrBottom,
+                out double newHeight
             ) || isResized;
 
             if (isResized)
@@ -252,9 +246,7 @@ namespace Nicenis.Windows
         public static bool Resize(FrameworkElement element, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
             // Resizes the target element.
-            Window window = element as Window;
-
-            if (window != null)
+            if (element is Window window)
                 return ResizeWindow(window, resizeMode, deltaX, deltaY);
 
             return ResizeFrameworkElement(element, resizeMode, deltaX, deltaY);
@@ -340,10 +332,8 @@ namespace Nicenis.Windows
             if (window == null)
                 throw new ArgumentNullException("window");
 
-            double newLeft, newTop;
-
-            bool isMoved = CalculateHorizontalMove(window.Left, deltaX, out newLeft);
-            isMoved = CalculateVerticalMove(window.Top, deltaY, out newTop) || isMoved;
+            bool isMoved = CalculateHorizontalMove(window.Left, deltaX, out double newLeft);
+            isMoved = CalculateVerticalMove(window.Top, deltaY, out double newTop) || isMoved;
 
             if (isMoved)
             {
@@ -366,10 +356,8 @@ namespace Nicenis.Windows
             if (element == null)
                 throw new ArgumentNullException("element");
 
-            double newLeft, newTop;
-
-            bool isMoved = CalculateHorizontalMove(Canvas.GetLeft(element), deltaX, out newLeft);
-            isMoved = CalculateVerticalMove(Canvas.GetTop(element), deltaY, out newTop) || isMoved;
+            bool isMoved = CalculateHorizontalMove(Canvas.GetLeft(element), deltaX, out double newLeft);
+            isMoved = CalculateVerticalMove(Canvas.GetTop(element), deltaY, out double newTop) || isMoved;
 
             if (isMoved)
             {
@@ -391,9 +379,7 @@ namespace Nicenis.Windows
         public static bool Move(FrameworkElement element, double deltaX, double deltaY)
         {
             // Moves the target element.
-            Window window = element as Window;
-
-            if (window != null)
+            if (element is Window window)
                 return MoveWindow(window, deltaX, deltaY);
 
             return MoveFrameworkElement(element, deltaX, deltaY);
