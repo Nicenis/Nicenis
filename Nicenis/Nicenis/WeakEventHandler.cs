@@ -548,6 +548,7 @@ namespace Nicenis
 
         /// <summary>
         /// Gets a cloned instance.
+        /// This method cleans up garbage collected event handlers before cloning.
         /// </summary>
         public WeakEventHandler Clone()
         {
@@ -750,6 +751,7 @@ namespace Nicenis
 
         /// <summary>
         /// Gets a cloned instance.
+        /// This method cleans up garbage collected event handlers before cloning.
         /// </summary>
         public WeakEventHandler<TEventArgs> Clone()
         {
