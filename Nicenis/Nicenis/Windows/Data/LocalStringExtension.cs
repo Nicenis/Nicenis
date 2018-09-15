@@ -11,17 +11,15 @@
 using System;
 using System.Diagnostics;
 using System.Resources;
-using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Windows.Threading;
 using System.Xaml;
 
 namespace Nicenis.Windows.Data
 {
     /// <summary>
-    /// Returns a resource string specified by a name in Resx files.
+    /// Returns a resource string in a ResourceManager.
     /// </summary>
     [MarkupExtensionReturnType(typeof(string))]
     public class LocalStringExtension : MarkupExtension
@@ -55,8 +53,10 @@ namespace Nicenis.Windows.Data
 
         /// <summary>
         /// Gets or sets a ResourceManager that provides resource strings.
-        /// If this property is null, the default value is used.
         /// </summary>
+        /// <remarks>
+        /// If this property is null, TODO: write this.
+        /// </remarks>
         public ResourceManager Resource { get; set; }
 
         #endregion
@@ -76,8 +76,8 @@ namespace Nicenis.Windows.Data
             if (Resource != null)
                 return Resource;
 
-            if (Localization.AppResource != null)
-                return Localization.AppResource;
+            if (Localization.MainResource != null)
+                return Localization.MainResource;
 
             // Gets a ResourceManager specified in the root object.
             if ((serviceProvider.GetService(typeof(IRootObjectProvider)) is IRootObjectProvider rootObjectProvider))
@@ -110,7 +110,7 @@ namespace Nicenis.Windows.Data
 
             ResourceManager resource = GetTargetResource(serviceProvider);
             if (resource == null)
-                throw new InvalidOperationException($"No ResourceManager found. Checks {nameof(LocalStringExtension)}.{nameof(Resource)}, {nameof(Localization)}.{nameof(Localization.AppResource)}, {nameof(Localization)}.{nameof(Localization.ResourceProperty)}, {nameof(Localization)}.{nameof(Localization.FallbackResource)}.");
+                return Name;
 
             var bindingSource = Localization.CreateOrGetResourceBindingSource(resource);
             if (bindingSource == null)

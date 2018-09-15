@@ -10,12 +10,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Resources;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -25,7 +22,7 @@ namespace Nicenis.Windows.Data
     {
         #region Public Members
 
-        public static ResourceManager AppResource { get; set; }
+        public static ResourceManager MainResource { get; set; }
         public static ResourceManager FallbackResource { get; set; }
 
         public static readonly DependencyProperty ResourceProperty = DependencyProperty.RegisterAttached

@@ -57,6 +57,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LocalStringTestUserControl.xaml.cs">
+      <DependentUpon>LocalStringTestUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\MainStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\SubStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubStrings.resx</DependentUpon>
+    </Compile>
     <Page Include="CustomWindowTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +87,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HoverTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalStringTestUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalStringTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,6 +121,9 @@
     <Compile Include="HoverTestWindow.xaml.cs">
       <DependentUpon>HoverTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LocalStringTestWindow.xaml.cs">
+      <DependentUpon>LocalStringTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -122,6 +146,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="CustomWindowIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\MainStrings.de.resx" />
+    <EmbeddedResource Include="Properties\MainStrings.ko.resx" />
+    <EmbeddedResource Include="Properties\MainStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\SubStrings.de.resx" />
+    <EmbeddedResource Include="Properties\SubStrings.ko.resx" />
+    <EmbeddedResource Include="Properties\SubStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

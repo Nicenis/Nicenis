@@ -24,40 +24,60 @@ namespace NicenisTestGui
 
         private void CreateDragMoverTestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            DragMoverTestWindow window = new DragMoverTestWindow();
-            window.Owner = this;
+            var window = new DragMoverTestWindow
+            {
+                Owner = this
+            };
 
             window.Show();
         }
 
         private void CreateDragResizerTestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            DragResizerTestWindow window = new DragResizerTestWindow();
-            window.Owner = this;
+            var window = new DragResizerTestWindow
+            {
+                Owner = this
+            };
 
             window.Show();
         }
 
         private void CreateDragSourceNDropTargetTestWindow_Click(object sender, RoutedEventArgs e)
         {
-            DragSourceNDropTargetTestWindow window = new DragSourceNDropTargetTestWindow();
-            window.Owner = this;
+            var window = new DragSourceNDropTargetTestWindow
+            {
+                Owner = this
+            };
 
             window.Show();
         }
 
         private void CreateHoverTestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            HoverTestWindow window = new HoverTestWindow();
-            window.Owner = this;
+            var window = new HoverTestWindow
+            {
+                Owner = this
+            };
 
             window.Show();
         }
 
         private void CreateCustomWindowTestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            CustomWindowTestWindow window = new CustomWindowTestWindow();
-            window.Owner = this;
+            var window = new CustomWindowTestWindow
+            {
+                Owner = this
+            };
+
+            window.Show();
+        }
+
+        private void CreateLocalStringTestWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new LocalStringTestWindow
+            {
+                Owner = this
+            };
 
             window.Show();
         }
