@@ -25,10 +25,6 @@ namespace NicenisTestGui
     /// </summary>
     public partial class App : Application
     {
-        static App()
-        {
-            //Nicenis.Windows.Data.Localization.MainResource = MainStrings.ResourceManager;
-            //Nicenis.Windows.Data.Localization.FallbackResource = SubStrings.ResourceManager;
-        }
+
     }
 }

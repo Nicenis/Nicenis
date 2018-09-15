@@ -9,12 +9,13 @@
  */
 
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 using System.Resources;
-using System.Windows;
+using System.Threading;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Xaml;
+using System.Windows.Threading;
 
 namespace Nicenis.Windows.Data
 {
@@ -30,9 +31,11 @@ namespace Nicenis.Windows.Data
         /// Initializes a new instance.
         /// </summary>
         /// <param name="name">A string that specifies the localized resource string.</param>
-        public LocalStringExtension(string name)
+        /// <param name="resource">A ResourceManager that provides resource strings.</param>
+        public LocalStringExtension(string name, ResourceManager resource)
         {
             Name = name;
+            Resource = resource;
         }
 
         #endregion
@@ -47,50 +50,64 @@ namespace Nicenis.Windows.Data
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets a ResourceManager that provides resource strings.
+        /// </summary>
+        [ConstructorArgument("resource")]
+        public ResourceManager Resource { get; set; }
+
+        /// <summary>
         /// Gets or sets a string that specifies how to format the localized resource string.
         /// </summary>
         public string StringFormat { get; set; }
 
-        /// <summary>
-        /// Gets or sets a ResourceManager that provides resource strings.
-        /// </summary>
-        /// <remarks>
-        /// If this property is null, TODO: write this.
-        /// </remarks>
-        public ResourceManager Resource { get; set; }
-
         #endregion
 
 
-        #region Helpers
+        #region Public Methods
 
         /// <summary>
-        /// Gets the ResourceManager to retrieve a resource string.
+        /// TODO: Writes comments.
+        /// This method must be called in a UI thread that is associated with LocalStringExtension.
         /// </summary>
-        /// <param name="serviceProvider">A service provider helper that can provide services for the markup extension.</param>
-        /// <returns>A resource manager if found; otherwise null.</returns>
-        private ResourceManager GetTargetResource(IServiceProvider serviceProvider)
+        public static void RefreshAsync()
         {
-            Debug.Assert(serviceProvider != null);
+            if (_threadResourceBindingSources == null)
+                return;
 
-            if (Resource != null)
-                return Resource;
+            var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+            if (dispatcher == null)
+                throw new InvalidOperationException("A Dispatcher is required for RefreshAsync.");
 
-            if (Localization.MainResource != null)
-                return Localization.MainResource;
+            if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
+                return;
 
-            // Gets a ResourceManager specified in the root object.
-            if ((serviceProvider.GetService(typeof(IRootObjectProvider)) is IRootObjectProvider rootObjectProvider))
+            foreach (var bindingSource in _threadResourceBindingSources)
+                bindingSource.RaiseAllPropertyChanged();
+        }
+
+        /// <summary>
+        /// TODO: Writes comments.
+        /// If the application uses multiple UI threads, this method refreshes all related UI threads.
+        /// This method is thread-safe.
+        /// </summary>
+        public static void RefreshAllAsync()
+        {
+            if (_resourceBindingSources == null)
+                return;
+
+            lock (_resourceBindingSourcesLocker)
             {
-                if (rootObjectProvider.RootObject is DependencyObject rootObject)
+                if (_resourceBindingSources == null)
+                    return;
+
+                foreach (var bindingSource in _resourceBindingSources)
                 {
-                    var resource = Localization.GetResource(rootObject);
-                    if (resource != null)
-                        return resource;
+                    if (bindingSource.Dispatcher.HasShutdownStarted || bindingSource.Dispatcher.HasShutdownFinished)
+                        continue;
+
+                    bindingSource.Dispatcher.BeginInvoke(new Action(() => bindingSource.RaiseAllPropertyChanged()));
                 }
             }
-
-            return Localization.FallbackResource;
         }
 
         #endregion
@@ -108,11 +125,10 @@ namespace Nicenis.Windows.Data
             if (serviceProvider == null)
                 throw new ArgumentNullException(nameof(serviceProvider));
 
-            ResourceManager resource = GetTargetResource(serviceProvider);
-            if (resource == null)
+            if (Resource == null)
                 return Name;
 
-            var bindingSource = Localization.CreateOrGetResourceBindingSource(resource);
+            var bindingSource = CreateOrGetResourceBindingSource(Resource);
             if (bindingSource == null)
                 return null;
 
@@ -123,6 +139,66 @@ namespace Nicenis.Windows.Data
                 Mode = BindingMode.OneWay,
             };
             return binding.ProvideValue(serviceProvider);
+        }
+
+        #endregion
+
+
+        #region Helpers
+
+        static readonly object _resourceBindingSourcesLocker = new object();
+        static List<ResourceBindingSource> _resourceBindingSources;
+        [ThreadStatic] static List<ResourceBindingSource> _threadResourceBindingSources;
+
+        /// <summary>
+        /// This method must be called in a thread that has an associated Dispatcher.
+        /// </summary>
+        /// <param name="resourceManager"></param>
+        /// <returns></returns>
+        private static ResourceBindingSource CreateOrGetResourceBindingSource(ResourceManager resourceManager)
+        {
+            var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+            if (dispatcher == null)
+                throw new InvalidOperationException("A Dispatcher is required for LocalStringExtension.");
+
+            if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
+                return null;
+
+            var bindingSource = _threadResourceBindingSources?.FirstOrDefault(p => p.ResourceManager == resourceManager);
+            if (bindingSource == null)
+            {
+                if (_threadResourceBindingSources == null)
+                    _threadResourceBindingSources = new List<ResourceBindingSource>();
+
+                bindingSource = new ResourceBindingSource(resourceManager, dispatcher);
+                _threadResourceBindingSources.Add(bindingSource);
+                bindingSource.Dispatcher.ShutdownFinished += ResourceBindingSourceDispatcher_ShutdownFinished;
+
+                lock (_resourceBindingSourcesLocker)
+                {
+                    if (_resourceBindingSources == null)
+                        _resourceBindingSources = new List<ResourceBindingSource>();
+
+                    _resourceBindingSources.Add(bindingSource);
+                }
+            }
+
+            return bindingSource;
+        }
+
+        private static void ResourceBindingSourceDispatcher_ShutdownFinished(object sender, EventArgs e)
+        {
+            if (_threadResourceBindingSources == null)
+                return;
+
+            lock (_resourceBindingSourcesLocker)
+            {
+                foreach (var bindingSource in _threadResourceBindingSources)
+                    _resourceBindingSources.Remove(bindingSource);
+            }
+
+            _threadResourceBindingSources.Clear();
+            _threadResourceBindingSources = null;
         }
 
         #endregion

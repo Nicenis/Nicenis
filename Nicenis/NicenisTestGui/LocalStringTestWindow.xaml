@@ -15,19 +15,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:n="clr-namespace:Nicenis.Windows.Data;assembly=Nicenis"
     xmlns:p="clr-namespace:NicenisTestGui.Properties"
-    xmlns:local="clr-namespace:NicenisTestGui"
     mc:Ignorable="d"
     Title="LocalStringTestWindow"
     UseLayoutRounding="True"
     Height="450"
     Width="800"
-    n:Localization.Resource="{x:Static p:MainStrings.ResourceManager}"
     >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -46,20 +41,7 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Text="{n:LocalString Welcome}"
-            />
-
-        <TextBlock
-            Grid.Row="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Text="{n:LocalString Welcome, Resource={x:Static p:MainStrings.ResourceManager}}"
-            />
-
-        <local:LocalStringTestUserControl
-            Grid.Row="3"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}}"
             />
     </Grid>
 </Window>

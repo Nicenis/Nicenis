@@ -8,6 +8,7 @@
  * Copyright (C) 2018 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using Nicenis.Windows.Data;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
@@ -56,7 +57,7 @@ namespace NicenisTestGui
                     break;
             }
 
-            Nicenis.Windows.Data.Localization.RefreshAsync();
+            LocalStringExtension.RefreshAsync();
         }
     }
 }
