@@ -237,7 +237,7 @@ namespace Nicenis.Windows.Data
         /// Creates or gets a resource binding source based on the provided the resource manager.
         /// This method must be called in a thread that has an associated Dispatcher.
         /// </summary>
-        /// <param name="resourceManager">A resource manager for a resource binding source.</param>
+        /// <param name="resourceManager">A resource manager to get a resource binding source.</param>
         /// <returns>A resource binding source.</returns>
         private static ResourceBindingSource CreateOrGetResourceBindingSource(ResourceManager resourceManager)
         {
