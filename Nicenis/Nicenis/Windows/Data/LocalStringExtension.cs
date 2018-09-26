@@ -12,9 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Resources;
 using System.Threading;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Threading;
@@ -60,7 +62,27 @@ namespace Nicenis.Windows.Data
         /// <summary>
         /// Gets or sets a string that specifies how to format the localized resource string.
         /// </summary>
+        [DefaultValue(null)]
         public string StringFormat { get; set; }
+
+        /// <summary>
+        /// Gets or sets the converter to use.
+        /// </summary>
+        [DefaultValue(null)]
+        public IValueConverter Converter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameter to pass to the System.Windows.Data.Binding.Converter.
+        /// </summary>
+        [DefaultValue(null)]
+        public object ConverterParameter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the culture in which to evaluate the converter.
+        /// </summary>
+        [DefaultValue(null)]
+        [TypeConverter(typeof(CultureInfoIetfLanguageTagConverter))]
+        public CultureInfo ConverterCulture { get; set; }
 
         #endregion
 
@@ -140,6 +162,9 @@ namespace Nicenis.Windows.Data
                 StringFormat = StringFormat,
                 Source = source,
                 Mode = BindingMode.OneWay,
+                Converter = Converter,
+                ConverterParameter = ConverterParameter,
+                ConverterCulture = ConverterCulture,
             };
             return binding.ProvideValue(serviceProvider);
         }

@@ -15,6 +15,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:n="clr-namespace:Nicenis.Windows.Data;assembly=Nicenis"
     xmlns:p="clr-namespace:NicenisTestGui.Properties"
+    xmlns:local="clr-namespace:NicenisTestGui"
     mc:Ignorable="d"
     Loaded="LocalStringTestWindow_Loaded"
     UseLayoutRounding="True"
@@ -22,6 +23,10 @@
     Width="500"
     >
     <Grid>
+        <Grid.Resources>
+            <local:LocalStringTestConverter x:Key="LocalStringTestConverter" />
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -67,6 +72,7 @@
             >
             <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}}" />
             <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}, StringFormat='{}~~{0}~~'}" />
+            <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}, Converter={StaticResource LocalStringTestConverter}}" />
         </StackPanel>
     </Grid>
 </Window>
