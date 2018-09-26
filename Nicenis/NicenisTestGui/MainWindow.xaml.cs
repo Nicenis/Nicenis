@@ -8,6 +8,7 @@
  * Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.
  */
 
+using System.Threading;
 using System.Windows;
 
 namespace NicenisTestGui
@@ -74,12 +75,18 @@ namespace NicenisTestGui
 
         private void CreateLocalStringTestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            var window = new LocalStringTestWindow
+            for (int i = 0; i < 2; i++)
             {
-                Owner = this
-            };
-
-            window.Show();
+                var thread = new Thread(() =>
+                {
+                    var window = new LocalStringTestWindow();
+                    window.Closed += (_, __) => window.Dispatcher.InvokeShutdown();
+                    window.Show();
+                    System.Windows.Threading.Dispatcher.Run();
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+            }
         }
     }
 }

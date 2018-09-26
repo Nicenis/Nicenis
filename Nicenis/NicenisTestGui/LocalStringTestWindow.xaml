@@ -1,6 +1,6 @@
 ﻿<!--
     Author   JO Hyeong-Ryeol
-    Since	2018.09.15
+    Since    2018.09.15
 
     This file is a part of the Nicenis project.
     https://github.com/nicenis/nicenis
@@ -16,18 +16,25 @@
     xmlns:n="clr-namespace:Nicenis.Windows.Data;assembly=Nicenis"
     xmlns:p="clr-namespace:NicenisTestGui.Properties"
     mc:Ignorable="d"
-    Title="LocalStringTestWindow"
+    Loaded="LocalStringTestWindow_Loaded"
     UseLayoutRounding="True"
-    Height="450"
-    Width="800"
+    Height="300"
+    Width="500"
     >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <ComboBox
+            Grid.Column="0"
             Grid.Row="0"
             SelectionChanged="ComboBox_SelectionChanged"
             SelectedIndex="0"
@@ -37,11 +44,29 @@
             <ComboBoxItem>German</ComboBoxItem>
         </ComboBox>
 
-        <TextBlock
+        <Button
+            Grid.Column="1"
+            Content="Refresh"
+            Padding="10 0 10 0"
+            Click="RefreshButton_Click"
+            />
+
+        <Button
+            Grid.Column="2"
+            Content="Refresh All"
+            Padding="10 0 10 0"
+            Click="RefreshAllButton_Click"
+            />
+
+        <StackPanel
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}}"
-            />
+            >
+            <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}}" />
+            <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}, StringFormat='{}~~{0}~~'}" />
+        </StackPanel>
     </Grid>
 </Window>

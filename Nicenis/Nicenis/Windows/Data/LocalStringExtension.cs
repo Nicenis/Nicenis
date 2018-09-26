@@ -32,7 +32,7 @@ namespace Nicenis.Windows.Data
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        /// <param name="name">A string that specifies the localized resource string.</param>
+        /// <param name="name">A string that specifies a localized resource string.</param>
         /// <param name="resource">A ResourceManager that provides resource strings.</param>
         public LocalStringExtension(string name, ResourceManager resource)
         {
@@ -46,7 +46,7 @@ namespace Nicenis.Windows.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets a string that specifies the localized resource string.
+        /// Gets or sets a string that specifies a localized resource string.
         /// </summary>
         [ConstructorArgument("name")]
         public string Name { get; set; }
@@ -68,9 +68,11 @@ namespace Nicenis.Windows.Data
         #region Public Methods
 
         /// <summary>
-        /// TODO: Writes comments.
-        /// This method must be called in a UI thread that is associated with LocalStringExtension.
+        /// Refreshes resource strings in the current UI thread.
         /// </summary>
+        /// <remarks>
+        /// This method must be called in a UI thread that is associated with the LocalStringExtension.
+        /// </remarks>
         public static void RefreshAsync()
         {
             if (_threadResourceBindingSources == null)
@@ -78,36 +80,35 @@ namespace Nicenis.Windows.Data
 
             var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
             if (dispatcher == null)
-                throw new InvalidOperationException("A Dispatcher is required for RefreshAsync.");
+                throw new InvalidOperationException($"The {nameof(RefreshAsync)} requires a Dispatcher in the current thread.");
 
             if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
                 return;
 
-            foreach (var bindingSource in _threadResourceBindingSources)
-                bindingSource.RaiseAllPropertyChanged();
+            foreach (var source in _threadResourceBindingSources)
+                source.RaiseAllPropertyChanged();
         }
 
         /// <summary>
-        /// TODO: Writes comments.
-        /// If the application uses multiple UI threads, this method refreshes all related UI threads.
+        /// Refreshes resource strings in all UI threads.
         /// This method is thread-safe.
         /// </summary>
+        /// <remarks>
+        /// If the application uses multiple UI threads, this method refreshes all related UI threads.
+        /// </remarks>
         public static void RefreshAllAsync()
         {
-            if (_resourceBindingSources == null)
-                return;
-
             lock (_resourceBindingSourcesLocker)
             {
                 if (_resourceBindingSources == null)
                     return;
 
-                foreach (var bindingSource in _resourceBindingSources)
+                foreach (var source in _resourceBindingSources)
                 {
-                    if (bindingSource.Dispatcher.HasShutdownStarted || bindingSource.Dispatcher.HasShutdownFinished)
+                    if (source.Dispatcher.HasShutdownStarted || source.Dispatcher.HasShutdownFinished)
                         continue;
 
-                    bindingSource.Dispatcher.BeginInvoke(new Action(() => bindingSource.RaiseAllPropertyChanged()));
+                    source.Dispatcher.BeginInvoke(new Action(() => source.RaiseAllPropertyChanged()));
                 }
             }
         }
@@ -130,14 +131,14 @@ namespace Nicenis.Windows.Data
             if (Resource == null)
                 return Name;
 
-            var bindingSource = CreateOrGetResourceBindingSource(Resource);
-            if (bindingSource == null)
+            var source = CreateOrGetResourceBindingSource(Resource);
+            if (source == null)
                 return null;
 
             var binding = new Binding("[" + Name + "]")
             {
                 StringFormat = StringFormat,
-                Source = bindingSource,
+                Source = source,
                 Mode = BindingMode.OneWay,
             };
             return binding.ProvideValue(serviceProvider);
@@ -233,39 +234,41 @@ namespace Nicenis.Windows.Data
         [ThreadStatic] static List<ResourceBindingSource> _threadResourceBindingSources;
 
         /// <summary>
+        /// Creates or gets a resource binding source based on the provided the resource manager.
         /// This method must be called in a thread that has an associated Dispatcher.
         /// </summary>
-        /// <param name="resourceManager"></param>
-        /// <returns></returns>
+        /// <param name="resourceManager">A resource manager for a resource binding source.</param>
+        /// <returns>A resource binding source.</returns>
         private static ResourceBindingSource CreateOrGetResourceBindingSource(ResourceManager resourceManager)
         {
             var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
             if (dispatcher == null)
-                throw new InvalidOperationException("A Dispatcher is required for LocalStringExtension.");
+                throw new InvalidOperationException($"The {nameof(LocalStringExtension)} requires a Dispatcher in the current thread.");
 
             if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
                 return null;
 
-            var bindingSource = _threadResourceBindingSources?.FirstOrDefault(p => p.ResourceManager == resourceManager);
-            if (bindingSource == null)
+            var source = _threadResourceBindingSources?.FirstOrDefault(p => p.ResourceManager == resourceManager);
+            if (source == null)
             {
                 if (_threadResourceBindingSources == null)
                     _threadResourceBindingSources = new List<ResourceBindingSource>();
 
-                bindingSource = new ResourceBindingSource(resourceManager, dispatcher);
-                _threadResourceBindingSources.Add(bindingSource);
-                bindingSource.Dispatcher.ShutdownFinished += ResourceBindingSourceDispatcher_ShutdownFinished;
+                source = new ResourceBindingSource(resourceManager, dispatcher);
+                _threadResourceBindingSources.Add(source);
+                source.Dispatcher.ShutdownFinished -= ResourceBindingSourceDispatcher_ShutdownFinished;
+                source.Dispatcher.ShutdownFinished += ResourceBindingSourceDispatcher_ShutdownFinished;
 
                 lock (_resourceBindingSourcesLocker)
                 {
                     if (_resourceBindingSources == null)
                         _resourceBindingSources = new List<ResourceBindingSource>();
 
-                    _resourceBindingSources.Add(bindingSource);
+                    _resourceBindingSources.Add(source);
                 }
             }
 
-            return bindingSource;
+            return source;
         }
 
         private static void ResourceBindingSourceDispatcher_ShutdownFinished(object sender, EventArgs e)
@@ -275,8 +278,8 @@ namespace Nicenis.Windows.Data
 
             lock (_resourceBindingSourcesLocker)
             {
-                foreach (var bindingSource in _threadResourceBindingSources)
-                    _resourceBindingSources.Remove(bindingSource);
+                foreach (var source in _threadResourceBindingSources)
+                    _resourceBindingSources.Remove(source);
             }
 
             _threadResourceBindingSources.Clear();

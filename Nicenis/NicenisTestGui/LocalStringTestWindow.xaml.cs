@@ -26,6 +26,11 @@ namespace NicenisTestGui
             InitializeComponent();
         }
 
+        private void LocalStringTestWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Title = $"{nameof(LocalStringTestWindow)} [{nameof(Thread.CurrentThread.ManagedThreadId)}: {Thread.CurrentThread.ManagedThreadId}]";
+        }
+
         CultureInfo _defaultCultureInfo;
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,8 +61,16 @@ namespace NicenisTestGui
                         = _defaultCultureInfo;
                     break;
             }
+        }
 
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
             LocalStringExtension.RefreshAsync();
+        }
+
+        private void RefreshAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            LocalStringExtension.RefreshAllAsync();
         }
     }
 }
