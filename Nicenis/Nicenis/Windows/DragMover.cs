@@ -167,7 +167,11 @@ namespace Nicenis.Windows
         {
             base.OnApplyTemplate();
 
+            if (_thumb != null)
+                _thumb.DragDelta -= Thumb_DragDelta;
+
             _thumb = GetTemplateChild("PART_Thumb") as Thumb;
+
             if (_thumb != null)
             {
                 _thumb.DragDelta -= Thumb_DragDelta;
@@ -177,24 +181,7 @@ namespace Nicenis.Windows
 
         void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            if (Target == null)
-                return;
-
-            // Converts the DragDeltaEventArgs into a Vector.
-            Vector dragDelta = new Vector(e.HorizontalChange, e.VerticalChange);
-
-            // Adjusts the delta not to exceed the defined min-max positions.
-            AdjustDeltaForMinMaxPositions(ref dragDelta);
-
-            // Raises the Moving event.
-            if (!RaiseMovingEvent(this, Target, ref dragDelta))
-                return;
-
-            // Moves the target element.
-            FrameworkElementHelper.Move(Target, dragDelta);
-
-            // Raises the Moved event.
-            RaiseMovedEvent(this, Target, dragDelta);
+            Move(e.HorizontalChange, e.VerticalChange);
         }
 
         #endregion
@@ -207,7 +194,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty TargetProperty = DependencyProperty.Register
         (
-            "Target",
+            nameof(Target),
             typeof(FrameworkElement),
             typeof(DragMover),
             new PropertyMetadata(null, TargetProperty_Changed)
@@ -225,7 +212,7 @@ namespace Nicenis.Windows
 
         private static void TargetProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DragMover dragMover = (DragMover)d;
+            var dragMover = (DragMover)d;
 
             if (e.OldValue is FrameworkElement oldTarget)
                 oldTarget.Loaded -= dragMover.TargetProperty_Target_Loaded;
@@ -249,7 +236,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MinLeftProperty = DependencyProperty.Register
         (
-            "MinLeft",
+            nameof(MinLeft),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -269,7 +256,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MaxLeftProperty = DependencyProperty.Register
         (
-            "MaxLeft",
+            nameof(MaxLeft),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -290,7 +277,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MinTopProperty = DependencyProperty.Register
         (
-            "MinTop",
+            nameof(MinTop),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -310,7 +297,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MaxTopProperty = DependencyProperty.Register
         (
-            "MaxTop",
+            nameof(MaxTop),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -331,7 +318,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MinRightProperty = DependencyProperty.Register
         (
-            "MinRight",
+            nameof(MinRight),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -351,7 +338,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MaxRightProperty = DependencyProperty.Register
         (
-            "MaxRight",
+            nameof(MaxRight),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -372,7 +359,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MinBottomProperty = DependencyProperty.Register
         (
-            "MinBottom",
+            nameof(MinBottom),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.NegativeInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -392,7 +379,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly DependencyProperty MaxBottomProperty = DependencyProperty.Register
         (
-            "MaxBottom",
+            nameof(MaxBottom),
             typeof(double),
             typeof(DragMover),
             new FrameworkPropertyMetadata(double.PositiveInfinity, MinMaxPositionRelatedProperties_Changed)
@@ -447,8 +434,8 @@ namespace Nicenis.Windows
             }
             else
             {
-                targetLeft = Canvas.GetLeft(Target);
-                targetTop = Canvas.GetTop(Target);
+                targetLeft = FrameworkElementHelper.GetCanvasLeft(Target);
+                targetTop = FrameworkElementHelper.GetCanvasTop(Target);
             }
 
             // Gets the Target's width and height.
@@ -489,12 +476,51 @@ namespace Nicenis.Windows
             if (Target == null)
                 return;
 
+            if (Target.IsLoaded == false)
+                return;
+
             // Gets the delta that is not exceed the defined min-max positions.
             Vector delta = new Vector();
             AdjustDeltaForMinMaxPositions(ref delta);
 
             // Applies the delta.
             FrameworkElementHelper.Move(Target, delta);
+        }
+
+        /// <summary>
+        /// Moves the Target.
+        /// </summary>
+        /// <remarks>
+        /// This method checks the constraints (MinLeft, MaxLeft, etc) before moving the Target,
+        /// and raises related events if it is required.
+        /// </remarks>
+        /// <param name="deltaX">The X distance to move.</param>
+        /// <param name="deltaY">The Y distance to move.</param>
+        /// <returns>True if the Target is actually moved.</returns>
+        public bool Move(double deltaX, double deltaY)
+        {
+            if (Target == null)
+                return false;
+
+            if (Target.IsLoaded == false)
+                return false;
+
+            var delta = new Vector(deltaX, deltaY);
+
+            // Adjusts the delta not to exceed the defined min-max positions.
+            AdjustDeltaForMinMaxPositions(ref delta);
+
+            // Raises the Moving event.
+            if (!RaiseMovingEvent(this, Target, ref delta))
+                return false;
+
+            // Moves the target element.
+            bool isMoved = FrameworkElementHelper.Move(Target, delta);
+
+            // Raises the Moved event.
+            RaiseMovedEvent(this, Target, delta);
+
+            return isMoved;
         }
 
         #endregion
@@ -507,7 +533,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly RoutedEvent PreviewMovingEvent = EventManager.RegisterRoutedEvent
         (
-            "PreviewMoving",
+            nameof(PreviewMoving),
             RoutingStrategy.Tunnel,
             typeof(EventHandler<DragMoverMovingEventArgs>),
             typeof(DragMover)
@@ -548,7 +574,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly RoutedEvent MovingEvent = EventManager.RegisterRoutedEvent
         (
-            "Moving",
+            nameof(Moving),
             RoutingStrategy.Bubble,
             typeof(EventHandler<DragMoverMovingEventArgs>),
             typeof(DragMover)
@@ -597,7 +623,7 @@ namespace Nicenis.Windows
             Debug.Assert(target != null);
 
             // Creates an event argument.
-            DragMoverMovingEventArgs eventArgs = new DragMoverMovingEventArgs
+            var eventArgs = new DragMoverMovingEventArgs
             (
                 PreviewMovingEvent,
                 source,
@@ -632,7 +658,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly RoutedEvent PreviewMovedEvent = EventManager.RegisterRoutedEvent
         (
-            "PreviewMoved",
+            nameof(PreviewMoved),
             RoutingStrategy.Tunnel,
             typeof(EventHandler<DragMoverMovedEventArgs>),
             typeof(DragMover)
@@ -673,7 +699,7 @@ namespace Nicenis.Windows
         /// </summary>
         public static readonly RoutedEvent MovedEvent = EventManager.RegisterRoutedEvent
         (
-            "Moved",
+            nameof(Moved),
             RoutingStrategy.Bubble,
             typeof(EventHandler<DragMoverMovedEventArgs>),
             typeof(DragMover)
@@ -721,7 +747,7 @@ namespace Nicenis.Windows
             Debug.Assert(target != null);
 
             // Creates an event argument.
-            DragMoverMovedEventArgs eventArgs = new DragMoverMovedEventArgs
+            var eventArgs = new DragMoverMovedEventArgs
             (
                 PreviewMovedEvent,
                 source,

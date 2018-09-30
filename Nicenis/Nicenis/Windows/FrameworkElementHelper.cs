@@ -20,6 +20,41 @@ namespace Nicenis.Windows
     /// </summary>
     internal static class FrameworkElementHelper
     {
+        #region Common
+
+        /// <summary>
+        /// Gets the left position in Canvas.
+        /// NaN is returned as zero.
+        /// </summary>
+        /// <param name="element">Target FrameworkElement.</param>
+        /// <returns>The left position in Canvas.</returns>
+        public static double GetCanvasLeft(FrameworkElement element)
+        {
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+
+            var value = Canvas.GetLeft(element);
+            return double.IsNaN(value) ? 0d : value;
+        }
+
+        /// <summary>
+        /// Gets the top position in Canvas.
+        /// NaN is returned as zero.
+        /// </summary>
+        /// <param name="element">Target FrameworkElement.</param>
+        /// <returns>The top position in Canvas.</returns>
+        public static double GetCanvasTop(FrameworkElement element)
+        {
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+
+            var value = Canvas.GetTop(element);
+            return double.IsNaN(value) ? 0d : value;
+        }
+
+        #endregion
+
+
         #region Related to resize
 
         /// <summary>
@@ -140,7 +175,7 @@ namespace Nicenis.Windows
         private static bool ResizeWindow(Window window, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
             if (window == null)
-                throw new ArgumentNullException("window");
+                throw new ArgumentNullException(nameof(window));
 
             bool isResized = CalculateHorizontalResize
             (
@@ -193,11 +228,11 @@ namespace Nicenis.Windows
         private static bool ResizeFrameworkElement(FrameworkElement element, BorderResizeMode resizeMode, double deltaX, double deltaY)
         {
             if (element == null)
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
 
             bool isResized = CalculateHorizontalResize
             (
-                Canvas.GetLeft(element),
+                GetCanvasLeft(element),
                 element.ActualWidth,
                 element.MinWidth,
                 element.MaxWidth,
@@ -210,7 +245,7 @@ namespace Nicenis.Windows
 
             isResized = CalculateVerticalResize
             (
-                Canvas.GetTop(element),
+                GetCanvasTop(element),
                 element.ActualHeight,
                 element.MinHeight,
                 element.MaxHeight,
@@ -330,7 +365,7 @@ namespace Nicenis.Windows
         private static bool MoveWindow(Window window, double deltaX, double deltaY)
         {
             if (window == null)
-                throw new ArgumentNullException("window");
+                throw new ArgumentNullException(nameof(window));
 
             bool isMoved = CalculateHorizontalMove(window.Left, deltaX, out double newLeft);
             isMoved = CalculateVerticalMove(window.Top, deltaY, out double newTop) || isMoved;
@@ -354,10 +389,10 @@ namespace Nicenis.Windows
         private static bool MoveFrameworkElement(FrameworkElement element, double deltaX, double deltaY)
         {
             if (element == null)
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
 
-            bool isMoved = CalculateHorizontalMove(Canvas.GetLeft(element), deltaX, out double newLeft);
-            isMoved = CalculateVerticalMove(Canvas.GetTop(element), deltaY, out double newTop) || isMoved;
+            bool isMoved = CalculateHorizontalMove(GetCanvasLeft(element), deltaX, out double newLeft);
+            isMoved = CalculateVerticalMove(GetCanvasTop(element), deltaY, out double newTop) || isMoved;
 
             if (isMoved)
             {
