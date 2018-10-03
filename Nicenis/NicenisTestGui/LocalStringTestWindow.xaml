@@ -70,6 +70,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             >
+            <TextBlock Text="{x:Static p:MainStrings.Welcome}" />
             <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}}" />
             <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}, StringFormat='{}~~{0}~~'}" />
             <TextBlock Text="{n:LocalString Welcome, {x:Static p:MainStrings.ResourceManager}, Converter={StaticResource LocalStringTestConverter}}" />
