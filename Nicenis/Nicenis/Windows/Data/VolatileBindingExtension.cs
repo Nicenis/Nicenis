@@ -25,14 +25,14 @@ namespace Nicenis.Windows.Data
     /// 
     /// </summary>
     [MarkupExtensionReturnType(typeof(object))]
-    public class InvalidatorExtension : MarkupExtension
+    public class VolatileBindingExtension : MarkupExtension
     {
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public InvalidatorExtension(BindingBase binding, string group)
+        public VolatileBindingExtension(BindingBase binding, string group)
         {
             Binding = binding;
             Group = group;
@@ -41,7 +41,7 @@ namespace Nicenis.Windows.Data
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        public InvalidatorExtension(BindingBase binding)
+        public VolatileBindingExtension(BindingBase binding)
         {
             Binding = binding;
         }
@@ -246,7 +246,7 @@ namespace Nicenis.Windows.Data
         {
             var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
             if (dispatcher == null)
-                throw new InvalidOperationException($"The {nameof(InvalidatorExtension)} requires a Dispatcher in the current thread.");
+                throw new InvalidOperationException($"The {nameof(VolatileBindingExtension)} requires a Dispatcher in the current thread.");
 
             if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
                 return null;

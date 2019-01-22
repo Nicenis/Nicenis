@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="ComponentModel\PropertyObservableCore.cs" />
     <Compile Include="Windows\Controls\VoidToggleButton.cs" />
-    <Compile Include="Windows\Data\InvalidatorExtension.cs" />
+    <Compile Include="Windows\Data\VolatileBindingExtension.cs" />
     <Compile Include="Windows\Data\LocalStringExtension.cs" />
     <Compile Include="Windows\ViewModels\FrameworkViewModelBase.cs" />
     <Compile Include="Windows\ViewModels\DispatcherViewModelBase.cs" />
