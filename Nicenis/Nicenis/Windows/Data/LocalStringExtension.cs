@@ -26,7 +26,7 @@ namespace Nicenis.Windows.Data
     /// <summary>
     /// Returns a resource string in a ResourceManager.
     /// </summary>
-    [MarkupExtensionReturnType(typeof(string))]
+    [MarkupExtensionReturnType(typeof(object))]
     public class LocalStringExtension : MarkupExtension
     {
         #region Constructors
