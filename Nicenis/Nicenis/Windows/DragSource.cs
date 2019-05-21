@@ -2613,6 +2613,7 @@ namespace Nicenis.Windows
 
         #endregion
 
+
         #region VisualFeedbackTransform Attached Property
 
         /// <summary>
@@ -2647,6 +2648,7 @@ namespace Nicenis.Windows
         }
 
         #endregion
+
 
         #region Initiator ReadOnly Attached Property
 
