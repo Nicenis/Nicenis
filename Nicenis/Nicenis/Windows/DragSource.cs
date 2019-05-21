@@ -139,6 +139,7 @@ namespace Nicenis.Windows
         double VisualFeedbackMinHeight { get; set; }
         double VisualFeedbackMaxWidth { get; set; }
         double VisualFeedbackMaxHeight { get; set; }
+        Transform VisualFeedbackTransform { get; set; }
     }
 
     /// <summary>
@@ -328,6 +329,15 @@ namespace Nicenis.Windows
             set { _context.VisualFeedbackMaxHeight = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the transform of the visual drag feedback.
+        /// </summary>
+        public Transform VisualFeedbackTransform
+        {
+            get { return _context.VisualFeedbackTransform; }
+            set { _context.VisualFeedbackTransform = value; }
+        }
+
         #endregion
     }
 
@@ -353,6 +363,7 @@ namespace Nicenis.Windows
         double VisualFeedbackMinHeight { get; set; }
         double VisualFeedbackMaxWidth { get; set; }
         double VisualFeedbackMaxHeight { get; set; }
+        Transform VisualFeedbackTransform { get; set; }
         void UpdateVisualFeedbackHost();
     }
 
@@ -550,6 +561,15 @@ namespace Nicenis.Windows
             set { _context.VisualFeedbackMaxHeight = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the transform of the visual drag feedback.
+        /// </summary>
+        public Transform VisualFeedbackTransform
+        {
+            get { return _context.VisualFeedbackTransform; }
+            set { _context.VisualFeedbackTransform = value; }
+        }
+
         #endregion
     }
 
@@ -575,6 +595,7 @@ namespace Nicenis.Windows
         double VisualFeedbackMinHeight { get; set; }
         double VisualFeedbackMaxWidth { get; set; }
         double VisualFeedbackMaxHeight { get; set; }
+        Transform VisualFeedbackTransform { get; set; }
     }
 
     /// <summary>
@@ -776,6 +797,15 @@ namespace Nicenis.Windows
             set { _context.VisualFeedbackMaxHeight = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the transform of the visual drag feedback.
+        /// </summary>
+        public Transform VisualFeedbackTransform
+        {
+            get { return _context.VisualFeedbackTransform; }
+            set { _context.VisualFeedbackTransform = value; }
+        }
+
         #endregion
     }
 
@@ -801,6 +831,7 @@ namespace Nicenis.Windows
         double VisualFeedbackMinHeight { get; }
         double VisualFeedbackMaxWidth { get; }
         double VisualFeedbackMaxHeight { get; }
+        Transform VisualFeedbackTransform { get; }
     }
 
     /// <summary>
@@ -920,6 +951,11 @@ namespace Nicenis.Windows
         /// Gets the maximum height of the visual drag feedback.
         /// </summary>
         public double VisualFeedbackMaxHeight { get { return _context.VisualFeedbackMaxHeight; } }
+
+        /// <summary>
+        /// Gets the transform of the visual drag feedback.
+        /// </summary>
+        public Transform VisualFeedbackTransform { get { return _context.VisualFeedbackTransform; } }
 
         /// <summary>
         /// Gets the final effect that was performed during the drag-and-drop operation.
@@ -1105,6 +1141,11 @@ namespace Nicenis.Windows
             public double VisualFeedbackMaxHeight { get; set; }
 
             /// <summary>
+            /// Gets or sets the transform of the visual drag feedback.
+            /// </summary>
+            public Transform VisualFeedbackTransform { get; set; }
+
+            /// <summary>
             /// The host of the visual drag feedback.
             /// </summary>
             public VisualFeedbackHost VisualFeedbackHost { get; set; }
@@ -1128,11 +1169,12 @@ namespace Nicenis.Windows
             /// <param name="visualFeedbackMinHeight">A minimum height of the visual drag feedback.</param>
             /// <param name="visualFeedbackMaxWidth">A maximum width of the visual drag feedback.</param>
             /// <param name="visualFeedbackMaxHeight">A maximum height of the visual drag feedback.</param>
+            /// <param name="visualFeedbackTransform">The visual feedback transform.</param>
             public void InitializeForEventsAfterDragSensing(DragDropEffects allowedEffects, object data, bool isAutoVisualFeedbackAllowed,
                 object visualFeedback, DataTemplate visualFeedbackTemplate, DataTemplateSelector visualFeedbackTemplateSelector,
                 object visualFeedbackDataContext, Point visualFeedbackOffset, double visualFeedbackOpacity, Visibility visualFeedbackVisibility,
                 double visualFeedbackWidth, double visualFeedbackHeight, double visualFeedbackMinWidth, double visualFeedbackMinHeight,
-                double visualFeedbackMaxWidth, double visualFeedbackMaxHeight)
+                double visualFeedbackMaxWidth, double visualFeedbackMaxHeight, Transform visualFeedbackTransform)
             {
                 AllowedEffects = allowedEffects;
                 Data = data;
@@ -1152,6 +1194,7 @@ namespace Nicenis.Windows
                 VisualFeedbackMinHeight = visualFeedbackMinHeight;
                 VisualFeedbackMaxWidth = visualFeedbackMaxWidth;
                 VisualFeedbackMaxHeight = visualFeedbackMaxHeight;
+                VisualFeedbackTransform = visualFeedbackTransform;
             }
 
             /// <summary>
@@ -1178,7 +1221,8 @@ namespace Nicenis.Windows
                     VisualFeedbackMinWidth,
                     VisualFeedbackMinHeight,
                     VisualFeedbackMaxWidth,
-                    VisualFeedbackMaxHeight
+                    VisualFeedbackMaxHeight,
+                    VisualFeedbackTransform
                 );
             }
 
@@ -1422,9 +1466,10 @@ namespace Nicenis.Windows
             /// <param name="minHeight">A minimum height of the visual feedback host.</param>
             /// <param name="maxWidth">A maximum width of the visual feedback host.</param>
             /// <param name="maxHeight">A maximum height of the visual feedback host.</param>
+            /// <param name="transform">The transform of the visual feedback host.</param>
             public void Update(bool isAutoVisualFeedbackAllowed, object content, DataTemplate contentTemplate, DataTemplateSelector contentTemplateSelector,
                     object dataContext, Point offset, double opacity, Visibility visibility, double width, double height,
-                    double minWidth, double minHeight, double maxWidth, double maxHeight)
+                    double minWidth, double minHeight, double maxWidth, double maxHeight, Transform transform)
             {
                 // Gets the content element for the host window.
                 FrameworkElement contentElement = VisualFeedbackContentManager.CreateOrGetContent(isAutoVisualFeedbackAllowed, content, contentTemplate, contentTemplateSelector);
@@ -1454,6 +1499,7 @@ namespace Nicenis.Windows
                 contentElement.MinHeight = minHeight;
                 contentElement.MaxWidth = maxWidth;
                 contentElement.MaxHeight = maxHeight;
+                contentElement.RenderTransform = transform;
             }
 
 
@@ -1862,7 +1908,8 @@ namespace Nicenis.Windows
                 GetVisualFeedbackMinWidth(target),
                 GetVisualFeedbackMinHeight(target),
                 GetVisualFeedbackMaxWidth(target),
-                GetVisualFeedbackMaxHeight(target)
+                GetVisualFeedbackMaxHeight(target),
+                GetVisualFeedbackTransform(target)
             );
 
             try
@@ -2566,6 +2613,40 @@ namespace Nicenis.Windows
 
         #endregion
 
+        #region VisualFeedbackTransform Attached Property
+
+        /// <summary>
+        /// The attached property for the transform of the visual drag feedback.
+        /// </summary>
+        public static readonly DependencyProperty VisualFeedbackTransformProperty = DependencyProperty.RegisterAttached
+            (
+             "VisualFeedbackTransform",
+             typeof(Transform),
+             typeof(DragSource),
+             new PropertyMetadata(defaultValue:null)
+            );
+
+        /// <summary>
+        /// Gets the transform of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <returns>The transform of the visual drag feedback.</returns>
+        public static Transform GetVisualFeedbackTransform(DependencyObject obj)
+        {
+            return (Transform)obj.GetValue(VisualFeedbackTransformProperty);
+        }
+
+        /// <summary>
+        /// Sets the transform of the visual drag feedback.
+        /// </summary>
+        /// <param name="obj">The target element.</param>
+        /// <param name="value">The transform of the visual drag feedback.</param>
+        public static void SetVisualFeedbackTransform(DependencyObject obj, Transform value)
+        {
+            obj.SetValue(VisualFeedbackTransformProperty, value);
+        }
+
+        #endregion
 
         #region Initiator ReadOnly Attached Property
 
