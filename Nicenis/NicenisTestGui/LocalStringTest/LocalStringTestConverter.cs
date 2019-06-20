@@ -12,7 +12,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace NicenisTestGui
+namespace NicenisTestGui.LocalStringTest
 {
     /// <summary>
     /// This converter is used to thest the LocalStringExtension.

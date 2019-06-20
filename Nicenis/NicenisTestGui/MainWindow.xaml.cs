@@ -79,7 +79,23 @@ namespace NicenisTestGui
             {
                 var thread = new Thread(() =>
                 {
-                    var window = new LocalStringTestWindow();
+                    var window = new LocalStringTest.LocalStringTestWindow();
+                    window.Closed += (_, __) => window.Dispatcher.InvokeShutdown();
+                    window.Show();
+                    System.Windows.Threading.Dispatcher.Run();
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+            }
+        }
+
+        private void CreateVolatileBindingTestWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                var thread = new Thread(() =>
+                {
+                    var window = new VolatileBindingTest.VolatileBindingTestWindow();
                     window.Closed += (_, __) => window.Dispatcher.InvokeShutdown();
                     window.Show();
                     System.Windows.Threading.Dispatcher.Run();

@@ -8,14 +8,14 @@
     Copyright (C) 2018 JO Hyeong-Ryeol. All rights reserved.   
 -->
 <Window
-    x:Class="NicenisTestGui.LocalStringTestWindow"
+    x:Class="NicenisTestGui.LocalStringTest.LocalStringTestWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:n="clr-namespace:Nicenis.Windows.Data;assembly=Nicenis"
     xmlns:p="clr-namespace:NicenisTestGui.Properties"
-    xmlns:local="clr-namespace:NicenisTestGui"
+    xmlns:local="clr-namespace:NicenisTestGui.LocalStringTest"
     mc:Ignorable="d"
     Loaded="LocalStringTestWindow_Loaded"
     UseLayoutRounding="True"

@@ -57,11 +57,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LocalStringTestConverter.cs" />
+    <Compile Include="LocalStringTest\LocalStringTestConverter.cs" />
     <Compile Include="Properties\MainStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MainStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="VolatileBindingTest\VolatileBindingTestConverter.cs" />
+    <Compile Include="VolatileBindingTest\VolatileBindingTestEnum.cs" />
+    <Compile Include="VolatileBindingTest\VolatileBindingTestViewModel.cs" />
+    <Compile Include="VolatileBindingTest\VolatileBindingTestWindow.xaml.cs">
+      <DependentUpon>VolatileBindingTestWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomWindowTestWindow.xaml">
       <SubType>Designer</SubType>
@@ -83,7 +89,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LocalStringTestWindow.xaml">
+    <Page Include="LocalStringTest\LocalStringTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,13 +116,17 @@
     <Compile Include="HoverTestWindow.xaml.cs">
       <DependentUpon>HoverTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalStringTestWindow.xaml.cs">
+    <Compile Include="LocalStringTest\LocalStringTestWindow.xaml.cs">
       <DependentUpon>LocalStringTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="VolatileBindingTest\VolatileBindingTestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

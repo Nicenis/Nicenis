@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows.Data;
@@ -133,21 +132,13 @@ namespace Nicenis.Windows.Data
             if (Binding == null)
                 return null;
 
-            var multiBinding = new MultiBinding
-            {
-                Converter = FirstValueConverter.Instance
-            };
-            multiBinding.Bindings.Add(Binding);
-            multiBinding.Bindings.Add
-            (
-                new Binding(nameof(NotificationBindingSource.Group))
-                {
-                    Source = CreateOrGetNotificationBindingSource(Group),
-                    Mode = BindingMode.OneWay,
-                }
-            );
 
-            return multiBinding.ProvideValue(serviceProvider);
+
+            if (!(Binding.ProvideValue(serviceProvider) is BindingExpressionBase expression))
+                throw new InvalidOperationException("TODO");
+
+            AddToExpressionStorage(Group, expression);
+            return expression;
         }
 
         #endregion
@@ -155,30 +146,170 @@ namespace Nicenis.Windows.Data
 
         #region Helpers
 
-        private class FirstValueConverter : IMultiValueConverter
+        private class ExpressionStorage
         {
-            public static readonly FirstValueConverter Instance = new FirstValueConverter();
+            #region Constructors
 
-            public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+            public ExpressionStorage(string group, Dispatcher dispatcher)
             {
-                return values[0];
+                Debug.Assert(dispatcher != null);
+
+                Group = group;
+                Dispatcher = dispatcher;
+                ExpressionReferences = new List<WeakReference<BindingExpression>>();
             }
 
-            public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+            #endregion
+
+
+            public string Group { get; }
+
+            /// <summary>
+            /// The related dispacher.
+            /// This property is always not null.
+            /// </summary>
+            public Dispatcher Dispatcher { get; }
+
+            /// <summary>
+            /// This property is always not null.
+            /// </summary>
+            public List<WeakReference<BindingExpression>> ExpressionReferences { get; }
+        }
+
+
+        static readonly object _dispatchersLocker = new object();
+        static List<Dispatcher> _dispatchers;
+        [ThreadStatic] static List<ExpressionStorage> _threadExpressionStorages;
+
+        /// <summary>
+        /// This method must be called in a thread that has an associated Dispatcher.
+        /// </summary>
+        private static void AddToExpressionStorage(string group, BindingExpressionBase bindingExpression)
+        {
+            Debug.Assert(bindingExpression != null);
+
+            var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+            if (dispatcher == null)
+                throw new InvalidOperationException($"The {nameof(VolatileBindingExtension)} requires a Dispatcher in the current thread.");
+
+            if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
+                return;
+
+            if (_threadExpressionStorages == null)
             {
-                if (targetTypes == null || targetTypes.Length == 0)
-                    return null;
+                _threadExpressionStorages = new List<ExpressionStorage>();
 
-                var objects = new object[targetTypes.Length];
-                objects[0] = value;
-                for (int i = 1; i < objects.Length; i++)
-                    objects[i] = System.Windows.Data.Binding.DoNothing;
+                lock (_dispatchersLocker)
+                {
+                    if (_dispatchers == null)
+                        _dispatchers = new List<Dispatcher>();
 
-                return objects;
+                    _dispatchers.Add(dispatcher);
+                    dispatcher.ShutdownFinished -= Dispatcher_ShutdownFinished;
+                    dispatcher.ShutdownFinished += Dispatcher_ShutdownFinished;
+                }
+            }
+
+            var storage = _threadExpressionStorages.FirstOrDefault(p => p.Group == group);
+            if (storage == null)
+            {
+                storage = new ExpressionStorage(group, dispatcher);
+                _threadExpressionStorages.Add(storage);
+            }
+
+            //storage.ExpressionReferences.Add(new WeakReference<BindingExpression>(bindingExpression));
+        }
+
+        private static void Dispatcher_ShutdownFinished(object sender, EventArgs e)
+        {
+            if (_threadExpressionStorages == null)
+                return;
+
+            var dispatcher = _threadExpressionStorages.FirstOrDefault()?.Dispatcher;
+            if (dispatcher != null)
+            {
+                lock (_dispatchersLocker)
+                    _dispatchers.Remove(dispatcher);
+            }
+
+            _threadExpressionStorages.Clear();
+            _threadExpressionStorages = null;
+        }
+
+        /// <summary>
+        /// Reevaluates bindings in the current UI thread.
+        /// </summary>
+        /// <remarks>
+        /// This method must be called in a UI thread that is associated with the VolatileBindingExtension.
+        /// </remarks>
+        private static void RefreshAsync(string group, bool isAll)
+        {
+            if (_threadVolatileBindingSources == null)
+                return;
+
+            var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
+            if (dispatcher == null)
+                throw new InvalidOperationException($"The {nameof(RefreshAsync)} requires a Dispatcher in the current thread.");
+
+            if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
+                return;
+
+            foreach (var storage in _threadExpressionStorages)
+            {
+                if (isAll || storage.Group == group)
+                {
+                    foreach (var expressionReference in storage.ExpressionReferences)
+                    {
+                        if (expressionReference.TryGetTarget(out BindingExpression expression))
+                        {
+                            expression.UpdateTarget();
+                        }
+                        else
+                        {
+                            // TODO:
+                        }
+                    }
+                }
             }
         }
 
-        private class NotificationBindingSource : INotifyPropertyChanged
+        /// <summary>
+        /// Reevaluates bindings in all UI threads.
+        /// This method is thread-safe.
+        /// </summary>
+        /// <remarks>
+        /// If the application uses multiple UI threads, this method refreshes all related UI threads.
+        /// </remarks>
+        private static void RefreshAllAsync(string group, bool isAll)
+        {
+            lock (_volatileBindingSourcesLocker)
+            {
+                if (_volatileBindingSources == null)
+                    return;
+
+                foreach (var source in _volatileBindingSources)
+                {
+                    if (source.Dispatcher.HasShutdownStarted || source.Dispatcher.HasShutdownFinished)
+                        continue;
+
+                    if (isAll || source.Group == group)
+                        source.Dispatcher.BeginInvoke(new Action(() => source.RaiseAllPropertyChanged()));
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        #region VolatileBindingSource
+
+        private class VolatileBindingSource : INotifyPropertyChanged
         {
             #region Constructors
 
@@ -186,7 +317,7 @@ namespace Nicenis.Windows.Data
             /// Initializes a new instance.
             /// </summary>
             /// <param name="dispatcher">A related dispacher.</param>
-            public NotificationBindingSource(string group, Dispatcher dispatcher)
+            public VolatileBindingSource(string group, Dispatcher dispatcher)
             {
                 Debug.Assert(dispatcher != null);
 
@@ -231,18 +362,20 @@ namespace Nicenis.Windows.Data
             #endregion
         }
 
+        #endregion
 
-        static readonly object _resourceBindingSourcesLocker = new object();
-        static List<NotificationBindingSource> _resourceBindingSources;
-        [ThreadStatic] static List<NotificationBindingSource> _threadResourceBindingSources;
+
+        static readonly object _volatileBindingSourcesLocker = new object();
+        static List<VolatileBindingSource> _volatileBindingSources;
+        [ThreadStatic] static List<VolatileBindingSource> _threadVolatileBindingSources;
 
         /// <summary>
-        /// Creates or gets a resource binding source based on the provided the resource manager.
+        /// Creates or gets a volatile binding source based on the provided the group.
         /// This method must be called in a thread that has an associated Dispatcher.
         /// </summary>
-        /// <param name="resourceManager">A resource manager to get a resource binding source.</param>
-        /// <returns>A resource binding source.</returns>
-        private static NotificationBindingSource CreateOrGetNotificationBindingSource(string group)
+        /// <param name="group">A group to get a volatile binding source.</param>
+        /// <returns>A volatile binding source.</returns>
+        private static VolatileBindingSource CreateOrGetVolatileBindingSource(string group)
         {
             var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
             if (dispatcher == null)
@@ -251,93 +384,44 @@ namespace Nicenis.Windows.Data
             if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
                 return null;
 
-            var source = _threadResourceBindingSources?.FirstOrDefault(p => p.Group == group);
+            var source = _threadVolatileBindingSources?.FirstOrDefault(p => p.Group == group);
             if (source == null)
             {
-                if (_threadResourceBindingSources == null)
-                    _threadResourceBindingSources = new List<NotificationBindingSource>();
+                if (_threadVolatileBindingSources == null)
+                    _threadVolatileBindingSources = new List<VolatileBindingSource>();
 
-                source = new NotificationBindingSource(group, dispatcher);
-                _threadResourceBindingSources.Add(source);
-                source.Dispatcher.ShutdownFinished -= ResourceBindingSourceDispatcher_ShutdownFinished;
-                source.Dispatcher.ShutdownFinished += ResourceBindingSourceDispatcher_ShutdownFinished;
+                source = new VolatileBindingSource(group, dispatcher);
+                _threadVolatileBindingSources.Add(source);
+                source.Dispatcher.ShutdownFinished -= VolatileBindingSourceDispatcher_ShutdownFinished;
+                source.Dispatcher.ShutdownFinished += VolatileBindingSourceDispatcher_ShutdownFinished;
 
-                lock (_resourceBindingSourcesLocker)
+                lock (_volatileBindingSourcesLocker)
                 {
-                    if (_resourceBindingSources == null)
-                        _resourceBindingSources = new List<NotificationBindingSource>();
+                    if (_volatileBindingSources == null)
+                        _volatileBindingSources = new List<VolatileBindingSource>();
 
-                    _resourceBindingSources.Add(source);
+                    _volatileBindingSources.Add(source);
                 }
             }
 
             return source;
         }
 
-        private static void ResourceBindingSourceDispatcher_ShutdownFinished(object sender, EventArgs e)
+        private static void VolatileBindingSourceDispatcher_ShutdownFinished(object sender, EventArgs e)
         {
-            if (_threadResourceBindingSources == null)
+            if (_threadVolatileBindingSources == null)
                 return;
 
-            lock (_resourceBindingSourcesLocker)
+            lock (_volatileBindingSourcesLocker)
             {
-                foreach (var source in _threadResourceBindingSources)
-                    _resourceBindingSources.Remove(source);
+                foreach (var source in _threadVolatileBindingSources)
+                    _volatileBindingSources.Remove(source);
             }
 
-            _threadResourceBindingSources.Clear();
-            _threadResourceBindingSources = null;
+            _threadVolatileBindingSources.Clear();
+            _threadVolatileBindingSources = null;
         }
 
-        /// <summary>
-        /// Reevaluates bindings in the current UI thread.
-        /// </summary>
-        /// <remarks>
-        /// This method must be called in a UI thread that is associated with the LocalStringExtension.
-        /// </remarks>
-        private static void RefreshAsync(string group, bool isAll)
-        {
-            if (_threadResourceBindingSources == null)
-                return;
-
-            var dispatcher = Dispatcher.FromThread(Thread.CurrentThread);
-            if (dispatcher == null)
-                throw new InvalidOperationException($"The {nameof(RefreshAsync)} requires a Dispatcher in the current thread.");
-
-            if (dispatcher.HasShutdownStarted || dispatcher.HasShutdownFinished)
-                return;
-
-            foreach (var source in _threadResourceBindingSources)
-            {
-                if (isAll || source.Group == group)
-                    source.RaiseAllPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Reevaluates bindings in all UI threads.
-        /// This method is thread-safe.
-        /// </summary>
-        /// <remarks>
-        /// If the application uses multiple UI threads, this method refreshes all related UI threads.
-        /// </remarks>
-        private static void RefreshAllAsync(string group, bool isAll)
-        {
-            lock (_resourceBindingSourcesLocker)
-            {
-                if (_resourceBindingSources == null)
-                    return;
-
-                foreach (var source in _resourceBindingSources)
-                {
-                    if (source.Dispatcher.HasShutdownStarted || source.Dispatcher.HasShutdownFinished)
-                        continue;
-
-                    if (isAll || source.Group == group)
-                        source.Dispatcher.BeginInvoke(new Action(() => source.RaiseAllPropertyChanged()));
-                }
-            }
-        }
 
         #endregion
     }

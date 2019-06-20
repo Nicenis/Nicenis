@@ -1,11 +1,11 @@
 ﻿/*
  * Author   JO Hyeong-Ryeol
- * Since    2018.09.15
+ * Since    2019.01.23
  * 
  * This file is a part of the Nicenis project.
  * https://github.com/nicenis/nicenis
  * 
- * Copyright (C) 2018 JO Hyeong-Ryeol. All rights reserved.
+ * Copyright (C) 2019 JO Hyeong-Ryeol. All rights reserved.
  */
 
 using Nicenis.Windows.Data;
@@ -14,21 +14,22 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace NicenisTestGui
+namespace NicenisTestGui.VolatileBindingTest
 {
     /// <summary>
-    /// This window is used to test the LocalStringExtension.
+    /// This window is used to test the VolatileBindingExtension.
     /// </summary>
-    public partial class LocalStringTestWindow : Window
+    public partial class VolatileBindingTestWindow : Window
     {
-        public LocalStringTestWindow()
+        public VolatileBindingTestWindow()
         {
             InitializeComponent();
+            DataContext = new VolatileBindingTestViewModel();
         }
 
-        private void LocalStringTestWindow_Loaded(object sender, RoutedEventArgs e)
+        private void VolatileBindingTestWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Title = $"{nameof(LocalStringTestWindow)} [{nameof(Thread.CurrentThread.ManagedThreadId)}: {Thread.CurrentThread.ManagedThreadId}]";
+            Title = $"{nameof(VolatileBindingTestWindow)} [{nameof(Thread.CurrentThread.ManagedThreadId)}: {Thread.CurrentThread.ManagedThreadId}]";
         }
 
         CultureInfo _defaultCultureInfo;
@@ -65,12 +66,12 @@ namespace NicenisTestGui
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            LocalStringExtension.RefreshAsync();
+            VolatileBindingExtension.RefreshAsync();
         }
 
         private void RefreshAllButton_Click(object sender, RoutedEventArgs e)
         {
-            LocalStringExtension.RefreshAllAsync();
+            VolatileBindingExtension.RefreshAllAsync();
         }
     }
 }
