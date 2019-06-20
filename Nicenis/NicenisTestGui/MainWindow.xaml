@@ -18,6 +18,5 @@
         <Button Padding="4" Content="Hover Sample" Click="CreateHoverTestWindowButton_Click" />
         <Button Padding="4" Content="CustomWindow Sample" Click="CreateCustomWindowTestWindowButton_Click" />
         <Button Padding="4" Content="LocalString Sample" Click="CreateLocalStringTestWindowButton_Click" />
-        <Button Padding="4" Content="VolatileBinding Sample" Click="CreateVolatileBindingTestWindowButton_Click" />
     </StackPanel>
 </Window>
