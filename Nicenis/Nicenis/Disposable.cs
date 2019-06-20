@@ -15,6 +15,7 @@ namespace Nicenis
     /// <summary>
     /// Provides base implementation of the IDisposable interface.
     /// </summary>
+    [Obsolete("This class will be removed soon.")]
     public class Disposable : IDisposable
     {
         /// <summary>
