@@ -1203,10 +1203,12 @@ namespace Nicenis.Windows
             #endregion
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         /// <summary>
         /// Represents host for the visual drag feedback.
         /// </summary>
         private class VisualFeedbackHost : Disposable
+#pragma warning restore CS0618 // Type or member is obsolete
         {
             UIElement _dragSource;
 
@@ -1473,10 +1475,12 @@ namespace Nicenis.Windows
             #endregion
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         /// <summary>
         /// Manages content for the visual feedback.
         /// </summary>
         private class VisualFeedbackContentManager : Disposable
+#pragma warning restore CS0618 // Type or member is obsolete
         {
             UIElement _dragSource;
 
