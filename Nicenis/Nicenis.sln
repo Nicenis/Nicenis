@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nicenis", "Nicenis\Nicenis.csproj", "{DD0939A8-E685-4803-A170-946E43139A78}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisUwpGuiTests", "NicenisUwpGuiTests\NicenisUwpGuiTests.csproj", "{CFADD44E-26FE-42C6-947B-BF6FE83BC86E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisGuiTests", "NicenisGuiTests\NicenisGuiTests.csproj", "{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicenisNf4C", "NicenisNf4C\NicenisNf4C.csproj", "{2CF34279-AA15-4D62-9D13-F0EAB7C38255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +169,22 @@ Global
 		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x64.Build.0 = Release|Any CPU
 		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x86.ActiveCfg = Release|Any CPU
 		{931F9C0A-7B62-44C5-B7A9-833B3A3B6D2E}.Release|x86.Build.0 = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|x64.Build.0 = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Debug|x86.Build.0 = Debug|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|ARM.Build.0 = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|x64.Build.0 = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|x86.ActiveCfg = Release|Any CPU
+		{2CF34279-AA15-4D62-9D13-F0EAB7C38255}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

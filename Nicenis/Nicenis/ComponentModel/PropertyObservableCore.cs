@@ -221,6 +221,7 @@ namespace Nicenis.ComponentModel
 
         #region SetProperty Related
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Sets a value to the specified storage.
         /// If it is changed and the isHidden parameter is false, PropertyChanged events are raised for the property name and the related property names.
@@ -235,6 +236,22 @@ namespace Nicenis.ComponentModel
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the storage is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+#else
+        /// <summary>
+        /// Sets a value to the specified storage.
+        /// If it is changed and the isHidden parameter is false, PropertyChanged events are raised for the property name and the related property names.
+        /// </summary>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="storage">The storage to store the property value.</param>
+        /// <param name="value">The property value.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="related">The related property names.</param>
+        /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
+        /// <returns>True if the storage is changed; otherwise false.</returns>
+        protected virtual bool SetProperty<T>(ref T storage, T value, string propertyName, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+#endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
             Debug.Assert(related == null || related.Any(p => p != AllPropertyName && string.IsNullOrWhiteSpace(p)) == false);
@@ -325,6 +342,7 @@ namespace Nicenis.ComponentModel
             PropertyValueChanging?.Invoke(this, e);
         }
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Raises a PropertyValueChanging event.
         /// </summary>
@@ -332,6 +350,15 @@ namespace Nicenis.ComponentModel
         /// <param name="newValue">The value of the property after the change.</param>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
         protected void OnPropertyValueChanging<T>(T oldValue, T newValue, [CallerMemberName] string propertyName = "")
+#else
+        /// <summary>
+        /// Raises a PropertyValueChanging event.
+        /// </summary>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        /// <param name="propertyName">The property name that changed.</param>
+        protected void OnPropertyValueChanging<T>(T oldValue, T newValue, string propertyName)
+#endif
         {
             OnPropertyValueChanging(new PropertyValueChangeEventArgs<T>(propertyName, oldValue, newValue));
         }
@@ -365,6 +392,7 @@ namespace Nicenis.ComponentModel
             PropertyValueChanged?.Invoke(this, e);
         }
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Raises a PropertyValueChanged event.
         /// </summary>
@@ -372,6 +400,15 @@ namespace Nicenis.ComponentModel
         /// <param name="newValue">The value of the property after the change.</param>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
         protected void OnPropertyValueChanged<T>(T oldValue, T newValue, [CallerMemberName] string propertyName = "")
+#else
+        /// <summary>
+        /// Raises a PropertyValueChanged event.
+        /// </summary>
+        /// <param name="oldValue">The value of the property before the change.</param>
+        /// <param name="newValue">The value of the property after the change.</param>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
+        protected void OnPropertyValueChanged<T>(T oldValue, T newValue, string propertyName)
+#endif
         {
             OnPropertyValueChanged(new PropertyValueChangeEventArgs<T>(propertyName, oldValue, newValue));
         }
@@ -398,20 +435,36 @@ namespace Nicenis.ComponentModel
             PropertyChanged?.Invoke(this, e);
         }
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Raises a PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+#else
+        /// <summary>
+        /// Raises a PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
+        protected void OnPropertyChanged(string propertyName)
+#endif
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Raises a PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed. If this parameter is not specified, the property name obtained by the CallerMemberName attribute is used.</param>
         protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+#else
+        /// <summary>
+        /// Raises a PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">The property name that changed. An Empty value or null indicates that all of the properties have changed.</param>
+        protected void RaisePropertyChanged(string propertyName)
+#endif
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }

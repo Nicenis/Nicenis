@@ -242,6 +242,7 @@ namespace Nicenis.ComponentModel
 
         #endregion
 
+#if !NICENIS_NF4C
         /// <summary>
         /// Gets the property value specified by the property name.
         /// If it does not exist, the property value is set to the value returned by the getDefault, and the value is returned.
@@ -254,6 +255,20 @@ namespace Nicenis.ComponentModel
         /// <param name="getDefault">The function that returns the default value. Null is allowed.</param>
         /// <returns>The property value if it exists; otherwise the default value or the value returned by the getDefault if the getDefault is not null.</returns>
         protected virtual T GetProperty<T>([CallerMemberName] string propertyName = null, Func<T> getDefault = null)
+#else
+        /// <summary>
+        /// Gets the property value specified by the property name.
+        /// If it does not exist, the property value is set to the value returned by the getDefault, and the value is returned.
+        /// </summary>
+        /// <remarks>
+        /// This method searches the internal storage for the property value.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="getDefault">The function that returns the default value. Null is allowed.</param>
+        /// <returns>The property value if it exists; otherwise the default value or the value returned by the getDefault if the getDefault is not null.</returns>
+        protected virtual T GetProperty<T>(string propertyName, Func<T> getDefault = null)
+#endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
 
@@ -271,7 +286,7 @@ namespace Nicenis.ComponentModel
             return (T)propertyValue.Value;
         }
 
-
+#if !NICENIS_NF4C
         /// <summary>
         /// Sets a value to the property specified by the property name.
         /// If it is changed and the isHidden parameter is false, PropertyChanged events are raised for the property name and the related property names.
@@ -288,6 +303,24 @@ namespace Nicenis.ComponentModel
         /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
         /// <returns>True if the property is changed; otherwise false.</returns>
         protected virtual bool SetProperty<T>(T value, [CallerMemberName] string propertyName = null, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+#else
+        /// <summary>
+        /// Sets a value to the property specified by the property name.
+        /// If it is changed and the isHidden parameter is false, PropertyChanged events are raised for the property name and the related property names.
+        /// </summary>
+        /// <remarks>
+        /// This method stores the property value in the internal storage.
+        /// </remarks>
+        /// <typeparam name="T">The property type.</typeparam>
+        /// <param name="value">The property value.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="onChanging">The callback that is called when the property value is changing. Null is allowed.</param>
+        /// <param name="onChanged">The callback that is called when the property value is changed. Null is allowed.</param>
+        /// <param name="related">The related property names. Null is allowed.</param>
+        /// <param name="isHidden">Whether to suppress raising the PropertyValueChanging, PropertyValueChanged and PropertyChanged events.</param>
+        /// <returns>True if the property is changed; otherwise false.</returns>
+        protected virtual bool SetProperty<T>(T value, string propertyName, Action<IPropertyValueChangingEventArgs<T>> onChanging = null, Action<IPropertyValueChangedEventArgs<T>> onChanged = null, IEnumerable<string> related = null, bool isHidden = false)
+#endif
         {
             Debug.Assert(string.IsNullOrWhiteSpace(propertyName) == false);
             Debug.Assert(related == null || related.Any(p => p != AllPropertyName && string.IsNullOrWhiteSpace(p)) == false);

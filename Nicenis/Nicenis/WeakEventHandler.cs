@@ -251,7 +251,11 @@ namespace Nicenis
         /// </summary>
         /// <typeparam name="TEventArgs"></typeparam>
         public class ToEventHandlerResult<TEventArgs>
+#if !NICENIS_NF4C
             where TEventArgs : class
+#else
+            where TEventArgs : EventArgs
+#endif
         {
             #region Constructors
 
@@ -564,7 +568,11 @@ namespace Nicenis
     /// </summary>
     /// <typeparam name="TEventArgs">The event argument type.</typeparam>
     public class WeakEventHandler<TEventArgs>
+#if !NICENIS_NF4C
         where TEventArgs : class
+#else
+        where TEventArgs : EventArgs
+#endif
     {
         IEnumerable<WeakEventHandlerInfo> _weakHandlerInfos;
 
@@ -611,7 +619,7 @@ namespace Nicenis
 #if NICENIS_UWP
             return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.GetMethodInfo()));
 #else
-            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));            
+            return new WeakEventHandler<TEventArgs>(weakEventHandler._weakHandlerInfos.Add(value.Target, value.Method));
 #endif
         }
 
