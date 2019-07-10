@@ -1859,5 +1859,43 @@ namespace NicenisTests
             // assert
             Assert.IsTrue(_raiseCount == 2);
         }
+
+        [TestMethod]
+        public void WeakEventHandler_Must_Not_Call_Cleared_Event_Handlers()
+        {
+            // arrange
+            int raiseCount = 0;
+            EventHandler eventHandler = (_, __) => raiseCount++;
+            EventHandler eventHandler2 = (_, __) => raiseCount++;
+            var weakEventHandler = new WeakEventHandler();
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler2;
+            weakEventHandler.Clear();
+
+            // act
+            weakEventHandler.Invoke(this);
+
+            // assert
+            Assert.IsTrue(raiseCount == 0);
+        }
+
+        [TestMethod]
+        public void WeakEventHandlerT_Must_Not_Call_Cleared_Event_Handlers()
+        {
+            // arrange
+            int raiseCount = 0;
+            EventHandler<TestEventArgs> eventHandler = (_, __) => raiseCount++;
+            EventHandler<TestEventArgs> eventHandler2 = (_, __) => raiseCount++;
+            var weakEventHandler = new WeakEventHandler<TestEventArgs>();
+            weakEventHandler += eventHandler;
+            weakEventHandler += eventHandler2;
+            weakEventHandler.Clear();
+
+            // act
+            weakEventHandler.Invoke(this, new TestEventArgs(1));
+
+            // assert
+            Assert.IsTrue(raiseCount == 0);
+        }
     }
 }

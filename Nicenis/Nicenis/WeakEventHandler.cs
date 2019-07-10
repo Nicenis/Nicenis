@@ -560,6 +560,14 @@ namespace Nicenis
             return new WeakEventHandler(_weakHandlerInfos.ToArray());
         }
 
+        /// <summary>
+        /// Clears weak event handlers.
+        /// </summary>
+        public void Clear()
+        {
+            _weakHandlerInfos = Enumerable.Empty<WeakEventHandlerInfo>();
+        }
+
         #endregion
     }
 
@@ -765,6 +773,14 @@ namespace Nicenis
         {
             _weakHandlerInfos = _weakHandlerInfos.Cleanup(null, EventArgs.Empty, invokeHandler: false);
             return new WeakEventHandler<TEventArgs>(_weakHandlerInfos.ToArray());
+        }
+
+        /// <summary>
+        /// Clears weak event handlers.
+        /// </summary>
+        public void Clear()
+        {
+            _weakHandlerInfos = Enumerable.Empty<WeakEventHandlerInfo>();
         }
 
         #endregion
