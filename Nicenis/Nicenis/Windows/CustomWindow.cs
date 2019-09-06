@@ -453,48 +453,95 @@ namespace Nicenis.Windows
 
         #region Window Procedure
 
+        private static void SetMinMaxInfo(IntPtr lParam, int maxPositionX, int maxPositionY, int maxSizeX, int maxSizeY, bool setMaxTrackSize = false)
+        {
+            // Gets the MINMAXINFO.
+            var minMaxInfo = (Win32.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(Win32.MINMAXINFO));
+
+            minMaxInfo.ptMaxPosition.x = maxPositionX;
+            minMaxInfo.ptMaxPosition.y = maxPositionY;
+            minMaxInfo.ptMaxSize.x = maxSizeX;
+            minMaxInfo.ptMaxSize.y = maxSizeY;
+
+            if (setMaxTrackSize)
+            {
+                minMaxInfo.ptMaxTrackSize.x = maxSizeX;
+                minMaxInfo.ptMaxTrackSize.y = maxSizeY;
+            }
+
+            // Sets the modified MINMAXINFO.
+            Marshal.StructureToPtr(minMaxInfo, lParam, false);
+        }
+
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == Win32.WM_GETMINMAXINFO)
             {
-                // Get the monitor handle.
-                IntPtr hMonitor = Win32.MonitorFromWindow(hwnd, Win32.MONITOR_DEFAULTTONEAREST);
+                // Gets the primary monitor handle.
+                IntPtr hPrimaryMonitor = Win32.MonitorFromPoint(new Win32.POINT(), Win32.MONITOR_DEFAULTTOPRIMARY);
 
-                if (hMonitor != IntPtr.Zero)
+                if (hPrimaryMonitor != IntPtr.Zero)
                 {
-                    // Gets monitor information.
-                    Win32.MONITORINFO monitorInfo = Win32.MONITORINFO.Create();
+                    // Gets the primary monitor information.
+                    Win32.MONITORINFO primaryMonitorInfo = Win32.MONITORINFO.Create();
 
-                    if (Win32.GetMonitorInfo(hMonitor, ref monitorInfo) != 0)
+                    if (Win32.GetMonitorInfo(hPrimaryMonitor, ref primaryMonitorInfo) != 0)
                     {
-                        // Gets the MINMAXINFO.
-                        Win32.MINMAXINFO minMaxInfo = (Win32.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(Win32.MINMAXINFO));
-
                         if (IsFullScreenMode)
                         {
-                            // If it is the full screen mode, it must use the entire screen.
-                            minMaxInfo.ptMaxPosition.x = monitorInfo.rcMonitor.left;
-                            minMaxInfo.ptMaxPosition.y = monitorInfo.rcMonitor.top;
-                            minMaxInfo.ptMaxSize.x = Math.Abs(monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left);
-                            minMaxInfo.ptMaxSize.y = Math.Abs(monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
+                            SetMinMaxInfo
+                            (
+                                lParam: lParam,
+                                maxPositionX: primaryMonitorInfo.rcMonitor.left,
+                                maxPositionY: primaryMonitorInfo.rcMonitor.top,
+                                maxSizeX: primaryMonitorInfo.rcMonitor.right - primaryMonitorInfo.rcMonitor.left,
+                                maxSizeY: primaryMonitorInfo.rcMonitor.bottom - primaryMonitorInfo.rcMonitor.top
+                            );
+                            handled = true;
                         }
                         else
                         {
-                            // If it is not the full screen mode, it must use the work area.
-                            minMaxInfo.ptMaxPosition.x = monitorInfo.rcWork.left;
-                            minMaxInfo.ptMaxPosition.y = monitorInfo.rcWork.top;
-                            minMaxInfo.ptMaxSize.x = Math.Abs(monitorInfo.rcWork.right - monitorInfo.rcWork.left);
-                            minMaxInfo.ptMaxSize.y = Math.Abs(monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
+                            // Get the monitor handle.
+                            IntPtr hMonitor = Win32.MonitorFromWindow(hwnd, Win32.MONITOR_DEFAULTTONEAREST);
+
+                            if (hMonitor != IntPtr.Zero)
+                            {
+                                if (hMonitor == hPrimaryMonitor)
+                                {
+                                    SetMinMaxInfo
+                                    (
+                                        lParam: lParam,
+                                        maxPositionX: primaryMonitorInfo.rcWork.left,
+                                        maxPositionY: primaryMonitorInfo.rcWork.top,
+                                        maxSizeX: primaryMonitorInfo.rcWork.right - primaryMonitorInfo.rcWork.left,
+                                        maxSizeY: primaryMonitorInfo.rcWork.bottom - primaryMonitorInfo.rcWork.top
+                                    );
+                                    handled = true;
+                                }
+                                else
+                                {
+                                    // Gets monitor information.
+                                    Win32.MONITORINFO monitorInfo = Win32.MONITORINFO.Create();
+
+                                    if (Win32.GetMonitorInfo(hMonitor, ref monitorInfo) != 0)
+                                    {
+                                        SetMinMaxInfo
+                                        (
+                                            lParam: lParam,
+                                            maxPositionX: monitorInfo.rcWork.left - monitorInfo.rcMonitor.left,
+                                            maxPositionY: monitorInfo.rcWork.top - monitorInfo.rcMonitor.top,
+                                            maxSizeX: monitorInfo.rcWork.right - monitorInfo.rcWork.left,
+                                            maxSizeY: monitorInfo.rcWork.bottom - monitorInfo.rcWork.top,
+                                            setMaxTrackSize: true
+                                        );
+                                        handled = true;
+                                    }
+                                }
+                            }
                         }
-
-                        // Sets the modified MINMAXINFO.
-                        Marshal.StructureToPtr(minMaxInfo, lParam, false);
-                        handled = true;
                     }
-
-                } // if (hMonitor != IntPtr.Zero)
-
-            } // if (msg == Win32.WM_GETMINMAXINFO)
+                }
+            }
 
             return IntPtr.Zero;
         }
