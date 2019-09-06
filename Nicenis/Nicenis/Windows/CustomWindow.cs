@@ -268,11 +268,11 @@ namespace Nicenis.Windows
         /// </summary>
         private void InitializeCommands()
         {
-            MinimizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Minimized, () => WindowStateEx != WindowStateEx.Minimized);
-            RestoreCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Normal, () => WindowStateEx != WindowStateEx.Normal);
-            MaximizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Maximized, () => WindowStateEx != WindowStateEx.Maximized);
-            FullScreenCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.FullScreen, () => WindowStateEx != WindowStateEx.FullScreen);
-            CloseCommand = new DelegateCommand(() => Close());
+            MinimizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Minimized, () => WindowStateEx != WindowStateEx.Minimized, isAutomaticRequeryDisabled: true);
+            RestoreCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Normal, () => WindowStateEx != WindowStateEx.Normal, isAutomaticRequeryDisabled: true);
+            MaximizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Maximized, () => WindowStateEx != WindowStateEx.Maximized, isAutomaticRequeryDisabled: true);
+            FullScreenCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.FullScreen, () => WindowStateEx != WindowStateEx.FullScreen, isAutomaticRequeryDisabled: true);
+            CloseCommand = new DelegateCommand(() => Close(), null, isAutomaticRequeryDisabled: true);
         }
 
         #endregion
@@ -607,15 +607,15 @@ namespace Nicenis.Windows
             IsMaximized = WindowStateEx == WindowStateEx.Maximized;
             IsFullScreen = WindowStateEx == WindowStateEx.FullScreen;
 
-            // If it is required to raise the StateExChanged event
-            if (isRequiredToRaiseStateExChanged)
-            {
-                // Raises the StateExChanged event.
-                OnStateExChanged(new CustomWindowStateExChangedEventArgs(oldWindowStateEx, windowStateEx));
+            ((DelegateCommand)MinimizeCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)RestoreCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)MaximizeCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)FullScreenCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)CloseCommand).RaiseCanExecuteChanged();
 
-                // It is required to update UI that binds to CustomWindow's commands.
-                CommandManager.InvalidateRequerySuggested();
-            }
+            // If it is required to raise the StateExChanged event, raises the StateExChanged event.
+            if (isRequiredToRaiseStateExChanged)
+                OnStateExChanged(new CustomWindowStateExChangedEventArgs(oldWindowStateEx, windowStateEx));
         }
 
         #endregion
