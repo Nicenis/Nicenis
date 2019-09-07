@@ -13,4 +13,4 @@ using System.Windows;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: ComVisible(false)]
 [assembly: Guid("2cf34279-aa15-4d62-9d13-f0eab7c38255")]
-[assembly: AssemblyVersion("1.3.5")]
+[assembly: AssemblyVersion("1.3.6")]

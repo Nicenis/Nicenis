@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Nicenis</id>
-    <version>1.3.5</version>
+    <version>1.3.6</version>
     <title>Nicenis Library</title>
     <authors>Nicenis</authors>
     <owners>Nicenis</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/nicenis/nicenis</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nicenis is a small library especially for the Windows Presentation Foundation.</description>
-    <releaseNotes>Added WeakEventHandler.Clear method.</releaseNotes>
+    <releaseNotes>Fix for CustomWindow maximization.</releaseNotes>
     <copyright>Copyright © 2019 JO Hyeong-Ryeol. All rights reserved.</copyright>
     <tags>WPF MVVM</tags>
   </metadata>
