@@ -791,13 +791,16 @@ namespace Nicenis.Windows
             if (e.ClickCount <= 1)
             {
                 window.DragMove();
-                return;
+            }
+            else
+            {
+                // Toggles window maximization.
+                window.WindowState = window.WindowState == WindowState.Normal
+                                   ? WindowState.Maximized
+                                   : WindowState.Normal;
             }
 
-            // Toggles window maximization.
-            window.WindowState = window.WindowState == WindowState.Normal
-                               ? WindowState.Maximized
-                               : WindowState.Normal;
+            e.Handled = true;
         }
 
         static void IsTitleBarProperty_PropertyHost_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
