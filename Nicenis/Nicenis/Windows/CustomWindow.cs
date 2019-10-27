@@ -487,7 +487,7 @@ namespace Nicenis.Windows
 
                     if (Win32.GetMonitorInfo(hPrimaryMonitor, ref primaryMonitorInfo) != 0)
                     {
-                        if (IsFullScreenMode)
+                        if (IsFullScreenMode || WindowState == WindowState.Normal)
                         {
                             SetMinMaxInfo
                             (
