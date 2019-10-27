@@ -269,9 +269,12 @@ namespace Nicenis.Windows
         private void InitializeCommands()
         {
             MinimizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Minimized, () => WindowStateEx != WindowStateEx.Minimized, isAutomaticRequeryDisabled: true);
+            ToggleMinimizedCommand = new DelegateCommand(ToggleMinimized, CanToggleMinimized, isAutomaticRequeryDisabled: true);
             RestoreCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Normal, () => WindowStateEx != WindowStateEx.Normal, isAutomaticRequeryDisabled: true);
             MaximizeCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.Maximized, () => WindowStateEx != WindowStateEx.Maximized, isAutomaticRequeryDisabled: true);
+            ToggleMaximizedCommand = new DelegateCommand(ToggleMaximized, CanToggleMaximized, isAutomaticRequeryDisabled: true);
             FullScreenCommand = new DelegateCommand(() => WindowStateEx = WindowStateEx.FullScreen, () => WindowStateEx != WindowStateEx.FullScreen, isAutomaticRequeryDisabled: true);
+            ToggleFullScreenCommand = new DelegateCommand(ToggleFullScreen, CanToggleFullScreen, isAutomaticRequeryDisabled: true);
             CloseCommand = new DelegateCommand(() => Close(), null, isAutomaticRequeryDisabled: true);
         }
 
@@ -301,6 +304,29 @@ namespace Nicenis.Windows
         {
             get { return (ICommand)GetValue(MinimizeCommandProperty); }
             private set { SetValue(MinimizeCommandPropertyKey, value); }
+        }
+
+
+        static readonly DependencyPropertyKey ToggleMinimizedCommandPropertyKey = DependencyProperty.RegisterReadOnly
+        (
+            name: nameof(ToggleMinimizedCommand),
+            propertyType: typeof(ICommand),
+            ownerType: typeof(CustomWindow),
+            typeMetadata: new FrameworkPropertyMetadata(null)
+        );
+
+        /// <summary>
+        /// The dependency property for the command that toggles window minimization.
+        /// </summary>
+        public static readonly DependencyProperty ToggleMinimizedCommandProperty = ToggleMinimizedCommandPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Gets a command that toggles window minimization.
+        /// </summary>
+        public ICommand ToggleMinimizedCommand
+        {
+            get { return (ICommand)GetValue(ToggleMinimizedCommandProperty); }
+            private set { SetValue(ToggleMinimizedCommandPropertyKey, value); }
         }
 
 
@@ -356,6 +382,29 @@ namespace Nicenis.Windows
         }
 
 
+        static readonly DependencyPropertyKey ToggleMaximizedCommandPropertyKey = DependencyProperty.RegisterReadOnly
+        (
+            name: nameof(ToggleMaximizedCommand),
+            propertyType: typeof(ICommand),
+            ownerType: typeof(CustomWindow),
+            typeMetadata: new FrameworkPropertyMetadata(null)
+        );
+
+        /// <summary>
+        /// The dependency property for the command that toggles window maximization.
+        /// </summary>
+        public static readonly DependencyProperty ToggleMaximizedCommandProperty = ToggleMaximizedCommandPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Gets a command that toggles window maximization.
+        /// </summary>
+        public ICommand ToggleMaximizedCommand
+        {
+            get { return (ICommand)GetValue(ToggleMaximizedCommandProperty); }
+            private set { SetValue(ToggleMaximizedCommandPropertyKey, value); }
+        }
+
+
         /// <summary>
         /// The dependency property key for the command that makes the window full screen.
         /// </summary>
@@ -379,6 +428,29 @@ namespace Nicenis.Windows
         {
             get { return (ICommand)GetValue(FullScreenCommandProperty); }
             private set { SetValue(FullScreenCommandPropertyKey, value); }
+        }
+
+
+        static readonly DependencyPropertyKey ToggleFullScreenCommandPropertyKey = DependencyProperty.RegisterReadOnly
+        (
+            name: nameof(ToggleFullScreenCommand),
+            propertyType: typeof(ICommand),
+            ownerType: typeof(CustomWindow),
+            typeMetadata: new FrameworkPropertyMetadata(null)
+        );
+
+        /// <summary>
+        /// The dependency property for the command that toggles full screen window.
+        /// </summary>
+        public static readonly DependencyProperty ToggleFullScreenCommandProperty = ToggleFullScreenCommandPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Gets a command that toggles full screen window.
+        /// </summary>
+        public ICommand ToggleFullScreenCommand
+        {
+            get { return (ICommand)GetValue(ToggleFullScreenCommandProperty); }
+            private set { SetValue(ToggleFullScreenCommandPropertyKey, value); }
         }
 
 
@@ -552,6 +624,11 @@ namespace Nicenis.Windows
         #region Helpers
 
         /// <summary>
+        /// The WindowStateEx that was in effect.
+        /// </summary>
+        WindowStateEx _oldWindowStateEx;
+
+        /// <summary>
         /// The WindowStateEx that is in effect.
         /// </summary>
         WindowStateEx? _appliedWindowStateEx;
@@ -571,7 +648,7 @@ namespace Nicenis.Windows
             bool isRequiredToRaiseStateExChanged = _appliedWindowStateEx != null;
 
             // Sets the applied WindowStateEx.
-            WindowStateEx oldWindowStateEx = _appliedWindowStateEx ?? WindowStateEx.Normal;
+            _oldWindowStateEx = _appliedWindowStateEx ?? WindowStateEx.Normal;
             _appliedWindowStateEx = windowStateEx;
 
             // Sets the IsFullScreenMode to true if the WindowStateEx is FullScreen.
@@ -594,8 +671,8 @@ namespace Nicenis.Windows
             WindowState = windowStateEx.ToWindowState();
 
             // If it is Maximized -> Full Screen or Full Screen -> Maximized, hides and shows the window to corrent the size.
-            if ((oldWindowStateEx == WindowStateEx.Maximized && windowStateEx == WindowStateEx.FullScreen)
-                || (oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx == WindowStateEx.Maximized))
+            if ((_oldWindowStateEx == WindowStateEx.Maximized && windowStateEx == WindowStateEx.FullScreen)
+                || (_oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx == WindowStateEx.Maximized))
             {
                 Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
@@ -608,14 +685,105 @@ namespace Nicenis.Windows
             IsFullScreen = WindowStateEx == WindowStateEx.FullScreen;
 
             ((DelegateCommand)MinimizeCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)ToggleMinimizedCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)RestoreCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)MaximizeCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)ToggleMaximizedCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)FullScreenCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)ToggleFullScreenCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)CloseCommand).RaiseCanExecuteChanged();
 
             // If it is required to raise the StateExChanged event, raises the StateExChanged event.
             if (isRequiredToRaiseStateExChanged)
-                OnStateExChanged(new CustomWindowStateExChangedEventArgs(oldWindowStateEx, windowStateEx));
+                OnStateExChanged(new CustomWindowStateExChangedEventArgs(_oldWindowStateEx, windowStateEx));
+        }
+
+        private bool CanToggleMinimized()
+        {
+            return true;
+        }
+
+        private void ToggleMinimized()
+        {
+            if (CanToggleMinimized() == false)
+                return;
+
+            switch (WindowStateEx)
+            {
+                case WindowStateEx.Minimized:
+                    WindowStateEx = _oldWindowStateEx != WindowStateEx.Minimized
+                                  ? _oldWindowStateEx
+                                  : WindowStateEx.Normal;
+                    break;
+
+                default:
+                    WindowStateEx = WindowStateEx.Minimized;
+                    break;
+            }
+        }
+
+        private bool CanToggleMaximized()
+        {
+            return true;
+        }
+
+        private void ToggleMaximized()
+        {
+            if (CanToggleMaximized() == false)
+                return;
+
+            switch (WindowStateEx)
+            {
+                case WindowStateEx.Maximized:
+                    switch (_oldWindowStateEx)
+                    {
+                        case WindowStateEx.Minimized:
+                        case WindowStateEx.Maximized:
+                            WindowStateEx = WindowStateEx.Normal;
+                            break;
+
+                        default:
+                            WindowStateEx = _oldWindowStateEx;
+                            break;
+                    }
+                    break;
+
+                default:
+                    WindowStateEx = WindowStateEx.Maximized;
+                    break;
+            }
+        }
+
+        private bool CanToggleFullScreen()
+        {
+            return true;
+        }
+
+        private void ToggleFullScreen()
+        {
+            if (CanToggleFullScreen() == false)
+                return;
+
+            switch (WindowStateEx)
+            {
+                case WindowStateEx.FullScreen:
+                    switch (_oldWindowStateEx)
+                    {
+                        case WindowStateEx.Minimized:
+                        case WindowStateEx.FullScreen:
+                            WindowStateEx = WindowStateEx.Normal;
+                            break;
+
+                        default:
+                            WindowStateEx = _oldWindowStateEx;
+                            break;
+                    }
+                    break;
+
+                default:
+                    WindowStateEx = WindowStateEx.FullScreen;
+                    break;
+            }
         }
 
         #endregion
@@ -637,8 +805,7 @@ namespace Nicenis.Windows
             if (e == null)
                 throw new ArgumentNullException("e");
 
-            if (StateExChanged != null)
-                StateExChanged(this, e);
+            StateExChanged?.Invoke(this, e);
         }
 
         #endregion
@@ -669,7 +836,6 @@ namespace Nicenis.Windows
 
             // Displays the system menu.
             window.ShowSystemMenu(window.PointToScreen(e.GetPosition(window)));
-            return;
         }
 
 
