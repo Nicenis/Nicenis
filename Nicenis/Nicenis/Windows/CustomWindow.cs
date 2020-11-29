@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 #if NICENIS_NF4C
 using Microsoft.Windows.Shell;
@@ -69,6 +70,31 @@ namespace Nicenis.Windows
     public class CustomWindow : Window
     {
         #region Constructors
+
+        static CustomWindow()
+        {
+            FullScreenWindowStyleAnimation = new ObjectAnimationUsingKeyFrames
+            {
+                FillBehavior = FillBehavior.HoldEnd,
+            };
+            FullScreenWindowStyleAnimation.KeyFrames.Add(new DiscreteObjectKeyFrame
+            {
+                KeyTime = TimeSpan.Zero,
+                Value = WindowStyle.None,
+            });
+            FullScreenWindowStyleAnimation.Freeze();
+
+            FullScreenWindowChromeAnimation = new ObjectAnimationUsingKeyFrames
+            {
+                FillBehavior = FillBehavior.HoldEnd,
+            };
+            FullScreenWindowChromeAnimation.KeyFrames.Add(new DiscreteObjectKeyFrame
+            {
+                KeyTime = TimeSpan.Zero,
+                Value = null,
+            });
+            FullScreenWindowChromeAnimation.Freeze();
+        }
 
         /// <summary>
         /// Initializes a new instance of the CustomWindow class.
@@ -507,6 +533,9 @@ namespace Nicenis.Windows
 
         #region Helpers
 
+        static readonly ObjectAnimationUsingKeyFrames FullScreenWindowStyleAnimation;
+        static readonly ObjectAnimationUsingKeyFrames FullScreenWindowChromeAnimation;
+
         /// <summary>
         /// The WindowStateEx that was in effect.
         /// </summary>
@@ -516,16 +545,6 @@ namespace Nicenis.Windows
         /// The WindowStateEx that is in effect.
         /// </summary>
         WindowStateEx? _appliedWindowStateEx;
-
-        /// <summary>
-        /// Non-fullscreen WindowChrome.
-        /// </summary>
-        WindowChrome _savedWindowChrome;
-
-        /// <summary>
-        /// Non-fullscreen window style.
-        /// </summary>
-        WindowStyle _savedWindowStyle;
 
         /// <summary>
         /// Applies the specified windowStateEx to the window.
@@ -558,19 +577,13 @@ namespace Nicenis.Windows
                     break;
             }
 
-            // Sets the WindowStateEx.
-            WindowStateEx = windowStateEx;
-
-            // Sets the WindowState.
-            WindowState = windowStateEx.ToWindowState();
-
             if (_oldWindowStateEx != WindowStateEx.FullScreen && windowStateEx == WindowStateEx.FullScreen)
             {
-                _savedWindowChrome = WindowChrome.GetWindowChrome(this);
-                _savedWindowStyle = WindowStyle;
+                BeginAnimation(WindowStyleProperty, FullScreenWindowStyleAnimation);
+                BeginAnimation(WindowChrome.WindowChromeProperty, FullScreenWindowChromeAnimation);
 
-                WindowChrome.SetWindowChrome(this, null);
-                WindowStyle = WindowStyle.None;
+                if (WindowState == WindowState.Maximized)
+                    WindowState = WindowState.Normal;
 
                 if (Visibility == Visibility.Visible)
                 {
@@ -580,8 +593,11 @@ namespace Nicenis.Windows
             }
             else if (_oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx != WindowStateEx.FullScreen)
             {
-                WindowChrome.SetWindowChrome(this, _savedWindowChrome);
-                WindowStyle = _savedWindowStyle;
+                BeginAnimation(WindowStyleProperty, null);
+                BeginAnimation(WindowChrome.WindowChromeProperty, null);
+
+                if (WindowState == WindowState.Maximized)
+                    WindowState = WindowState.Normal;
 
                 if (Visibility == Visibility.Visible)
                 {
@@ -589,6 +605,12 @@ namespace Nicenis.Windows
                     Visibility = Visibility.Visible;
                 }
             }
+
+            // Sets the WindowStateEx.
+            WindowStateEx = windowStateEx;
+
+            // Sets the WindowState.
+            WindowState = windowStateEx.ToWindowState();
 
             // Updates the WindowStateEx relate properties.
             IsMinimized = WindowStateEx == WindowStateEx.Minimized;
