@@ -8,14 +8,17 @@
  * Copyright (C) 2012 JO Hyeong-Ryeol. All rights reserved.
  */
 
-using Nicenis.Interop;
 using Nicenis.Windows.Input;
 using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
+
+#if NICENIS_NF4C
+using Microsoft.Windows.Shell;
+#else
+using System.Windows.Shell;
+#endif
 
 namespace Nicenis.Windows
 {
@@ -66,15 +69,6 @@ namespace Nicenis.Windows
     public class CustomWindow : Window
     {
         #region Constructors
-
-        /// <summary>
-        /// The static constructor.
-        /// </summary>
-        static CustomWindow()
-        {
-            WindowStyleProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(WindowStyle.None));
-            AllowsTransparencyProperty.OverrideMetadata(typeof(CustomWindow), new FrameworkPropertyMetadata(true));
-        }
 
         /// <summary>
         /// Initializes a new instance of the CustomWindow class.
@@ -485,18 +479,6 @@ namespace Nicenis.Windows
         #region Event Handlers
 
         /// <summary>
-        /// Raises the SourceInitialized event.
-        /// </summary>
-        /// <param name="e">An EventArgs that contains the event data.</param>
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            // Attaches the window procedure.
-            HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
-        }
-
-        /// <summary>
         /// Raises the Initialized event. This method is invoked whenever IsInitialized is set to true internally. 
         /// </summary>
         /// <param name="e">The RoutedEventArgs that contains the event data.</param>
@@ -523,104 +505,6 @@ namespace Nicenis.Windows
         #endregion
 
 
-        #region Window Procedure
-
-        private static void SetMinMaxInfo(IntPtr lParam, int maxPositionX, int maxPositionY, int maxSizeX, int maxSizeY, bool setMaxTrackSize = false)
-        {
-            // Gets the MINMAXINFO.
-            var minMaxInfo = (Win32.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(Win32.MINMAXINFO));
-
-            minMaxInfo.ptMaxPosition.x = maxPositionX;
-            minMaxInfo.ptMaxPosition.y = maxPositionY;
-            minMaxInfo.ptMaxSize.x = maxSizeX;
-            minMaxInfo.ptMaxSize.y = maxSizeY;
-
-            if (setMaxTrackSize)
-            {
-                minMaxInfo.ptMaxTrackSize.x = maxSizeX;
-                minMaxInfo.ptMaxTrackSize.y = maxSizeY;
-            }
-
-            // Sets the modified MINMAXINFO.
-            Marshal.StructureToPtr(minMaxInfo, lParam, false);
-        }
-
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == Win32.WM_GETMINMAXINFO)
-            {
-                // Gets the primary monitor handle.
-                IntPtr hPrimaryMonitor = Win32.MonitorFromPoint(new Win32.POINT(), Win32.MONITOR_DEFAULTTOPRIMARY);
-
-                if (hPrimaryMonitor != IntPtr.Zero)
-                {
-                    // Gets the primary monitor information.
-                    Win32.MONITORINFO primaryMonitorInfo = Win32.MONITORINFO.Create();
-
-                    if (Win32.GetMonitorInfo(hPrimaryMonitor, ref primaryMonitorInfo) != 0)
-                    {
-                        if (IsFullScreenMode || WindowState == WindowState.Normal)
-                        {
-                            SetMinMaxInfo
-                            (
-                                lParam: lParam,
-                                maxPositionX: primaryMonitorInfo.rcMonitor.left,
-                                maxPositionY: primaryMonitorInfo.rcMonitor.top,
-                                maxSizeX: primaryMonitorInfo.rcMonitor.right - primaryMonitorInfo.rcMonitor.left,
-                                maxSizeY: primaryMonitorInfo.rcMonitor.bottom - primaryMonitorInfo.rcMonitor.top
-                            );
-                            handled = true;
-                        }
-                        else
-                        {
-                            // Get the monitor handle.
-                            IntPtr hMonitor = Win32.MonitorFromWindow(hwnd, Win32.MONITOR_DEFAULTTONEAREST);
-
-                            if (hMonitor != IntPtr.Zero)
-                            {
-                                if (hMonitor == hPrimaryMonitor)
-                                {
-                                    SetMinMaxInfo
-                                    (
-                                        lParam: lParam,
-                                        maxPositionX: primaryMonitorInfo.rcWork.left,
-                                        maxPositionY: primaryMonitorInfo.rcWork.top,
-                                        maxSizeX: primaryMonitorInfo.rcWork.right - primaryMonitorInfo.rcWork.left,
-                                        maxSizeY: primaryMonitorInfo.rcWork.bottom - primaryMonitorInfo.rcWork.top
-                                    );
-                                    handled = true;
-                                }
-                                else
-                                {
-                                    // Gets monitor information.
-                                    Win32.MONITORINFO monitorInfo = Win32.MONITORINFO.Create();
-
-                                    if (Win32.GetMonitorInfo(hMonitor, ref monitorInfo) != 0)
-                                    {
-                                        SetMinMaxInfo
-                                        (
-                                            lParam: lParam,
-                                            maxPositionX: monitorInfo.rcWork.left - monitorInfo.rcMonitor.left,
-                                            maxPositionY: monitorInfo.rcWork.top - monitorInfo.rcMonitor.top,
-                                            maxSizeX: monitorInfo.rcWork.right - monitorInfo.rcWork.left,
-                                            maxSizeY: monitorInfo.rcWork.bottom - monitorInfo.rcWork.top,
-                                            setMaxTrackSize: true
-                                        );
-                                        handled = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return IntPtr.Zero;
-        }
-
-        #endregion
-
-
         #region Helpers
 
         /// <summary>
@@ -632,6 +516,16 @@ namespace Nicenis.Windows
         /// The WindowStateEx that is in effect.
         /// </summary>
         WindowStateEx? _appliedWindowStateEx;
+
+        /// <summary>
+        /// Non-fullscreen WindowChrome.
+        /// </summary>
+        WindowChrome _savedWindowChrome;
+
+        /// <summary>
+        /// Non-fullscreen window style.
+        /// </summary>
+        WindowStyle _savedWindowStyle;
 
         /// <summary>
         /// Applies the specified windowStateEx to the window.
@@ -670,12 +564,30 @@ namespace Nicenis.Windows
             // Sets the WindowState.
             WindowState = windowStateEx.ToWindowState();
 
-            // If it is Maximized -> Full Screen or Full Screen -> Maximized, hides and shows the window to corrent the size.
-            if ((_oldWindowStateEx == WindowStateEx.Maximized && windowStateEx == WindowStateEx.FullScreen)
-                || (_oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx == WindowStateEx.Maximized))
+            if (_oldWindowStateEx != WindowStateEx.FullScreen && windowStateEx == WindowStateEx.FullScreen)
             {
-                Visibility = Visibility.Collapsed;
-                Visibility = Visibility.Visible;
+                _savedWindowChrome = WindowChrome.GetWindowChrome(this);
+                _savedWindowStyle = WindowStyle;
+
+                WindowChrome.SetWindowChrome(this, null);
+                WindowStyle = WindowStyle.None;
+
+                if (Visibility == Visibility.Visible)
+                {
+                    Visibility = Visibility.Collapsed;
+                    Visibility = Visibility.Visible;
+                }
+            }
+            else if (_oldWindowStateEx == WindowStateEx.FullScreen && windowStateEx != WindowStateEx.FullScreen)
+            {
+                WindowChrome.SetWindowChrome(this, _savedWindowChrome);
+                WindowStyle = _savedWindowStyle;
+
+                if (Visibility == Visibility.Visible)
+                {
+                    Visibility = Visibility.Collapsed;
+                    Visibility = Visibility.Visible;
+                }
             }
 
             // Updates the WindowStateEx relate properties.
