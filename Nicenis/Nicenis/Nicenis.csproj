@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ComponentModel\PropertyObservableCore.cs" />
     <Compile Include="Windows\Controls\VoidToggleButton.cs" />
+    <Compile Include="Windows\CustomWindow.cs" />
     <Compile Include="Windows\Data\LocalStringExtension.cs" />
     <Compile Include="Windows\ViewModels\FrameworkViewModelBase.cs" />
     <Compile Include="Windows\ViewModels\DispatcherViewModelBase.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Windows\DragMover.cs" />
     <Compile Include="Windows\DragResizer.cs" />
     <Compile Include="Windows\BorderResizeMode.cs" />
-    <Compile Include="Windows\CustomWindow.cs" />
+    <Compile Include="Windows\CustomWindow2.cs" />
     <Compile Include="Windows\Input\DelegateCommand.cs" />
     <Compile Include="Windows\Shell\ShellFileInfo.cs" />
     <Compile Include="Windows\Shell\ShellIconSize.cs" />

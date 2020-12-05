@@ -15,7 +15,7 @@ namespace NicenisTestGui
     /// <summary>
     /// The window to test the CustomWindow.
     /// </summary>
-    public partial class CustomWindowTestWindow : CustomWindow
+    public partial class CustomWindowTestWindow : CustomWindow2
     {
         public CustomWindowTestWindow()
         {

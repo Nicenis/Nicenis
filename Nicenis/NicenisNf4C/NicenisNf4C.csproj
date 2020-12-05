@@ -106,6 +106,9 @@
     <Compile Include="..\Nicenis\Windows\CustomWindow.cs">
       <Link>Windows\CustomWindow.cs</Link>
     </Compile>
+    <Compile Include="..\Nicenis\Windows\CustomWindow2.cs">
+      <Link>Windows\CustomWindow2.cs</Link>
+    </Compile>
     <Compile Include="..\Nicenis\Windows\Data\Converters\FalsyToConverters.cs">
       <Link>Windows\Data\Converters\FalsyToConverters.cs</Link>
     </Compile>

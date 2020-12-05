@@ -7,18 +7,18 @@
     
     Copyright (C) 2013 JO Hyeong-Ryeol. All rights reserved.   
 -->
-<n:CustomWindow
+<n:CustomWindow2
     x:Class="NicenisTestGui.CustomWindowTestWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:n="clr-namespace:Nicenis.Windows;assembly=Nicenis"
     xmlns:conv="clr-namespace:Nicenis.Windows.Data.Converters;assembly=Nicenis"
-    Title="CustomWindowTestWindow" Height="600" Width="800"
+    Title="CustomWindowTestWindow" Height="768" Width="1024"
     Icon="CustomWindowIcon.png"
     >
-    <n:CustomWindow.Resources>
+    <n:CustomWindow2.Resources>
         <conv:FalsyToVisibleConverter x:Key="FalsyToVisibleConverter" />
-    </n:CustomWindow.Resources>
+    </n:CustomWindow2.Resources>
 
     <WindowChrome.WindowChrome>
         <WindowChrome
@@ -29,8 +29,8 @@
             />
     </WindowChrome.WindowChrome>
 
-    <n:CustomWindow.Template>
-        <ControlTemplate TargetType="n:CustomWindow">
+    <n:CustomWindow2.Template>
+        <ControlTemplate TargetType="n:CustomWindow2">
             <Border
                 BorderBrush="Red"
                 Background="{TemplateBinding Background}"
@@ -40,7 +40,7 @@
                         <Setter Property="BorderThickness" Value="8" />
 
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsFullScreen, RelativeSource={RelativeSource AncestorType=n:CustomWindow}}" Value="True">
+                            <DataTrigger Binding="{Binding IsFullScreen, RelativeSource={RelativeSource AncestorType=n:CustomWindow2}}" Value="True">
                                 <Setter Property="BorderThickness" Value="0" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -182,7 +182,7 @@
                 </Grid>
             </Border>
         </ControlTemplate>
-    </n:CustomWindow.Template>
+    </n:CustomWindow2.Template>
 
     <TextBlock Text="Custom Window Content Area" HorizontalAlignment="Center" VerticalAlignment="Center" />
-</n:CustomWindow>
+</n:CustomWindow2>
