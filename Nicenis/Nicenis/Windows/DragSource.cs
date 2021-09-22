@@ -11,6 +11,7 @@
 using Nicenis.Interop;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -1731,6 +1732,35 @@ namespace Nicenis.Windows
 
             // Stops previous drag sensing if it exists.
             StopDragSensing(target);
+
+            // It must be a visual parent of the original source..
+            if (e.OriginalSource != target && (e.OriginalSource as DependencyObject)?.VisualAncestors().Contains(target) != true)
+                return;
+
+            // It must be a top drag source..
+            bool isTopDragSource = true;
+            VisualTreeHelper.HitTest
+            (
+                reference: target,
+                filterCallback: null,
+                resultCallback: result =>
+                {
+                    if (result.VisualHit == target)
+                        return HitTestResultBehavior.Stop;
+
+                    if (result.VisualHit is UIElement element && GetAllowDrag(element))
+                    {
+                        isTopDragSource = false;
+                        return HitTestResultBehavior.Stop;
+                    }
+
+                    return HitTestResultBehavior.Continue;
+                },
+                hitTestParameters: new PointHitTestParameters(e.GetPosition(target))
+            );
+
+            if (isTopDragSource == false)
+                return;
 
             // Starts drag sensing.
             StartDragSensing(target, e.ChangedButton.ToDragInitiator(), e.GetPosition(target));
