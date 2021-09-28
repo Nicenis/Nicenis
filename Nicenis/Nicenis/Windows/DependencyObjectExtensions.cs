@@ -31,6 +31,9 @@ namespace Nicenis.Windows
             if (dependencyObject == null)
                 throw new ArgumentNullException(nameof(dependencyObject));
 
+            if ((dependencyObject is Visual) == false)
+                yield break;
+
             DependencyObject current = VisualTreeHelper.GetParent(dependencyObject);
 
             while (current != null)
