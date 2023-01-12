@@ -15,7 +15,7 @@ using System.Linq;
 namespace Nicenis
 {
     /// <summary>
-    /// Provides utility methods related to Truthy and Falsy.
+    /// Provides utility methods related to Truthy, Falsy, true, and false.
     /// </summary>
     public static class Booleany
     {
@@ -57,8 +57,8 @@ namespace Nicenis
             if (value is DBNull)
                 return false;
 
-            if (value is sbyte)
-                return (sbyte)value != 0;
+            if (value is sbyte sByte)
+                return sByte != 0;
 
             if (value is byte byteValue)
                 return byteValue != 0;
@@ -90,6 +90,26 @@ namespace Nicenis
         public static bool IsFalsy(object value)
         {
             return !IsTruthy(value);
+        }
+
+        /// <summary>
+        /// Returns true if the value is a bool and is true.
+        /// </summary>
+        /// <param name="value">The value to evaluate.</param>
+        /// <returns>True if it is a bool and is true; otherwise, false.</returns>
+        public static bool IsTrue(object value)
+        {
+            return (value as bool?) == true;
+        }
+
+        /// <summary>
+        /// Returns true if the value is a bool and is false.
+        /// </summary>
+        /// <param name="value">The value to evaluate.</param>
+        /// <returns>True if it is a bool and is false; otherwise, false.</returns>
+        public static bool IsFalse(object value)
+        {
+            return (value as bool?) == false;
         }
     }
 }
